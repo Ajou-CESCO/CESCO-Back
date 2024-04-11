@@ -11,38 +11,31 @@ build/
 .factorypath
 .project
 .settings
-".gitignore" 37L, 444B                                                                                                                                                                           1,1        꼭대기
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-".gitignore" 37L, 444B                                                                                                                                                                           1,1        꼭대기
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
 .springBeans
 .sts4-cache
 bin/
 !**/src/main/**/bin/
--- 비주얼 --                                                                                                                                                                           2         12,9       꼭대기
+!**/src/test/**/bin/
 
+### IntelliJ IDEA ###
+*.idea
+*/workspace.xml
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Settings ###
+*dev.properties

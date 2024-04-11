@@ -9,7 +9,7 @@ public class UserDto {
     String uuid;
     String name;
     String phone_number;
-    String social_security_number;
+    String ssn;
     int gender;
     boolean is_manager;
     boolean is_subscriber;
