@@ -1,0 +1,21 @@
+# General
+# ------------------------------------------------------------------------------
+DJANGO_SETTINGS_MODULE=config.settings.production
+DJANGO_SECRET_KEY="x81BTKdKxt1qLhKVpDQUlNAE76tihN7z3gGnyXd7UG6wQI9uKGsS2Q5AuFZdr6of"
+IPYTHONDIR=/app/.ipython
+
+# SSO
+# ------------------------------------------------------------------------------
+SSO_URL=http://incosso.insilicogen.com/server
+# SSO_URL=http://192.168.80.7:13200/server
+CLIENT_KEY=HeRDc7Rkh9MHZTy8OrKDoVU0YvP1U4MESdWCVyp7Eo5aW6ZVcfjfLkfnNlb2lfbu
+# CLIENT_KEY=CKdCQDedeKK3OTkmmW55pcvffy7iCvlUYRVnUyXMYSSv5jNRpBNkzuELmlEG2c0O
+
+# JWT SECRET KEY
+# ------------------------------------------------------------------------------
+JWT_SECRET_KEY=db769c0f35895eecf811288c9fbc3801899b558340632d68081e561390244428af40dc75ca2aa626eb49b5dab8e329a6337dd1c12f75fc480137394e67cd9536
+
+# 한국천문연구원 API KEY
+# ------------------------------------------------------------------------------
+KASI_URL=http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?_type=json&numOfRows=50&solYear=
+KASI_KEY=GK3DtRy2lytVOhAFOfrWvNcAUZNkoHXciWcKjpbRDodWh%2FTCPDbJKGXmk%2B7D4CyirW90AnoPSypRk2Xhwj9PjQ%3D%3D

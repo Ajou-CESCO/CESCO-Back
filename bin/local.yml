@@ -1,0 +1,35 @@
+version: "3"
+
+volumes:
+  inpleroutine_local_postgres_data: {}
+  inpleroutine_local_postgres_data_backups: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: inpleroutine_local_django
+    depends_on:
+      - postgres
+    volumes:
+      - ./../inpleroutine:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - "20002:8000"
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: inpleroutine_production_postgres
+    volumes:
+      - inpleroutine_local_postgres_data:/var/lib/postgresql/data
+      - inpleroutine_local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.local/.postgres
+    ports:
+      - "20003:5432"

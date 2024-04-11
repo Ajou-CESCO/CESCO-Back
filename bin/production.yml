@@ -1,0 +1,85 @@
+version: "3"
+
+networks:
+  inpleroutine_network:
+
+volumes:
+  production_mssql_data: {}
+  production_postgres_data: {}
+  production_postgres_data_backups: {}
+  production_django_media: {}
+  production_django_static: {}
+
+services:
+  django: &django
+    build:
+      context: ..
+      dockerfile: ./bin/compose/production/django/Dockerfile
+    image: inpleroutine_production_django
+    volumes:
+      - ../inpleroutine/:/app/
+      - production_django_media:/app/inpleroutine/media
+      - production_django_static:/app/staticfiles
+    ports:
+      - "13200:13200"
+    expose:
+      - "13200"
+    depends_on:
+      - postgres
+    env_file:
+      - ./.envs/.production/.django
+      - ./.envs/.production/.postgres
+    command: /start
+    networks:
+      - inpleroutine_network
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: inpleroutine_production_postgres
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+      - production_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.production/.postgres
+    networks:
+      - inpleroutine_network
+
+  nginx:
+    build:
+      context: ..
+      dockerfile: ./bin/compose/production/nginx/Dockerfile
+    image: inpleroutine_production_nginx
+    volumes:
+      - ./web/:/usr/share/nginx/html
+      - ./compose/production/nginx/:/etc/nginx/conf.d/
+      - production_django_media:/usr/share/nginx/media:ro
+      - production_django_static:/app/staticfiles
+    ports:
+      - "8412:80"
+    depends_on:
+      - django
+    networks:
+      - inpleroutine_network
+
+  mssql:
+    build:
+      context: .
+      dockerfile: ./compose/production/mssql/Dockerfile
+    image: inpleroutine_production_mssql
+    user: root
+    hostname: mssql
+    ports:
+      - "20004:1433"
+    expose:
+      - "20004"
+    volumes:
+      - production_mssql_data:/var/opt/mssql
+      - ./compose/production/mssql:/data
+    environment:
+      TZ: Asia/Seoul
+      ACCEPT_EULA: Y
+      SA_PASSWORD: incoroutine1!
+    networks:
+      - inpleroutine_network
