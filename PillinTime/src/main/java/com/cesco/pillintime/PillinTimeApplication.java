@@ -1,4 +1,4 @@
-package CESCO.PillinTime;
+package com.cesco.pillintime;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

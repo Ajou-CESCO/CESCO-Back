@@ -1,4 +1,4 @@
-package CESCO.PillinTime;
+package com.cesco.pillintime;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
