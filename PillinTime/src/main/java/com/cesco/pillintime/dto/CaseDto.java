@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class CaseDto {
 
-    private Long id;
+    private long id;
     private String name;
-    private Long count;
+    private long count;
 
 }

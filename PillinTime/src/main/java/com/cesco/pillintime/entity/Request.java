@@ -17,7 +17,7 @@ public class Request {
     private long id;
 
     @Column
-    private Long senderId;
+    private long senderId;
 
     @Column
     private String receiverName;

@@ -1,10 +1,11 @@
 package com.cesco.pillintime.service;
 
+import com.cesco.pillintime.dto.RequestDto;
+import com.cesco.pillintime.entity.Request;
+import com.cesco.pillintime.mapper.RequestMapper;
+import com.cesco.pillintime.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.cesco.pillintime.repository.RequestRepository;
-import com.cesco.pillintime.entity.Request;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,8 @@ public class RequestService {
         this.requestRepository = requestRepository;
     }
 
-    public Request createRequest(Request request) {
+    public Request createRequest(RequestDto requestDto) {
+        Request request = RequestMapper.INSTANCE.toEntity(requestDto);
         return requestRepository.save(request);
     }
 
