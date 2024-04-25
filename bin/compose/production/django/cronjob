@@ -1,1 +1,0 @@
-0 0 1 * * /usr/local/bin/python /app/manage.py create_workplan >> /cronjob_log.txt 2>&1
