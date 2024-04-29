@@ -3,7 +3,7 @@ package com.cesco.pillintime.dto;
 import lombok.Data;
 
 @Data
-public class UserDto {
+public class MemberDto {
 
     private Long id;
 
@@ -13,7 +13,7 @@ public class UserDto {
 
     private String phone;
 
-    private int gender;
+    private Integer gender;
 
     private String uuid;
 
