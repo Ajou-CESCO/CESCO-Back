@@ -25,8 +25,8 @@ public class RequestService {
         return requestRepository.save(request);
     }
 
-    public List<Request> getAllRequest() {
-        return requestRepository.findAll();
+    public List<Request> getRelatedRequest() {
+        return requestRepository.findBySenderId(1);
     }
 
     public Optional<Request> getRequestById(Long id) {

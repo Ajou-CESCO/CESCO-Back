@@ -14,10 +14,10 @@ public class Request {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column
-    private long senderId;
+    private Long senderId;
 
     @Column
     private String receiverName;

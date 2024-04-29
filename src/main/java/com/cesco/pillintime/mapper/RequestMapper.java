@@ -11,9 +11,7 @@ public interface RequestMapper {
 
     RequestMapper INSTANCE = Mappers.getMapper(RequestMapper.class);
 
-//    @Mapping(target = "id", ignore = true) // ID 필드를 무시하도록 설정
     Request toEntity(RequestDto requestDto);
 
     RequestDto toDto(Request request);
 }
-
