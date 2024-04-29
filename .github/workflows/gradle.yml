@@ -44,5 +44,5 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
     - name: docker Hub push
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/PillinTime
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/pillin_time
       
