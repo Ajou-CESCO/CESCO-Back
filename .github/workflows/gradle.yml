@@ -45,4 +45,21 @@ jobs:
 
     - name: docker Hub push
       run: docker push pillintime/pillintime_spring
+
+  run-docker-image-on-ncp:
+    needs: build-docker-image
+    runs-on: self-hosted
+
+    steps:
+      - name: docker pull
+        run: sudo docker pull pillintime/pillintime_spring
+      
+      - name: docker stop container
+        run: sudo docker stop $(sudo docker ps -q) 2>/dev/null || true
+
+      - name: docker run new container
+        run: sudo docker run --name pillintime_spring --rm -d -p 8080:8080 pillintime/pillintime_spring
+
+      - name: delete old docker image
+        run: sudo docker system prune -f
       
