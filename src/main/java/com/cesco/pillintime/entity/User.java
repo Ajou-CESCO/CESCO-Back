@@ -1,50 +1,44 @@
 package com.cesco.pillintime.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-@Getter
 @Entity
-@Table(name = "user")
-@NoArgsConstructor
-public class User { // 유저 객체를 저장하기 위한 상요
+@Data
+@Table(name = "member")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name="member_Id")
     private Long id;
 
-    @Column
+    @Column(nullable = false, length = 20)
     private String name;
 
-    @Column(nullable = false, length = 25)
-    private String ssn;
-
-    @Column(nullable = false, length = 14)
+    @Column
     private String phone;
 
-    @Builder
-    public User(Long id, String name, String ssn, String phone) {
-        this.id = id;
+    @Column private String uuid;
+    @Column(unique = true) private String ssn;
+    @Column private int gender;
+    @Column(name = "user_type") private Integer userType;
+    @Column(name = "is_subscriber")  private boolean isSubscriber;
+    @Column(name = "has_case")  private boolean hasCase;
+
+    public User() {}
+
+    public User(String name, String phone, String ssn, int gender, Integer userType){
+
+        if(name == null || ssn == null || phone == null || name.isBlank() || ssn.isBlank() || phone.isBlank()){
+            throw new IllegalArgumentException(String.format("정확히 입력해주십시오"));
+        }
+
         this.name = name;
         this.ssn = ssn;
         this.phone = phone;
+        this.gender = gender;
+        this.userType = userType;
     }
 
-//    public User(String name, String ssn, String phone){
-//
-//        if(name == null || ssn == null || phone == null || name.isBlank() || ssn.isBlank() || phone.isBlank()){
-//            throw new IllegalArgumentException(String.format("정확히 입력해주십시오"));
-//        }
-//
-//        this.name = name;
-//        this.ssn = ssn;
-//        this.phone = phone;
-//    }
-//
-//    public void updateName(String name) {
-//        this.name = name;
-//    }
 }
