@@ -5,11 +5,11 @@ FROM azul/zulu-openjdk:17
 WORKDIR /app
 
 # 호스트 시스템의 ./app 디렉토리를 컨테이너의 /app 디렉토리로 복사
-COPY ./PillinTime /app
+COPY . /app
 
 # Gradle Wrapper 파일 복사
-COPY ./PillinTime/gradlew /app/
-COPY ./PillinTime/gradle /app/gradle
+COPY ./gradlew /app/
+COPY ./gradle /app/gradle
 
 # gradlew 실행권한 부여
 RUN chmod +x /app/gradlew

@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="" />
+    <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,7 +77,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Shell Script.gradlew.executor": "Run",
     "Spring Boot.PillinTimeApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "develop",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -175,7 +178,7 @@
       <workItem from="1712876689750" duration="851000" />
       <workItem from="1713164802169" duration="8496000" />
       <workItem from="1713419643007" duration="16469000" />
-      <workItem from="1714133515805" duration="1427000" />
+      <workItem from="1714133515805" duration="1616000" />
     </task>
     <servers />
   </component>
