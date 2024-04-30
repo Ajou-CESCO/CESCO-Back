@@ -2,19 +2,18 @@ package com.cesco.pillintime.service;
 
 import com.cesco.pillintime.dto.MemberDto;
 import com.cesco.pillintime.entity.Member;
+import com.cesco.pillintime.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class MemberService {
 
-    private final com.cesco.pillintime.repository.user.MemberRepository memberRepository;
-
-    public MemberService(com.cesco.pillintime.repository.user.MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
+    private final MemberRepository memberRepository;
 
     // 회원 가입
     public void createUser(MemberDto memberDto){

@@ -1,26 +1,20 @@
 package com.cesco.pillintime.controller;
 
-import com.cesco.pillintime.dto.MessageDto;
 import com.cesco.pillintime.dto.MemberDto;
+import com.cesco.pillintime.dto.MessageDto;
 import com.cesco.pillintime.entity.Member;
 import com.cesco.pillintime.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
+@RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
-
-    @PostMapping
-    public ResponseEntity<String> joinUser(@RequestBody MemberDto memberDto) {
-        return memberService.joinUser(memberDto);
-    }
 
     @PostMapping("/signup") // 회원 가입
     public ResponseEntity<MessageDto> createUser(@RequestBody MemberDto memberDto) {
