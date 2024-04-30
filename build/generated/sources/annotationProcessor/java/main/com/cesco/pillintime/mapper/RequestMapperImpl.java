@@ -7,7 +7,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-30T19:56:11+0900",
+    date = "2024-04-30T22:49:39+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 18.0.2 (Azul Systems, Inc.)"
 )
 public class RequestMapperImpl implements RequestMapper {
@@ -20,7 +20,6 @@ public class RequestMapperImpl implements RequestMapper {
 
         RequestBuilder request = Request.builder();
 
-        request.senderId( requestDto.getSenderId() );
         request.receiverName( requestDto.getReceiverName() );
         request.receiverNumber( requestDto.getReceiverNumber() );
         request.receiverSsn( requestDto.getReceiverSsn() );
@@ -36,9 +35,6 @@ public class RequestMapperImpl implements RequestMapper {
 
         RequestDto requestDto = new RequestDto();
 
-        if ( request.getSenderId() != null ) {
-            requestDto.setSenderId( request.getSenderId() );
-        }
         requestDto.setReceiverName( request.getReceiverName() );
         requestDto.setReceiverNumber( request.getReceiverNumber() );
         requestDto.setReceiverSsn( request.getReceiverSsn() );

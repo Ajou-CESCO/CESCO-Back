@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/request")
 @RequiredArgsConstructor
 public class RequestController {
 
     private final RequestService requestService;
 
-    @PostMapping("/request")
+    @PostMapping
     public ResponseEntity<MessageDto> createRequest(@RequestBody RequestDto requestDto) {
         MessageDto message = new MessageDto();
         HttpHeaders headers = new HttpHeaders();
@@ -32,7 +32,7 @@ public class RequestController {
         return new ResponseEntity<MessageDto> (message, headers, 200);
     }
 
-    @GetMapping("/request")
+    @GetMapping
     public ResponseEntity<MessageDto> getRequest() {
         MessageDto message = new MessageDto();
         HttpHeaders headers = new HttpHeaders();
