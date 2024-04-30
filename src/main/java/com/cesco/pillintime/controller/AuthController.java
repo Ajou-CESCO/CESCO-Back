@@ -23,12 +23,10 @@ public class AuthController {
         MessageDto message = new MessageDto();
         HttpHeaders headers = new HttpHeaders();
 
-        System.out.println("HELLO");
-
         String token = authService.login(loginDto);
 
         message.setStatus(200);
-        message.setMessage("Success create request");
+        message.setMessage("Success login");
         message.setData(token);
 
         return new ResponseEntity<MessageDto> (message, headers, 200);

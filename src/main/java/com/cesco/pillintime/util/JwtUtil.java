@@ -34,7 +34,8 @@ public class JwtUtil {
 
     private String createToken(MemberDto member, long expireTime) {
         Claims claims = Jwts.claims();
-        claims.put("id", member.getId());
+        claims.put("uuid", member.getUuid());
+        claims.put("role", member.getUserType());
 
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime tokenValidity = now.plusSeconds(expireTime);
@@ -47,14 +48,14 @@ public class JwtUtil {
                 .compact();
     }
 
-    private boolean validateToken(String token) {
+    public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             System.out.println("Exception");    // 임시 출력
         } catch (ExpiredJwtException e) {
-            System.out.println("토큰 만료");
+            System.out.println("Token is expired");
         } catch (UnsupportedJwtException e) {
             System.out.println("Invalid Jwt Token");
         } catch (IllegalArgumentException e) {
@@ -70,6 +71,10 @@ public class JwtUtil {
         } catch (ExpiredJwtException e) {
             return e.getClaims();
         }
+    }
+
+    public String getUuid(String token) {
+        return parseClaims(token).get("uuid", String.class);
     }
 
 }
