@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "member")
 public class Member {
 
     @Id
@@ -31,13 +30,13 @@ public class Member {
     @Column
     private Integer gender;
 
-    @Column(name = "user_type")
+    @Column
     private Integer userType;
 
-    @Column(name = "is_subscriber")
+    @Column
     private boolean isSubscriber = false;
 
-    @Column(name = "has_case")
+    @Column
     private boolean hasCase = false;
 
     public Member(String name, String phone, String ssn, Integer userType){
@@ -47,7 +46,7 @@ public class Member {
         }
 
         // 성별 확인
-        Integer gender = Character.getNumericValue(ssn.charAt(7));
+        int gender = Character.getNumericValue(ssn.charAt(7));
         if (gender % 2 == 0){
             gender = 0; // female
         } else {

@@ -4,6 +4,7 @@ import com.cesco.pillintime.dto.RequestDto;
 import com.cesco.pillintime.entity.Request;
 import com.cesco.pillintime.mapper.RequestMapper;
 import com.cesco.pillintime.repository.RequestRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class RequestService {
 
     private final RequestRepository requestRepository;
-
-    @Autowired
-    public RequestService(RequestRepository requestRepository) {
-        this.requestRepository = requestRepository;
-    }
 
     public Request createRequest(RequestDto requestDto) {
         Request request = RequestMapper.INSTANCE.toEntity(requestDto);
