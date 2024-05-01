@@ -1,10 +1,6 @@
 package com.cesco.pillintime.filter;
 
-import com.cesco.pillintime.dto.MemberDto;
-import com.cesco.pillintime.entity.Member;
-import com.cesco.pillintime.mapper.MemberMapper;
 import com.cesco.pillintime.security.CustomUserDetailsService;
-import com.cesco.pillintime.service.MemberService;
 import com.cesco.pillintime.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

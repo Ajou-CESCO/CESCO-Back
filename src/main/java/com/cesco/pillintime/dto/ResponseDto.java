@@ -3,15 +3,15 @@ package com.cesco.pillintime.dto;
 import lombok.Data;
 
 @Data
-public class MessageDto {
+public class ResponseDto {
 
     private int status;
     private String message;
-    private Object data;
+    private Object result;
 
-    public MessageDto() {
+    public ResponseDto() {
         this.status = 200;
         this.message = null;
-        this.data = null;
+        this.result = null;
     }
 }

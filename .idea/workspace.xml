@@ -12,19 +12,33 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/controller/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/controller/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/controller/MemberController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/controller/RequestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/controller/RequestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/dto/MemberDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/dto/MemberDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/dto/MessageDto.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/dto/RequestDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/dto/RequestDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/entity/Request$RequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/entity/Request$RequestBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/entity/Request.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/entity/Request.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/filter/JwtAuthFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/filter/JwtAuthFilter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/mapper/RequestMapperImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/mapper/RequestMapperImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/security/SecurityUtil.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/service/RequestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cesco/pillintime/service/RequestService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/generated/sources/annotationProcessor/java/main/com/cesco/pillintime/mapper/MemberMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/generated/sources/annotationProcessor/java/main/com/cesco/pillintime/mapper/MemberMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/generated/sources/annotationProcessor/java/main/com/cesco/pillintime/mapper/RequestMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/generated/sources/annotationProcessor/java/main/com/cesco/pillintime/mapper/RequestMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/RequestController.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/RequestService.class.uniqueId1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/controller/MemberController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/controller/RequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/controller/RequestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/dto/MemberDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/dto/MessageDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/dto/ResponseDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/dto/RequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/dto/RequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/entity/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/entity/Request.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomUserDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/SecurityUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/SecurityUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/filter/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/filter/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/repository/MemberRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/SecurityUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/util/SecurityUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/service/MemberService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/service/RequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/service/RequestService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +113,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Shell Script.gradlew.executor": "Run",
     "Spring Boot.PillinTimeApplication.executor": "Run",
-    "git-widget-placeholder": "feature/12-auth-jwt-token",
+    "git-widget-placeholder": "develop",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/바탕화면/temp/PillinTime_Backend",
     "node.js.detected.package.eslint": "true",

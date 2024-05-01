@@ -6,6 +6,7 @@ import com.cesco.pillintime.util.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -40,7 +42,8 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests((authorizeRequests) ->
                 authorizeRequests
-                        .requestMatchers("/api/auth", "/api/user/signup").permitAll()
+                        .requestMatchers("/api/auth").permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/user", HttpMethod.POST.name())).permitAll()
                         .anyRequest().authenticated()
         );
 

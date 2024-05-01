@@ -1,10 +1,12 @@
 package com.cesco.pillintime.controller;
 
 import com.cesco.pillintime.dto.MemberDto;
-import com.cesco.pillintime.dto.MessageDto;
+import com.cesco.pillintime.dto.ResponseDto;
 import com.cesco.pillintime.entity.Member;
 import com.cesco.pillintime.service.MemberService;
+import com.cesco.pillintime.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,57 +18,27 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/signup") // 회원 가입
-    public ResponseEntity<MessageDto> createUser(@RequestBody MemberDto memberDto) {
-        MessageDto message = new MessageDto();
-        HttpHeaders headers = new HttpHeaders();
-
+    @PostMapping // 회원 가입
+    public ResponseEntity<ResponseDto> createUser(@RequestBody MemberDto memberDto) {
         memberService.createUser(memberDto);
-
-        message.setStatus(200);
-        message.setMessage("Success create request");
-
-        return new ResponseEntity<MessageDto> (message, headers, 200);
+        return ResponseUtil.makeResponse(200, "Success create member", null);
     }
 
     @GetMapping // 내 정보 조회
-    public ResponseEntity<MessageDto> getUserByUuid(@RequestParam(defaultValue = "") String uuid){
-        MessageDto message = new MessageDto();
-        HttpHeaders headers = new HttpHeaders();
-
+    public ResponseEntity<ResponseDto> getUserByUuid(@RequestParam(defaultValue = "") String uuid){
         Member member = memberService.getUserByUuid(uuid);
-
-        message.setStatus(200);
-        message.setMessage("Success create request");
-        message.setData(member);
-
-        return new ResponseEntity<MessageDto> (message, headers, 200);
+        return ResponseUtil.makeResponse(200, "Success get member", member);
     }
 
     @PutMapping // 내 정보 수정
-    public ResponseEntity<MessageDto> updateUserById(@RequestParam(defaultValue = "") String uuid, @RequestBody MemberDto memberDto){
-        MessageDto message = new MessageDto();
-        HttpHeaders headers = new HttpHeaders();
-
+    public ResponseEntity<ResponseDto> updateUserById(@RequestParam(defaultValue = "") String uuid, @RequestBody MemberDto memberDto){
         Member member = memberService.updateUserByUuid(uuid, memberDto);
-
-        message.setStatus(200);
-        message.setMessage("Success create request");
-        message.setData(member);
-
-        return new ResponseEntity<MessageDto> (message, headers, 200);
+        return ResponseUtil.makeResponse(200, "Success update member", member);
     }
 
     @DeleteMapping // 탈퇴
-    public ResponseEntity<MessageDto> deleteUser(){
-        MessageDto message = new MessageDto();
-        HttpHeaders headers = new HttpHeaders();
-
+    public ResponseEntity<ResponseDto> deleteUser(){
         memberService.deleteUser();
-
-        message.setStatus(200);
-        message.setMessage("Success create request");
-
-        return new ResponseEntity<MessageDto> (message, headers, 200);
+        return ResponseUtil.makeResponse(200, "Success delete member", null);
     }
 }
