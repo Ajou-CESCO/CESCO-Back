@@ -2,6 +2,8 @@ package com.cesco.pillintime.service;
 
 import com.cesco.pillintime.dto.MemberDto;
 import com.cesco.pillintime.entity.Member;
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -15,40 +17,21 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    // 회원 가입
     public void createUser(MemberDto memberDto){
-        String name = memberDto.getName();
         String ssn = memberDto.getSsn();
+        String name = memberDto.getName();
         String phone = memberDto.getPhone();
         Integer userType = memberDto.getUserType();
 
         // 회원가입 여부 확인
-        Member member = memberRepository.findByPhone(phone);
-//        if (member != null) {
-//            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists.");
-//        }
+        Member member = memberRepository.findByPhone(phone)
+                .ifPresent(() -> {
+                    throw new CustomException(ErrorCode.ALREADY_EXISTS_PHONE)
+                });
 
         // 회원가입 진행
         Member newMember = new Member(name, phone, ssn, userType);
         memberRepository.save(newMember);
-    }
-
-    // 로그인
-    public ResponseEntity<String> joinUser(MemberDto request){
-        try {
-            // 회원 여부 확인
-            Member member = memberRepository.findByNameAndSsnAndPhone(request.getName(), request.getSsn(), request.getPhone());
-//            userRepository.findByNameAndSsnAndPhone(request.getName(), request.getSsn(), request.getPhone());
-            if (member == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
-            } else {
-                // JWT TOKEN 생성
-                return ResponseEntity.status(HttpStatus.OK).body("Success create plan");
-            }
-        }
-        catch (EntityNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
-        }
     }
 
     // 내 정보 조회
