@@ -1,6 +1,7 @@
 package com.cesco.pillintime.util;
 
 import com.cesco.pillintime.dto.ResponseDto;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,14 @@ public class ResponseUtil {
 
         responseDto.setStatus(statusCode);
         responseDto.setMessage(message);
-        responseDto.setResult(result);
 
-        return new ResponseEntity<> (responseDto, headers, statusCode);
+        if (result != null) {
+            responseDto.setResult(result);
+        }
+
+        // 애러코드와 응답코드 조정
+        int httpStatus = statusCode < 10000 ? statusCode : statusCode / 100;
+        return new ResponseEntity<>(responseDto, headers, httpStatus);
     }
 
 }

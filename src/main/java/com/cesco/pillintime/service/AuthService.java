@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final JwtUtil jwtUtil;
     private final MemberRepository memberRepository;
+    private final JwtUtil jwtUtil;
 
     @Transactional
     public String login(LoginDto loginDto) {

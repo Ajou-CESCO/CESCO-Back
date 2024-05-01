@@ -2,6 +2,8 @@ package com.cesco.pillintime.dto;
 
 import lombok.Data;
 
+import java.util.HashMap;
+
 @Data
 public class ResponseDto {
 
@@ -12,6 +14,6 @@ public class ResponseDto {
     public ResponseDto() {
         this.status = 200;
         this.message = null;
-        this.result = null;
+        this.result = new HashMap<>();
     }
 }

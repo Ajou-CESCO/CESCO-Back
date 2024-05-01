@@ -4,11 +4,11 @@ import com.cesco.pillintime.dto.MemberDto;
 import com.cesco.pillintime.entity.Member;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.mapper.MemberMapper;
 import com.cesco.pillintime.repository.MemberRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.cesco.pillintime.util.JwtUtil;
+import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final JwtUtil jwtUtil;
 
-    public void createUser(MemberDto memberDto){
+    public String createUser(MemberDto memberDto){
+
         String ssn = memberDto.getSsn();
         String name = memberDto.getName();
         String phone = memberDto.getPhone();
@@ -32,36 +34,38 @@ public class MemberService {
         // 회원가입 진행
         Member member = new Member(name, phone, ssn, userType);
         memberRepository.save(member);
+
+        // 생성된 uuid를 추가하여 토큰 반환
+        memberDto.setUuid(member.getUuid());
+        return jwtUtil.createAccessToken(memberDto);
     }
 
-    // 내 정보 조회
-    public Member getUserByUuid(String uuid) {
-        try {
-            /*
-            토큰 검증 로직 필요
-            사용자 토큰을 기반으로 유효한 사용자일 경우 해당 사용자 정보 반환
+    public MemberDto getUserByUuid(String uuid) {
+        /*
+        uuid 값 유무에 따라 내 정보 혹은 연관된 사용자 정보 조회
 
-            매개변수로 uuid가 넘어올 경우, 해당 사용자와의 관계 체크 후 정보 반환
-            없을 경우는 자기 자신의 정보 반환
-             */
+        uuid X -> 내 정보 조회
+        uuid O -> 연관된 사용자 정보 조회. 즉 권한 체크 필요
+         */
 
-            // TODO
-//            if (uuid.equals("")) {  // 내 정보 조회
-//
-//            } else {                // 연관된 사용자 정보 조회
-//
-//            }
+        Long id = SecurityUtil.getCurrentMemberId();
 
-            uuid = "1234"; // 토큰 내부 uuid 임시정의
+        if (uuid.isEmpty()) {   // 본인 정보
+            Member member = memberRepository.findById(id)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-            return memberRepository.findByUuid(uuid);
-        } catch (EntityNotFoundException e) {
-            return null;
+            MemberDto memberDto = MemberMapper.INSTANCE.toDto(member);
+            System.out.println(memberDto);
+            return memberDto;
+        } else {                // 타인 정보
+            // TODO - relation 기반 검증 로직 필요
+            System.out.print("HELLO");
         }
+
+        return null;
     }
 
-    // 정보 수정
-    public Member updateUserByUuid(String uuid, MemberDto memberDto) {
+    public MemberDto updateUserByUuid(String uuid, MemberDto memberDto) {
         /*
         uuid 값 유무에 따라 내 정보 혹은 연관된 사용자 정보 수정
 
@@ -69,39 +73,35 @@ public class MemberService {
         uuid O -> 연관된 사용자 정보 수정. 즉 권한 체크 필요
          */
 
-        Member member = memberRepository.findByUuid(uuid); // 토큰 검증 대신 사용
+        Long id = SecurityUtil.getCurrentMemberId();
 
-//        if (member == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User is not exist");
-//        }
+        if (uuid.isEmpty()) {
+            Member member = memberRepository.findById(id)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        // 사용자 정보 업데이트
-        member.setName(memberDto.getName());
-        member.setSsn(memberDto.getSsn());
-        member.setGender(memberDto.getGender());
-        member.setPhone(memberDto.getPhone());
+            member.setSsn(memberDto.getSsn());
+            member.setName(memberDto.getName());
+            member.setPhone(memberDto.getPhone());
+            member.setGender(memberDto.getGender());
 
-        // 사용자 정보 저장
-        memberRepository.save(member);    // save, update 확인 필요
-        return member;
+            memberRepository.save(member);
+            return MemberMapper.INSTANCE.toDto(member);
+        } else {                // 타인 정보
+            // TODO - relation 기반 검증 로직 필요
+            System.out.print("HELLO");
+        }
+
+        return null;
     }
 
-    // 탈퇴
     public void deleteUser(){
-        /*
-        헤더에 담어서 토큰을 담아서 보낸다.
-         */
-        try {
-            String uuid = "1234";
-            Member member = memberRepository.findByUuid(uuid); // 토큰 검증 대신 사용
-//            if( member == null ) {
-//                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
-//            }
-            memberRepository.delete(member);
-        }
-        catch (EntityNotFoundException ex) {
-            // TODO -> 헨들러 연결
-        }
+
+        Long id = SecurityUtil.getCurrentMemberId();
+
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        memberRepository.delete(member);
     }
 
 }
