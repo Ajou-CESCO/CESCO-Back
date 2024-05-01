@@ -24,14 +24,14 @@ public class MemberService {
         Integer userType = memberDto.getUserType();
 
         // 회원가입 여부 확인
-        Member member = memberRepository.findByPhone(phone)
-                .ifPresent(() -> {
-                    throw new CustomException(ErrorCode.ALREADY_EXISTS_PHONE)
+        memberRepository.findByPhone(phone)
+                .ifPresent((member) -> {
+                    throw new CustomException(ErrorCode.ALREADY_EXISTS_PHONE);
                 });
 
         // 회원가입 진행
-        Member newMember = new Member(name, phone, ssn, userType);
-        memberRepository.save(newMember);
+        Member member = new Member(name, phone, ssn, userType);
+        memberRepository.save(member);
     }
 
     // 내 정보 조회
