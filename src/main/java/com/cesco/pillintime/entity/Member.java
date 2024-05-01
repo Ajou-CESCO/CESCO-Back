@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -15,23 +17,26 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
+    private String uuid;
+
     @Column(nullable = false, length = 20)
     private String name;
 
-    @Column
-    private String phone;
-
-    @Column
-    private String uuid;
-
     @Column(unique = true)
     private String ssn;
+
+    @Column(unique = true)
+    private String phone;
 
     @Column
     private Integer gender;
 
     @Column
     private Integer userType;
+
+    @Column
+    private boolean isManager = false;
 
     @Column
     private boolean isSubscriber = false;
@@ -53,11 +58,13 @@ public class Member {
             gender = 1; // male
         }
 
-        this.name = name;
+        this.uuid = UUID.randomUUID().toString();
         this.ssn = ssn;
+        this.name = name;
         this.phone = phone;
         this.gender = gender;
         this.userType = userType;
+        this.isManager = userType == 1;
     }
 
 }

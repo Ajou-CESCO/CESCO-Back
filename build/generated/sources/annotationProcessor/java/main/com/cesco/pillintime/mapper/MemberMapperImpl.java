@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-01T15:51:56+0900",
+    date = "2024-05-01T17:37:28+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 18.0.2 (Azul Systems, Inc.)"
 )
 public class MemberMapperImpl implements MemberMapper {
@@ -20,12 +20,15 @@ public class MemberMapperImpl implements MemberMapper {
         Member member = new Member();
 
         member.setId( memberDto.getId() );
-        member.setName( memberDto.getName() );
-        member.setPhone( memberDto.getPhone() );
         member.setUuid( memberDto.getUuid() );
+        member.setName( memberDto.getName() );
         member.setSsn( memberDto.getSsn() );
+        member.setPhone( memberDto.getPhone() );
         member.setGender( memberDto.getGender() );
         member.setUserType( memberDto.getUserType() );
+        member.setManager( memberDto.isManager() );
+        member.setSubscriber( memberDto.isSubscriber() );
+        member.setHasCase( memberDto.isHasCase() );
 
         return member;
     }
@@ -39,12 +42,15 @@ public class MemberMapperImpl implements MemberMapper {
         MemberDto memberDto = new MemberDto();
 
         memberDto.setId( member.getId() );
+        memberDto.setUuid( member.getUuid() );
         memberDto.setName( member.getName() );
         memberDto.setSsn( member.getSsn() );
         memberDto.setPhone( member.getPhone() );
         memberDto.setGender( member.getGender() );
-        memberDto.setUuid( member.getUuid() );
         memberDto.setUserType( member.getUserType() );
+        memberDto.setManager( member.isManager() );
+        memberDto.setSubscriber( member.isSubscriber() );
+        memberDto.setHasCase( member.isHasCase() );
 
         return memberDto;
     }
