@@ -11,4 +11,5 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     @Query("SELECT r FROM Request r WHERE r.senderId = :userId")
     List<Request> findBySenderId(@Param("userId") long userId);
+
 }

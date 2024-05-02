@@ -6,8 +6,6 @@ import lombok.Data;
 public class RequestDto {
 
     private Long senderId;
-    private String receiverName;
     private String receiverNumber;
-    private String receiverSsn;
 
 }

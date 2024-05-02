@@ -12,7 +12,8 @@ public enum ErrorCode {
     ALREADY_EXISTS_PHONE(HttpStatus.BAD_REQUEST, 40001, "Already exists phone"),
 
     // 404
-    NOT_FOUND_USER(HttpStatus.NOT_FOUND, 40401, "Not found user");
+    NOT_FOUND_USER(HttpStatus.NOT_FOUND, 40401, "Not found user"),
+    NOT_FOUND_REQUEST(HttpStatus.NOT_FOUND, 40402, "Not found request");
 
     private final HttpStatus httpStatus;	// HttpStatus
     private final int code;				// ACCOUNT-001
