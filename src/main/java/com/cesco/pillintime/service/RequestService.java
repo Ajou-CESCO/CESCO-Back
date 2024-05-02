@@ -31,10 +31,6 @@ public class RequestService {
         return requestRepository.findBySenderId(id);
     }
 
-    public Optional<Request> getRequestById(Long id) {
-        return requestRepository.findById(id);
-    }
-
     public void deleteRequest(Long id) {
         requestRepository.deleteById(id);
     }
