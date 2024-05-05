@@ -16,6 +16,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByNameAndPhone(String name, String phone);
 
-    Member findByNameAndSsnAndPhone(String name, String ssn, String phone); // 동일한 유저가 있으면 true, 없으면 false
+    Optional<Member> findByNameAndPhoneAndSsn(String name, String phone, String ssn); // 동일한 유저가 있으면 true, 없으면 false
 
 }

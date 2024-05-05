@@ -64,7 +64,7 @@ public class Member {
         this.phone = phone;
         this.gender = gender;
         this.userType = userType;
-        this.isManager = userType == 1;
+        this.isManager = userType == 0;
     }
 
 }

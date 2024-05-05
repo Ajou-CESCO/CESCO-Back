@@ -7,5 +7,6 @@ public class LoginDto {
 
     private String name;
     private String phone;
+    private String ssn;
 
 }

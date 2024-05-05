@@ -20,13 +20,13 @@ public class MemberService {
 
     public String createUser(MemberDto memberDto){
 
-        String ssn = memberDto.getSsn();
         String name = memberDto.getName();
+        String ssn = memberDto.getSsn();
         String phone = memberDto.getPhone();
         Integer userType = memberDto.getUserType();
 
         // 회원가입 여부 확인
-        memberRepository.findByPhone(phone)
+        memberRepository.findByNameAndPhoneAndSsn(name, phone, ssn)
                 .ifPresent((member) -> {
                     throw new CustomException(ErrorCode.ALREADY_EXISTS_PHONE);
                 });
@@ -59,6 +59,15 @@ public class MemberService {
             return memberDto;
         } else {                // 타인 정보
             // TODO - relation 기반 검증 로직 필요
+
+            /**
+             * 토큰에 있는 API를 호출한 사용자의 PK 가져오기
+             * -> Relation의 mangerid == PK 인 모든 데이터 가져오기
+             * -> 이 모든 데이터들 중 내가 조회할 사용자 uuid가 있는지
+             * -> 해당 데이터가 있다면 허용
+             * -> 해당 데이터가 없다면 403(Forbidden) 에러 발생
+             */
+
             System.out.print("HELLO");
         }
 
