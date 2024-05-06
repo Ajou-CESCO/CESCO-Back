@@ -29,7 +29,7 @@ public class CaseService {
 
         Case newCase = new Case();
         newCase.setUuid(uuid);
-        newCase.setOwner_id(member);
+        newCase.setOwnerId(member);
 
         caseRepository.save(newCase);
     }
