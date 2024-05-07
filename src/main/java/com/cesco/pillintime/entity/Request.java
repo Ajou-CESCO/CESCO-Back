@@ -22,20 +22,12 @@ public class Request {
     private Long senderId;
 
     @Column
-    private String receiverName;
-
-    @Column
-    private String receiverNumber;
-
-    @Column
-    private String receiverSsn;
+    private String receiverPhone;
 
     @Builder
-    public Request(Long senderId, String receiverName, String receiverNumber, String receiverSsn) {
+    public Request(Long senderId, String receiverPhone) {
         this.senderId = senderId;
-        this.receiverName = receiverName;
-        this.receiverNumber = receiverNumber;
-        this.receiverSsn = receiverSsn;
+        this.receiverPhone = receiverPhone;
     }
 
 }
