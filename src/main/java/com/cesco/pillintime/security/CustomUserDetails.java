@@ -42,6 +42,10 @@ public class CustomUserDetails implements UserDetails {
         return memberDto.getId();
     }
 
+    public String getPhone() {
+        return memberDto.getPhone();
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

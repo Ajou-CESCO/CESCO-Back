@@ -26,7 +26,7 @@ public class MemberService {
         Integer userType = memberDto.getUserType();
 
         // 회원가입 여부 확인
-        memberRepository.findByNameAndPhoneAndSsn(name, phone, ssn)
+        memberRepository.findByPhone(phone)
                 .ifPresent((member) -> {
                     throw new CustomException(ErrorCode.ALREADY_EXISTS_PHONE);
                 });
@@ -49,14 +49,13 @@ public class MemberService {
          */
 
         Long id = SecurityUtil.getCurrentMemberId();
+        System.out.print(id);
 
         if (uuid.isEmpty()) {   // 본인 정보
             Member member = memberRepository.findById(id)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-            MemberDto memberDto = MemberMapper.INSTANCE.toDto(member);
-            System.out.println(memberDto);
-            return memberDto;
+            return MemberMapper.INSTANCE.toDto(member);
         } else {                // 타인 정보
             // TODO - relation 기반 검증 로직 필요
 
