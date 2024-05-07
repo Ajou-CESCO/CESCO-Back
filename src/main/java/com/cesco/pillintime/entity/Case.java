@@ -19,5 +19,5 @@ public class Case {
 
     @JoinColumn(name="memberId")
     @ManyToOne
-    private Member owner_id;
+    private Member OwnerId;
 }
