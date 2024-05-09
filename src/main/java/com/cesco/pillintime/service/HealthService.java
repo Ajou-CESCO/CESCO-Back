@@ -86,7 +86,8 @@ public class HealthService {
             return HealthMapper.INSTANCE.toDto(healthMax);
         }
         else {              // 타인 정보 확인
-            Member target = memberRepository.findByUuid(uuid);
+            Member target = memberRepository.findByUuid(uuid)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
             // ManyToOne 추가함 -> 리포 타입 변경해야 됨
             List<Relation> relationList = relationRepository.findByMember(requester)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
@@ -131,7 +132,8 @@ public class HealthService {
             return healthDtos;
         }
         else {              // 타인 정보 확인
-            Member target = memberRepository.findByUuid(uuid);
+            Member target = memberRepository.findByUuid(uuid)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
             // ManyToOne 추가함 -> 리포 타입 변경해야 됨
             List<Relation> relationList = relationRepository.findByMember(requester)

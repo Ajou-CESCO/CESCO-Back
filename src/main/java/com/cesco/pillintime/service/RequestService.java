@@ -37,10 +37,12 @@ public class RequestService {
                 .orElseThrow(() -> new CustomException((ErrorCode.NOT_FOUND_USER)));
 
         if (member.getUserType() == 0) {    // manager
-            return requestRepository.findBySenderId(id).orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_USER));
+            return requestRepository.findBySenderId(id)
+                    .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_USER));
         } else {
             String phone = SecurityUtil.getCurrentMemberPhone();
-            return requestRepository.findByReceiverPhone(phone).orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_USER));
+            return requestRepository.findByReceiverPhone(phone)
+                    .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_USER));
         }
     }
 
