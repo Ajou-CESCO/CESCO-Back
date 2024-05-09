@@ -12,6 +12,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
 
     @Transactional
-    public String login(LoginDto loginDto) {
+    public Object login(LoginDto loginDto) {
         String name = loginDto.getName();
         String phone = loginDto.getPhone();
 
@@ -29,7 +31,8 @@ public class AuthService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         MemberDto memberDto = MemberMapper.INSTANCE.toDto(member);
-        return jwtUtil.createAccessToken(memberDto);
+        String token = jwtUtil.createAccessToken(memberDto);
+        return Map.of("access_token", token, "user_type", member.getUserType());
     }
 
 }

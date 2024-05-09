@@ -44,6 +44,17 @@ public class Member {
     @Column
     private boolean hasCase = false;
 
+    public void setSsn(String ssn) {
+        this.ssn = ssn;        // 성별 확인
+        int gender = Character.getNumericValue(ssn.charAt(7));
+        if (gender % 2 == 0){
+            gender = 0; // female
+        } else {
+            gender = 1; // male
+        }
+        this.gender = gender;
+    }
+
     public Member(String name, String phone, String ssn, Integer userType){
 
         if(name == null || ssn == null || phone == null || name.isBlank() || ssn.isBlank() || phone.isBlank()){

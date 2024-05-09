@@ -6,7 +6,6 @@ import com.cesco.pillintime.entity.Relation;
 import com.cesco.pillintime.entity.Request;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.mapper.RelationMapper;
 import com.cesco.pillintime.repository.MemberRepository;
 import com.cesco.pillintime.repository.RelationRepository;
 import com.cesco.pillintime.repository.RequestRepository;
@@ -14,8 +13,8 @@ import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,21 +38,50 @@ public class RelationService {
         Member manager = memberRepository.findById(managerId)
                 .orElseThrow(() -> new CustomException((ErrorCode.NOT_FOUND_USER)));
 
-
-        Relation relation = new Relation(managerId, clientId);
+        Relation relation = new Relation(manager, client);
         relationRepository.save(relation);
         requestRepository.delete(request);
 
     }
 
-    public List<Relation> getRelationList() {
+    public List<RelationDto> getRelationList() {
 
         Long id = SecurityUtil.getCurrentMemberId();
 
-        Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new CustomException((ErrorCode.NOT_FOUND_USER)));
+        Member requester = memberRepository.findById(id)
+                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        return relationRepository.findByMemberId(id);
+        List<Relation> relations = relationRepository.findByMemberId(requester.getId());
+
+        List<RelationDto> relationDtos = new ArrayList<>();
+
+        if(relations == null) {
+            return relationDtos;
+        }
+
+        for (Relation relation : relations) {
+            RelationDto relationDto = new RelationDto();
+
+            Member typer = requester.getUserType() == 0 ? relation.getClientId() : relation.getManagerId();
+
+            // 사용자 하나 때문에 목록 조회가 실패하면 안 된다. -> transaction X / 이미 했으니 상관 없나?
+            Member member = memberRepository.findById(typer.getId()).orElse(null);
+
+            if (member != null) {
+                if(typer.getUserType() == 0) { // 보호자
+                    relationDto.setClientName(member.getName());
+                    relationDto.setClientUuid(member.getUuid());
+                }
+
+                else if(typer.getUserType() == 1) { // 피보호자
+                    relationDto.setManagerName(member.getName());
+                    relationDto.setManagerUuid(member.getUuid());
+                }
+            }
+
+            relationDtos.add(relationDto);
+        }
+
+        return relationDtos;
     }
-
 }
