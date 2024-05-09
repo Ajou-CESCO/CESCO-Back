@@ -19,6 +19,7 @@ public enum ErrorCode {
     NOT_FOUND_REQUEST(HttpStatus.NOT_FOUND, 40402, "Not found request"),
     NOT_FOUND_RELATION(HttpStatus.NOT_FOUND, 40403, "Not found relation"),
     NOT_FOUND_CABINET(HttpStatus.NOT_FOUND, 40404, "Not found cabinet"),
+    NOT_FOUND_HEALTH(HttpStatus.NOT_FOUND, 40405, "Not found health"),
 
     // 500 Internal Server
     EXTERNAL_API_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50001, "External api error");
