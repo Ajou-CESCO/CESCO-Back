@@ -38,7 +38,8 @@ public class HealthService {
         Member requester = memberRepository.findById(id)
                 .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        List<Health> requesterHealth = healthRepository.findByOwnerId(requester);
+        List<Health> requesterHealth = healthRepository.findByOwnerId(requester)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
 
         Health health;
         // 건강 데이터 암호화해야 하는가?
@@ -47,12 +48,14 @@ public class HealthService {
             health = new Health(steps, cal, sleepTime, weekday, requester);
         }
         else {
-            health = healthRepository.findByDate(weekday);
+            health = healthRepository.findByDate(weekday)
+                    .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_HEALTH));
             health.setSteps(steps);
             health.setCal(cal);
             health.setSleepTime(sleepTime);
             health.setWeekday(weekday);
         }
+
         healthRepository.save(health);
     }
 
@@ -65,10 +68,11 @@ public class HealthService {
         Long id = SecurityUtil.getCurrentMemberId();
 
         Member requester = memberRepository.findById(id)
-                .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        if(uuid.isEmpty()){ // 본인 정보 확인
-            List<Health> healthList = healthRepository.findByOwnerId(requester);
+        if (uuid.isEmpty()){ // 본인 정보 확인
+            List<Health> healthList = healthRepository.findByOwnerId(requester)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
             int max = -1;
 
             Health healthMax = null;
@@ -84,14 +88,16 @@ public class HealthService {
         else {              // 타인 정보 확인
             Member target = memberRepository.findByUuid(uuid);
             // ManyToOne 추가함 -> 리포 타입 변경해야 됨
-            List<Relation> relationList = relationRepository.findByMemberId(requester.getId());
+            List<Relation> relationList = relationRepository.findByMember(requester)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
             Health healthMax = null;
 
             for (Relation relation : relationList) {
                 String memberUuid = relation.getClient().getUuid();
                 if (memberUuid.equals(uuid)) {
 
-                    List<Health> healthList = healthRepository.findByOwnerId(target);
+                    List<Health> healthList = healthRepository.findByOwnerId(target)
+                            .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
                     int max = -1;
 
                     for (Health health : healthList) {
@@ -113,8 +119,9 @@ public class HealthService {
         Member requester = memberRepository.findById(id)
                 .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        if(uuid.isEmpty()){ // 본인 정보 확인
-            List<Health> healthList = healthRepository.findByOwnerId(requester);
+        if (uuid.isEmpty()) { // 본인 정보 확인
+            List<Health> healthList = healthRepository.findByOwnerId(requester)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
 
             List<HealthDto> healthDtos = null;
             for (Health health : healthList) {
@@ -127,12 +134,14 @@ public class HealthService {
             Member target = memberRepository.findByUuid(uuid);
 
             // ManyToOne 추가함 -> 리포 타입 변경해야 됨
-            List<Relation> relationList = relationRepository.findByMemberId(requester.getId());
+            List<Relation> relationList = relationRepository.findByMember(requester)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
 
             for (Relation relation : relationList) {
                 String memberUuid = relation.getClient().getUuid();
                 if (memberUuid.equals(uuid)) {
-                    List<Health> healthList = healthRepository.findByOwnerId(target);
+                    List<Health> healthList = healthRepository.findByOwnerId(target)
+                            .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
 
                     List<HealthDto> healthDtos = null;
                     for (Health health : healthList) {

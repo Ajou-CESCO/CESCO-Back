@@ -23,9 +23,6 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final RelationRepository relationRepository;
-    private final CabinetRepository cabinetRepository;
-    private final HealthRepository healthRepository;
-
     private final JwtUtil jwtUtil;
 
     public String createUser(MemberDto memberDto){
@@ -67,16 +64,12 @@ public class MemberService {
         if (uuid.isEmpty()) {   // 본인 정보
             return MemberMapper.INSTANCE.toDto(requestUser);
         } else {                // 타인 정보
-            /* TODO - relation 기반 검증 로직 필요
-              토큰에 있는 API를 호출한 사용자의 PK 가져오기
-              -> Relation의 mangerid == PK 인 모든 데이터 가져오기
-              -> 이 모든 데이터들 중 내가 조회할 사용자 uuid가 있는지
-              -> 해당 데이터가 있다면 허용
-              -> 해당 데이터가 없다면 403(Forbidden) 에러 발생
-             */
+
             Member targetUser = memberRepository.findByUuid(uuid);
 
-            List<Relation> relationList = relationRepository.findByMemberId(id);
+            List<Relation> relationList = relationRepository.findByMember(requestUser)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
+
             if (relationList == null) {
                 return null;
             }
@@ -103,9 +96,9 @@ public class MemberService {
 
         Long id = SecurityUtil.getCurrentMemberId();
 
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
         if (uuid.isEmpty()) {
-            Member member = memberRepository.findById(id)
-                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
             member.setSsn(memberDto.getSsn());
             member.setName(memberDto.getName());
@@ -115,19 +108,18 @@ public class MemberService {
             return MemberMapper.INSTANCE.toDto(member);
 
         } else {                // 타인 정보
-            Member requester = memberRepository.findById(id)
-                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
             Member target = memberRepository.findByUuid(uuid);
 
-            List<Relation> relationlist = relationRepository.findByMemberId(id);
+            List<Relation> relationlist = relationRepository.findByMember(member)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
 
             if (relationlist != null) {
                 for(Relation relation : relationlist) {
 
-                    Member member = requester.getUserType() == 0 ? relation.getClient() : relation.getManager();
+                    Member setMember = member.getUserType() == 0 ? relation.getClient() : relation.getManager();
 
-                    if (member.getId().equals(target.getId())){
+                    if (setMember.getId().equals(target.getId())){
                         target.setSsn(memberDto.getSsn());
                         target.setName(memberDto.getName());
                         target.setPhone(memberDto.getPhone());
@@ -147,9 +139,9 @@ public class MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        relationRepository.deleteByMemberId(member.getId());
+//        relationRepository.deleteByMemberId(member.getId());
 //        cabinetRepository.deleteByOwnerId(member.getId());
-        healthRepository.deleteByOwnerId(member.getId());
+//        healthRepository.deleteByOwnerId(member.getId());
 
         memberRepository.delete(member);
     }

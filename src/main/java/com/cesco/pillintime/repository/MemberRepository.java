@@ -8,11 +8,9 @@ import java.util.UUID;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    Member findByName(String name);
+    Optional<Member> findByName(String name);
 
     Optional<Member> findByPhone(String phone); // ssn과 동일한 유저가 있으면 유저를 반환, 없으면 null
-
-    Member findByUuid(String uuid);
 
     Optional<Member> findByNameAndPhone(String name, String phone);
 
