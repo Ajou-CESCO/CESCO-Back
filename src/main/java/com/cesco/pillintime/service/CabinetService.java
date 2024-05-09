@@ -19,16 +19,27 @@ public class CabinetService {
     private final CabinetRepository cabinetRepository;
     private final MemberRepository memberRepository;
 
-    public void createCabinet(CabinetDto cabinetDto) {
+    public void createCabinet(String serialNumber, Long pk) {
         Long id = SecurityUtil.getCurrentMemberId();
 
-        Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        Member member;
 
-        String uuid = cabinetDto.getUuid();
+        if(pk == null) {        // 본인 약통
+             member = memberRepository.findById(id)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER)); // 수정 바람
+        } else {                // 타인 약통
+            member = memberRepository.findById(pk)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER)); // 수정 바람
+        }
 
-        Cabinet newCabinet = new Cabinet(uuid, member);
-        cabinetRepository.save(newCabinet);
+        // 시리얼 번호로 약통 조회
+        // PK(??) -> 유저 조회
+
+        Cabinet cabinet = cabinetRepository.findBySerialNumber(serialNumber)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
+
+        cabinet.setOwnerId(member);
+        cabinetRepository.save(cabinet);
     }
 
     public void getSensorData(SensorDto sensorDto) {
