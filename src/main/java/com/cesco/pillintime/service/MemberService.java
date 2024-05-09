@@ -65,7 +65,8 @@ public class MemberService {
             return MemberMapper.INSTANCE.toDto(requestUser);
         } else {                // 타인 정보
 
-            Member targetUser = memberRepository.findByUuid(uuid);
+            Member targetUser = memberRepository.findByUuid(uuid)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
             List<Relation> relationList = relationRepository.findByMember(requestUser)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
@@ -109,7 +110,8 @@ public class MemberService {
 
         } else {                // 타인 정보
 
-            Member target = memberRepository.findByUuid(uuid);
+            Member target = memberRepository.findByUuid(uuid)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
             List<Relation> relationlist = relationRepository.findByMember(member)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));

@@ -50,7 +50,8 @@ public class RelationService {
         Member requester = memberRepository.findById(id)
                 .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        List<Relation> relations = relationRepository.findByMember(requester).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
+        List<Relation> relations = relationRepository.findByMember(requester)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
         if (relations == null) {
             return null;
         }
