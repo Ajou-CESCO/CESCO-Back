@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/service/AuthService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +193,7 @@
       <workItem from="1714896841652" duration="4572000" />
       <workItem from="1714970263878" duration="8571000" />
       <workItem from="1715216241945" duration="5872000" />
-      <workItem from="1715233016825" duration="5381000" />
+      <workItem from="1715233016825" duration="5993000" />
     </task>
     <servers />
   </component>
