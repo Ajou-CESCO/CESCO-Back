@@ -22,7 +22,7 @@ public class AuthController {
 
     @PostMapping
     public ResponseEntity<ResponseDto> login(@RequestBody LoginDto loginDto) {
-        Object tokenAndUserType = authService.login(loginDto);
-        return ResponseUtil.makeResponse(200, "Success login", tokenAndUserType);
+        Object token = authService.login(loginDto);
+        return ResponseUtil.makeResponse(200, "Success login", Map.of("access_token", token));
     }
 }

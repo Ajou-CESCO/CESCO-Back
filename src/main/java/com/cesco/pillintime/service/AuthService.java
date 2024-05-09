@@ -23,7 +23,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
 
     @Transactional
-    public Object login(LoginDto loginDto) {
+    public String login(LoginDto loginDto) {
         String name = loginDto.getName();
         String phone = loginDto.getPhone();
 
@@ -31,8 +31,7 @@ public class AuthService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         MemberDto memberDto = MemberMapper.INSTANCE.toDto(member);
-        String token = jwtUtil.createAccessToken(memberDto);
-        return Map.of("access_token", token, "user_type", member.getUserType());
+        return jwtUtil.createAccessToken(memberDto);
     }
 
 }
