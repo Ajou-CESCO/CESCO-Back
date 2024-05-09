@@ -1,7 +1,7 @@
 package com.cesco.pillintime.controller;
 
+import com.cesco.pillintime.dto.RelationDto;
 import com.cesco.pillintime.dto.ResponseDto;
-import com.cesco.pillintime.entity.Relation;
 import com.cesco.pillintime.service.RelationService;
 import com.cesco.pillintime.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +23,10 @@ public class RelationController {
         return ResponseUtil.makeResponse(200, "Success create relation", null);
     }
 
+    // 보호자만 사용, 피보호자 사용x
     @GetMapping
     public ResponseEntity<ResponseDto> getRelationList() {
-        List<Relation> relationList = relationService.getRelationList();
+        List<RelationDto> relationList = relationService.getRelationList();
         return ResponseUtil.makeResponse(200, "Success get relation", relationList);
     }
 

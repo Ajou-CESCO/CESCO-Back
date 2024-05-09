@@ -2,20 +2,30 @@ package com.cesco.pillintime.service;
 
 import com.cesco.pillintime.dto.MemberDto;
 import com.cesco.pillintime.entity.Member;
+import com.cesco.pillintime.entity.Relation;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.mapper.MemberMapper;
+import com.cesco.pillintime.repository.CabinetRepository;
+import com.cesco.pillintime.repository.HealthRepository;
 import com.cesco.pillintime.repository.MemberRepository;
+import com.cesco.pillintime.repository.RelationRepository;
 import com.cesco.pillintime.util.JwtUtil;
 import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final RelationRepository relationRepository;
+    private final CabinetRepository cabinetRepository;
+    private final HealthRepository healthRepository;
+
     private final JwtUtil jwtUtil;
 
     public String createUser(MemberDto memberDto){
@@ -51,26 +61,36 @@ public class MemberService {
         Long id = SecurityUtil.getCurrentMemberId();
         System.out.print(id);
 
+        Member requestUser = memberRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
         if (uuid.isEmpty()) {   // 본인 정보
-            Member member = memberRepository.findById(id)
-                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
-
-            return MemberMapper.INSTANCE.toDto(member);
+            return MemberMapper.INSTANCE.toDto(requestUser);
         } else {                // 타인 정보
-            // TODO - relation 기반 검증 로직 필요
-
-            /**
-             * 토큰에 있는 API를 호출한 사용자의 PK 가져오기
-             * -> Relation의 mangerid == PK 인 모든 데이터 가져오기
-             * -> 이 모든 데이터들 중 내가 조회할 사용자 uuid가 있는지
-             * -> 해당 데이터가 있다면 허용
-             * -> 해당 데이터가 없다면 403(Forbidden) 에러 발생
+            /* TODO - relation 기반 검증 로직 필요
+              토큰에 있는 API를 호출한 사용자의 PK 가져오기
+              -> Relation의 mangerid == PK 인 모든 데이터 가져오기
+              -> 이 모든 데이터들 중 내가 조회할 사용자 uuid가 있는지
+              -> 해당 데이터가 있다면 허용
+              -> 해당 데이터가 없다면 403(Forbidden) 에러 발생
              */
+            Member targetUser = memberRepository.findByUuid(uuid);
 
-            System.out.print("HELLO");
+            List<Relation> relationList = relationRepository.findByMemberId(id);
+            if (relationList == null) {
+                return null;
+            }
+
+            for (Relation relation : relationList) {
+                if (relation.getClient().getId().equals(targetUser.getId()) ||
+                        (relation.getManager().getId().equals(targetUser.getId()))) {
+                    return MemberMapper.INSTANCE.toDto(targetUser);
+                }
+            }
+
+            throw new CustomException(ErrorCode.INVALID_USER_ACCESS);
         }
 
-        return null;
     }
 
     public MemberDto updateUserByUuid(String uuid, MemberDto memberDto) {
@@ -90,16 +110,34 @@ public class MemberService {
             member.setSsn(memberDto.getSsn());
             member.setName(memberDto.getName());
             member.setPhone(memberDto.getPhone());
-            member.setGender(memberDto.getGender());
 
             memberRepository.save(member);
             return MemberMapper.INSTANCE.toDto(member);
-        } else {                // 타인 정보
-            // TODO - relation 기반 검증 로직 필요
-            System.out.print("HELLO");
-        }
 
-        return null;
+        } else {                // 타인 정보
+            Member requester = memberRepository.findById(id)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+            Member target = memberRepository.findByUuid(uuid);
+
+            List<Relation> relationlist = relationRepository.findByMemberId(id);
+
+            if (relationlist != null) {
+                for(Relation relation : relationlist) {
+
+                    Member member = requester.getUserType() == 0 ? relation.getClient() : relation.getManager();
+
+                    if (member.getId().equals(target.getId())){
+                        target.setSsn(memberDto.getSsn());
+                        target.setName(memberDto.getName());
+                        target.setPhone(memberDto.getPhone());
+                        memberRepository.save(target);
+                        return MemberMapper.INSTANCE.toDto(target);
+                    }
+                }
+            }
+            throw new CustomException(ErrorCode.INVALID_USER_ACCESS);
+        }
     }
 
     public void deleteUser(){
@@ -108,6 +146,10 @@ public class MemberService {
 
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        relationRepository.deleteByMemberId(member.getId());
+//        cabinetRepository.deleteByOwnerId(member.getId());
+        healthRepository.deleteByOwnerId(member.getId());
 
         memberRepository.delete(member);
     }

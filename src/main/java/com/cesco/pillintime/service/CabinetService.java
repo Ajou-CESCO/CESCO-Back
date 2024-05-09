@@ -20,7 +20,6 @@ public class CabinetService {
     private final MemberRepository memberRepository;
 
     public void createCabinet(CabinetDto cabinetDto) {
-
         Long id = SecurityUtil.getCurrentMemberId();
 
         Member member = memberRepository.findById(id)

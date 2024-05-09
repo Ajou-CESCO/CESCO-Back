@@ -14,14 +14,16 @@ public class Relation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private Long managerId;
+    @JoinColumn(name="Manager")
+    @ManyToOne
+    private Member manager;
 
-    @Column
-    private Long clientId;
+    @JoinColumn(name="Client")
+    @ManyToOne
+    private Member client;
 
-    public Relation(Long managerId, Long clientId) {
-        this.managerId = managerId;
-        this.clientId = clientId;
+    public Relation(Member manager, Member client) {
+        this.manager = manager;
+        this.client = client;
     }
 }
