@@ -88,7 +88,7 @@ public class HealthService {
             Health healthMax = null;
 
             for (Relation relation : relationList) {
-                String memberUuid = relation.getClientId().getUuid();
+                String memberUuid = relation.getClient().getUuid();
                 if (memberUuid.equals(uuid)) {
 
                     List<Health> healthList = healthRepository.findByOwnerId(target);
@@ -130,7 +130,7 @@ public class HealthService {
             List<Relation> relationList = relationRepository.findByMemberId(requester.getId());
 
             for (Relation relation : relationList) {
-                String memberUuid = relation.getClientId().getUuid();
+                String memberUuid = relation.getClient().getUuid();
                 if (memberUuid.equals(uuid)) {
                     List<Health> healthList = healthRepository.findByOwnerId(target);
 

@@ -6,7 +6,7 @@ import com.cesco.pillintime.entity.Relation;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.mapper.MemberMapper;
-import com.cesco.pillintime.repository.CaseRepository;
+import com.cesco.pillintime.repository.CabinetRepository;
 import com.cesco.pillintime.repository.HealthRepository;
 import com.cesco.pillintime.repository.MemberRepository;
 import com.cesco.pillintime.repository.RelationRepository;
@@ -23,9 +23,8 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final RelationRepository relationRepository;
-    private final CaseRepository caseRepository;
+    private final CabinetRepository cabinetRepository;
     private final HealthRepository healthRepository;
-
 
     private final JwtUtil jwtUtil;
 
@@ -37,7 +36,7 @@ public class MemberService {
         Integer userType = memberDto.getUserType();
 
         // 회원가입 여부 확인
-        memberRepository.findByNameAndPhoneAndSsn(name, phone, ssn)
+        memberRepository.findByPhone(phone)
                 .ifPresent((member) -> {
                     throw new CustomException(ErrorCode.ALREADY_EXISTS_PHONE);
                 });
@@ -60,15 +59,13 @@ public class MemberService {
          */
 
         Long id = SecurityUtil.getCurrentMemberId();
+        System.out.print(id);
 
-        Member requester = memberRepository.findById(id)
+        Member requestUser = memberRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         if (uuid.isEmpty()) {   // 본인 정보
-
-            MemberDto memberDto = MemberMapper.INSTANCE.toDto(requester);
-            System.out.println(memberDto);
-            return memberDto;
+            return MemberMapper.INSTANCE.toDto(requestUser);
         } else {                // 타인 정보
             /* TODO - relation 기반 검증 로직 필요
               토큰에 있는 API를 호출한 사용자의 PK 가져오기
@@ -77,19 +74,21 @@ public class MemberService {
               -> 해당 데이터가 있다면 허용
               -> 해당 데이터가 없다면 403(Forbidden) 에러 발생
              */
-            Member target = memberRepository.findByUuid(uuid);
+            Member targetUser = memberRepository.findByUuid(uuid);
 
-            List<Relation> relationlist = relationRepository.findByMemberId(id);
+            List<Relation> relationList = relationRepository.findByMemberId(id);
+            if (relationList == null) {
+                return null;
+            }
 
-            if (relationlist != null) {
-                for(Relation relation : relationlist) {
-                    if(relation.getClientId().getId().equals(target.getId()) ||
-                            (relation.getManagerId().getId().equals(target.getId()))){
-                        return MemberMapper.INSTANCE.toDto(target);
-                    }
+            for (Relation relation : relationList) {
+                if (relation.getClient().getId().equals(targetUser.getId()) ||
+                        (relation.getManager().getId().equals(targetUser.getId()))) {
+                    return MemberMapper.INSTANCE.toDto(targetUser);
                 }
             }
-            throw new CustomException(ErrorCode.NOT_FORBIDDEN_USER);
+
+            throw new CustomException(ErrorCode.INVALID_USER_ACCESS);
         }
 
     }
@@ -126,10 +125,9 @@ public class MemberService {
             if (relationlist != null) {
                 for(Relation relation : relationlist) {
 
-                    Member member = requester.getUserType()==0 ? relation.getClientId() : relation.getManagerId();
+                    Member member = requester.getUserType() == 0 ? relation.getClient() : relation.getManager();
 
-                    if(member.getId().equals(target.getId())){
-
+                    if (member.getId().equals(target.getId())){
                         target.setSsn(memberDto.getSsn());
                         target.setName(memberDto.getName());
                         target.setPhone(memberDto.getPhone());
@@ -138,7 +136,7 @@ public class MemberService {
                     }
                 }
             }
-            throw new CustomException(ErrorCode.NOT_FORBIDDEN_USER);
+            throw new CustomException(ErrorCode.INVALID_USER_ACCESS);
         }
     }
 
@@ -150,7 +148,7 @@ public class MemberService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         relationRepository.deleteByMemberId(member.getId());
-        caseRepository.deleteByOwnerId(member.getId());
+//        cabinetRepository.deleteByOwnerId(member.getId());
         healthRepository.deleteByOwnerId(member.getId());
 
         memberRepository.delete(member);

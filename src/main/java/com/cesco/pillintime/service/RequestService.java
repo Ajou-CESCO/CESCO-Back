@@ -1,21 +1,25 @@
 package com.cesco.pillintime.service;
 
 import com.cesco.pillintime.dto.RequestDto;
+import com.cesco.pillintime.entity.Member;
 import com.cesco.pillintime.entity.Request;
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.mapper.RequestMapper;
+import com.cesco.pillintime.repository.MemberRepository;
 import com.cesco.pillintime.repository.RequestRepository;
 import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RequestService {
 
     private final RequestRepository requestRepository;
+    private final MemberRepository memberRepository;
 
     public Request createRequest(RequestDto requestDto) {
         Long id = SecurityUtil.getCurrentMemberId();
@@ -28,7 +32,16 @@ public class RequestService {
 
     public List<Request> getRelatedRequest() {
         Long id = SecurityUtil.getCurrentMemberId();
-        return requestRepository.findBySenderId(id);
+
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new CustomException((ErrorCode.NOT_FOUND_USER)));
+
+        if (member.getUserType() == 0) {    // manager
+            return requestRepository.findBySenderId(id);
+        } else {
+            String phone = SecurityUtil.getCurrentMemberPhone();
+            return requestRepository.findByReceiverPhone(phone);
+        }
     }
 
     public void deleteRequest(Long id) {

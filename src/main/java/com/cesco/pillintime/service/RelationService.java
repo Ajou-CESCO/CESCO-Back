@@ -45,43 +45,37 @@ public class RelationService {
     }
 
     public List<RelationDto> getRelationList() {
-
         Long id = SecurityUtil.getCurrentMemberId();
 
         Member requester = memberRepository.findById(id)
                 .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         List<Relation> relations = relationRepository.findByMemberId(requester.getId());
-
-        List<RelationDto> relationDtos = new ArrayList<>();
-
-        if(relations == null) {
-            return relationDtos;
+        if (relations == null) {
+            return null;
         }
+
+        List<RelationDto> relationDtoList = new ArrayList<>();
 
         for (Relation relation : relations) {
             RelationDto relationDto = new RelationDto();
 
-            Member typer = requester.getUserType() == 0 ? relation.getClientId() : relation.getManagerId();
-
-            // 사용자 하나 때문에 목록 조회가 실패하면 안 된다. -> transaction X / 이미 했으니 상관 없나?
-            Member member = memberRepository.findById(typer.getId()).orElse(null);
-
+            Member member = requester.getUserType() == 0 ? relation.getClient() : relation.getManager();
             if (member != null) {
-                if(typer.getUserType() == 0) { // 보호자
+                if(member.getUserType() == 0) { // 보호자
                     relationDto.setClientName(member.getName());
                     relationDto.setClientUuid(member.getUuid());
                 }
 
-                else if(typer.getUserType() == 1) { // 피보호자
+                else if(member.getUserType() == 1) { // 피보호자
                     relationDto.setManagerName(member.getName());
                     relationDto.setManagerUuid(member.getUuid());
                 }
             }
 
-            relationDtos.add(relationDto);
+            relationDtoList.add(relationDto);
         }
 
-        return relationDtos;
+        return relationDtoList;
     }
 }

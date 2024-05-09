@@ -53,7 +53,7 @@ public class JwtUtil {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            System.out.println("Exception");    // 임시 출력
+            System.out.println("Exception");
         } catch (ExpiredJwtException e) {
             System.out.println("Token is expired");
         } catch (UnsupportedJwtException e) {

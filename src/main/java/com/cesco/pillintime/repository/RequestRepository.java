@@ -12,4 +12,7 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     @Query("SELECT r FROM Request r WHERE r.senderId = :userId")
     List<Request> findBySenderId(@Param("userId") long userId);
 
+    @Query("SELECT r FROM Request r WHERE r.receiverPhone = :receiverPhone")
+    List<Request> findByReceiverPhone(@Param("receiverPhone") String receiverPhone);
+
 }
