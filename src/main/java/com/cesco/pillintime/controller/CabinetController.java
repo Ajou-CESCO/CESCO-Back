@@ -20,8 +20,8 @@ public class CabinetController {
     private final CabinetService cabinetService;
 
     @PostMapping
-    public ResponseEntity<ResponseDto> createCabinet(@RequestBody CabinetDto cabinetDto) {
-        cabinetService.createCabinet(cabinetDto);
+    public ResponseEntity<ResponseDto> createCabinet(@RequestBody String serialNumber, Long pk) {
+        cabinetService.createCabinet(serialNumber, pk);
         return ResponseUtil.makeResponse(200, "Success create case",  null);
     }
 
