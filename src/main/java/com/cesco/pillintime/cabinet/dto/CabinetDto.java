@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class CabinetDto {
 
-    private String uuid;
+    private String serial;
+    private Long ownerId;
 
 }

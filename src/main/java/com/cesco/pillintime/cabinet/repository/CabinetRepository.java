@@ -9,7 +9,6 @@ import java.util.Optional;
 @Repository
 public interface CabinetRepository extends JpaRepository<Cabinet, Long> {
 
-    Optional<Cabinet> findByUuid(String uuid);
-    Optional<Cabinet> findBySerialNumber(String serialNumber);
+    Optional<Cabinet> findBySerial(String serial);
 
 }

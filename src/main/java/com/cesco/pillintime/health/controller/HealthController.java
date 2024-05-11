@@ -6,10 +6,7 @@ import com.cesco.pillintime.health.service.HealthService;
 import com.cesco.pillintime.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,15 +23,9 @@ public class HealthController {
         return ResponseUtil.makeResponse(200, "Success upload health data", null);
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseDto> getHealthById(@RequestBody String uuid) {
-        HealthDto healthDto = healthService.getHealthById(uuid);
-        return ResponseUtil.makeResponse(200, "Success inquiry data", healthDto);
-    }
-
-    @PostMapping
-    public ResponseEntity<ResponseDto> getHealth(@RequestBody String uuid) {
-        List<HealthDto> healthDto = healthService.getHealth(uuid);
-        return ResponseUtil.makeResponse(200, "Success Weekly Health data", healthDto);
+    @GetMapping
+    public ResponseEntity<ResponseDto> getHealthByMemberId(@PathVariable(required = false) Long targetId) {
+        List<HealthDto> healthDtoList = healthService.getHealthByMemberId(targetId);
+        return ResponseUtil.makeResponse(200, "Success get health data", healthDtoList);
     }
 }

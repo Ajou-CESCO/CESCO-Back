@@ -13,11 +13,4 @@ public class PillinTimeApplication {
 		SpringApplication.run(PillinTimeApplication.class, args);
 	}
 
-	@Bean
-	public RestTemplate restTemplate() {
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getMessageConverters().add(new MappingJackson2XmlHttpMessageConverter());
-		return restTemplate;
-	}
-
 }

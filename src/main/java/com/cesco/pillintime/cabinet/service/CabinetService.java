@@ -1,6 +1,7 @@
 package com.cesco.pillintime.cabinet.service;
 
-import com.cesco.pillintime.dto.SensorDto;
+import com.cesco.pillintime.cabinet.dto.CabinetDto;
+import com.cesco.pillintime.cabinet.dto.SensorDto;
 import com.cesco.pillintime.cabinet.entity.Cabinet;
 import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.exception.CustomException;
@@ -18,38 +19,32 @@ public class CabinetService {
     private final CabinetRepository cabinetRepository;
     private final MemberRepository memberRepository;
 
-    public void createCabinet(String serialNumber, Long pk) {
-        Long id = SecurityUtil.getCurrentMemberId();
+    public void createCabinet(CabinetDto cabinetDto) {
+        String serial = cabinetDto.getSerial();
+        Long ownerId = cabinetDto.getOwnerId();
 
-        Member member;
+        Member owner = null;
 
-        if(pk == null) {        // 본인 약통
-             member = memberRepository.findById(id)
-                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER)); // 수정 바람
-        } else {                // 타인 약통
-            member = memberRepository.findById(pk)
-                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER)); // 수정 바람
+        if (ownerId == null) {
+            owner = SecurityUtil.getCurrentMember()
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        } else {
+            owner = memberRepository.findById(ownerId)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
         }
 
-        // 시리얼 번호로 약통 조회
-        // PK(??) -> 유저 조회
-
-        Cabinet cabinet = cabinetRepository.findBySerialNumber(serialNumber)
+        Cabinet cabinet = cabinetRepository.findBySerial(serial)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
 
-        cabinet.setOwnerId(member);
+        cabinet.setOwner(owner);
         cabinetRepository.save(cabinet);
     }
 
     public void getSensorData(SensorDto sensorDto) {
-
-        String uuid = sensorDto.getUuid();
+        String serial = sensorDto.getSerial();
         int index = sensorDto.getIndex();
 
-        Cabinet cabinet = cabinetRepository.findByUuid(uuid)
+        Cabinet cabinet = cabinetRepository.findBySerial(serial)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
-
-        System.out.print(uuid);
-        System.out.print(index);
     }
 }

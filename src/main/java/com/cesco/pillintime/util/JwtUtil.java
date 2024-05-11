@@ -72,8 +72,8 @@ public class JwtUtil {
         }
     }
 
-    public String getUuid(String token) {
-        return parseClaims(token).get("uuid", String.class);
+    public String getId(String token) {
+        return parseClaims(token).get("id", String.class);
     }
 
 }

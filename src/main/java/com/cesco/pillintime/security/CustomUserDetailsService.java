@@ -17,8 +17,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String uuid) throws UsernameNotFoundException {
-        Member member = memberRepository.findByUuid(uuid).orElse(null);
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        Long longId = Long.valueOf(id);
+
+        Member member = memberRepository.findById(longId).orElse(null);
         MemberDto memberDto = MemberMapper.INSTANCE.toDto(member);
 
         return new CustomUserDetails(memberDto);

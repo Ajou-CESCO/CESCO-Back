@@ -26,18 +26,14 @@ public class Health {
     @Column
     private Time sleepTime;
 
-    @Column
-    private int weekday;
-
     @JoinColumn(name="memberId")
     @OneToOne
     private Member member;
 
-    public Health(Integer steps, double cal, Time sleepTime, int weekday, Member member) {
+    public Health(Integer steps, double cal, Time sleepTime, Member member) {
         this.steps = steps;
         this.cal = cal;
         this.sleepTime = sleepTime;
-
         this.member = member;
     }
 }

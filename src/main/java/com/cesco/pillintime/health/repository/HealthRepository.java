@@ -11,9 +11,6 @@ import java.util.Optional;
 @Repository
 public interface HealthRepository extends JpaRepository<Health, Long> {
 
-    Optional<List<Health>> findByOwnerId(Member member);
+    Optional<List<Health>> findByMember(Member member);
 
-    Optional<Health> findByDate(int date);
-
-    void deleteByOwnerId(Long id);
 }

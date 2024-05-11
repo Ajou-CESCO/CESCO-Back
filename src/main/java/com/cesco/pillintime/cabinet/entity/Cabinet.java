@@ -15,12 +15,15 @@ public class Cabinet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column
+    private String serial;
+
     @JoinColumn(name="memberId")
     @ManyToOne
-    private Member ownerId;
+    private Member owner;
 
-    public Cabinet(String uuid, Member member) {
-        this.uuid = uuid;
-        this.ownerId = member;
+    public Cabinet(String serial, Member member) {
+        this.serial = serial;
+        this.owner = member;
     }
 }
