@@ -13,7 +13,7 @@ public class Member {
 
     @Id
     @Column
-    @JoinColumn
+    @JoinColumn(name="memberId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
