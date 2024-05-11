@@ -26,9 +26,8 @@ public class RelationService {
 
     public void createRelation(Long requestId) {
 
-        Long clientId = SecurityUtil.getCurrentMemberId();
-        Member client = memberRepository.findById(clientId)
-                .orElseThrow(() -> new CustomException((ErrorCode.NOT_FOUND_USER)));
+        Member client = SecurityUtil.getCurrentMember()
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         Request request = requestRepository.findById(requestId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REQUEST));
@@ -41,38 +40,27 @@ public class RelationService {
         Relation relation = new Relation(manager, client);
         relationRepository.save(relation);
         requestRepository.delete(request);
-
     }
 
     public List<RelationDto> getRelationList() {
-        Long id = SecurityUtil.getCurrentMemberId();
+        Member requestMember = SecurityUtil.getCurrentMember()
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Member requester = memberRepository.findById(id)
-                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_USER));
-
-        List<Relation> relations = relationRepository.findByMember(requester)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
-        if (relations == null) {
+        List<Relation> relationList = relationRepository.findByMember(requestMember).orElse(null);
+        if (relationList == null) {
             return null;
         }
 
+        boolean isManager = requestMember.isManager();
+
         List<RelationDto> relationDtoList = new ArrayList<>();
-
-        for (Relation relation : relations) {
+        for (Relation relation : relationList) {
             RelationDto relationDto = new RelationDto();
+            Member member = isManager ? relation.getClient() : relation.getManager();
 
-            Member member = requester.getUserType() == 0 ? relation.getClient() : relation.getManager();
-            if (member != null) {
-                if(member.getUserType() == 0) { // 보호자
-                    relationDto.setClientName(member.getName());
-                    relationDto.setClientUuid(member.getUuid());
-                }
-
-                else if(member.getUserType() == 1) { // 피보호자
-                    relationDto.setManagerName(member.getName());
-                    relationDto.setManagerUuid(member.getUuid());
-                }
-            }
+            relationDto.setMemberName(member.getName());
+            relationDto.setMemberPhone(member.getPhone());
+            relationDto.setMemberSsn(member.getSsn());
 
             relationDtoList.add(relationDto);
         }

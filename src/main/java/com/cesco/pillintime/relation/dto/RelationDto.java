@@ -7,9 +7,10 @@ public class RelationDto {
 
     private Long id;
 
-    private String managerName;
-    private String managerUuid;
+    private String memberName;
+    private String memberSsn;
+    private String memberPhone;
+    private Long caseId;
+    private boolean isManager;
 
-    private String clientName;
-    private String clientUuid;
 }

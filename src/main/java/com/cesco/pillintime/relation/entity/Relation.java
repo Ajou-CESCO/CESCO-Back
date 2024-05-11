@@ -15,11 +15,11 @@ public class Relation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name="Manager")
+    @JoinColumn()
     @ManyToOne
     private Member manager;
 
-    @JoinColumn(name="Client")
+    @JoinColumn()
     @ManyToOne
     private Member client;
 

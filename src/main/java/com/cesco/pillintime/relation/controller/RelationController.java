@@ -1,7 +1,7 @@
-package com.cesco.pillintime.health.controller;
+package com.cesco.pillintime.relation.controller;
 
-import com.cesco.pillintime.relation.dto.RelationDto;
 import com.cesco.pillintime.dto.ResponseDto;
+import com.cesco.pillintime.relation.dto.RelationDto;
 import com.cesco.pillintime.relation.service.RelationService;
 import com.cesco.pillintime.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;

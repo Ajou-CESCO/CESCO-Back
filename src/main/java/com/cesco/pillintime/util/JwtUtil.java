@@ -34,8 +34,7 @@ public class JwtUtil {
 
     private String createToken(MemberDto member, long expireTime) {
         Claims claims = Jwts.claims();
-        claims.put("uuid", member.getUuid());
-        claims.put("role", member.getUserType());
+        claims.put("id", member.getId());
 
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime tokenValidity = now.plusSeconds(expireTime);
