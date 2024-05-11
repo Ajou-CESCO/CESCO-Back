@@ -1,9 +1,9 @@
 package com.cesco.pillintime.security;
 
-import com.cesco.pillintime.dto.MemberDto;
-import com.cesco.pillintime.entity.Member;
-import com.cesco.pillintime.mapper.MemberMapper;
-import com.cesco.pillintime.repository.MemberRepository;
+import com.cesco.pillintime.member.dto.MemberDto;
+import com.cesco.pillintime.member.entity.Member;
+import com.cesco.pillintime.member.mapper.MemberMapper;
+import com.cesco.pillintime.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,6 +1,6 @@
 package com.cesco.pillintime.util;
 
-import com.cesco.pillintime.dto.MemberDto;
+import com.cesco.pillintime.member.dto.MemberDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
