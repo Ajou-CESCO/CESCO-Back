@@ -31,23 +31,15 @@ public class RequestService {
     }
 
     public List<Request> getRelatedRequest() {
-        Long id = SecurityUtil.getCurrentMemberId();
+        Member member = SecurityUtil.getCurrentMember()
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new CustomException((ErrorCode.NOT_FOUND_USER)));
-
-        if (member.getUserType() == 0) {    // manager
-            return requestRepository.findBySenderId(id)
-                    .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_USER));
-        } else {
-            String phone = SecurityUtil.getCurrentMemberPhone();
-            return requestRepository.findByReceiverPhone(phone)
-                    .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_USER));
-        }
+        String phone = SecurityUtil.getCurrentMemberPhone();
+        return requestRepository.findByReceiverPhone(phone)
+                .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_USER));
     }
 
-    public void deleteRequest(Long id) {
+    public void deleteRequestById(Long id) {
         requestRepository.deleteById(id);
     }
-
 }
