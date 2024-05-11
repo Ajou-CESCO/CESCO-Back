@@ -24,8 +24,9 @@ public class AuthService {
     public String login(LoginDto loginDto) {
         String name = loginDto.getName();
         String phone = loginDto.getPhone();
+        String ssn = loginDto.getSsn();
 
-        Member member = memberRepository.findByNameAndPhone(name, phone)
+        Member member = memberRepository.findByNameAndPhoneAndSsn(name, phone, ssn)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         MemberDto memberDto = MemberMapper.INSTANCE.toDto(member);

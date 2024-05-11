@@ -78,33 +78,28 @@ public class MemberService {
         String name = memberDto.getName();
         String phone = memberDto.getPhone();
 
+        Member targetMember = null;
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         if (targetId == null) {
-            requestMember.setSsn(ssn);
-            requestMember.setName(name);
-            requestMember.setPhone(phone);
-
-            memberRepository.save(requestMember);
-            return MemberMapper.INSTANCE.toDto(requestMember);
+            targetMember = requestMember;
         } else {
-            Member targetMember = memberRepository.findById(targetId)
+            targetMember = memberRepository.findById(targetId)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-            if (checkPermission(requestMember, targetMember)) {
-                targetMember.setSsn(ssn);
-                targetMember.setName(name);
-                targetMember.setPhone(phone);
-
-                memberRepository.save(targetMember);
-                return MemberMapper.INSTANCE.toDto(targetMember);
-            }
+            checkPermission(requestMember, targetMember);
         }
+
+        targetMember.setSsn(ssn);
+        targetMember.setName(name);
+        targetMember.setPhone(phone);
+
+        memberRepository.save(targetMember);
+        return MemberMapper.INSTANCE.toDto(targetMember);
     }
 
     public void deleteUser(){
-
         Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
