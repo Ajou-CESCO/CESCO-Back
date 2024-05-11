@@ -10,7 +10,7 @@ public interface HealthMapper {
 
     HealthMapper INSTANCE = Mappers.getMapper(HealthMapper.class);
 
-    Health toEntity(HealthDto healthDto);
+//    Health toEntity(HealthDto healthDto);
 
     HealthDto toDto(Health health);
 }

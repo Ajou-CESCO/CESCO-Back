@@ -15,5 +15,4 @@ public class HealthDto {
 
     private Time sleepTime;
 
-    private int date;
 }
