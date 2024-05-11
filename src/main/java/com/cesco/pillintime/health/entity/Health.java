@@ -26,8 +26,9 @@ public class Health {
     @Column
     private Time sleepTime;
 
-    @JoinColumn(name="memberId")
     @OneToOne
+    @MapsId
+    @JoinColumn(name="memberId")
     private Member member;
 
     public Health(Integer steps, double cal, Time sleepTime, Member member) {
