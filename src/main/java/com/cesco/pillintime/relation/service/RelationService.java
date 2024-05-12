@@ -59,10 +59,11 @@ public class RelationService {
             Member member = isManager ? relation.getClient() : relation.getManager();
 
             relationDto.setId(relation.getId());
+            relationDto.setMemberId(member.getId());
             relationDto.setMemberName(member.getName());
             relationDto.setMemberPhone(member.getPhone());
             relationDto.setMemberSsn(member.getSsn());
-            relationDto.setCabinetId(member.getCabinet().getId());
+            relationDto.setCabinetId(member.getCabinet() != null ? member.getCabinet().getId() : 0);
 
             relationDtoList.add(relationDto);
         }

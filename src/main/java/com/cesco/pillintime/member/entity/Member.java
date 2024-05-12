@@ -12,7 +12,6 @@ public class Member {
 
     @Id
     @Column
-    @JoinColumn(name="memberId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -34,7 +33,6 @@ public class Member {
     @Column
     private boolean isSubscriber = false;
 
-    @JoinColumn
     @OneToOne
     private Cabinet cabinet = null;
 
