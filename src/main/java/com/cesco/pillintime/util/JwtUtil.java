@@ -1,5 +1,7 @@
 package com.cesco.pillintime.util;
 
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.member.entity.Member;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -52,16 +54,14 @@ public class JwtUtil {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            System.out.println("Exception");
+            throw new CustomException(ErrorCode.TOKEN_IS_INVALID);
         } catch (ExpiredJwtException e) {
-            System.out.println("Token is expired");
+            throw new CustomException(ErrorCode.TOKEN_IS_EXPIRED);
         } catch (UnsupportedJwtException e) {
-            System.out.println("Invalid Jwt Token");
+            throw new CustomException(ErrorCode.TOKEN_IS_INVALID);
         } catch (IllegalArgumentException e) {
-            System.out.println("JWT must required");
+            throw new CustomException(ErrorCode.TOKEN_IS_EMPTY);
         }
-
-        return false;
     }
 
     public Claims parseClaims(String accessToken) {

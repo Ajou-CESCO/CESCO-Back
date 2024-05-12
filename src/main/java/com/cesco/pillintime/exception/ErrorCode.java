@@ -10,6 +10,13 @@ public enum ErrorCode {
 
     // 400 Bad Request
     ALREADY_EXISTS_PHONE(HttpStatus.BAD_REQUEST, 40001, "Already exists phone"),
+    ALREADY_EXISTS_SSN(HttpStatus.BAD_REQUEST, 40002, "Already exists ssn"),
+
+    // 401 Unauthorized
+    TOKEN_IS_INVALID(HttpStatus.UNAUTHORIZED, 40101, "Token is invalid"),
+    TOKEN_IS_EXPIRED(HttpStatus.UNAUTHORIZED, 40102, "Token is expired"),
+    TOKEN_IS_EMPTY(HttpStatus.UNAUTHORIZED, 40103, "Token is empty"),
+    TOKEN_IS_WRONG(HttpStatus.UNAUTHORIZED, 40104, "Token is wrong"),
 
     // 403 Forbidden
     INVALID_USER_ACCESS(HttpStatus.FORBIDDEN, 40301, "Invalid user access"),

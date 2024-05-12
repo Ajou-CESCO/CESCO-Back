@@ -38,12 +38,18 @@ public class SecurityConfig {
 
         http.addFilterBefore(new JwtAuthFilter(customUserDetailsService, jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
+        http.exceptionHandling((exceptionHandling) ->
+                exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+        );
+
         http.authorizeHttpRequests((authorizeRequests) ->
                 authorizeRequests
                         .requestMatchers("/api/auth", "/api/cabinet/sensor").permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/user", HttpMethod.POST.name())).permitAll()
                         .anyRequest().authenticated()
         );
+
+
 
         return http.build();
     }

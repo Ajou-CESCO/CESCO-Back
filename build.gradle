@@ -50,6 +50,6 @@ dependencies {
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
 }
 
-//tasks.named('test') {
+//tasks.named('test') {w
 //    useJUnitPlatform()
 //}
