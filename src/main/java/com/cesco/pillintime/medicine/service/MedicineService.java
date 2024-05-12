@@ -3,25 +3,22 @@ package com.cesco.pillintime.medicine.service;
 import com.cesco.pillintime.medicine.dto.MedicineDto;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,52 +35,72 @@ public class MedicineService {
             StringBuilder result = new StringBuilder();
 
             String encodedName = URLEncoder.encode(name, "UTF-8");
-            String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemName=" + encodedName;
+            String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemName=" + encodedName + "&type=json";
 
-            URL url = new URL(apiUrl);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
-
-            String returnLine;
-            while((returnLine = bufferedReader.readLine()) != null) {
-                result.append(returnLine).append("\n");
-            }
-
-            urlConnection.disconnect();
-
-            return parseXmlResponse(result.toString());
+            return getMedicineDtoList(result, apiUrl);
         } catch (Exception e) {
-            System.out.print(e);
             throw new CustomException(ErrorCode.EXTERNAL_API_ERROR);
         }
     }
 
-    private List<MedicineDto> parseXmlResponse(String xmlResponse) throws Exception {
-        System.out.println(xmlResponse);
+    public Optional<List<MedicineDto>> getMedicineByMedicineId(Long medicineId) {
+        try {
+            StringBuilder result = new StringBuilder();
 
+            String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemSeq=" + medicineId + "&type=json";
+
+            return Optional.of(getMedicineDtoList(result, apiUrl));
+        } catch (Exception e) {
+            throw new CustomException(ErrorCode.EXTERNAL_API_ERROR);
+        }
+    }
+
+    // ===========================================================================
+
+    private List<MedicineDto> getMedicineDtoList(StringBuilder result, String apiUrl) throws IOException {
+        URL url = new URL(apiUrl);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("GET");
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            result.append(line);
+        }
+
+        urlConnection.disconnect();
+
+        return parseJsonResponse(result.toString());
+    }
+
+    public static List<MedicineDto> parseJsonResponse(String jsonResponse) throws JsonProcessingException {
         List<MedicineDto> medicineDtoList = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        InputSource inputSource = new InputSource(new StringReader(xmlResponse));
-        Document document = builder.parse(inputSource);
+        JsonNode jsonNode = objectMapper.readTree(jsonResponse);
+        JsonNode bodyNode = jsonNode.get("body");
 
-        NodeList itemNodes = document.getElementsByTagName("item");
-        for (int i = 0; i < itemNodes.getLength(); i++) {
-            Element itemElement = (Element) itemNodes.item(i);
+        JsonNode itemsArray = bodyNode.get("items");
+        for (JsonNode item : itemsArray) {
             MedicineDto medicineDto = new MedicineDto();
 
-            medicineDto.setCompanyName(getTagValue(itemElement, "entpName"));
-            medicineDto.setMedicineName(getTagValue(itemElement, "itemName"));
-            medicineDto.setMedicineCode(getTagValue(itemElement, "itemSeq"));
-            medicineDto.setMedicineImage(getTagValue(itemElement, "itemImage"));
-            medicineDto.setMedicineEffect(getTagValue(itemElement, "efcyQesitm"));
-            medicineDto.setUseMethod(getTagValue(itemElement, "useMethodQesitm"));
-            medicineDto.setUseWarning(getTagValue(itemElement, "atpnWarnQesitm"));
-            medicineDto.setUseSideEffect(getTagValue(itemElement, "seQesitm"));
-            medicineDto.setDepositMethod(getTagValue(itemElement, "depositMethodQesitm"));
+            medicineDto.setCompanyName(removeNewLines(item.get("entpName").asText()));
+            medicineDto.setMedicineName(removeNewLines(item.get("itemName").asText()));
+            medicineDto.setMedicineCode(removeNewLines(item.get("itemSeq").asText()));
+
+            String itemImage = ("null".equals(item.get("itemImage").asText())) ? "" : removeNewLines(item.get("itemImage").asText());
+            medicineDto.setMedicineImage(itemImage);
+
+            String medicineEffect = removeNewLines(item.get("efcyQesitm").asText());
+            medicineEffect = medicineEffect.replaceAll("이 약은 ", "");
+            medicineEffect = medicineEffect.replaceAll("에 사용합니다.", "");
+            medicineDto.setMedicineEffect(medicineEffect);
+
+            medicineDto.setUseMethod(removeNewLines(item.get("useMethodQesitm").asText()));
+            medicineDto.setUseWarning(removeNewLines(item.get("atpnWarnQesitm").asText()));
+            medicineDto.setUseSideEffect(removeNewLines(item.get("seQesitm").asText()));
+            medicineDto.setDepositMethod(removeNewLines(item.get("depositMethodQesitm").asText()));
 
             medicineDtoList.add(medicineDto);
         }
@@ -91,21 +108,7 @@ public class MedicineService {
         return medicineDtoList;
     }
 
-    private String getTagValue(Element element, String tagName) {
-        NodeList nodeList = element.getElementsByTagName(tagName);
-        if (nodeList.getLength() > 0) {
-            Node node = nodeList.item(0);
-            String tagValue = node.getTextContent();
-            tagValue = tagValue.replaceAll("\\n", "");
-
-            if (tagName.equals("efcyQesitm")) {
-                tagValue = tagValue.replaceAll("이 약은 ", "");
-                tagValue = tagValue.replaceAll("에 사용합니다.", "");
-            }
-            return tagValue;
-        }
-        return null;
+    private static String removeNewLines(String text) {
+        return text.replaceAll("\n", "");
     }
-
-
 }

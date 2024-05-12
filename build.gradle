@@ -48,6 +48,9 @@ dependencies {
 
     // XML
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+
+    // JSON
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
 //tasks.named('test') {w
