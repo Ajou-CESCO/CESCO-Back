@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Security;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class HealthService {
     public void createHealth(@RequestBody HealthDto healthDto) {
         Integer steps = healthDto.getSteps();
         double cal = healthDto.getCal();
-        Time sleepTime = healthDto.getSleepTime();
+        LocalTime sleepTime = healthDto.getSleepTime();
 
         Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
