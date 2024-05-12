@@ -61,7 +61,7 @@ public class MemberService {
             Member targetMember = memberRepository.findById(targetId)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-            if (checkPermission(requestMember, targetMember)) {
+            if (SecurityUtil.checkPermission(requestMember, targetMember)) {
                 return MemberMapper.INSTANCE.toDto(targetMember);
             }
         }
@@ -91,7 +91,7 @@ public class MemberService {
             targetMember = memberRepository.findById(targetId)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-            checkPermission(requestMember, targetMember);
+            SecurityUtil.checkPermission(requestMember, targetMember);
         }
 
         targetMember.setSsn(ssn);
@@ -111,23 +111,5 @@ public class MemberService {
 
     // ============================================================================
 
-    private boolean checkPermission(Member requestMember, Member targetMember) {
-        /*
-         * 요청한 사용자가 목표로 하는 사용자에 접근 권한이 있는지 확인하기 위한 함수
-         * 생성된 연관 관계가 없을 경우 에러 반환
-         */
-
-        List<Relation> relationList = relationRepository.findByMember(requestMember)
-                .orElseThrow(() -> new CustomException(ErrorCode.INVALID_USER_ACCESS));
-
-        for (Relation relation : relationList) {
-            if ((relation.getClient().equals(targetMember))
-                    || (relation.getManager().equals(targetMember))) {
-                return true;
-            }
-        }
-
-        throw new CustomException(ErrorCode.INVALID_USER_ACCESS);
-    }
 
 }

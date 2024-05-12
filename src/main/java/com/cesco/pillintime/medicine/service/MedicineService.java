@@ -11,12 +11,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,23 +37,41 @@ public class MedicineService {
             String encodedName = URLEncoder.encode(name, "UTF-8");
             String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemName=" + encodedName + "&type=json";
 
-            URL url = new URL(apiUrl);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                result.append(line);
-            }
-
-            urlConnection.disconnect();
-
-            return parseJsonResponse(result.toString());
+            return getMedicineDtoList(result, apiUrl);
         } catch (Exception e) {
             throw new CustomException(ErrorCode.EXTERNAL_API_ERROR);
         }
+    }
+
+    public Optional<List<MedicineDto>> getMedicineByMedicineId(Long medicineId) {
+        try {
+            StringBuilder result = new StringBuilder();
+
+            String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemSeq=" + medicineId + "&type=json";
+
+            return Optional.of(getMedicineDtoList(result, apiUrl));
+        } catch (Exception e) {
+            throw new CustomException(ErrorCode.EXTERNAL_API_ERROR);
+        }
+    }
+
+    // ===========================================================================
+
+    private List<MedicineDto> getMedicineDtoList(StringBuilder result, String apiUrl) throws IOException {
+        URL url = new URL(apiUrl);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("GET");
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            result.append(line);
+        }
+
+        urlConnection.disconnect();
+
+        return parseJsonResponse(result.toString());
     }
 
     public static List<MedicineDto> parseJsonResponse(String jsonResponse) throws JsonProcessingException {
