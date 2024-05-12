@@ -40,7 +40,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests((authorizeRequests) ->
                 authorizeRequests
-                        .requestMatchers("/api/auth").permitAll()
+                        .requestMatchers("/api/auth", "/api/cabinet/sensor").permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/user", HttpMethod.POST.name())).permitAll()
                         .anyRequest().authenticated()
         );
