@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "relation")
 @NoArgsConstructor
 public class Relation {
 
@@ -15,11 +14,11 @@ public class Relation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn()
+    @JoinColumn
     @ManyToOne
     private Member manager;
 
-    @JoinColumn()
+    @JoinColumn
     @ManyToOne
     private Member client;
 

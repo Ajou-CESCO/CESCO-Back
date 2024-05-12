@@ -58,9 +58,11 @@ public class RelationService {
             RelationDto relationDto = new RelationDto();
             Member member = isManager ? relation.getClient() : relation.getManager();
 
+            relationDto.setId(relation.getId());
             relationDto.setMemberName(member.getName());
             relationDto.setMemberPhone(member.getPhone());
             relationDto.setMemberSsn(member.getSsn());
+            relationDto.setCabinetId(member.getCabinet().getId());
 
             relationDtoList.add(relationDto);
         }

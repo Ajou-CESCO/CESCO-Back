@@ -23,7 +23,7 @@ public class CabinetService {
         String serial = cabinetDto.getSerial();
         Long ownerId = cabinetDto.getOwnerId();
 
-        Member owner = null;
+        Member owner;
 
         if (ownerId == null) {
             owner = SecurityUtil.getCurrentMember()
@@ -37,7 +37,9 @@ public class CabinetService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
 
         cabinet.setOwner(owner);
+        owner.setCabinet(cabinet);
         cabinetRepository.save(cabinet);
+        memberRepository.save(owner);
     }
 
     public void getSensorData(SensorDto sensorDto) {
