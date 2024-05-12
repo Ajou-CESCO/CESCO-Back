@@ -1,5 +1,7 @@
 package com.cesco.pillintime.filter;
 
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.security.CustomUserDetailsService;
 import com.cesco.pillintime.util.JwtUtil;
 import jakarta.servlet.FilterChain;
@@ -22,23 +24,29 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authorizationHeader = request.getHeader("Authorization");
+        try {
+            String authorizationHeader = request.getHeader("Authorization");
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            String token = authorizationHeader.substring(7);
+            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+                String token = authorizationHeader.substring(7);
 
-            if (jwtUtil.validateToken(token)) {
-                String uuid = jwtUtil.getId(token);
+                if (jwtUtil.validateToken(token)) {
+                    String uuid = jwtUtil.getId(token);
 
-                UserDetails userDetails = customUserDetailsService.loadUserByUsername(uuid);
+                    UserDetails userDetails = customUserDetailsService.loadUserByUsername(uuid);
 
-                if (userDetails != null) {
-                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    if (userDetails != null) {
+                        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                    }
                 }
+            } else {
+                throw new CustomException(ErrorCode.TOKEN_IS_EMPTY);
             }
+        } catch (CustomException e) {
+            request.setAttribute("exception", e.getErrorCode());
         }
 
         filterChain.doFilter(request, response);
