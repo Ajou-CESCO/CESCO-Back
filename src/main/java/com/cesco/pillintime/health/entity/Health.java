@@ -28,7 +28,7 @@ public class Health {
     @Column
     private LocalTime sleepTime;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn
     private Member member;
 

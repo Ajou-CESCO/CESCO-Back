@@ -34,10 +34,17 @@ public class MedicineService {
         try {
             StringBuilder result = new StringBuilder();
 
+
+            if (name.isEmpty()) {
+                throw new CustomException(ErrorCode.MEDICINE_NAME_IS_EMPTY);
+            }
+
             String encodedName = URLEncoder.encode(name, "UTF-8");
             String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemName=" + encodedName + "&type=json";
 
             return getMedicineDtoList(result, apiUrl);
+        } catch (CustomException e) {
+            throw e;
         } catch (Exception e) {
             throw new CustomException(ErrorCode.EXTERNAL_API_ERROR);
         }
