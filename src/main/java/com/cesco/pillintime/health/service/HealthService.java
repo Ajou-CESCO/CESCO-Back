@@ -29,7 +29,6 @@ public class HealthService {
     private final RelationRepository relationRepository;
 
     public void createHealth(@RequestBody HealthDto healthDto) {
-
         Integer steps = healthDto.getSteps();
         double cal = healthDto.getCal();
         Time sleepTime = healthDto.getSleepTime();

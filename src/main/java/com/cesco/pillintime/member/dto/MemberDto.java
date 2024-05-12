@@ -11,6 +11,7 @@ public class MemberDto {
     private String ssn;
     private String phone;
     private Integer gender;
+    private Long cabinetId;
 
     @JsonProperty(value = "isManager")
     private boolean isManager;
@@ -18,7 +19,5 @@ public class MemberDto {
     @JsonProperty(value = "isSubscriber")
     private boolean isSubscriber;
 
-    @JsonProperty(value = "hasCase")
-    private boolean hasCase;
 
 }
