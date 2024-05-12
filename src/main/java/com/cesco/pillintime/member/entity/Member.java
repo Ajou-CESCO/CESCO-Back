@@ -1,10 +1,9 @@
 package com.cesco.pillintime.member.entity;
 
+import com.cesco.pillintime.cabinet.entity.Cabinet;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @Data
 @Entity
@@ -35,8 +34,9 @@ public class Member {
     @Column
     private boolean isSubscriber = false;
 
-    @Column
-    private boolean hasCase = false;
+    @JoinColumn
+    @OneToOne
+    private Cabinet cabinet = null;
 
     public void setSsn(String ssn) {
         this.ssn = ssn;        // 성별 확인

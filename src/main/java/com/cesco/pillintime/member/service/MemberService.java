@@ -13,9 +13,7 @@ import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.security.Security;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +40,7 @@ public class MemberService {
         Member member = new Member(name, phone, ssn, isManager);
         memberRepository.save(member);
 
-        return jwtUtil.createAccessToken(memberDto);
+        return jwtUtil.createAccessToken(member);
     }
 
     public MemberDto getUserById(Long targetId) {
@@ -78,7 +76,7 @@ public class MemberService {
         String name = memberDto.getName();
         String phone = memberDto.getPhone();
 
-        Member targetMember = null;
+        Member targetMember;
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 

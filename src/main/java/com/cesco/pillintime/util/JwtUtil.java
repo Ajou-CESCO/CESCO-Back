@@ -1,6 +1,6 @@
 package com.cesco.pillintime.util;
 
-import com.cesco.pillintime.member.dto.MemberDto;
+import com.cesco.pillintime.member.entity.Member;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -28,13 +28,13 @@ public class JwtUtil {
         this.accessTokenExpTime = accessTokenExpTime;
     }
 
-    public String createAccessToken(MemberDto member) {
+    public String createAccessToken(Member member) {
         return createToken(member, accessTokenExpTime);
     }
 
-    private String createToken(MemberDto member, long expireTime) {
+    private String createToken(Member member, long expireTime) {
         Claims claims = Jwts.claims();
-        claims.put("id", String.valueOf(member.getId()));
+        claims.put("id", member.getId().toString());
 
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime tokenValidity = now.plusSeconds(expireTime);
