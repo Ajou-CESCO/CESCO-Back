@@ -5,10 +5,15 @@ import com.cesco.pillintime.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Data
 @Entity
@@ -53,6 +58,20 @@ public class Plan {
 
         // 종료일이 null이면 "2099-12-31"로 설정
         this.endedAt = Objects.requireNonNullElseGet(endedAt, () -> LocalDate.of(2099, 12, 31));
+    }
+
+    @Override
+    public String toString() {
+        return "Plan {" +
+                "id=" + id +
+                ", member=" + member.getName() +
+                ", medicineId='" + medicineId + '\'' +
+                ", medicineName='" + medicineName + '\'' +
+                ", weekday=" + weekday +
+                ", time='" + time + '\'' +
+                ", startedAt=" + startedAt +
+                ", endedAt=" + endedAt +
+                '}';
     }
 
 }
