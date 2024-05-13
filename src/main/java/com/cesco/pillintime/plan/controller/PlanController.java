@@ -6,10 +6,9 @@ import com.cesco.pillintime.plan.service.PlanService;
 import com.cesco.pillintime.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/dose/plan")
@@ -22,5 +21,11 @@ public class PlanController {
     public ResponseEntity<ResponseDto> createPlan(@RequestBody PlanDto planDto) {
         planService.createPlan(planDto);
         return ResponseUtil.makeResponse(200, "Success create plan", null);
+    }
+
+    @GetMapping
+    public ResponseEntity<ResponseDto> getPlanByMemberId(@RequestBody PlanDto planDto) {
+        List<PlanDto> planDtoList = planService.getPlanByMemberId(planDto);
+        return ResponseUtil.makeResponse(200, "Success get dose plan", planDtoList);
     }
 }

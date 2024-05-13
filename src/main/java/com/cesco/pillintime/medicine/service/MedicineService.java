@@ -88,7 +88,7 @@ public class MedicineService {
 
         JsonNode itemsArray = bodyNode.get("items");
         if (itemsArray == null) {
-            return null;
+            return medicineDtoList;
         }
 
         for (JsonNode item : itemsArray) {
