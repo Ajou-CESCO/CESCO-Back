@@ -92,4 +92,21 @@ public class PlanService {
 
         return planDtoList;
     }
+
+    public void deletePlanById(Long planId) {
+        Member requestMember = SecurityUtil.getCurrentMember()
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        Plan plan = planRepository.findById(planId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_PLAN));
+
+        Member targetMember = plan.getMember();
+
+        if (!requestMember.equals(targetMember)) {
+            SecurityUtil.checkPermission(requestMember, targetMember);
+        }
+
+        planRepository.delete(plan);
+    }
+
 }
