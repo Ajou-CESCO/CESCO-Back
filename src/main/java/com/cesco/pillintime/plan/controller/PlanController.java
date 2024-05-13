@@ -5,6 +5,7 @@ import com.cesco.pillintime.plan.dto.PlanDto;
 import com.cesco.pillintime.plan.service.PlanService;
 import com.cesco.pillintime.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,5 +28,11 @@ public class PlanController {
     public ResponseEntity<ResponseDto> getPlanByMemberId(@RequestBody PlanDto planDto) {
         List<PlanDto> planDtoList = planService.getPlanByMemberId(planDto);
         return ResponseUtil.makeResponse(200, "Success get dose plan", planDtoList);
+    }
+
+    @DeleteMapping("/{planId}")
+    public ResponseEntity<ResponseDto> deletePlanById(@PathVariable Long planId) {
+        planService.deletePlanById(planId);
+        return ResponseUtil.makeResponse(200, "Success delete dose plan", null);
     }
 }
