@@ -34,7 +34,6 @@ public class MedicineService {
         try {
             StringBuilder result = new StringBuilder();
 
-
             if (name.isEmpty()) {
                 throw new CustomException(ErrorCode.MEDICINE_NAME_IS_EMPTY);
             }
@@ -77,7 +76,6 @@ public class MedicineService {
         }
 
         urlConnection.disconnect();
-
         return parseJsonResponse(result.toString());
     }
 
@@ -89,6 +87,10 @@ public class MedicineService {
         JsonNode bodyNode = jsonNode.get("body");
 
         JsonNode itemsArray = bodyNode.get("items");
+        if (itemsArray == null) {
+            return null;
+        }
+
         for (JsonNode item : itemsArray) {
             MedicineDto medicineDto = new MedicineDto();
 
