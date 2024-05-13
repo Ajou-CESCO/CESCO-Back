@@ -1,21 +1,19 @@
 package com.cesco.pillintime.member.service;
 
-import com.cesco.pillintime.member.dto.MemberDto;
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.relation.entity.Relation;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.member.dto.MemberDto;
+import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.mapper.MemberMapper;
 import com.cesco.pillintime.member.repository.MemberRepository;
+import com.cesco.pillintime.relation.entity.Relation;
 import com.cesco.pillintime.relation.repository.RelationRepository;
 import com.cesco.pillintime.util.JwtUtil;
 import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.security.Security;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
