@@ -20,16 +20,5 @@ public class MemberDto {
 
     @JsonProperty(value = "hasCase")
     private boolean hasCase;
-    public MemberDto(){}
 
-    public MemberDto(Long id, String name, String ssn, String phone, Integer gender, boolean isManager, boolean isSubscriber, boolean hasCase) {
-        this.id = id;
-        this.name = name;
-        this.ssn = ssn;
-        this.phone = phone;
-        this.gender = gender;
-        this.isManager = isManager;
-        this.isSubscriber = isSubscriber;
-        this.hasCase = hasCase;
-    }
 }
