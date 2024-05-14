@@ -6,6 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/health/mapper/HealthMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/health/mapper/HealthMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/mapper/MemberMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/mapper/RelationMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/mapper/RequestMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/member/mapper/MemberMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/member/mapper/MemberMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/relation/mapper/RelationMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/relation/mapper/RelationMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/request/mapper/RequestMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/request/mapper/RequestMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/service/RelationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/service/RelationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/member/service/MemberServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/member/service/MemberServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,6 +69,7 @@
       <list>
         <option value="Class" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -115,6 +124,11 @@
     "JUnit.MemberServiceTest.updateUserById_.executor": "Run",
     "JUnit.MemberServiceTest.updateUserById_Success_1L.executor": "Run",
     "JUnit.MemberServiceTest.updateUserById_Success_targetId_1L.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_NotFoundMember.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_NotFoundRequest.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_Success.executor": "Run",
+    "JUnit.RelationServiceTest.executor": "Run",
+    "JUnit.RelationServiceTest.getRelationList_Success.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -126,6 +140,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Shell Script.gradlew.executor": "Run",
     "Spring Boot.PillinTimeApplication.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "develop",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rlagk/PillinTime_Backend/build.gradle",
@@ -147,103 +163,107 @@
       <recent name="com.cesco.pillintime.service" />
       <recent name="com.cesco.pillintime.entity" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.cesco.pillintime.relation.service" />
+    </key>
   </component>
-  <component name="RunManager" selected="JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개">
-    <configuration name="MemberServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.RelationServiceTest">
+    <configuration name="RelationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.member.service.*" />
+          <option name="PATTERN" value="com.cesco.pillintime.relation.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.relation.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.relation.service.RelationServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberServiceTest,CreateUser_Success 및 그 외 8개" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <option name="TEST_OBJECT" value="pattern" />
-      <patterns>
-        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,CreateUser_Success" />
-        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,createUser_ExistPhone" />
-        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,getUserById_Success_null" />
-        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,getUserById_Success_1L" />
-        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,getUserById_NotFoundUser_null" />
-        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,getUserById_NotFoundUser_1L" />
-        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,getUserById_NotFoundRelation_1L" />
-        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,deleteUser_Success" />
-        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,deleteUser_NotFoundUser" />
-      </patterns>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MemberServiceTest.deleteUser_NotFoundUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RelationServiceTest.createRelation_NotFoundMember" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.member.service.*" />
+          <option name="PATTERN" value="com.cesco.pillintime.relation.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="deleteUser_NotFoundUser" />
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.relation.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.relation.service.RelationServiceTest" />
+      <option name="METHOD_NAME" value="createRelation_NotFoundMember" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberServiceTest.getUserById_NotFoundRelation_1L" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RelationServiceTest.createRelation_NotFoundRequest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.member.service.*" />
+          <option name="PATTERN" value="com.cesco.pillintime.relation.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="getUserById_NotFoundRelation_1L" />
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.relation.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.relation.service.RelationServiceTest" />
+      <option name="METHOD_NAME" value="createRelation_NotFoundRequest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberServiceTest.getUserById_NotFoundUser_1L" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RelationServiceTest.getRelationList_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.member.service.*" />
+          <option name="PATTERN" value="com.cesco.pillintime.relation.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="getUserById_NotFoundUser_1L" />
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.relation.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.relation.service.RelationServiceTest" />
+      <option name="METHOD_NAME" value="getRelationList_Success" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RelationServiceTest.getRelationList_Success_together" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.relation.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.relation.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.relation.service.RelationServiceTest" />
+      <option name="METHOD_NAME" value="getRelationList_Success_together" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개" />
-      <item itemvalue="JUnit.MemberServiceTest.deleteUser_NotFoundUser" />
-      <item itemvalue="JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L" />
-      <item itemvalue="JUnit.MemberServiceTest.getUserById_NotFoundUser_1L" />
-      <item itemvalue="JUnit.MemberServiceTest" />
+      <item itemvalue="JUnit.RelationServiceTest" />
+      <item itemvalue="JUnit.RelationServiceTest.createRelation_NotFoundMember" />
+      <item itemvalue="JUnit.RelationServiceTest.createRelation_NotFoundRequest" />
+      <item itemvalue="JUnit.RelationServiceTest.getRelationList_Success" />
+      <item itemvalue="JUnit.RelationServiceTest.getRelationList_Success_together" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개" />
-        <item itemvalue="JUnit.MemberServiceTest" />
-        <item itemvalue="JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L" />
-        <item itemvalue="JUnit.MemberServiceTest.getUserById_NotFoundUser_1L" />
-        <item itemvalue="JUnit.MemberServiceTest.deleteUser_NotFoundUser" />
+        <item itemvalue="JUnit.RelationServiceTest" />
+        <item itemvalue="JUnit.RelationServiceTest.getRelationList_Success_together" />
+        <item itemvalue="JUnit.RelationServiceTest.getRelationList_Success" />
+        <item itemvalue="JUnit.RelationServiceTest.createRelation_NotFoundRequest" />
+        <item itemvalue="JUnit.RelationServiceTest.createRelation_NotFoundMember" />
       </list>
     </recent_temporary>
   </component>
@@ -280,7 +300,7 @@
       <workItem from="1715563078370" duration="6960000" />
       <workItem from="1715592347107" duration="4128000" />
       <workItem from="1715597887035" duration="2745000" />
-      <workItem from="1715600770374" duration="10953000" />
+      <workItem from="1715600770374" duration="15362000" />
     </task>
     <servers />
   </component>

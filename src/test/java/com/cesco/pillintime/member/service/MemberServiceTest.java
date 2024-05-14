@@ -55,7 +55,6 @@ public class MemberServiceTest {
         relationRepository = mock(RelationRepository.class);
         memberService = new MemberService(memberRepository, relationRepository, jwtUtil);
     }
-
     @Test
     void CreateUser_Success() {
         System.out.println("CreateUser_Success");
@@ -76,7 +75,6 @@ public class MemberServiceTest {
         verify(memberRepository).findByPhone(memberDto.getPhone());
         Assertions.assertEquals(extoken, retoken);
     }
-
     @Test
     void createUser_ExistPhone() {
         System.out.println("createUser_Phone_Exception");
@@ -95,7 +93,6 @@ public class MemberServiceTest {
         Assertions.assertEquals(ErrorCode.ALREADY_EXISTS_PHONE, exception.getErrorCode());
         verify(memberRepository).findByPhone(anyString());
     }
-
     @Test
     void getUserById_Success_null() {
         // Given
@@ -107,10 +104,10 @@ public class MemberServiceTest {
         CustomUserDetails userDetails = mock(CustomUserDetails.class);
         Authentication authentication = mock(Authentication.class);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         when(authentication.getName()).thenReturn("username");
         when(authentication.getPrincipal()).thenReturn(userDetails);
         when(SecurityUtil.getCurrentMemberId()).thenReturn(1L);
+
         when(memberRepository.findById(1L)).thenReturn(Optional.ofNullable(member));
 
         // When
@@ -147,9 +144,9 @@ public class MemberServiceTest {
         verify(memberRepository, times(2)).findById(any());
     }
     @Test
-    void getUserById_NotFoundUser_null() {
+    void getUserById_NotFoundMember_null() {
         // Given
-        System.out.println("getUserById_NotFoundUser_null");
+        System.out.println("getUserById_NotFoundMember_null");
 
         CustomUserDetails userDetails = mock(CustomUserDetails.class);
         Authentication authentication = mock(Authentication.class);
@@ -167,9 +164,9 @@ public class MemberServiceTest {
         verify(memberRepository, times(1)).findById(any());
     }
     @Test
-    void getUserById_NotFoundUser_1L() {
+    void getUserById_NotFoundMember_1L() {
         // Given
-        System.out.println("getUserById_NotFoundUser_1L");
+        System.out.println("getUserById_NotFoundMember_1L");
         Member member1 = MemberMapper.INSTANCE.toEntity(createMemberDto());
         Member member2 = MemberMapper.INSTANCE.toEntity(createMemberDto());
         List<Relation> relationList = new ArrayList<>();
@@ -295,8 +292,8 @@ public class MemberServiceTest {
         verify(memberRepository, times(1)).delete(member);
     }
     @Test
-    void deleteUser_NotFoundUser() {
-        System.out.println("testDeleteUser_NotFoundUser");
+    void deleteUser_NotFoundMember() {
+        System.out.println("deleteUser_NotFoundMember");
 
         CustomUserDetails userDetails = mock(CustomUserDetails.class);
         Authentication authentication = mock(Authentication.class);
