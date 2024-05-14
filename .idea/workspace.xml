@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/dto/MemberDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/member/service/MemberServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/member/service/MemberServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +67,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JavaAutoRunManager">
+    <enabled-run-configurations>
+      <run-configuration type="JUnit" name="MemberServiceTest.getUserById_Success_1L" />
+    </enabled-run-configurations>
+  </component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
@@ -87,47 +92,55 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Gradle.Build PillinTime.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PillinTime [dependencies].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.pillintime_backend 빌드.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.CreateUser_Success.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.createUser_Phone_Exception.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.getUserById_Success.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.getUserById_Success_1L.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.getUserById_Success_null.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.updateUserById.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.updateUserById_.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.updateUserById_Success_targetId_1L.executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Shell Script.gradlew.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.PillinTimeApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rlagk/PillinTime_Backend/build.gradle&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.Build PillinTime.executor": "Run",
+    "Gradle.PillinTime [dependencies].executor": "Run",
+    "Gradle.pillintime_backend 빌드.executor": "Run",
+    "JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개.executor": "Run",
+    "JUnit.MemberServiceTest.CreateUser_Success.executor": "Run",
+    "JUnit.MemberServiceTest.createUser_Phone_Exception.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser_NotFoundUser.executor": "Run",
+    "JUnit.MemberServiceTest.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundUser_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundUser_null.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success_null.executor": "Run",
+    "JUnit.MemberServiceTest.testDeleteUser_NotFoundUser.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_Success_1L.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_Success_targetId_1L.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Shell Script.gradlew.executor": "Run",
+    "Spring Boot.PillinTimeApplication.executor": "Run",
+    "git-widget-placeholder": "develop",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/rlagk/PillinTime_Backend/build.gradle",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.cesco.pillintime.dto" />
@@ -135,7 +148,7 @@
       <recent name="com.cesco.pillintime.entity" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MemberServiceTest.getUserById_Success_1L">
+  <component name="RunManager" selected="JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개">
     <configuration name="MemberServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
@@ -151,7 +164,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberServiceTest.getUserById_Success_1L" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MemberServiceTest,CreateUser_Success 및 그 외 8개" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <option name="TEST_OBJECT" value="pattern" />
+      <patterns>
+        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,CreateUser_Success" />
+        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,createUser_ExistPhone" />
+        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,getUserById_Success_null" />
+        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,getUserById_Success_1L" />
+        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,getUserById_NotFoundUser_null" />
+        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,getUserById_NotFoundUser_1L" />
+        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,getUserById_NotFoundRelation_1L" />
+        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,deleteUser_Success" />
+        <pattern testClass="com.cesco.pillintime.member.service.MemberServiceTest,deleteUser_NotFoundUser" />
+      </patterns>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MemberServiceTest.deleteUser_NotFoundUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
@@ -161,13 +192,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
       <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="getUserById_Success_1L" />
+      <option name="METHOD_NAME" value="deleteUser_NotFoundUser" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberServiceTest.getUserById_Success_null" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MemberServiceTest.getUserById_NotFoundRelation_1L" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
@@ -177,13 +208,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
       <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="getUserById_Success_null" />
+      <option name="METHOD_NAME" value="getUserById_NotFoundRelation_1L" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberServiceTest.updateUserById_" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MemberServiceTest.getUserById_NotFoundUser_1L" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
@@ -193,42 +224,26 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
       <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="updateUserById_" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MemberServiceTest.updateUserById_Success_targetId_1L" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.member.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="updateUserById_Success_targetId_1L" />
+      <option name="METHOD_NAME" value="getUserById_NotFoundUser_1L" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.MemberServiceTest.getUserById_Success_1L" />
-      <item itemvalue="JUnit.MemberServiceTest.getUserById_Success_null" />
-      <item itemvalue="JUnit.MemberServiceTest.updateUserById_" />
-      <item itemvalue="JUnit.MemberServiceTest.updateUserById_Success_targetId_1L" />
+      <item itemvalue="JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개" />
+      <item itemvalue="JUnit.MemberServiceTest.deleteUser_NotFoundUser" />
+      <item itemvalue="JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L" />
+      <item itemvalue="JUnit.MemberServiceTest.getUserById_NotFoundUser_1L" />
       <item itemvalue="JUnit.MemberServiceTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MemberServiceTest.getUserById_Success_1L" />
-        <item itemvalue="JUnit.MemberServiceTest.getUserById_Success_null" />
-        <item itemvalue="JUnit.MemberServiceTest.updateUserById_Success_targetId_1L" />
-        <item itemvalue="JUnit.MemberServiceTest.updateUserById_" />
+        <item itemvalue="JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개" />
         <item itemvalue="JUnit.MemberServiceTest" />
+        <item itemvalue="JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L" />
+        <item itemvalue="JUnit.MemberServiceTest.getUserById_NotFoundUser_1L" />
+        <item itemvalue="JUnit.MemberServiceTest.deleteUser_NotFoundUser" />
       </list>
     </recent_temporary>
   </component>
@@ -265,7 +280,7 @@
       <workItem from="1715563078370" duration="6960000" />
       <workItem from="1715592347107" duration="4128000" />
       <workItem from="1715597887035" duration="2745000" />
-      <workItem from="1715600770374" duration="7616000" />
+      <workItem from="1715600770374" duration="10953000" />
     </task>
     <servers />
   </component>
