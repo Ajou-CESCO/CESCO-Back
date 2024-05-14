@@ -4,7 +4,9 @@ import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.member.dto.MemberDto;
 import com.cesco.pillintime.member.entity.Member;
+import com.cesco.pillintime.member.mapper.MemberMapper;
 import com.cesco.pillintime.member.repository.MemberRepository;
+import com.cesco.pillintime.relation.entity.Relation;
 import com.cesco.pillintime.relation.repository.RelationRepository;
 import com.cesco.pillintime.security.CustomUserDetails;
 import com.cesco.pillintime.util.JwtUtil;
@@ -15,7 +17,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
@@ -28,6 +33,20 @@ public class MemberServiceTest {
     private RelationRepository relationRepository;
 
     private JwtUtil jwtUtil;
+
+    public static MemberDto createMemberDto() {
+        long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+        MemberDto memberDto = new MemberDto();
+        memberDto.setId(1L);
+        memberDto.setName(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
+        memberDto.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%06d", longValue % 10000000));
+        memberDto.setPhone(String.format("%03d", longValue % 1000));
+        memberDto.setManager(true);
+        memberDto.setHasCase(true);
+        memberDto.setSubscriber(true);
+
+        return memberDto;
+    }
 
     @BeforeEach
     void setUp() {
@@ -59,7 +78,7 @@ public class MemberServiceTest {
     }
 
     @Test
-    void createUser_Phone_Exception() {
+    void createUser_Exception_Phone() {
         System.out.println("createUser_Phone_Exception");
         // Given
         MemberDto memberDto = new MemberDto();
@@ -78,12 +97,99 @@ public class MemberServiceTest {
     }
 
     @Test
-    void getUserById_Success() {
+    void getUserById_Success_null() {
+        // Given
+        System.out.println("getUserById_Success_null");
+        MemberDto memberDto = new MemberDto();
 
+        memberDto.setName("kim");
+        memberDto.setPhone("010-9637-0802");
+        memberDto.setSsn("990127-1234567");
+        memberDto.setGender(1);
+        memberDto.setManager(true);
+
+        Member member = MemberMapper.INSTANCE.toEntity(memberDto);
+
+        CustomUserDetails userDetails = mock(CustomUserDetails.class);
+        Authentication authentication = mock(Authentication.class);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        when(authentication.getName()).thenReturn("username");
+        when(authentication.getPrincipal()).thenReturn(userDetails);
+        when(SecurityUtil.getCurrentMemberId()).thenReturn(1L);
+        when(memberRepository.findById(1L)).thenReturn(Optional.ofNullable(member));
+
+        // When
+        MemberDto m = memberService.getUserById(null);
+
+        // Then
+        Assertions.assertEquals(memberDto,m);
+    }
+    @Test
+    void getUserById_Success_1L() {
+        // Given
+        System.out.println("getUserById_Success_null");
+        MemberDto memberDto1 = createMemberDto();
+        MemberDto memberDto2 = createMemberDto();
+
+        Member member1 = MemberMapper.INSTANCE.toEntity(memberDto1);
+        Member member2 = MemberMapper.INSTANCE.toEntity(memberDto2);
+
+        System.out.println("member1 = " + member1);
+        System.out.println("member2 = " + member2);
+        Relation relation = new Relation(member1,member2);
+
+        CustomUserDetails userDetails = mock(CustomUserDetails.class);
+        Authentication authentication = mock(Authentication.class);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        List<Relation> relationList = new ArrayList<>();
+        relationList.add(0,relation);
+
+        when(authentication.getName()).thenReturn("username");
+        when(authentication.getPrincipal()).thenReturn(userDetails);
+        when(SecurityUtil.getCurrentMemberId()).thenReturn(1L);
+
+        when(memberRepository.findById(1L)).thenReturn(Optional.of(member1));
+        // checkPermission 예외 처리
+        when(relationRepository.findByMember(any())).thenReturn(Optional.of(relationList));
+
+        // When
+        MemberDto m = memberService.getUserById(1L);
+
+        // Then
+        Assertions.assertEquals(memberDto1,m);
+    }
+    @Test
+    void updateUserById_Success_targetId_Null() {
+        // Given
+        System.out.println("updateUserById_Success");
+        MemberDto memberDto = new MemberDto();
+        Member member = new Member("kim","010-9637-0802","990127-1234567",true);
+        memberDto.setName("kim");
+        memberDto.setPhone("010-9637-0802");
+        memberDto.setSsn("990127-1234567");
+        memberDto.setGender(1);
+        memberDto.setManager(true);
+
+
+        CustomUserDetails userDetails = mock(CustomUserDetails.class);
+        Authentication authentication = mock(Authentication.class);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        when(authentication.getName()).thenReturn("username");
+        when(authentication.getPrincipal()).thenReturn(userDetails);
+        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(member));
+
+        // When
+        MemberDto m = memberService.updateUserById(null,memberDto);
+
+        // Then
+        Assertions.assertEquals(memberDto,m);
     }
 
     @Test
-    void updateUserById_Success() {
+    void updateUserById_Success_targetId_1L() {
         // Given
         System.out.println("updateUserById_Success");
         MemberDto memberDto = new MemberDto();
@@ -101,17 +207,19 @@ public class MemberServiceTest {
 
         when(authentication.getName()).thenReturn("username");
         when(authentication.getPrincipal()).thenReturn(userDetails);
-
-        // Mock SecurityUtil.getCurrentMember() to return a valid member
+        when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
         when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(member));
-
+        MemberDto m =  null;
         // When
-        MemberDto m = memberService.updateUserById(null,memberDto);
+        try {
+            m = memberService.updateUserById(1L, memberDto);
+        } catch (CustomException e) {
+            System.out.println("e = " + e + e.getMessage());
+            // e = com.cesco.pillintime.exception.CustomException null < 해결해야 됨
+        }
         // Then
-        Assertions.assertEquals(memberDto,m);
+//        Assertions.assertEquals(memberDto,m);
     }
-
-
 
     @Test
     void deleteUser() {

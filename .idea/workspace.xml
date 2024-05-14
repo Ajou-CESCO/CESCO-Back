@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c9be9431-2c10-4930-99ac-3b7b20289d34.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c9be9431-2c10-4930-99ac-3b7b20289d34.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/dto/MemberDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/service/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/service/RelationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/service/RelationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/member/service/MemberServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/member/service/MemberServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +99,11 @@
     &quot;JUnit.MemberServiceTest.createUser_Phone_Exception.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.MemberServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.MemberServiceTest.getUserById_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.getUserById_Success_1L.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.getUserById_Success_null.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.MemberServiceTest.updateUserById.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.updateUserById_.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.updateUserById_Success_targetId_1L.executor&quot;: &quot;Run&quot;,
     &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
     &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
     &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
@@ -144,7 +137,7 @@
       <recent name="com.cesco.pillintime.entity" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MemberServiceTest">
+  <component name="RunManager" selected="JUnit.MemberServiceTest.getUserById_Success_1L">
     <configuration name="MemberServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
@@ -160,7 +153,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberServiceTest.CreateUser_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MemberServiceTest.getUserById_Success_1L" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
@@ -170,13 +163,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
       <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="CreateUser_Success" />
+      <option name="METHOD_NAME" value="getUserById_Success_1L" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberServiceTest.createUser_Phone_Exception" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MemberServiceTest.getUserById_Success_null" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
@@ -186,13 +179,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
       <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="createUser_Phone_Exception" />
+      <option name="METHOD_NAME" value="getUserById_Success_null" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberServiceTest.getUserById_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MemberServiceTest.updateUserById_" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
@@ -202,13 +195,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
       <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="getUserById_Success" />
+      <option name="METHOD_NAME" value="updateUserById_" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberServiceTest.updateUserById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MemberServiceTest.updateUserById_Success_targetId_1L" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
@@ -218,26 +211,26 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cesco.pillintime.member.service" />
       <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.member.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="updateUserById" />
+      <option name="METHOD_NAME" value="updateUserById_Success_targetId_1L" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.MemberServiceTest.getUserById_Success_1L" />
+      <item itemvalue="JUnit.MemberServiceTest.getUserById_Success_null" />
+      <item itemvalue="JUnit.MemberServiceTest.updateUserById_" />
+      <item itemvalue="JUnit.MemberServiceTest.updateUserById_Success_targetId_1L" />
       <item itemvalue="JUnit.MemberServiceTest" />
-      <item itemvalue="JUnit.MemberServiceTest.CreateUser_Success" />
-      <item itemvalue="JUnit.MemberServiceTest.createUser_Phone_Exception" />
-      <item itemvalue="JUnit.MemberServiceTest.getUserById_Success" />
-      <item itemvalue="JUnit.MemberServiceTest.updateUserById" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MemberServiceTest.getUserById_Success_1L" />
+        <item itemvalue="JUnit.MemberServiceTest.getUserById_Success_null" />
+        <item itemvalue="JUnit.MemberServiceTest.updateUserById_Success_targetId_1L" />
+        <item itemvalue="JUnit.MemberServiceTest.updateUserById_" />
         <item itemvalue="JUnit.MemberServiceTest" />
-        <item itemvalue="JUnit.MemberServiceTest.updateUserById" />
-        <item itemvalue="JUnit.MemberServiceTest.CreateUser_Success" />
-        <item itemvalue="JUnit.MemberServiceTest.getUserById_Success" />
-        <item itemvalue="JUnit.MemberServiceTest.createUser_Phone_Exception" />
       </list>
     </recent_temporary>
   </component>
@@ -272,7 +265,9 @@
       <workItem from="1715063065095" duration="2000000" />
       <workItem from="1715245863746" duration="1362000" />
       <workItem from="1715563078370" duration="6960000" />
-      <workItem from="1715592347107" duration="3689000" />
+      <workItem from="1715592347107" duration="4128000" />
+      <workItem from="1715597887035" duration="2745000" />
+      <workItem from="1715600770374" duration="7078000" />
     </task>
     <servers />
   </component>
