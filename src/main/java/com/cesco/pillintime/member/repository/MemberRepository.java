@@ -1,5 +1,6 @@
 package com.cesco.pillintime.member.repository;
 
+import com.cesco.pillintime.cabinet.entity.Cabinet;
 import com.cesco.pillintime.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -16,5 +17,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByNameAndPhone(String name, String phone);
 
     Optional<Member> findByNameAndPhoneAndSsn(String name, String phone, String ssn); // 동일한 유저가 있으면 true, 없으면 false
+
+    Optional<Member> findByCabinet(Cabinet cabinet);
 
 }

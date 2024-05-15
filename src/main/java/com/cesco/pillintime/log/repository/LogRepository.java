@@ -17,6 +17,8 @@ public interface LogRepository extends JpaRepository<Log, Long> {
     @Query("SELECT r FROM Log r WHERE r.member= :member")
     Optional<List<Log>> findByMember(Member member);
 
+    Optional<Log> findByMemberAndPlannedAt(Member member, LocalDate today);
+
     boolean existsByMemberAndPlanAndPlannedAt(Member member, Plan plan, LocalDate plannedAt);
 
 }

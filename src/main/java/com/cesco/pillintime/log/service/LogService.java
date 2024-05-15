@@ -39,12 +39,12 @@ public class LogService {
         planRepository.findActivePlan(today).ifPresent(planList -> {
             for (Plan plan : planList) {
                 LocalDate plannedAt = calculateNextPlannedDate(today, plan.getWeekday());
-                LocalDate endedAt = plan.getEndedAt();
+                LocalDate endAt = plan.getEndAt();
 
                 // 해당 날짜 및 Plan 에 대한 Log 가 없을 경우에만 생성
                 // 계산된 plannedAt이 계획의 종료일보다 작거나 같을 경우에만 생성
                 boolean logExists = logRepository.existsByMemberAndPlanAndPlannedAt(plan.getMember(), plan, plannedAt);
-                if (!logExists && plannedAt.isBefore(endedAt) || plannedAt.isEqual(endedAt)) {
+                if (!logExists && plannedAt.isBefore(endAt) || plannedAt.isEqual(endAt)) {
                     Log log = new Log();
                     log.setMember(plan.getMember());
                     log.setPlan(plan);

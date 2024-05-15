@@ -5,16 +5,11 @@ import com.cesco.pillintime.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Data
 @Entity
@@ -42,12 +37,12 @@ public class Plan {
     private LocalTime time;
 
     @Column
-    private LocalDate startedAt;
+    private LocalDate startAt;
 
     @Column
-    private LocalDate endedAt;
+    private LocalDate endAt;
 
-    public Plan(Member member, MedicineDto medicineDto, Integer weekday, LocalTime time, LocalDate startedAt, LocalDate endedAt) {
+    public Plan(Member member, MedicineDto medicineDto, Integer weekday, LocalTime time, LocalDate startAt, LocalDate endAt) {
         this.member = member;
         this.medicineId = medicineDto.getMedicineCode();
         this.medicineName = medicineDto.getMedicineName();
@@ -55,10 +50,10 @@ public class Plan {
         this.time = time;
 
         // 시작일이 null이면 오늘 날짜로 설정
-        this.startedAt = Objects.requireNonNullElseGet(startedAt, LocalDate::now);
+        this.startAt = Objects.requireNonNullElseGet(startAt, LocalDate::now);
 
         // 종료일이 null이면 "2099-12-31"로 설정
-        this.endedAt = Objects.requireNonNullElseGet(endedAt, () -> LocalDate.of(2099, 12, 31));
+        this.endAt = Objects.requireNonNullElseGet(endAt, () -> LocalDate.of(2099, 12, 31));
     }
 
     @Override
@@ -70,8 +65,8 @@ public class Plan {
                 ", medicineName='" + medicineName + '\'' +
                 ", weekday=" + weekday +
                 ", time='" + time + '\'' +
-                ", startedAt=" + startedAt +
-                ", endedAt=" + endedAt +
+                ", startAt=" + startAt +
+                ", endAt=" + endAt +
                 '}';
     }
 

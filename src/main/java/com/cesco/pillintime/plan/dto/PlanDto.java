@@ -17,7 +17,7 @@ public class PlanDto {
     private Integer weekday;
     private List<LocalTime> timeList;
     private LocalTime time;
-    private LocalDate startedAt;
-    private LocalDate endedAt;
+    private LocalDate startAt;
+    private LocalDate endAt;
 
 }
