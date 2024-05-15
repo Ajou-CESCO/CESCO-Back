@@ -13,9 +13,11 @@ import com.cesco.pillintime.cabinet.repository.CabinetRepository;
 import com.cesco.pillintime.member.repository.MemberRepository;
 import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -52,19 +54,21 @@ public class CabinetService {
         String serial = sensorDto.getSerial();
         int sensorIndex = sensorDto.getIndex();
 
-        // Cabinet 및 Member 정보 가져오기
+        // Cabinet 정보 가져오기
         Cabinet cabinet = cabinetRepository.findBySerial(serial)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
-        Member owner = memberRepository.findByCabinet(cabinet)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_OWNER));
 
-        // 오늘의 로그 찾기
-        LocalDate today = LocalDate.now();
-        Log todayLog = logRepository.findByMemberAndPlannedAt(owner, today)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_LOG));
+        Optional<Member> owner = memberRepository.findByCabinet(cabinet);
+        owner.ifPresent(member -> {
+            // 오늘의 날짜 구하기
+            LocalDate today = LocalDate.now();
 
-        // 로그 상태 업데이트
-        todayLog.setTakenStatus(TakenStatus.COMPLETED);
-        logRepository.save(todayLog);
+            // 오늘의 로그 조회 및 업데이트
+            Optional<Log> todayLog = logRepository.findByMemberAndPlannedAt(member, today);
+            todayLog.ifPresent(log -> {
+                log.setTakenStatus(TakenStatus.COMPLETED);
+                logRepository.save(log);
+            });
+        });
     }
 }
