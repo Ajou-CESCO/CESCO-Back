@@ -1,15 +1,22 @@
 package com.cesco.pillintime.request.service;
 
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.member.repository.MemberRepository;
-import com.cesco.pillintime.request.dto.RequestDto;
+import com.cesco.pillintime.request.entity.Request;
+import com.cesco.pillintime.request.mapper.RequestMapper;
 import com.cesco.pillintime.request.repository.RequestRepository;
 import com.cesco.pillintime.security.CustomUserDetails;
 import com.cesco.pillintime.util.SecurityUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -18,17 +25,15 @@ import static org.mockito.Mockito.*;
 class RequestServiceTest {
 
     private RequestRepository requestRepository;
-    private MemberRepository memberRepository;
     private RequestService requestService;
-
-    public static RequestDto createRequestDto() {
+    private MemberRepository memberRepository;
+    public static Request createRequestDto() {
         long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-        RequestDto requestDto = new RequestDto();
-        requestDto.setSenderId(1L);
-        requestDto.setReceiverPhone("010"+"-"+String.format("%04d", longValue % 10000)+"-"+String.format("%04d", longValue*7 % 10000));
-        return requestDto;
+        Request request = new Request();
+        request.setSenderId(1L);
+        request.setReceiverPhone("010"+"-"+String.format("%04d", longValue % 10000)+"-"+String.format("%04d", longValue*7 % 10000));
+        return request;
     }
-
 
     @BeforeEach
     void init() {
@@ -39,7 +44,7 @@ class RequestServiceTest {
     @Test
     void createRequest_Success() {
         // Given
-        RequestDto requestDto = createRequestDto();
+        Request request = createRequestDto();
 
         // SecurityUtil.getCurrentMember..정상 동작 코드
         Authentication authentication = mock(Authentication.class);
@@ -49,19 +54,65 @@ class RequestServiceTest {
         when(SecurityUtil.getCurrentMemberId()).thenReturn(1L);
 
         // When
-        requestService.createRequest(requestDto);
+        requestService.createRequest(RequestMapper.INSTANCE.toDto(request));
 
         // Then
         verify(requestRepository,times(1)).save(any());
     }
 
     @Test
-    void getRelatedRequest() {
+    void getRelatedRequest_Success() {
+        // Given
+        Request request = createRequestDto();
+        List<Request> requestList = new ArrayList<>();
+        requestList.add(request);
+        when(requestRepository.findByReceiverPhone(any())).thenReturn(Optional.of(requestList));
 
+        // SecurityUtil.getCurrentMember..정상 동작 코드
+        Authentication authentication = mock(Authentication.class);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        when(authentication.getName()).thenReturn("username");
+        when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
+        when(SecurityUtil.getCurrentMemberPhone()).thenReturn(request.getReceiverPhone());
+
+        // When
+        List<Request> returnRequest = requestService.getRelatedRequest();
+
+        // Then
+        Assertions.assertEquals(requestList,returnRequest);
+        verify(requestRepository,times(1)).findByReceiverPhone(any());
+    }
+
+    @Test
+    void getRelatedRequest_NotFoundPhone() {
+        // Given
+        Request request = createRequestDto();
+        List<Request> requestList = new ArrayList<>();
+        requestList.add(request);
+        when(requestRepository.findByReceiverPhone(any())).thenReturn(Optional.empty());
+
+        // SecurityUtil.getCurrentMember..정상 동작 코드
+        Authentication authentication = mock(Authentication.class);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        when(authentication.getName()).thenReturn("username");
+        when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
+        when(SecurityUtil.getCurrentMemberPhone()).thenReturn(request.getReceiverPhone());
+
+        // When
+        CustomException exception = Assertions.assertThrows(CustomException.class,
+                () -> requestService.getRelatedRequest());
+
+        // Then
+        Assertions.assertEquals(ErrorCode.ALREADY_EXISTS_PHONE,exception.getErrorCode());
+        verify(requestRepository,times(1)).findByReceiverPhone(any());
     }
 
     @Test
     void deleteRequestById() {
-
+        // Given
+        // When
+        requestService.deleteRequestById(1L);
+        // Then
+        verify(requestRepository,times(1)).deleteById(any());
     }
 }

@@ -138,7 +138,7 @@ public class MemberServiceTest {
         when(relationRepository.findByMember(any())).thenReturn(Optional.of(relationList));
 
         // When
-        MemberDto m = memberService.getUserById(1L);
+        memberService.getUserById(1L);
 
         // Then
         verify(memberRepository, times(2)).findById(any());

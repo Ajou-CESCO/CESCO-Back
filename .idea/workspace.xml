@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/request/service/RequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/request/service/RequestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/relation/service/RelationServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/relation/service/RelationServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/member/service/MemberServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/member/service/MemberServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/request/service/RequestServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/request/service/RequestServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +119,10 @@
     "JUnit.RelationServiceTest.getRelationList_Success.executor": "Run",
     "JUnit.RelationServiceTest.getRelationList_Success_together.executor": "Run",
     "JUnit.RequestServiceTest.createRequest_Success.executor": "Run",
+    "JUnit.RequestServiceTest.deleteRequestById.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest_Success.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -161,70 +165,7 @@
       <recent name="com.cesco.pillintime.relation.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RequestServiceTest.createRequest_Success">
-    <configuration name="RelationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.relation.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.relation.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.relation.service.RelationServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RelationServiceTest.createRelation_NotFoundRequest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.relation.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.relation.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.relation.service.RelationServiceTest" />
-      <option name="METHOD_NAME" value="createRelation_NotFoundRequest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RelationServiceTest.getRelationList_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.relation.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.relation.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.relation.service.RelationServiceTest" />
-      <option name="METHOD_NAME" value="getRelationList_Success" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RelationServiceTest.getRelationList_Success_together" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.relation.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.relation.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.relation.service.RelationServiceTest" />
-      <option name="METHOD_NAME" value="getRelationList_Success_together" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.RequestServiceTest.deleteRequestById">
     <configuration name="RequestServiceTest.createRequest_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
@@ -241,20 +182,84 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RequestServiceTest.deleteRequestById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.request.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.request.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.request.service.RequestServiceTest" />
+      <option name="METHOD_NAME" value="deleteRequestById" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RequestServiceTest.getRelatedRequest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.request.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.request.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.request.service.RequestServiceTest" />
+      <option name="METHOD_NAME" value="getRelatedRequest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RequestServiceTest.getRelatedRequest_NotFoundPhone" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.request.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.request.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.request.service.RequestServiceTest" />
+      <option name="METHOD_NAME" value="getRelatedRequest_NotFoundPhone" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RequestServiceTest.getRelatedRequest_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.request.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.request.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.request.service.RequestServiceTest" />
+      <option name="METHOD_NAME" value="getRelatedRequest_Success" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="JUnit.RequestServiceTest.createRequest_Success" />
-      <item itemvalue="JUnit.RelationServiceTest" />
-      <item itemvalue="JUnit.RelationServiceTest.createRelation_NotFoundRequest" />
-      <item itemvalue="JUnit.RelationServiceTest.getRelationList_Success" />
-      <item itemvalue="JUnit.RelationServiceTest.getRelationList_Success_together" />
+      <item itemvalue="JUnit.RequestServiceTest.deleteRequestById" />
+      <item itemvalue="JUnit.RequestServiceTest.getRelatedRequest" />
+      <item itemvalue="JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone" />
+      <item itemvalue="JUnit.RequestServiceTest.getRelatedRequest_Success" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.RequestServiceTest.deleteRequestById" />
+        <item itemvalue="JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone" />
+        <item itemvalue="JUnit.RequestServiceTest.getRelatedRequest_Success" />
+        <item itemvalue="JUnit.RequestServiceTest.getRelatedRequest" />
         <item itemvalue="JUnit.RequestServiceTest.createRequest_Success" />
-        <item itemvalue="JUnit.RelationServiceTest" />
-        <item itemvalue="JUnit.RelationServiceTest.getRelationList_Success_together" />
-        <item itemvalue="JUnit.RelationServiceTest.getRelationList_Success" />
-        <item itemvalue="JUnit.RelationServiceTest.createRelation_NotFoundRequest" />
       </list>
     </recent_temporary>
   </component>
@@ -294,7 +299,7 @@
       <workItem from="1715600770374" duration="15831000" />
       <workItem from="1715667309268" duration="617000" />
       <workItem from="1715688301905" duration="256000" />
-      <workItem from="1715744169407" duration="2393000" />
+      <workItem from="1715744169407" duration="7223000" />
     </task>
     <servers />
   </component>
