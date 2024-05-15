@@ -57,9 +57,7 @@ public class LogService {
         });
     }
 
-    public List<LogDto> getDoseLogByMemberId(LogDto inputLogDto) {
-        Long targetId = inputLogDto.getMemberId();
-
+    public List<LogDto> getDoseLogByMemberId(Long targetId) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 

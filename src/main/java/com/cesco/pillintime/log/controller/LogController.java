@@ -18,8 +18,8 @@ public class LogController {
     private final LogService logService;
 
     @GetMapping
-    public ResponseEntity<ResponseDto> getDoseLogByMemberId(@RequestBody LogDto logDto) {
-        List<LogDto> logDtoList = logService.getDoseLogByMemberId(logDto);
+    public ResponseEntity<ResponseDto> getDoseLogByMemberId(@RequestParam Long memberId) {
+        List<LogDto> logDtoList = logService.getDoseLogByMemberId(memberId);
         return ResponseUtil.makeResponse(200, "Success get dose log", logDtoList);
     }
 }
