@@ -39,8 +39,8 @@ public class MemberServiceTest {
         MemberDto memberDto = new MemberDto();
         memberDto.setId(1L);
         memberDto.setName(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
-        memberDto.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%06d", longValue % 10000000));
-        memberDto.setPhone(String.format("%03d", longValue % 1000));
+        memberDto.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%07d", longValue % 10000000));
+        memberDto.setPhone("010"+"-"+String.format("%04d", longValue % 10000)+"-"+String.format("%04d", longValue % 1000));
         memberDto.setManager(true);
         memberDto.setHasCase(true);
         memberDto.setSubscriber(true);
