@@ -4,14 +4,20 @@ import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.log.dto.LogDto;
 import com.cesco.pillintime.log.entity.Log;
+import com.cesco.pillintime.log.entity.TakenStatus;
 import com.cesco.pillintime.log.mapper.LogMapper;
 import com.cesco.pillintime.log.repository.LogRepository;
 import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.repository.MemberRepository;
+import com.cesco.pillintime.plan.entity.Plan;
+import com.cesco.pillintime.plan.repository.PlanRepository;
 import com.cesco.pillintime.util.SecurityUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +28,34 @@ import java.util.Optional;
 public class LogService {
 
     private final LogRepository logRepository;
+    private final PlanRepository planRepository;
     private final MemberRepository memberRepository;
+
+    @Scheduled(cron = "0 50 23 * * SUN")
+    @Transactional
+    public void createDoseLog() {
+        LocalDate today = LocalDate.now();
+
+        planRepository.findActivePlan(today).ifPresent(planList -> {
+            for (Plan plan : planList) {
+                LocalDate plannedAt = calculateNextPlannedDate(today, plan.getWeekday());
+                LocalDate endedAt = plan.getEndedAt();
+
+                // 해당 날짜 및 Plan 에 대한 Log 가 없을 경우에만 생성
+                // 계산된 plannedAt이 계획의 종료일보다 작거나 같을 경우에만 생성
+                boolean logExists = logRepository.existsByMemberAndPlanAndPlannedAt(plan.getMember(), plan, plannedAt);
+                if (!logExists && plannedAt.isBefore(endedAt) || plannedAt.isEqual(endedAt)) {
+                    Log log = new Log();
+                    log.setMember(plan.getMember());
+                    log.setPlan(plan);
+                    log.setTakenStatus(TakenStatus.NOT_COMPLETED);
+                    log.setPlannedAt(plannedAt);
+
+                    logRepository.save(log);
+                }
+            }
+        });
+    }
 
     public List<LogDto> getDoseLogByMemberId(LogDto inputLogDto) {
         Long targetId = inputLogDto.getMemberId();
@@ -52,4 +85,20 @@ public class LogService {
         return logDtoList;
     }
 
+    // ======================================================
+
+    private LocalDate calculateNextPlannedDate(LocalDate today, Integer weekday) {
+        DayOfWeek targetDayOfWeek = DayOfWeek.of(weekday);
+        DayOfWeek todayDayOfWeek = today.getDayOfWeek();
+
+        int daysToAdd = targetDayOfWeek.getValue() - todayDayOfWeek.getValue();
+        if (daysToAdd < 0) {
+            daysToAdd += 7;
+        }
+
+        return today.plusDays(daysToAdd);
+    }
+
 }
+
+
