@@ -14,10 +14,13 @@ import java.util.Optional;
 @Repository
 public interface LogRepository extends JpaRepository<Log, Long> {
 
-    @Query("SELECT r FROM Log r WHERE r.member= :member")
+    @Query("SELECT l FROM Log l WHERE l.member= :member")
     Optional<List<Log>> findByMember(Member member);
 
     Optional<List<Log>> findByMemberAndPlannedAt(Member member, LocalDate today);
+
+    @Query("SELECT l FROM Log l WHERE l.member= :member AND l.plannedAt= :today AND l.plan.cabinetIndex= :index")
+    Optional<List<Log>> findByMemberAndPlannedAtAndIndex(Member member, LocalDate today, Integer index);
 
     boolean existsByMemberAndPlanAndPlannedAt(Member member, Plan plan, LocalDate plannedAt);
 

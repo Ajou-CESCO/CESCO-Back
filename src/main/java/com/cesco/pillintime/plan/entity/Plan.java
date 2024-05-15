@@ -31,6 +31,9 @@ public class Plan {
     private String medicineName;
 
     @Column
+    private Integer cabinetIndex;
+
+    @Column
     private Integer weekday;
 
     @Column
@@ -48,6 +51,8 @@ public class Plan {
         this.medicineName = medicineDto.getMedicineName();
         this.weekday = weekday;
         this.time = time;
+
+        this.cabinetIndex = 1;
 
         // 시작일이 null이면 오늘 날짜로 설정
         this.startAt = Objects.requireNonNullElseGet(startAt, LocalDate::now);

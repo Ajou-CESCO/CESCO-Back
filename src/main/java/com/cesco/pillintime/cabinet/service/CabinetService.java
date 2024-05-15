@@ -16,7 +16,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,16 +66,22 @@ public class CabinetService {
 
         Optional<Member> owner = memberRepository.findByCabinet(cabinet);
         owner.ifPresent(member -> {
-            // 오늘의 날짜 구하기
+            // 현재 날짜, 시각 구하기
             LocalDate today = LocalDate.now();
+            LocalDateTime currentTime = LocalDateTime.now();
 
-            // 오늘의 로그 조회 및 업데이트
-            Optional<List<Log>> logList = logRepository.findByMemberAndPlannedAt(member, today);
-            logList.ifPresent(logs -> {
-                for (Log log : logs) {
-                    log.setTakenStatus(TakenStatus.COMPLETED);
-                    logRepository.save(log);
-                }
+            // 오늘의 로그 조회
+            Optional<List<Log>> logListOptional = logRepository.findByMemberAndPlannedAtAndIndex(member, today, sensorIndex);
+
+            // 가장 근접한 로그 찾기
+            Optional<Log> nearestLogOptional = logListOptional.flatMap(logs -> logs.stream()
+                    .min(Comparator.comparing(log -> Math.abs(Duration.between(log.getPlan().getTime(), currentTime).toSeconds())))
+            );
+
+            // 로그가 존재하는 경우 상태 업데이트
+            nearestLogOptional.ifPresent(nearestLog -> {
+                nearestLog.setTakenStatus(TakenStatus.COMPLETED);
+                logRepository.save(nearestLog);
             });
         });
     }
