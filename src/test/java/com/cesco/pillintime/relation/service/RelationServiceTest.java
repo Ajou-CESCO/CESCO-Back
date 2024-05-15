@@ -46,7 +46,7 @@ class RelationServiceTest {
     }
 
     @BeforeEach
-    void setUp() {
+    void init() {
         memberRepository = mock(MemberRepository.class);
         relationRepository = mock(RelationRepository.class);
         requestRepository = mock(RequestRepository.class);
