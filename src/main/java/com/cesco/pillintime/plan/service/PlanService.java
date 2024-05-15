@@ -2,6 +2,7 @@ package com.cesco.pillintime.plan.service;
 
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.log.service.LogService;
 import com.cesco.pillintime.medicine.dto.MedicineDto;
 import com.cesco.pillintime.medicine.service.MedicineService;
 import com.cesco.pillintime.member.entity.Member;
@@ -27,6 +28,7 @@ public class PlanService {
     private final PlanRepository planRepository;
     private final MemberRepository memberRepository;
     private final MedicineService medicineService;
+    private final LogService logService;
 
     public void createPlan(PlanDto planDto) {
         Long memberId = planDto.getMemberId();
@@ -61,6 +63,7 @@ public class PlanService {
         }
 
         planRepository.saveAll(planList);
+        logService.createDoseLog();
     }
 
     public List<PlanDto> getPlanByMemberId(PlanDto inputPlanDto) {
