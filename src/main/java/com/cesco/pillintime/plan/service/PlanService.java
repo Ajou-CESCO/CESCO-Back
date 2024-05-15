@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class PlanService {
         Long memberId = planDto.getMemberId();
         Long medicineId = Long.parseLong(planDto.getMedicineId());
         List<Integer> weekdayList = planDto.getWeekdayList();
-        List<String> timeList = planDto.getTimeList();
+        List<LocalTime> timeList = planDto.getTimeList();
         LocalDate startedAt = planDto.getStartedAt();
         LocalDate endedAt = planDto.getEndedAt();
 
@@ -53,7 +54,7 @@ public class PlanService {
 
         List<Plan> planList = new ArrayList<>();
         for (Integer weekday : weekdayList) {
-            for (String time : timeList) {
+            for (LocalTime time : timeList) {
                 Plan plan = new Plan(targetMember, medicineDto, weekday, time, startedAt, endedAt);
                 planList.add(plan);
             }

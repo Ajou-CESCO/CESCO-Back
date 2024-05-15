@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class Plan {
     private Integer weekday;
 
     @Column
-    private String time;
+    private LocalTime time;
 
     @Column
     private LocalDate startedAt;
@@ -46,7 +47,7 @@ public class Plan {
     @Column
     private LocalDate endedAt;
 
-    public Plan(Member member, MedicineDto medicineDto, Integer weekday, String time, LocalDate startedAt, LocalDate endedAt) {
+    public Plan(Member member, MedicineDto medicineDto, Integer weekday, LocalTime time, LocalDate startedAt, LocalDate endedAt) {
         this.member = member;
         this.medicineId = medicineDto.getMedicineCode();
         this.medicineName = medicineDto.getMedicineName();
