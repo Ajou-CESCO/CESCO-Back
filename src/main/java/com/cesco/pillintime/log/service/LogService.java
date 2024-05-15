@@ -72,9 +72,14 @@ public class LogService {
             targetMember = requestMember;
         }
 
-        Optional<List<Log>> logListOptional = logRepository.findByMember(targetMember);
-        List<LogDto> logDtoList = new ArrayList<>();
+        if (targetMember.isManager()) {
+            throw new CustomException(ErrorCode.INVALID_USERTYPE);
+        }
 
+        LocalDate today = LocalDate.now();
+        Optional<List<Log>> logListOptional = logRepository.findByMemberAndPlannedAt(targetMember, today);
+
+        List<LogDto> logDtoList = new ArrayList<>();
         logListOptional.ifPresent(logs -> {
             for (Log log : logs) {
                 LogDto logDto = LogMapper.INSTANCE.toDto(log);

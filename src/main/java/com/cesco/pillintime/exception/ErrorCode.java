@@ -12,6 +12,7 @@ public enum ErrorCode {
     ALREADY_EXISTS_PHONE(HttpStatus.BAD_REQUEST, 40001, "Already exists phone"),
     ALREADY_EXISTS_SSN(HttpStatus.BAD_REQUEST, 40002, "Already exists ssn"),
     MEDICINE_NAME_IS_EMPTY(HttpStatus.BAD_REQUEST, 40003, "Medicine name is empty"),
+    INVALID_USERTYPE(HttpStatus.BAD_REQUEST, 40004, "Invalid usertype"),
 
     // 401 Unauthorized
     TOKEN_IS_INVALID(HttpStatus.UNAUTHORIZED, 40101, "Token is invalid"),

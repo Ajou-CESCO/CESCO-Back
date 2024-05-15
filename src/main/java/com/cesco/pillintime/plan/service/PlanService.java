@@ -50,6 +50,10 @@ public class PlanService {
             targetMember = requestMember;
         }
 
+        if (targetMember.isManager()) {
+            throw new CustomException(ErrorCode.INVALID_USERTYPE);
+        }
+
         MedicineDto medicineDto = medicineService.getMedicineByMedicineId(medicineId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEDICINE))
                 .get(0);

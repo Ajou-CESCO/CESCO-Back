@@ -17,6 +17,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,23 +32,25 @@ public class CabinetService {
         String serial = cabinetDto.getSerial();
         Long ownerId = cabinetDto.getOwnerId();
 
-        Member owner;
+        Member requestMember = SecurityUtil.getCurrentMember()
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        if (ownerId == null) {
-            owner = SecurityUtil.getCurrentMember()
-                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        Member targetMember = memberRepository.findById(ownerId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        if (!requestMember.equals(targetMember)) {
+            SecurityUtil.checkPermission(requestMember, targetMember);
         } else {
-            owner = memberRepository.findById(ownerId)
-                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+            targetMember = requestMember;
         }
 
         Cabinet cabinet = cabinetRepository.findBySerial(serial)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
 
-        cabinet.setOwner(owner);
-        owner.setCabinet(cabinet);
+        cabinet.setOwner(targetMember);
+        targetMember.setCabinet(cabinet);
         cabinetRepository.save(cabinet);
-        memberRepository.save(owner);
+        memberRepository.save(targetMember);
     }
 
     public void getSensorData(SensorDto sensorDto) {
@@ -64,10 +67,12 @@ public class CabinetService {
             LocalDate today = LocalDate.now();
 
             // 오늘의 로그 조회 및 업데이트
-            Optional<Log> todayLog = logRepository.findByMemberAndPlannedAt(member, today);
-            todayLog.ifPresent(log -> {
-                log.setTakenStatus(TakenStatus.COMPLETED);
-                logRepository.save(log);
+            Optional<List<Log>> logList = logRepository.findByMemberAndPlannedAt(member, today);
+            logList.ifPresent(logs -> {
+                for (Log log : logs) {
+                    log.setTakenStatus(TakenStatus.COMPLETED);
+                    logRepository.save(log);
+                }
             });
         });
     }
