@@ -30,6 +30,7 @@ public enum ErrorCode {
     NOT_FOUND_HEALTH(HttpStatus.NOT_FOUND, 40405, "Not found health"),
     NOT_FOUND_MEDICINE(HttpStatus.NOT_FOUND, 40406, "Not found medicine"),
     NOT_FOUND_PLAN(HttpStatus.NOT_FOUND, 40407, "Not found plan"),
+    NOT_FOUND_LOG(HttpStatus.NOT_FOUND, 40408, "Not found log"),
 
     // 500 Internal Server
     EXTERNAL_API_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50001, "External api error");

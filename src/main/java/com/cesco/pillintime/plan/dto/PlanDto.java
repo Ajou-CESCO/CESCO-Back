@@ -3,6 +3,7 @@ package com.cesco.pillintime.plan.dto;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -14,8 +15,8 @@ public class PlanDto {
     private String medicineName;
     private List<Integer> weekdayList;
     private Integer weekday;
-    private List<String> timeList;
-    private String time;
+    private List<LocalTime> timeList;
+    private LocalTime time;
     private LocalDate startedAt;
     private LocalDate endedAt;
 

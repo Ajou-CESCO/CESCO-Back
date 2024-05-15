@@ -1,6 +1,5 @@
 package com.cesco.pillintime.security;
 
-import com.cesco.pillintime.filter.JwtAuthFilter;
 import com.cesco.pillintime.util.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
