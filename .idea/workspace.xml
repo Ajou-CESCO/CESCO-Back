@@ -5,6 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/md5-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/sha1-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/init/controller/InitController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/init/dto/InitDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/init/service/InitService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/controller/LogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/dto/LogDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/entity/Log.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/entity/TakenStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/mapper/LogMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/repository/LogRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/service/LogService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/controller/PlanController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/dto/PlanDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/entity/Plan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/mapper/PlanMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/repository/PlanRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/service/PlanService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomAuthenticationEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/JwtAuthFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
@@ -12,14 +32,34 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-=======
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/PillinTimeApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/PillinTimeApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/auth/serivce/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/auth/serivce/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/controller/CabinetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/controller/CabinetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/entity/Cabinet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/entity/Cabinet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/service/CabinetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/service/CabinetService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/exception/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/exception/ErrorCode.java" afterDir="false" />
->>>>>>> develop
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/filter/JwtAuthFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/controller/HealthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/controller/HealthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/dto/HealthDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/dto/HealthDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/entity/Health.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/entity/Health.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/service/HealthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/service/HealthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/medicine/service/MedicineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/medicine/service/MedicineService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/dto/MemberDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/entity/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/entity/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/mapper/MemberMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/mapper/MemberMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/repository/MemberRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/service/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/dto/RelationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/dto/RelationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/entity/Relation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/entity/Relation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/service/RelationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/service/RelationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/util/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/util/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/util/SecurityUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/util/SecurityUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +114,7 @@
       <list>
         <option value="Class" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -100,14 +141,54 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
     "Gradle.Build PillinTime.executor": "Run",
     "Gradle.PillinTime [dependencies].executor": "Run",
-    "Gradle.PillinTime_Backend 빌드.executor": "Run",
     "Gradle.pillintime_backend 빌드.executor": "Run",
+    "JUnit.AuthServiceTest.executor": "Run",
+    "JUnit.AuthServiceTest.login_NotFoundMember.executor": "Run",
+    "JUnit.AuthServiceTest.login_Success.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_NotFoundMember.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success_1L.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success_Null.executor": "Run",
+    "JUnit.HealthServiceTest.createHealth.executor": "Run",
+    "JUnit.HealthServiceTest.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_HealthNotFound.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_Success_1L.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_Success_Null.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_UserNotFound.executor": "Run",
+    "JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개.executor": "Run",
+    "JUnit.MemberServiceTest.CreateUser_Success.executor": "Run",
+    "JUnit.MemberServiceTest.createUser_Phone_Exception.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser_NotFoundUser.executor": "Run",
+    "JUnit.MemberServiceTest.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundUser_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundUser_null.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success_null.executor": "Run",
+    "JUnit.MemberServiceTest.testDeleteUser_NotFoundUser.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_Success_1L.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_Success_targetId_1L.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_NotFoundMember.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_NotFoundRequest.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_Success.executor": "Run",
+    "JUnit.RelationServiceTest.executor": "Run",
+    "JUnit.RelationServiceTest.getRelationList_Success.executor": "Run",
+    "JUnit.RelationServiceTest.getRelationList_Success_together.executor": "Run",
+    "JUnit.RequestServiceTest.createRequest_Success.executor": "Run",
+    "JUnit.RequestServiceTest.deleteRequestById.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest_Success.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -119,7 +200,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Shell Script.gradlew.executor": "Run",
     "Spring Boot.PillinTimeApplication.executor": "Run",
-    "git-widget-placeholder": "develop",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "feature/52-Ref-testcase",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rlagk/PillinTime_Backend/build.gradle",
     "node.js.detected.package.eslint": "true",
@@ -130,120 +213,126 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-=======
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Gradle.Build PillinTime.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PillinTime [dependencies].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.pillintime_backend 빌드.executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Shell Script.gradlew.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.PillinTimeApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rlagk/PillinTime_Backend/build.gradle&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.cesco.pillintime.dto" />
       <recent name="com.cesco.pillintime.service" />
       <recent name="com.cesco.pillintime.entity" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.cesco.pillintime.auth.serivce" />
+      <recent name="com.cesco.pillintime.request.service" />
+      <recent name="com.cesco.pillintime.relation.service" />
+    </key>
   </component>
->>>>>>> develop
-  <component name="RunManager" selected="Spring Boot.PillinTimeApplication">
-    <configuration name="PillinTime [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="dependencies" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="gradlew" type="ShConfigurationType" temporary="true">
-      <option name="SCRIPT_TEXT" value="" />
-      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/gradlew" />
-      <option name="SCRIPT_OPTIONS" value="" />
-      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
-      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
-      <option name="INTERPRETER_PATH" value="/bin/sh" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="EXECUTE_IN_TERMINAL" value="true" />
-      <option name="EXECUTE_SCRIPT_FILE" value="true" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="PillinTimeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <option name="ACTIVE_PROFILES" value="dev" />
-      <module name="PillinTime.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cesco.pillintime.PillinTimeApplication" />
+  <component name="RunManager" selected="JUnit.AuthServiceTest">
+    <configuration name="AuthServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.*" />
+          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceTest.login_NotFoundMember" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
+      <option name="METHOD_NAME" value="login_NotFoundMember" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceTest.login_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
+      <option name="METHOD_NAME" value="login_Success" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CabinetServiceTest.createCabinet_NotFoundCabinet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.cabinet.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.cabinet.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.cabinet.service.CabinetServiceTest" />
+      <option name="METHOD_NAME" value="createCabinet_NotFoundCabinet" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CabinetServiceTest.createCabinet_NotFoundMember" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.cabinet.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.cabinet.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.cabinet.service.CabinetServiceTest" />
+      <option name="METHOD_NAME" value="createCabinet_NotFoundMember" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Gradle.PillinTime [dependencies]" />
-      <item itemvalue="Shell Script.gradlew" />
-      <item itemvalue="Spring Boot.PillinTimeApplication" />
+      <item itemvalue="JUnit.AuthServiceTest" />
+      <item itemvalue="JUnit.AuthServiceTest.login_NotFoundMember" />
+      <item itemvalue="JUnit.AuthServiceTest.login_Success" />
+      <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet" />
+      <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundMember" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.PillinTimeApplication" />
-        <item itemvalue="Gradle.PillinTime [dependencies]" />
-        <item itemvalue="Shell Script.gradlew" />
+        <item itemvalue="JUnit.AuthServiceTest" />
+        <item itemvalue="JUnit.AuthServiceTest.login_Success" />
+        <item itemvalue="JUnit.AuthServiceTest.login_NotFoundMember" />
+        <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet" />
+        <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundMember" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-18.0.2-corretto-18.0.2-4caba194b151-68fdadd5" />
+        <option value="jdk-18.0.2-corretto-18.0.2-f644763e9732-da6bd485" />
       </set>
     </attachedChunks>
   </component>
@@ -266,13 +355,20 @@
       <workItem from="1714649649687" duration="238000" />
       <workItem from="1714896841652" duration="4572000" />
       <workItem from="1714970263878" duration="8571000" />
-<<<<<<< HEAD
       <workItem from="1715216241945" duration="5872000" />
       <workItem from="1715233016825" duration="5993000" />
-=======
       <workItem from="1715063065095" duration="2000000" />
       <workItem from="1715245863746" duration="1362000" />
->>>>>>> develop
+      <workItem from="1715563078370" duration="6960000" />
+      <workItem from="1715592347107" duration="4128000" />
+      <workItem from="1715597887035" duration="2745000" />
+      <workItem from="1715600770374" duration="15831000" />
+      <workItem from="1715667309268" duration="617000" />
+      <workItem from="1715688301905" duration="256000" />
+      <workItem from="1715744169407" duration="7552000" />
+      <workItem from="1715821123255" duration="8793000" />
+      <workItem from="1715837773855" duration="2989000" />
+      <workItem from="1715852231522" duration="8162000" />
     </task>
     <servers />
   </component>
@@ -285,15 +381,9 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="FILTERS">
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
                 <map>
-                  <entry key="text">
-                    <value>
-                      <list>
-                        <option value="#24" />
-                      </list>
-                    </value>
-                  </entry>
+                  <entry key="Show.Git.Branches" value="true" />
                 </map>
               </option>
             </State>
@@ -308,5 +398,8 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/PillinTime$MemberServiceTest.ic" NAME="MemberServiceTest 커버리지 결과" MODIFIED="1715521768083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
