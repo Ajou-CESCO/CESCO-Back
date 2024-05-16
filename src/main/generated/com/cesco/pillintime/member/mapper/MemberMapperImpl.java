@@ -1,13 +1,13 @@
-package com.cesco.pillintime.mapper;
+package com.cesco.pillintime.member.mapper;
 
-import com.cesco.pillintime.dto.MemberDto;
-import com.cesco.pillintime.entity.Member;
+import com.cesco.pillintime.member.dto.MemberDto;
+import com.cesco.pillintime.member.entity.Member;
 import javax.annotation.processing.Generated;
 
 @Generated(
-        value = "org.mapstruct.ap.MappingProcessor",
-        date = "2024-05-07T16:59:22+0900",
-        comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.2 (Azul Systems, Inc.)"
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2024-05-14T14:40:27+0900",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.2 (Amazon.com Inc.)"
 )
 public class MemberMapperImpl implements MemberMapper {
 
@@ -19,13 +19,11 @@ public class MemberMapperImpl implements MemberMapper {
 
         Member member = new Member();
 
-        member.setId( memberDto.getId() );
-        member.setUuid( memberDto.getUuid() );
-        member.setName( memberDto.getName() );
         member.setSsn( memberDto.getSsn() );
+        member.setId( memberDto.getId() );
+        member.setName( memberDto.getName() );
         member.setPhone( memberDto.getPhone() );
         member.setGender( memberDto.getGender() );
-        member.setUserType( memberDto.getUserType() );
         member.setManager( memberDto.isManager() );
         member.setSubscriber( memberDto.isSubscriber() );
         member.setHasCase( memberDto.isHasCase() );
@@ -42,12 +40,10 @@ public class MemberMapperImpl implements MemberMapper {
         MemberDto memberDto = new MemberDto();
 
         memberDto.setId( member.getId() );
-        memberDto.setUuid( member.getUuid() );
         memberDto.setName( member.getName() );
         memberDto.setSsn( member.getSsn() );
         memberDto.setPhone( member.getPhone() );
         memberDto.setGender( member.getGender() );
-        memberDto.setUserType( member.getUserType() );
         memberDto.setManager( member.isManager() );
         memberDto.setSubscriber( member.isSubscriber() );
         memberDto.setHasCase( member.isHasCase() );
