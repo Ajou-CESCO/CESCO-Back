@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -86,6 +88,19 @@ public class LogService {
         });
 
         return logDtoList;
+    }
+
+    @Scheduled(cron = "0 1/31 * * * *")
+    public void updateLogByCurrentTime() {
+        LocalDate today = LocalDate.now();
+        LocalTime currentTime = LocalTime.now().minusMinutes(30);
+
+        // 예정 시각보다 30분 초과한 미완료된 로그들을 조회하여 업데이트
+        List<Log> incompletedLogList = logRepository.findIncompleteLog(today, currentTime);
+        incompletedLogList.forEach(log -> {
+            log.setTakenStatus(TakenStatus.TIMED_OUT);
+            logRepository.save(log);
+        });
     }
 
     // ======================================================
