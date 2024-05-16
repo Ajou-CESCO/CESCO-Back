@@ -91,7 +91,7 @@ public class LogService {
     }
 
     @Scheduled(cron = "0 1/31 * * * *")
-    public void updateLogByCurrentTime() {
+    public void updateDoseLogByCurrentTime() {
         LocalDate today = LocalDate.now();
         LocalTime currentTime = LocalTime.now().minusMinutes(30);
 
