@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/member/mapper/MemberMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/member/mapper/MemberMapperImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -315,7 +312,7 @@
       <workItem from="1715744169407" duration="7552000" />
       <workItem from="1715821123255" duration="8793000" />
       <workItem from="1715837773855" duration="2989000" />
-      <workItem from="1715852231522" duration="5741000" />
+      <workItem from="1715852231522" duration="6335000" />
     </task>
     <servers />
   </component>
