@@ -1,21 +1,18 @@
 package com.cesco.pillintime.health.service;
 
-import com.cesco.pillintime.health.dto.HealthDto;
-import com.cesco.pillintime.health.entity.Health;
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.relation.entity.Relation;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.health.dto.HealthDto;
+import com.cesco.pillintime.health.entity.Health;
 import com.cesco.pillintime.health.mapper.HealthMapper;
 import com.cesco.pillintime.health.repository.HealthRepository;
+import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.repository.MemberRepository;
-import com.cesco.pillintime.relation.repository.RelationRepository;
 import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.security.Security;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,6 @@ public class HealthService {
 
     private final HealthRepository healthRepository;
     private final MemberRepository memberRepository;
-    private final RelationRepository relationRepository;
 
     public void createHealth(@RequestBody HealthDto healthDto) {
 

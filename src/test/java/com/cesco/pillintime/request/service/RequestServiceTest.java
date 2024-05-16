@@ -27,7 +27,7 @@ class RequestServiceTest {
     private RequestRepository requestRepository;
     private RequestService requestService;
     private MemberRepository memberRepository;
-    public static Request createRequestDto() {
+    public static Request createRequest() {
         long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         Request request = new Request();
         request.setSenderId(1L);
@@ -44,7 +44,7 @@ class RequestServiceTest {
     @Test
     void createRequest_Success() {
         // Given
-        Request request = createRequestDto();
+        Request request = createRequest();
 
         // SecurityUtil.getCurrentMember..정상 동작 코드
         Authentication authentication = mock(Authentication.class);
@@ -63,7 +63,7 @@ class RequestServiceTest {
     @Test
     void getRelatedRequest_Success() {
         // Given
-        Request request = createRequestDto();
+        Request request = createRequest();
         List<Request> requestList = new ArrayList<>();
         requestList.add(request);
         when(requestRepository.findByReceiverPhone(any())).thenReturn(Optional.of(requestList));
@@ -86,7 +86,7 @@ class RequestServiceTest {
     @Test
     void getRelatedRequest_NotFoundPhone() {
         // Given
-        Request request = createRequestDto();
+        Request request = createRequest();
         List<Request> requestList = new ArrayList<>();
         requestList.add(request);
         when(requestRepository.findByReceiverPhone(any())).thenReturn(Optional.empty());

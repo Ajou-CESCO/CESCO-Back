@@ -2,9 +2,7 @@ package com.cesco.pillintime.relation.service;
 
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.member.dto.MemberDto;
 import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.member.mapper.MemberMapper;
 import com.cesco.pillintime.member.repository.MemberRepository;
 import com.cesco.pillintime.relation.dto.RelationDto;
 import com.cesco.pillintime.relation.entity.Relation;
@@ -31,18 +29,18 @@ class RelationServiceTest {
 
     private RelationService relationService;
 
-    public static MemberDto createMemberDto() {
+    public static Member createMemberDto() {
         long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-        MemberDto memberDto = new MemberDto();
-        memberDto.setId(1L);
-        memberDto.setName(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
-        memberDto.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%06d", longValue % 10000000));
-        memberDto.setPhone(String.format("%03d", longValue % 1000));
-        memberDto.setManager(true);
-        memberDto.setHasCase(true);
-        memberDto.setSubscriber(true);
+        Member member = new Member();
+        member.setId(1L);
+        member.setName(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
+        member.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%06d", longValue % 10000000));
+        member.setPhone(String.format("%03d", longValue % 1000));
+        member.setManager(true);
+        member.setHasCase(true);
+        member.setSubscriber(true);
 
-        return memberDto;
+        return member;
     }
 
     @BeforeEach
@@ -57,8 +55,8 @@ class RelationServiceTest {
     void createRelation_Success() {
         System.out.println("createRelation_Success");
         // Given
-        Member requestMember = MemberMapper.INSTANCE.toEntity(createMemberDto());
-        Member targetMember = MemberMapper.INSTANCE.toEntity(createMemberDto());
+        Member requestMember = createMemberDto();
+        Member targetMember = createMemberDto();
         Request request = new Request(requestMember.getId(),targetMember.getPhone());
 
         when(requestRepository.findById(any())).thenReturn(Optional.of(request));
@@ -83,8 +81,8 @@ class RelationServiceTest {
     void createRelation_NotFoundRequest() {
         System.out.println("createRelation_NotFoundRequest");
         // Given
-        Member requestMember = MemberMapper.INSTANCE.toEntity(createMemberDto());
-        Member targetMember = MemberMapper.INSTANCE.toEntity(createMemberDto());
+        Member requestMember = createMemberDto();
+        Member targetMember = createMemberDto();
         Request request = new Request(requestMember.getId(),targetMember.getPhone());
 
         when(requestRepository.findById(any())).thenReturn(Optional.empty());
@@ -111,8 +109,8 @@ class RelationServiceTest {
     void createRelation_NotFoundMember() {
         System.out.println("createRelation_NotFoundMember");
         // Given
-        Member requestMember = MemberMapper.INSTANCE.toEntity(createMemberDto());
-        Member targetMember = MemberMapper.INSTANCE.toEntity(createMemberDto());
+        Member requestMember = createMemberDto();
+        Member targetMember = createMemberDto();
         Request request = new Request(null,targetMember.getPhone());
 
         when(requestRepository.findById(any())).thenReturn(Optional.of(request));
@@ -138,7 +136,7 @@ class RelationServiceTest {
     void getRelationList_Success_alone() {
         System.out.println("getRelationList_Success_alone");
         // Given
-        Member tokenMember = MemberMapper.INSTANCE.toEntity(createMemberDto());
+        Member tokenMember = createMemberDto();
         when(relationRepository.findByMember(any())).thenReturn(Optional.empty());
 
         // SecurityUtil.getCurrentMember..정상 동작 코드
@@ -159,7 +157,7 @@ class RelationServiceTest {
     void getRelationList_Success_together() {
         System.out.println("getRelationList_Success_together");
         // Given
-        Member tokenMember = MemberMapper.INSTANCE.toEntity(createMemberDto());
+        Member tokenMember = createMemberDto();
         List<Relation> relationList = new ArrayList<>();
         when(relationRepository.findByMember(any())).thenReturn(Optional.of(relationList));
 

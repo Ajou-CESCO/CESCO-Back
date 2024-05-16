@@ -34,18 +34,18 @@ public class MemberServiceTest {
 
     private JwtUtil jwtUtil;
 
-    public static MemberDto createMemberDto() {
+    public static Member createMember() {
         long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-        MemberDto memberDto = new MemberDto();
-        memberDto.setId(1L);
-        memberDto.setName(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
-        memberDto.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%07d", longValue % 10000000));
-        memberDto.setPhone("010"+"-"+String.format("%04d", longValue % 10000)+"-"+String.format("%04d", longValue % 1000));
-        memberDto.setManager(true);
-        memberDto.setHasCase(true);
-        memberDto.setSubscriber(true);
+        Member member = new Member();
+        member.setId(1L);
+        member.setName(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
+        member.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%07d", longValue % 10000000));
+        member.setPhone("010"+"-"+String.format("%04d", longValue % 10000)+"-"+String.format("%04d", longValue % 1000));
+        member.setManager(true);
+        member.setHasCase(true);
+        member.setSubscriber(true);
 
-        return memberDto;
+        return member;
     }
 
     @BeforeEach
@@ -97,9 +97,9 @@ public class MemberServiceTest {
     void getUserById_Success_null() {
         // Given
         System.out.println("getUserById_Success_null");
-        MemberDto memberDto = createMemberDto();
+        Member member = createMember();
 
-        Member member = MemberMapper.INSTANCE.toEntity(memberDto);
+        MemberDto memberDto = MemberMapper.INSTANCE.toDto(member);
 
         CustomUserDetails userDetails = mock(CustomUserDetails.class);
         Authentication authentication = mock(Authentication.class);
@@ -121,8 +121,8 @@ public class MemberServiceTest {
     void getUserById_Success_1L() {
         // Given
         System.out.println("getUserById_Success_1L");
-        Member member1 = MemberMapper.INSTANCE.toEntity(createMemberDto());
-        Member member2 = MemberMapper.INSTANCE.toEntity(createMemberDto());
+        Member member1 = createMember();
+        Member member2 = createMember();
 
         List<Relation> relationList = new ArrayList<>();
         relationList.add(0,new Relation(member1,member2));
@@ -167,8 +167,8 @@ public class MemberServiceTest {
     void getUserById_NotFoundMember_1L() {
         // Given
         System.out.println("getUserById_NotFoundMember_1L");
-        Member member1 = MemberMapper.INSTANCE.toEntity(createMemberDto());
-        Member member2 = MemberMapper.INSTANCE.toEntity(createMemberDto());
+        Member member1 = createMember();
+        Member member2 = createMember();
         List<Relation> relationList = new ArrayList<>();
         relationList.add(0,new Relation(member1,member2));
 
@@ -193,8 +193,8 @@ public class MemberServiceTest {
     void getUserById_NotFoundRelation_1L() {
         // Given
         System.out.println("getUserById_NotFoundUser_1L");
-        Member member1 = MemberMapper.INSTANCE.toEntity(createMemberDto());
-        Member member2 = MemberMapper.INSTANCE.toEntity(createMemberDto());
+        Member member1 = createMember();
+        Member member2 = createMember();
 
         Authentication authentication = mock(Authentication.class);
         SecurityContextHolder.getContext().setAuthentication(authentication);
