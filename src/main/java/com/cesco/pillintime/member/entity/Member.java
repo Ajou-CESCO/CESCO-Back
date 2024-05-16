@@ -48,7 +48,6 @@ public class Member {
     }
 
     public Member(String name, String phone, String ssn, boolean isManager){
-
         if(name == null || ssn == null || phone == null || name.isBlank() || ssn.isBlank() || phone.isBlank()){
             throw new IllegalArgumentException(String.format("정확히 입력해주십시오"));
         }

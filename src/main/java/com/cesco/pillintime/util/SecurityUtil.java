@@ -26,11 +26,6 @@ public class SecurityUtil {
         relationRepository = repository;
     }
 
-    public static String getCurrentMemberName() {
-        CustomUserDetails userDetails = getUserDetails();
-        return userDetails.getUsername();
-    }
-
     public static Optional<Member> getCurrentMember() {
         CustomUserDetails userDetails = getUserDetails();
         return userDetails.getMember();
