@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/cabinet/service/CabinetServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/cabinet/service/CabinetServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +93,8 @@
     "Gradle.Build PillinTime.executor": "Run",
     "Gradle.PillinTime [dependencies].executor": "Run",
     "Gradle.pillintime_backend 빌드.executor": "Run",
+    "JUnit.AuthServiceTest.login_NotFoundMember.executor": "Run",
+    "JUnit.AuthServiceTest.login_Success.executor": "Run",
     "JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet.executor": "Run",
     "JUnit.CabinetServiceTest.createCabinet_NotFoundMember.executor": "Run",
     "JUnit.CabinetServiceTest.createCabinet_Success.executor": "Run",
@@ -171,11 +172,59 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.cesco.pillintime.auth.serivce" />
       <recent name="com.cesco.pillintime.request.service" />
       <recent name="com.cesco.pillintime.relation.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet">
+  <component name="RunManager" selected="JUnit.AuthServiceTest">
+    <configuration name="AuthServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceTest.login_NotFoundMember" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
+      <option name="METHOD_NAME" value="login_NotFoundMember" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceTest.login_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
+      <option name="METHOD_NAME" value="login_Success" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CabinetServiceTest.createCabinet_NotFoundCabinet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
@@ -208,68 +257,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CabinetServiceTest.createCabinet_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.cabinet.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.cabinet.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.cabinet.service.CabinetServiceTest" />
-      <option name="METHOD_NAME" value="createCabinet_Success" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CabinetServiceTest.createCabinet_Success_1L" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.cabinet.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.cabinet.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.cabinet.service.CabinetServiceTest" />
-      <option name="METHOD_NAME" value="createCabinet_Success_1L" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CabinetServiceTest.createCabinet_Success_Null" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.cabinet.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.cabinet.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.cabinet.service.CabinetServiceTest" />
-      <option name="METHOD_NAME" value="createCabinet_Success_Null" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
+      <item itemvalue="JUnit.AuthServiceTest" />
+      <item itemvalue="JUnit.AuthServiceTest.login_NotFoundMember" />
+      <item itemvalue="JUnit.AuthServiceTest.login_Success" />
       <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet" />
       <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundMember" />
-      <item itemvalue="JUnit.CabinetServiceTest.createCabinet_Success" />
-      <item itemvalue="JUnit.CabinetServiceTest.createCabinet_Success_1L" />
-      <item itemvalue="JUnit.CabinetServiceTest.createCabinet_Success_Null" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AuthServiceTest" />
+        <item itemvalue="JUnit.AuthServiceTest.login_Success" />
+        <item itemvalue="JUnit.AuthServiceTest.login_NotFoundMember" />
         <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet" />
         <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundMember" />
-        <item itemvalue="JUnit.CabinetServiceTest.createCabinet_Success_1L" />
-        <item itemvalue="JUnit.CabinetServiceTest.createCabinet_Success_Null" />
-        <item itemvalue="JUnit.CabinetServiceTest.createCabinet_Success" />
       </list>
     </recent_temporary>
   </component>
@@ -310,7 +311,7 @@
       <workItem from="1715667309268" duration="617000" />
       <workItem from="1715688301905" duration="256000" />
       <workItem from="1715744169407" duration="7552000" />
-      <workItem from="1715821123255" duration="6344000" />
+      <workItem from="1715821123255" duration="7284000" />
     </task>
     <servers />
   </component>
