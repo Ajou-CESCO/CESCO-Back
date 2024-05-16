@@ -6,9 +6,7 @@ import com.cesco.pillintime.init.dto.InitDto;
 import com.cesco.pillintime.member.dto.MemberDto;
 import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.mapper.MemberMapper;
-import com.cesco.pillintime.member.service.MemberService;
 import com.cesco.pillintime.relation.dto.RelationDto;
-import com.cesco.pillintime.relation.entity.Relation;
 import com.cesco.pillintime.relation.service.RelationService;
 import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +20,7 @@ public class InitService {
 
     private final RelationService relationService;
 
-    public InitDto getInitlalInfo() {
+    public InitDto getInitialInfo() {
         Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 

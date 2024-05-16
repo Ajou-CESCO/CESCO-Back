@@ -19,7 +19,7 @@ public class InitController {
 
     @GetMapping
     public ResponseEntity<ResponseDto> initClient() {
-        InitDto initDto = initService.getInitlalInfo();
+        InitDto initDto = initService.getInitialInfo();
         return ResponseUtil.makeResponse(200, "Success get initial info", initDto);
     }
 
