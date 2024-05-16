@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class HealthService {
