@@ -23,7 +23,7 @@ public class HealthController {
         return ResponseUtil.makeResponse(200, "Success upload health data", null);
     }
 
-    @GetMapping
+    @GetMapping("/{targetId}")
     public ResponseEntity<ResponseDto> getHealthByMemberId(@PathVariable(required = false) Long targetId) {
         List<HealthDto> healthDtoList = healthService.getHealthByMemberId(targetId);
         return ResponseUtil.makeResponse(200, "Success get health data", healthDtoList);

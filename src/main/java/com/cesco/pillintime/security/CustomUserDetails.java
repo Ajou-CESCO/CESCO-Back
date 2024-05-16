@@ -1,5 +1,9 @@
 package com.cesco.pillintime.security;
 
+import com.cesco.pillintime.cabinet.entity.Cabinet;
+import com.cesco.pillintime.cabinet.repository.CabinetRepository;
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.member.dto.MemberDto;
 import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.mapper.MemberMapper;
@@ -20,8 +24,8 @@ import java.util.stream.Collectors;
 public class CustomUserDetails implements UserDetails {
 
     private final MemberDto memberDto;
+    private final CabinetRepository cabinetRepository;
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<String> roles = new ArrayList<>();
         roles.add("ROLE_" + "NORMAL");
@@ -42,7 +46,18 @@ public class CustomUserDetails implements UserDetails {
     }
 
     public Optional<Member> getMember() {
-        return Optional.ofNullable(MemberMapper.INSTANCE.toEntity(memberDto));
+        Member member = MemberMapper.INSTANCE.toEntity(memberDto);
+
+        Long cabinetId = memberDto.getCabinetId();
+        if (cabinetId != null && cabinetId != 0) {
+            Cabinet cabinet = cabinetRepository.findById(cabinetId)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
+
+            member.setCabinet(cabinet);
+            return Optional.of(member);
+        }
+
+        return Optional.of(member);
     }
 
     public Long getId() {

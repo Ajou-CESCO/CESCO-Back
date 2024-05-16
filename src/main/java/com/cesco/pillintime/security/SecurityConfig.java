@@ -1,6 +1,5 @@
 package com.cesco.pillintime.security;
 
-import com.cesco.pillintime.filter.JwtAuthFilter;
 import com.cesco.pillintime.util.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -38,12 +37,18 @@ public class SecurityConfig {
 
         http.addFilterBefore(new JwtAuthFilter(customUserDetailsService, jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
+        http.exceptionHandling((exceptionHandling) ->
+                exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+        );
+
         http.authorizeHttpRequests((authorizeRequests) ->
                 authorizeRequests
-                        .requestMatchers("/api/auth").permitAll()
+                        .requestMatchers("/api/auth", "/api/cabinet/sensor").permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/user", HttpMethod.POST.name())).permitAll()
                         .anyRequest().authenticated()
         );
+
+
 
         return http.build();
     }

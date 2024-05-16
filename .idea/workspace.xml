@@ -5,8 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/md5-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/sha1-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/init/controller/InitController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/init/dto/InitDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/init/service/InitService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/controller/LogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/dto/LogDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/entity/Log.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/entity/TakenStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/mapper/LogMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/repository/LogRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/service/LogService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/controller/PlanController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/dto/PlanDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/entity/Plan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/mapper/PlanMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/repository/PlanRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/service/PlanService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomAuthenticationEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/PillinTimeApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/PillinTimeApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/auth/serivce/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/auth/serivce/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/controller/CabinetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/controller/CabinetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/entity/Cabinet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/entity/Cabinet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/service/CabinetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/service/CabinetService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/exception/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/exception/ErrorCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/filter/JwtAuthFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/controller/HealthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/controller/HealthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/dto/HealthDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/dto/HealthDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/entity/Health.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/entity/Health.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/service/HealthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/health/service/HealthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/medicine/service/MedicineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/medicine/service/MedicineService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/dto/MemberDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/entity/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/entity/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/mapper/MemberMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/mapper/MemberMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/repository/MemberRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/service/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/dto/RelationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/dto/RelationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/entity/Relation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/entity/Relation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/service/RelationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/relation/service/RelationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/CustomUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/util/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/util/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/util/SecurityUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/util/SecurityUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -315,7 +368,7 @@
       <workItem from="1715744169407" duration="7552000" />
       <workItem from="1715821123255" duration="8793000" />
       <workItem from="1715837773855" duration="2989000" />
-      <workItem from="1715852231522" duration="7910000" />
+      <workItem from="1715852231522" duration="8162000" />
     </task>
     <servers />
   </component>

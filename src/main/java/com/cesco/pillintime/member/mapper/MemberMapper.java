@@ -3,6 +3,7 @@ package com.cesco.pillintime.member.mapper;
 import com.cesco.pillintime.member.dto.MemberDto;
 import com.cesco.pillintime.member.entity.Member;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
@@ -12,5 +13,6 @@ public interface MemberMapper {
 
     Member toEntity(MemberDto memberDto);
 
+    @Mapping(target = "cabinetId", expression = "java(member.getCabinet() != null ? member.getCabinet().getId() : 0)")
     MemberDto toDto(Member member);
 }

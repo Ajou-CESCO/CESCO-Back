@@ -1,10 +1,9 @@
 package com.cesco.pillintime.member.entity;
 
+import com.cesco.pillintime.cabinet.entity.Cabinet;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @Data
 @Entity
@@ -13,7 +12,6 @@ public class Member {
 
     @Id
     @Column
-    @JoinColumn(name="memberId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -35,8 +33,8 @@ public class Member {
     @Column
     private boolean isSubscriber = false;
 
-    @Column
-    private boolean hasCase = false;
+    @OneToOne
+    private Cabinet cabinet = null;
 
     public void setSsn(String ssn) {
         this.ssn = ssn;        // 성별 확인
@@ -50,7 +48,6 @@ public class Member {
     }
 
     public Member(String name, String phone, String ssn, boolean isManager){
-
         if(name == null || ssn == null || phone == null || name.isBlank() || ssn.isBlank() || phone.isBlank()){
             throw new IllegalArgumentException(String.format("정확히 입력해주십시오"));
         }

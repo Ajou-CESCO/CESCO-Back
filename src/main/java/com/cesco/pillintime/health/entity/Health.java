@@ -4,8 +4,10 @@ import com.cesco.pillintime.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
 import java.sql.Time;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -15,7 +17,7 @@ public class Health {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column
     private Integer steps;
@@ -24,14 +26,13 @@ public class Health {
     private double cal;
 
     @Column
-    private Time sleepTime;
+    private LocalTime sleepTime;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name="memberId")
+    @ManyToOne
+    @JoinColumn
     private Member member;
 
-    public Health(Integer steps, double cal, Time sleepTime, Member member) {
+    public Health(Integer steps, double cal, LocalTime sleepTime, Member member) {
         this.steps = steps;
         this.cal = cal;
         this.sleepTime = sleepTime;

@@ -10,6 +10,15 @@ public enum ErrorCode {
 
     // 400 Bad Request
     ALREADY_EXISTS_PHONE(HttpStatus.BAD_REQUEST, 40001, "Already exists phone"),
+    ALREADY_EXISTS_SSN(HttpStatus.BAD_REQUEST, 40002, "Already exists ssn"),
+    MEDICINE_NAME_IS_EMPTY(HttpStatus.BAD_REQUEST, 40003, "Medicine name is empty"),
+    INVALID_USERTYPE(HttpStatus.BAD_REQUEST, 40004, "Invalid usertype"),
+
+    // 401 Unauthorized
+    TOKEN_IS_INVALID(HttpStatus.UNAUTHORIZED, 40101, "Token is invalid"),
+    TOKEN_IS_EXPIRED(HttpStatus.UNAUTHORIZED, 40102, "Token is expired"),
+    TOKEN_IS_EMPTY(HttpStatus.UNAUTHORIZED, 40103, "Token is empty"),
+    TOKEN_IS_WRONG(HttpStatus.UNAUTHORIZED, 40104, "Token is wrong"),
 
     // 403 Forbidden
     INVALID_USER_ACCESS(HttpStatus.FORBIDDEN, 40301, "Invalid user access"),
@@ -20,6 +29,10 @@ public enum ErrorCode {
     NOT_FOUND_RELATION(HttpStatus.NOT_FOUND, 40403, "Not found relation"),
     NOT_FOUND_CABINET(HttpStatus.NOT_FOUND, 40404, "Not found cabinet"),
     NOT_FOUND_HEALTH(HttpStatus.NOT_FOUND, 40405, "Not found health"),
+    NOT_FOUND_MEDICINE(HttpStatus.NOT_FOUND, 40406, "Not found medicine"),
+    NOT_FOUND_PLAN(HttpStatus.NOT_FOUND, 40407, "Not found plan"),
+    NOT_FOUND_LOG(HttpStatus.NOT_FOUND, 40408, "Not found log"),
+    NOT_FOUND_OWNER(HttpStatus.NOT_FOUND, 40409, "Not found owner"),
 
     // 500 Internal Server
     EXTERNAL_API_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50001, "External api error");
