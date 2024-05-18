@@ -27,4 +27,10 @@ public class CabinetController {
         cabinetService.getSensorData(sensorDto);
         return ResponseUtil.makeResponse(200, "Success post sensor", null);
     }
+
+    @DeleteMapping("/{cabinetId}")
+    public ResponseEntity<ResponseDto> deleteCabinet(@PathVariable Long cabinetId) {
+        cabinetService.deleteCabinet(cabinetId);
+        return ResponseUtil.makeResponse(200, "Success delete cabinet", null);
+    }
 }

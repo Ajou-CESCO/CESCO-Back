@@ -55,6 +55,27 @@ public class CabinetService {
         }
     }
 
+    public void deleteCabinet(Long cabinetId) {
+        Member requestMember = SecurityUtil.getCurrentMember()
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        Cabinet cabinet = cabinetRepository.findById(cabinetId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
+
+        Member targetMember = cabinet.getOwner();
+
+        if (!requestMember.equals(targetMember)) {
+            SecurityUtil.checkPermission(requestMember, targetMember);
+        } else {
+            targetMember = requestMember;
+        }
+
+        cabinet.setOwner(null);
+        targetMember.setCabinet(null);
+        cabinetRepository.save(cabinet);
+        memberRepository.save(targetMember);
+    }
+
     public void getSensorData(SensorDto sensorDto) {
         String serial = sensorDto.getSerial();
         int index = sensorDto.getIndex();
