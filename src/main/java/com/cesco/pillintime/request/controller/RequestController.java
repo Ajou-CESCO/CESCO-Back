@@ -26,7 +26,7 @@ public class RequestController {
 
     @GetMapping
     public ResponseEntity<ResponseDto> getRequest() {
-        List<Request> requestList = requestService.getRelatedRequest();
+        List<RequestDto> requestList = requestService.getRelatedRequest();
         return ResponseUtil.makeResponse(200, "Success get request", requestList);
     }
 

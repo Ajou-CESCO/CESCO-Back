@@ -1,7 +1,7 @@
 package com.cesco.pillintime.request.entity;
 
+import com.cesco.pillintime.member.entity.Member;
 import jakarta.persistence.*;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,15 +18,16 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private Long senderId;
+    @JoinColumn
+    @ManyToOne
+    private Member sender;
 
     @Column
     private String receiverPhone;
 
     @Builder
-    public Request(Long senderId, String receiverPhone) {
-        this.senderId = senderId;
+    public Request(Member sender, String receiverPhone) {
+        this.sender = sender;
         this.receiverPhone = receiverPhone;
     }
 
