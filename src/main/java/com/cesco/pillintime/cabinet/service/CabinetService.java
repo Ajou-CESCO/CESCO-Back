@@ -45,10 +45,14 @@ public class CabinetService {
         Cabinet cabinet = cabinetRepository.findBySerial(serial)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
 
-        cabinet.setOwner(targetMember);
-        targetMember.setCabinet(cabinet);
-        cabinetRepository.save(cabinet);
-        memberRepository.save(targetMember);
+        if (cabinet.getOwner() != null) {
+            throw new CustomException(ErrorCode.ALREADY_EXISTS_OWNER);
+        } else {
+            cabinet.setOwner(targetMember);
+            targetMember.setCabinet(cabinet);
+            cabinetRepository.save(cabinet);
+            memberRepository.save(targetMember);
+        }
     }
 
     public void getSensorData(SensorDto sensorDto) {
