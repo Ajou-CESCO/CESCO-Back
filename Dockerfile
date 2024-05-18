@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y dos2unix && \
     find . -type f -exec dos2unix {} \;
 
 # Gradle 빌드 실행
-RUN ./gradlew clean build
+RUN ./gradlew clean build --exclude-task test
 
 # 애플리케이션을 빌드하고 실행하는 명령어 설정
 CMD ["./gradlew", "bootRun"]

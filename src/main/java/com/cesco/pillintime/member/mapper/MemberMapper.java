@@ -11,6 +11,7 @@ public interface MemberMapper {
 
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
+    @Mapping(target = "cabinet", ignore = true)
     Member toEntity(MemberDto memberDto);
 
     @Mapping(target = "cabinetId", expression = "java(member.getCabinet() != null ? member.getCabinet().getId() : 0)")
