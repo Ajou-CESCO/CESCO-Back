@@ -1,5 +1,6 @@
 package com.cesco.pillintime.member.service;
 
+import com.cesco.pillintime.cabinet.entity.Cabinet;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.member.dto.MemberDto;
@@ -27,11 +28,8 @@ import static org.mockito.Mockito.*;
 public class MemberServiceTest {
 
     private MemberService memberService;
-
     private MemberRepository memberRepository;
-
     private RelationRepository relationRepository;
-
     private JwtUtil jwtUtil;
 
     public static Member createMember() {
@@ -42,8 +40,8 @@ public class MemberServiceTest {
         member.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%07d", longValue % 10000000));
         member.setPhone("010"+"-"+String.format("%04d", longValue % 10000)+"-"+String.format("%04d", longValue % 1000));
         member.setManager(true);
-        member.setHasCase(true);
         member.setSubscriber(true);
+        member.setCabinet(mock(Cabinet.class));
 
         return member;
     }
@@ -53,11 +51,10 @@ public class MemberServiceTest {
         memberRepository = mock(MemberRepository.class);
         jwtUtil = mock(JwtUtil.class);
         relationRepository = mock(RelationRepository.class);
-        memberService = new MemberService(memberRepository, relationRepository, jwtUtil);
+        memberService = new MemberService(memberRepository, jwtUtil);
     }
     @Test
     void CreateUser_Success() {
-        System.out.println("CreateUser_Success");
         // Given
         MemberDto memberDto = new MemberDto();
         memberDto.setName("John");
@@ -67,8 +64,8 @@ public class MemberServiceTest {
         String extoken = "memo";
 
         // When
-        when(memberRepository.findByPhone(memberDto.getPhone())).thenReturn(Optional.empty());
-        when(jwtUtil.createAccessToken(memberDto)).thenReturn(extoken);
+        when(memberRepository.findByPhone(any())).thenReturn(Optional.empty());
+        when(jwtUtil.createAccessToken(any())).thenReturn(extoken);
 
         String retoken = memberService.createUser(memberDto);
         // Then
@@ -77,7 +74,6 @@ public class MemberServiceTest {
     }
     @Test
     void createUser_ExistPhone() {
-        System.out.println("createUser_Phone_Exception");
         // Given
         MemberDto memberDto = new MemberDto();
         memberDto.setName("kim");
@@ -96,7 +92,6 @@ public class MemberServiceTest {
     @Test
     void getUserById_Success_null() {
         // Given
-        System.out.println("getUserById_Success_null");
         Member member = createMember();
 
         MemberDto memberDto = MemberMapper.INSTANCE.toDto(member);
@@ -120,22 +115,22 @@ public class MemberServiceTest {
     @Test
     void getUserById_Success_1L() {
         // Given
-        System.out.println("getUserById_Success_1L");
         Member member1 = createMember();
         Member member2 = createMember();
 
         List<Relation> relationList = new ArrayList<>();
         relationList.add(0,new Relation(member1,member2));
 
+        when(memberRepository.findById(member1.getId())).thenReturn(Optional.of(member1));
+        when(memberRepository.findById(member2.getId())).thenReturn(Optional.of(member2));
+        when(relationRepository.findByMember(any())).thenReturn(Optional.of(relationList));
+
         Authentication authentication = mock(Authentication.class);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         when(authentication.getName()).thenReturn("username");
         when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
         when(SecurityUtil.getCurrentMemberId()).thenReturn(1L);
-
-        when(memberRepository.findById(1L)).thenReturn(Optional.of(member1));
-        when(relationRepository.findByMember(any())).thenReturn(Optional.of(relationList));
+        when(SecurityUtil.checkPermission(member1, member2)).thenReturn(true);
 
         // When
         memberService.getUserById(1L);
@@ -146,7 +141,6 @@ public class MemberServiceTest {
     @Test
     void getUserById_NotFoundMember_null() {
         // Given
-        System.out.println("getUserById_NotFoundMember_null");
 
         CustomUserDetails userDetails = mock(CustomUserDetails.class);
         Authentication authentication = mock(Authentication.class);
@@ -166,7 +160,6 @@ public class MemberServiceTest {
     @Test
     void getUserById_NotFoundMember_1L() {
         // Given
-        System.out.println("getUserById_NotFoundMember_1L");
         Member member1 = createMember();
         Member member2 = createMember();
         List<Relation> relationList = new ArrayList<>();
@@ -180,7 +173,6 @@ public class MemberServiceTest {
 
         when(memberRepository.findById(member1.getId())).thenReturn(Optional.of(member1));
         when(memberRepository.findById(member2.getId())).thenReturn(Optional.of(new Member()));
-        when(relationRepository.findByMember(any())).thenReturn(Optional.of(relationList));
 
         // When
         CustomException customException = Assertions.assertThrows(CustomException.class, () -> memberService.getUserById(2L));
@@ -192,7 +184,6 @@ public class MemberServiceTest {
     @Test
     void getUserById_NotFoundRelation_1L() {
         // Given
-        System.out.println("getUserById_NotFoundUser_1L");
         Member member1 = createMember();
         Member member2 = createMember();
 
@@ -203,20 +194,17 @@ public class MemberServiceTest {
         when(SecurityUtil.getCurrentMemberId()).thenReturn(member1.getId());
 
         when(memberRepository.findById(member1.getId())).thenReturn(Optional.of(member1));
-        when(memberRepository.findById(member2.getId())).thenReturn(Optional.of(new Member()));
-        when(relationRepository.findByMember(any())).thenReturn(Optional.empty());
+        when(memberRepository.findById(member2.getId())).thenReturn(Optional.of(member2));
 
         // When
         CustomException customException = Assertions.assertThrows(CustomException.class, () -> memberService.getUserById(1L));
 
         // Then
         Assertions.assertEquals(customException.getErrorCode(),ErrorCode.INVALID_USER_ACCESS);
-        verify(relationRepository, times(1)).findByMember(any());
     }
 //    @Test
 //    void updateUserById_Success_Null() {
 //        // Given
-//        System.out.println("updateUserById_Success");
 //        MemberDto memberDto = new MemberDto();
 //        Member member = new Member("kim","010-9637-0802","990127-1234567",true);
 //        memberDto.setName("kim");
@@ -244,7 +232,6 @@ public class MemberServiceTest {
 //    @Test
 //    void updateUserById_Success_1L() {
 //        // Given
-//        System.out.println("updateUserById_Success");
 //        MemberDto memberDto = new MemberDto();
 //        Member member = new Member("kim","010-9637-0802","990127-1234567",true);
 //        memberDto.setName("kim");
@@ -275,7 +262,6 @@ public class MemberServiceTest {
 
     @Test
     void deleteUser_Success() {
-        System.out.println("deleteUser_Success");
         Member member = mock(Member.class);
 
         CustomUserDetails userDetails = mock(CustomUserDetails.class);
@@ -293,7 +279,6 @@ public class MemberServiceTest {
     }
     @Test
     void deleteUser_NotFoundMember() {
-        System.out.println("deleteUser_NotFoundMember");
 
         CustomUserDetails userDetails = mock(CustomUserDetails.class);
         Authentication authentication = mock(Authentication.class);

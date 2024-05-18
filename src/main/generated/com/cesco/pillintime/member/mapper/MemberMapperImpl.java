@@ -6,8 +6,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-14T14:40:27+0900",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.2 (Amazon.com Inc.)"
+    date = "2024-05-18T03:25:16+0900",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 18.0.2 (Amazon.com Inc.)"
 )
 public class MemberMapperImpl implements MemberMapper {
 
@@ -26,7 +26,6 @@ public class MemberMapperImpl implements MemberMapper {
         member.setGender( memberDto.getGender() );
         member.setManager( memberDto.isManager() );
         member.setSubscriber( memberDto.isSubscriber() );
-        member.setHasCase( memberDto.isHasCase() );
 
         return member;
     }
@@ -46,7 +45,8 @@ public class MemberMapperImpl implements MemberMapper {
         memberDto.setGender( member.getGender() );
         memberDto.setManager( member.isManager() );
         memberDto.setSubscriber( member.isSubscriber() );
-        memberDto.setHasCase( member.isHasCase() );
+
+        memberDto.setCabinetId( member.getCabinet() != null ? member.getCabinet().getId() : 0 );
 
         return memberDto;
     }

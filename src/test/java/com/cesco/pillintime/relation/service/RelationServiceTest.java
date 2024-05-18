@@ -37,7 +37,6 @@ class RelationServiceTest {
         member.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%06d", longValue % 10000000));
         member.setPhone(String.format("%03d", longValue % 1000));
         member.setManager(true);
-        member.setHasCase(true);
         member.setSubscriber(true);
 
         return member;

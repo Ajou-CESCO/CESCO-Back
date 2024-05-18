@@ -2,7 +2,6 @@ package com.cesco.pillintime.request.service;
 
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.member.repository.MemberRepository;
 import com.cesco.pillintime.request.entity.Request;
 import com.cesco.pillintime.request.mapper.RequestMapper;
 import com.cesco.pillintime.request.repository.RequestRepository;
@@ -26,7 +25,6 @@ class RequestServiceTest {
 
     private RequestRepository requestRepository;
     private RequestService requestService;
-    private MemberRepository memberRepository;
     public static Request createRequest() {
         long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         Request request = new Request();
@@ -38,7 +36,7 @@ class RequestServiceTest {
     @BeforeEach
     void init() {
         requestRepository = mock(RequestRepository.class);
-        requestService = new RequestService(requestRepository,memberRepository);
+        requestService = new RequestService(requestRepository);
     }
 
     @Test

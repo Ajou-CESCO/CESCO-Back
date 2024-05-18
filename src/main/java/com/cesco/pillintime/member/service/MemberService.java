@@ -1,26 +1,21 @@
 package com.cesco.pillintime.member.service;
 
-import com.cesco.pillintime.member.dto.MemberDto;
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.relation.entity.Relation;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.member.dto.MemberDto;
+import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.mapper.MemberMapper;
 import com.cesco.pillintime.member.repository.MemberRepository;
-import com.cesco.pillintime.relation.repository.RelationRepository;
 import com.cesco.pillintime.util.JwtUtil;
 import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final RelationRepository relationRepository;
     private final JwtUtil jwtUtil;
 
     public String createUser(MemberDto memberDto){
@@ -70,12 +65,6 @@ public class MemberService {
     }
 
     public MemberDto updateUserById(Long targetId, MemberDto memberDto) {
-        /*
-        id 값 유무에 따라 내 정보 혹은 연관된 사용자 정보 수정
-
-        id X -> 내 정보 수정
-        id O -> 연관된 사용자 정보 수정. 즉 권한 체크 필요
-         */
 
         String ssn = memberDto.getSsn();
         String name = memberDto.getName();

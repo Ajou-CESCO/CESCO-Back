@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.aspectj.runtime.internal.Conversions.intValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -34,7 +33,7 @@ class HealthServiceTest {
     public static Health createHealthObject() {
         long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         Health health = new Health();
-        health.setId(intValue(longValue) % 10);
+        health.setId(longValue % 10);
         health.setCal(15.7);
 
         return health;

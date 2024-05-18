@@ -6,7 +6,6 @@ import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.relation.entity.Relation;
 import com.cesco.pillintime.relation.repository.RelationRepository;
 import com.cesco.pillintime.security.CustomUserDetails;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

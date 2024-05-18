@@ -1,12 +1,11 @@
 package com.cesco.pillintime.request.service;
 
-import com.cesco.pillintime.request.dto.RequestDto;
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.request.entity.Request;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.member.entity.Member;
+import com.cesco.pillintime.request.dto.RequestDto;
+import com.cesco.pillintime.request.entity.Request;
 import com.cesco.pillintime.request.mapper.RequestMapper;
-import com.cesco.pillintime.member.repository.MemberRepository;
 import com.cesco.pillintime.request.repository.RequestRepository;
 import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ import java.util.List;
 public class RequestService {
 
     private final RequestRepository requestRepository;
-    private final MemberRepository memberRepository;
 
     public Request createRequest(RequestDto requestDto) {
         Long id = SecurityUtil.getCurrentMemberId();
@@ -32,7 +30,7 @@ public class RequestService {
 
     public List<Request> getRelatedRequest() {
         Member member = SecurityUtil.getCurrentMember()
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER)); // ??? 삭제
 
         String phone = SecurityUtil.getCurrentMemberPhone();
         return requestRepository.findByReceiverPhone(phone)

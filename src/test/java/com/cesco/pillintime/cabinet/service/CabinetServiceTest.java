@@ -5,6 +5,7 @@ import com.cesco.pillintime.cabinet.entity.Cabinet;
 import com.cesco.pillintime.cabinet.repository.CabinetRepository;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.log.repository.LogRepository;
 import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.repository.MemberRepository;
 import com.cesco.pillintime.security.CustomUserDetails;
@@ -24,13 +25,15 @@ class CabinetServiceTest {
 
     private CabinetRepository cabinetRepository;
     private MemberRepository memberRepository;
+    private LogRepository logRepository;
     private CabinetService cabinetService;
 
     @BeforeEach
     void init() {
         memberRepository = mock(MemberRepository.class);
         cabinetRepository = mock(CabinetRepository.class);
-        cabinetService = new CabinetService(cabinetRepository, memberRepository);
+        logRepository = mock(LogRepository.class);
+        cabinetService = new CabinetService(cabinetRepository, memberRepository, logRepository);
     }
 
     @Test

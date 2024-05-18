@@ -3,17 +3,16 @@ package com.cesco.pillintime.cabinet.service;
 import com.cesco.pillintime.cabinet.dto.CabinetDto;
 import com.cesco.pillintime.cabinet.dto.SensorDto;
 import com.cesco.pillintime.cabinet.entity.Cabinet;
+import com.cesco.pillintime.cabinet.repository.CabinetRepository;
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.log.entity.Log;
 import com.cesco.pillintime.log.entity.TakenStatus;
 import com.cesco.pillintime.log.repository.LogRepository;
 import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.exception.CustomException;
-import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.cabinet.repository.CabinetRepository;
 import com.cesco.pillintime.member.repository.MemberRepository;
 import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -41,10 +40,12 @@ public class CabinetService {
         Member targetMember = memberRepository.findById(ownerId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        if (!requestMember.equals(targetMember)) {
+        if (!requestMember.equals(targetMember)) { // ??? -> requestMember.getId() == ownerId
+            // targetMember = memberRepository.findById(ownerId)
+            //                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
             SecurityUtil.checkPermission(requestMember, targetMember);
         } else {
-            targetMember = requestMember;
+            targetMember = requestMember; // ???
         }
 
         Cabinet cabinet = cabinetRepository.findBySerial(serial)
@@ -64,14 +65,15 @@ public class CabinetService {
         Cabinet cabinet = cabinetRepository.findBySerial(serial)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
 
-        Optional<Member> owner = memberRepository.findByCabinet(cabinet);
+        Optional<Member> owner = memberRepository.findByCabinet(cabinet); // ??? -> Member owner = cabinet.getOwner();
+
         owner.ifPresent(member -> {
             // 현재 날짜, 시각 구하기
             LocalDate today = LocalDate.now();
             LocalDateTime currentTime = LocalDateTime.now();
 
             // 오늘의 로그 조회
-            Optional<List<Log>> logListOptional = logRepository.findByMemberAndPlannedAtAndIndex(member, today, sensorIndex);
+            Optional<List<Log>> logListOptional = logRepository.findByMemberAndPlannedAtAndIndex(member, today, sensorIndex); // ??? 예외처리
 
             // 가장 근접한 로그 찾기
             Optional<Log> nearestLogOptional = logListOptional.flatMap(logs -> logs.stream()

@@ -27,7 +27,6 @@ class AuthServiceTest {
         memberRepository = mock(MemberRepository.class);
         jwtUtil = mock(JwtUtil.class);
         authService = new AuthService(memberRepository, jwtUtil);
-
     }
 
     @Test
@@ -49,6 +48,7 @@ class AuthServiceTest {
 
         // Then
         verify(memberRepository,times(1)).findByNameAndPhoneAndSsn(any(),any(),any());
+        verify(jwtUtil,times(1)).createAccessToken(member);
         Assertions.assertEquals(extoken, retoken);
     }
 
