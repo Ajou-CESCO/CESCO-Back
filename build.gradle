@@ -52,6 +52,11 @@ dependencies {
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << "-parameters"
+}
+
+
 //tasks.named('test') {w
 //    useJUnitPlatform()
 //}

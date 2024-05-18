@@ -3,24 +3,19 @@ package com.cesco.pillintime.cabinet.service;
 import com.cesco.pillintime.cabinet.dto.CabinetDto;
 import com.cesco.pillintime.cabinet.dto.SensorDto;
 import com.cesco.pillintime.cabinet.entity.Cabinet;
-import com.cesco.pillintime.log.entity.Log;
+import com.cesco.pillintime.cabinet.repository.CabinetRepository;
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.log.entity.TakenStatus;
 import com.cesco.pillintime.log.repository.LogRepository;
 import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.exception.CustomException;
-import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.cabinet.repository.CabinetRepository;
 import com.cesco.pillintime.member.repository.MemberRepository;
 import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.List;
+import java.time.LocalTime;
 import java.util.Optional;
 
 @Service
@@ -58,7 +53,10 @@ public class CabinetService {
 
     public void getSensorData(SensorDto sensorDto) {
         String serial = sensorDto.getSerial();
-        int sensorIndex = sensorDto.getIndex();
+        int index = sensorDto.getIndex();
+
+        System.out.println(serial);
+        System.out.println(index);
 
         // Cabinet 정보 가져오기
         Cabinet cabinet = cabinetRepository.findBySerial(serial)
@@ -68,21 +66,24 @@ public class CabinetService {
         owner.ifPresent(member -> {
             // 현재 날짜, 시각 구하기
             LocalDate today = LocalDate.now();
-            LocalDateTime currentTime = LocalDateTime.now();
+            LocalTime currentTime = LocalTime.now();
 
-            // 오늘의 로그 조회
-            Optional<List<Log>> logListOptional = logRepository.findByMemberAndPlannedAtAndIndex(member, today, sensorIndex);
+            LocalTime rangeStartTime = currentTime.minusMinutes(30);
+            LocalTime rangeEndTime = currentTime.plusMinutes(30);
 
-            // 가장 근접한 로그 찾기
-            Optional<Log> nearestLogOptional = logListOptional.flatMap(logs -> logs.stream()
-                    .min(Comparator.comparing(log -> Math.abs(Duration.between(log.getPlan().getTime(), currentTime).toSeconds())))
-            );
+            System.out.println(member.getName());
+            System.out.println(member.getId());
+            System.out.println(today);
+            System.out.println(currentTime);
+            System.out.println(rangeStartTime);
+            System.out.println(rangeEndTime);
 
-            // 로그가 존재하는 경우 상태 업데이트
-            nearestLogOptional.ifPresent(nearestLog -> {
-                nearestLog.setTakenStatus(TakenStatus.COMPLETED);
-                logRepository.save(nearestLog);
-            });
+            // 타겟 로그 조회 후 존재할 시 업데이트
+            logRepository.findTargetLog(member, today, index, rangeStartTime, rangeEndTime)
+                    .ifPresent(log -> {
+                        log.setTakenStatus(TakenStatus.COMPLETED);
+                        logRepository.save(log);
+                    });
         });
     }
 }
