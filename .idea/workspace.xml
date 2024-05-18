@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="[Fix] 설정 수정">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/controller/CabinetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/controller/CabinetController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/service/CabinetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/service/CabinetService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/exception/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/exception/ErrorCode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,82 +109,82 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Gradle.Build PillinTime.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PillinTime [dependencies].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.pillintime_backend 빌드.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AuthServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AuthServiceTest.login_NotFoundMember.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AuthServiceTest.login_Success.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CabinetServiceTest.createCabinet_NotFoundMember.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CabinetServiceTest.createCabinet_Success.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CabinetServiceTest.createCabinet_Success_1L.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CabinetServiceTest.createCabinet_Success_Null.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.HealthServiceTest.createHealth.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.HealthServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.HealthServiceTest.getHealthByMemberId_HealthNotFound.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.HealthServiceTest.getHealthByMemberId_Success_1L.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.HealthServiceTest.getHealthByMemberId_Success_Null.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.HealthServiceTest.getHealthByMemberId_UserNotFound.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.CreateUser_Success.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.createUser_Phone_Exception.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.deleteUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.deleteUser_NotFoundUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.getUserById_NotFoundUser_1L.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.getUserById_NotFoundUser_null.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.getUserById_Success.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.getUserById_Success_1L.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.getUserById_Success_null.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.testDeleteUser_NotFoundUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.updateUserById.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.updateUserById_.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.updateUserById_Success_1L.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MemberServiceTest.updateUserById_Success_targetId_1L.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RelationServiceTest.createRelation_NotFoundMember.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RelationServiceTest.createRelation_NotFoundRequest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RelationServiceTest.createRelation_Success.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RelationServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RelationServiceTest.getRelationList_Success.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RelationServiceTest.getRelationList_Success_together.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RequestServiceTest.createRequest_Success.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RequestServiceTest.deleteRequestById.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RequestServiceTest.getRelatedRequest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RequestServiceTest.getRelatedRequest_Success.executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Shell Script.gradlew.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.PillinTimeApplication.executor&quot;: &quot;Run&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rlagk/PillinTime_Backend/build.gradle&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.Build PillinTime.executor": "Run",
+    "Gradle.PillinTime [dependencies].executor": "Run",
+    "Gradle.pillintime_backend 빌드.executor": "Run",
+    "JUnit.AuthServiceTest.executor": "Run",
+    "JUnit.AuthServiceTest.login_NotFoundMember.executor": "Run",
+    "JUnit.AuthServiceTest.login_Success.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_NotFoundMember.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success_1L.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success_Null.executor": "Run",
+    "JUnit.HealthServiceTest.createHealth.executor": "Run",
+    "JUnit.HealthServiceTest.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_HealthNotFound.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_Success_1L.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_Success_Null.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_UserNotFound.executor": "Run",
+    "JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개.executor": "Run",
+    "JUnit.MemberServiceTest.CreateUser_Success.executor": "Run",
+    "JUnit.MemberServiceTest.createUser_Phone_Exception.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser_NotFoundUser.executor": "Run",
+    "JUnit.MemberServiceTest.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundUser_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundUser_null.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success_null.executor": "Run",
+    "JUnit.MemberServiceTest.testDeleteUser_NotFoundUser.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_Success_1L.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_Success_targetId_1L.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_NotFoundMember.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_NotFoundRequest.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_Success.executor": "Run",
+    "JUnit.RelationServiceTest.executor": "Run",
+    "JUnit.RelationServiceTest.getRelationList_Success.executor": "Run",
+    "JUnit.RelationServiceTest.getRelationList_Success_together.executor": "Run",
+    "JUnit.RequestServiceTest.createRequest_Success.executor": "Run",
+    "JUnit.RequestServiceTest.deleteRequestById.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest_Success.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Shell Script.gradlew.executor": "Run",
+    "Spring Boot.PillinTimeApplication.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "feature/70-delete-cabinet",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/rlagk/PillinTime_Backend/build.gradle",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.cesco.pillintime.dto" />
@@ -339,7 +345,7 @@
       <workItem from="1715821123255" duration="8793000" />
       <workItem from="1715837773855" duration="2989000" />
       <workItem from="1715852231522" duration="8162000" />
-      <workItem from="1716004622399" duration="5437000" />
+      <workItem from="1716004622399" duration="6436000" />
     </task>
     <task id="LOCAL-00001" summary="[Fix] 설정 수정">
       <option name="closed" value="true" />
