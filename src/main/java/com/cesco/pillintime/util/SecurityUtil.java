@@ -6,7 +6,6 @@ import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.relation.entity.Relation;
 import com.cesco.pillintime.relation.repository.RelationRepository;
 import com.cesco.pillintime.security.CustomUserDetails;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -18,11 +17,10 @@ import java.util.Optional;
 @Component
 public class SecurityUtil {
 
-    private static RelationRepository relationRepository;
+    private final RelationRepository relationRepository;
 
-    @Autowired
-    public void setRelationRepository(RelationRepository repository) {
-        relationRepository = repository;
+    public SecurityUtil(RelationRepository relationRepository) {
+        this.relationRepository = relationRepository;
     }
 
     public static Optional<Member> getCurrentMember() {
@@ -49,7 +47,7 @@ public class SecurityUtil {
         return (CustomUserDetails) authentication.getPrincipal();
     }
 
-    public static boolean checkPermission(Member requestMember, Member targetMember) {
+    public boolean checkPermission(Member requestMember, Member targetMember) {
         /*
          * 요청한 사용자가 목표로 하는 사용자에 접근 권한이 있는지 확인하기 위한 함수
          * 생성된 연관 관계가 없을 경우 에러 반환

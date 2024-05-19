@@ -30,7 +30,9 @@ public class MemberServiceTest {
     private MemberService memberService;
     private MemberRepository memberRepository;
     private RelationRepository relationRepository;
+    private SecurityUtil securityUtil;
     private JwtUtil jwtUtil;
+
 
     public static Member createMember() {
         long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
@@ -45,40 +47,42 @@ public class MemberServiceTest {
 
         return member;
     }
-
     @BeforeEach
     void setUp() {
         memberRepository = mock(MemberRepository.class);
         jwtUtil = mock(JwtUtil.class);
         relationRepository = mock(RelationRepository.class);
-        memberService = new MemberService(memberRepository, jwtUtil);
+        securityUtil = new SecurityUtil(relationRepository);
+        memberService = new MemberService(memberRepository, jwtUtil, securityUtil);
     }
     @Test
     void CreateUser_Success() {
         // Given
-        MemberDto memberDto = new MemberDto();
-        memberDto.setName("John");
-        memberDto.setPhone("010-1234-5678");
-        memberDto.setSsn("123456-7890123");
+        MemberDto memberDto = MemberMapper.INSTANCE.toDto(createMember());
+        Member member = new Member(memberDto.getName(), memberDto.getPhone(), memberDto.getSsn(), memberDto.isManager());
 
         String extoken = "memo";
 
-        // When
-        when(memberRepository.findByPhone(any())).thenReturn(Optional.empty());
-        when(jwtUtil.createAccessToken(any())).thenReturn(extoken);
+        when(memberRepository.findByPhone(memberDto.getPhone())).thenReturn(Optional.empty());
+        when(memberRepository.findBySsn(memberDto.getSsn())).thenReturn(Optional.empty());
+        when(jwtUtil.createAccessToken(member)).thenReturn(extoken);
 
+        // When
         String retoken = memberService.createUser(memberDto);
+
         // Then
-        verify(memberRepository).findByPhone(memberDto.getPhone());
         Assertions.assertEquals(extoken, retoken);
+        verify(memberRepository,times(1)).findByPhone(memberDto.getPhone());
+        verify(memberRepository,times(1)).findBySsn(memberDto.getSsn());
+        verify(memberRepository, times(1)).save(member);
+
     }
     @Test
     void createUser_ExistPhone() {
         // Given
-        MemberDto memberDto = new MemberDto();
-        memberDto.setName("kim");
-        memberDto.setPhone("010-9637-0802");
-        memberDto.setSsn("990127-1234567");
+        MemberDto memberDto = MemberMapper.INSTANCE.toDto(createMember());
+        Member member = new Member(memberDto.getName(), memberDto.getPhone(), memberDto.getSsn(), memberDto.isManager());
+
         when(memberRepository.findByPhone(anyString())).thenReturn(Optional.of(new Member()));
 
         // When
@@ -87,120 +91,99 @@ public class MemberServiceTest {
 
         // Then
         Assertions.assertEquals(ErrorCode.ALREADY_EXISTS_PHONE, exception.getErrorCode());
-        verify(memberRepository).findByPhone(anyString());
+        verify(memberRepository, times(1)).findByPhone(memberDto.getPhone());
+        verify(memberRepository, times(0)).findBySsn(memberDto.getSsn());
+        verify(memberRepository, times(0)).save(member);
     }
     @Test
     void getUserById_Success_null() {
         // Given
+        Long targetId = null;
         Member member = createMember();
 
-        MemberDto memberDto = MemberMapper.INSTANCE.toDto(member);
-
-        CustomUserDetails userDetails = mock(CustomUserDetails.class);
         Authentication authentication = mock(Authentication.class);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         when(authentication.getName()).thenReturn("username");
-        when(authentication.getPrincipal()).thenReturn(userDetails);
-        when(SecurityUtil.getCurrentMemberId()).thenReturn(1L);
-
-        when(memberRepository.findById(1L)).thenReturn(Optional.ofNullable(member));
+        when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
+        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(member));
 
         // When
-        MemberDto m = memberService.getUserById(null);
+        MemberDto m = memberService.getUserById(targetId);
 
         // Then
-        Assertions.assertEquals(memberDto,m);
-        verify(memberRepository, times(1)).findById(any());
+        Assertions.assertEquals(MemberMapper.INSTANCE.toDto(member), m);
+        verify(memberRepository, never()).findById(any());
     }
     @Test
     void getUserById_Success_1L() {
         // Given
-        Member member1 = createMember();
-        Member member2 = createMember();
+        Long targetId = 1L;
+        Member requestMember = createMember();
+        Member targetMember = createMember();
 
         List<Relation> relationList = new ArrayList<>();
-        relationList.add(0,new Relation(member1,member2));
+        relationList.add(0, new Relation(targetMember,requestMember));
 
-        when(memberRepository.findById(member1.getId())).thenReturn(Optional.of(member1));
-        when(memberRepository.findById(member2.getId())).thenReturn(Optional.of(member2));
-        when(relationRepository.findByMember(any())).thenReturn(Optional.of(relationList));
+        when(memberRepository.findById(targetId)).thenReturn(Optional.of(targetMember));
+        when(relationRepository.findByMember(requestMember)).thenReturn(Optional.of(relationList));
 
         Authentication authentication = mock(Authentication.class);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         when(authentication.getName()).thenReturn("username");
         when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
-        when(SecurityUtil.getCurrentMemberId()).thenReturn(1L);
-        when(SecurityUtil.checkPermission(member1, member2)).thenReturn(true);
+        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
 
         // When
-        memberService.getUserById(1L);
+        memberService.getUserById(targetId);
 
         // Then
-        verify(memberRepository, times(2)).findById(any());
+        verify(memberRepository, times(1)).findById(1L);
+        verify(relationRepository, times(1)).findByMember(requestMember);
     }
     @Test
-    void getUserById_NotFoundMember_null() {
+    void getUserById_NotFoundMember_1L() {
         // Given
+        Long targetId = 1L;
+        Member requestMember = createMember();
 
-        CustomUserDetails userDetails = mock(CustomUserDetails.class);
+        when(memberRepository.findById(targetId)).thenReturn(Optional.empty());
+
         Authentication authentication = mock(Authentication.class);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         when(authentication.getName()).thenReturn("username");
-        when(authentication.getPrincipal()).thenReturn(userDetails);
-        when(SecurityUtil.getCurrentMemberId()).thenReturn(1L);
-        when(memberRepository.findById(any())).thenReturn(Optional.empty());
+        when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
+        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
 
         // When
-        CustomException customException = Assertions.assertThrows(CustomException.class, () -> memberService.getUserById(null));
+        CustomException customException = Assertions.assertThrows(CustomException.class,
+                () -> memberService.getUserById(targetId));
+
         // Then
         Assertions.assertEquals(customException.getErrorCode(),ErrorCode.NOT_FOUND_USER);
         verify(memberRepository, times(1)).findById(any());
     }
     @Test
-    void getUserById_NotFoundMember_1L() {
-        // Given
-        Member member1 = createMember();
-        Member member2 = createMember();
-        List<Relation> relationList = new ArrayList<>();
-        relationList.add(0,new Relation(member1,member2));
-
-        Authentication authentication = mock(Authentication.class);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        when(authentication.getName()).thenReturn("username");
-        when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
-        when(SecurityUtil.getCurrentMemberId()).thenReturn(member1.getId());
-
-        when(memberRepository.findById(member1.getId())).thenReturn(Optional.of(member1));
-        when(memberRepository.findById(member2.getId())).thenReturn(Optional.of(new Member()));
-
-        // When
-        CustomException customException = Assertions.assertThrows(CustomException.class, () -> memberService.getUserById(2L));
-
-        // Then
-        Assertions.assertEquals(customException.getErrorCode(),ErrorCode.NOT_FOUND_USER);
-        verify(memberRepository, times(2)).findById(any());
-    }
-    @Test
     void getUserById_NotFoundRelation_1L() {
         // Given
-        Member member1 = createMember();
-        Member member2 = createMember();
+        Long targetId = 1L;
+        Member requestMember = createMember();
+        Member targetMember = createMember();
+
+        when(memberRepository.findById(targetId)).thenReturn(Optional.of(targetMember));
 
         Authentication authentication = mock(Authentication.class);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         when(authentication.getName()).thenReturn("username");
         when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
-        when(SecurityUtil.getCurrentMemberId()).thenReturn(member1.getId());
-
-        when(memberRepository.findById(member1.getId())).thenReturn(Optional.of(member1));
-        when(memberRepository.findById(member2.getId())).thenReturn(Optional.of(member2));
+        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
 
         // When
-        CustomException customException = Assertions.assertThrows(CustomException.class, () -> memberService.getUserById(1L));
+        CustomException customException = Assertions.assertThrows(CustomException.class,
+                () -> memberService.getUserById(targetId));
 
         // Then
-        Assertions.assertEquals(customException.getErrorCode(),ErrorCode.INVALID_USER_ACCESS);
+        Assertions.assertEquals(ErrorCode.INVALID_USER_ACCESS,customException.getErrorCode());
+        verify(memberRepository,times(1)).findById(targetId);
     }
 //    @Test
 //    void updateUserById_Success_Null() {
@@ -287,7 +270,8 @@ public class MemberServiceTest {
         when(authentication.getPrincipal()).thenReturn(userDetails);
 
         when(SecurityUtil.getCurrentMember()).thenReturn(Optional.empty());
-        CustomException customException = Assertions.assertThrows(CustomException.class, () -> memberService.deleteUser());
+        CustomException customException = Assertions.assertThrows(CustomException.class,
+                () -> memberService.deleteUser());
 
         // memberRepository.delete()가 호출되지 않았는지 확인
         Assertions.assertEquals(customException.getErrorCode(),ErrorCode.NOT_FOUND_USER);

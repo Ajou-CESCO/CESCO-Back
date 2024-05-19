@@ -5,9 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/request/service/RequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/request/service/RequestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/relation/service/RelationServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/relation/service/RelationServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/request/service/RequestServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/request/service/RequestServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/log/mapper/LogMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/log/mapper/LogMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/plan/mapper/PlanMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/cesco/pillintime/plan/mapper/PlanMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/controller/CabinetController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/dto/CabinetDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/dto/SensorDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/entity/Cabinet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/repository/CabinetRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/cabinet/service/CabinetService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/controller/LogController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/dto/LogDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/entity/Log.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/entity/TakenStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/mapper/LogMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/repository/LogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/log/service/LogService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/member/service/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/controller/PlanController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/dto/PlanDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/entity/Plan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/mapper/PlanMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/repository/PlanRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/plan/service/PlanService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/util/SecurityUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/util/SecurityUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/cabinet/service/CabinetServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/member/service/MemberServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/member/service/MemberServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,10 +135,15 @@
     "JUnit.HealthServiceTest.getHealthByMemberId_UserNotFound.executor": "Run",
     "JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개.executor": "Run",
     "JUnit.MemberServiceTest.CreateUser_Success.executor": "Run",
+    "JUnit.MemberServiceTest.createUser_ExistPhone.executor": "Run",
     "JUnit.MemberServiceTest.createUser_Phone_Exception.executor": "Run",
     "JUnit.MemberServiceTest.deleteUser.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser_NotFoundMember.executor": "Run",
     "JUnit.MemberServiceTest.deleteUser_NotFoundUser.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser_Success.executor": "Run",
     "JUnit.MemberServiceTest.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundMember_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundMember_null.executor": "Run",
     "JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L.executor": "Run",
     "JUnit.MemberServiceTest.getUserById_NotFoundUser_1L.executor": "Run",
     "JUnit.MemberServiceTest.getUserById_NotFoundUser_null.executor": "Run",
@@ -135,6 +163,7 @@
     "JUnit.RelationServiceTest.getRelationList_Success_together.executor": "Run",
     "JUnit.RequestServiceTest.createRequest_Success.executor": "Run",
     "JUnit.RequestServiceTest.deleteRequestById.executor": "Run",
+    "JUnit.RequestServiceTest.executor": "Run",
     "JUnit.RequestServiceTest.getRelatedRequest.executor": "Run",
     "JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone.executor": "Run",
     "JUnit.RequestServiceTest.getRelatedRequest_Success.executor": "Run",
@@ -182,8 +211,38 @@
       <recent name="com.cesco.pillintime.relation.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone">
-    <configuration name="HealthServiceTest.getHealthByMemberId_HealthNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CabinetServiceTest">
+    <configuration name="AuthServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CabinetServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.cabinet.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.cabinet.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.cabinet.service.CabinetServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HealthServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
@@ -193,45 +252,27 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cesco.pillintime.health.service" />
       <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.health.service.HealthServiceTest" />
-      <option name="METHOD_NAME" value="getHealthByMemberId_HealthNotFound" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HealthServiceTest.getHealthByMemberId_Success_Null" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RelationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.health.service.*" />
+          <option name="PATTERN" value="com.cesco.pillintime.relation.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.health.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.health.service.HealthServiceTest" />
-      <option name="METHOD_NAME" value="getHealthByMemberId_Success_Null" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.relation.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.relation.service.RelationServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HealthServiceTest.getHealthByMemberId_UserNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.health.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.health.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.health.service.HealthServiceTest" />
-      <option name="METHOD_NAME" value="getHealthByMemberId_UserNotFound" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RequestServiceTest.getRelatedRequest_NotFoundPhone" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RequestServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
@@ -241,24 +282,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cesco.pillintime.request.service" />
       <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.request.service.RequestServiceTest" />
-      <option name="METHOD_NAME" value="getRelatedRequest_NotFoundPhone" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RequestServiceTest.getRelatedRequest_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.request.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.request.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.request.service.RequestServiceTest" />
-      <option name="METHOD_NAME" value="getRelatedRequest_Success" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -271,20 +295,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.HealthServiceTest.getHealthByMemberId_HealthNotFound" />
-      <item itemvalue="JUnit.HealthServiceTest.getHealthByMemberId_Success_Null" />
-      <item itemvalue="JUnit.HealthServiceTest.getHealthByMemberId_UserNotFound" />
-      <item itemvalue="JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone" />
-      <item itemvalue="JUnit.RequestServiceTest.getRelatedRequest_Success" />
+      <item itemvalue="JUnit.CabinetServiceTest" />
+      <item itemvalue="JUnit.RequestServiceTest" />
+      <item itemvalue="JUnit.HealthServiceTest" />
+      <item itemvalue="JUnit.RelationServiceTest" />
+      <item itemvalue="JUnit.AuthServiceTest" />
       <item itemvalue="Spring Boot.PillinTimeApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone" />
-        <item itemvalue="JUnit.RequestServiceTest.getRelatedRequest_Success" />
-        <item itemvalue="JUnit.HealthServiceTest.getHealthByMemberId_HealthNotFound" />
-        <item itemvalue="JUnit.HealthServiceTest.getHealthByMemberId_UserNotFound" />
-        <item itemvalue="JUnit.HealthServiceTest.getHealthByMemberId_Success_Null" />
+        <item itemvalue="JUnit.CabinetServiceTest" />
+        <item itemvalue="JUnit.RequestServiceTest" />
+        <item itemvalue="JUnit.RelationServiceTest" />
+        <item itemvalue="JUnit.HealthServiceTest" />
+        <item itemvalue="JUnit.AuthServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -329,7 +353,7 @@
       <workItem from="1715837773855" duration="2989000" />
       <workItem from="1715852231522" duration="8162000" />
       <workItem from="1716007427695" duration="3131000" />
-      <workItem from="1716014258839" duration="2416000" />
+      <workItem from="1716014258839" duration="19481000" />
     </task>
     <servers />
   </component>

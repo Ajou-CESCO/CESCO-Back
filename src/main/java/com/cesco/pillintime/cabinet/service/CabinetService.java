@@ -29,6 +29,7 @@ public class CabinetService {
     private final CabinetRepository cabinetRepository;
     private final MemberRepository memberRepository;
     private final LogRepository logRepository;
+    private final SecurityUtil securityUtil;
 
     public void createCabinet(CabinetDto cabinetDto) {
         String serial = cabinetDto.getSerial();
@@ -37,15 +38,14 @@ public class CabinetService {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Member targetMember = memberRepository.findById(ownerId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        Member targetMember;
 
-        if (!requestMember.equals(targetMember)) { // ??? -> requestMember.getId() == ownerId
-            // targetMember = memberRepository.findById(ownerId)
-            //                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
-            SecurityUtil.checkPermission(requestMember, targetMember);
+        if (!requestMember.getId().equals(ownerId)) { // ??? -> requestMember.getId() == ownerId
+             targetMember = memberRepository.findById(ownerId)
+                            .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+            securityUtil.checkPermission(requestMember, targetMember);
         } else {
-            targetMember = requestMember; // ???
+            targetMember = requestMember;
         }
 
         Cabinet cabinet = cabinetRepository.findBySerial(serial)

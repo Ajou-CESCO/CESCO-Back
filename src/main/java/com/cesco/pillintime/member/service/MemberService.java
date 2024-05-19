@@ -17,6 +17,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final JwtUtil jwtUtil;
+    private final SecurityUtil securityUtil;
 
     public String createUser(MemberDto memberDto){
 
@@ -36,7 +37,7 @@ public class MemberService {
                     throw new CustomException(ErrorCode.ALREADY_EXISTS_SSN);
                 });
 
-        // 회원가입 진행
+        // 회원가입 진행 Mapper로 왜 안바꿈?
         Member member = new Member(name, phone, ssn, isManager);
         memberRepository.save(member);
 
@@ -45,9 +46,7 @@ public class MemberService {
 
     public MemberDto getUserById(Long targetId) {
 
-        Long requesterId = SecurityUtil.getCurrentMemberId();
-
-        Member requestMember = memberRepository.findById(requesterId)
+        Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         if (targetId == null) {
@@ -56,7 +55,7 @@ public class MemberService {
             Member targetMember = memberRepository.findById(targetId)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-            if (SecurityUtil.checkPermission(requestMember, targetMember)) {
+            if (securityUtil.checkPermission(requestMember, targetMember)) {
                 return MemberMapper.INSTANCE.toDto(targetMember);
             }
         }
@@ -80,7 +79,7 @@ public class MemberService {
             targetMember = memberRepository.findById(targetId)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-            SecurityUtil.checkPermission(requestMember, targetMember);
+            securityUtil.checkPermission(requestMember, targetMember);
         }
 
         targetMember.setSsn(ssn);

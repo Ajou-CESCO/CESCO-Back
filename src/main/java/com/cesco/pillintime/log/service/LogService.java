@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +31,7 @@ public class LogService {
     private final LogRepository logRepository;
     private final PlanRepository planRepository;
     private final MemberRepository memberRepository;
+    private final SecurityUtil securityUtil;
 
     @Scheduled(cron = "0 50 23 * * SUN")
     @Transactional
@@ -67,7 +67,7 @@ public class LogService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         if (!requestMember.equals(targetMember)) {
-            SecurityUtil.checkPermission(requestMember, targetMember);
+            securityUtil.checkPermission(requestMember, targetMember);
         } else {
             targetMember = requestMember;
         }

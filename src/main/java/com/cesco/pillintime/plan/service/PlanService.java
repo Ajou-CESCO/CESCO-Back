@@ -29,6 +29,7 @@ public class PlanService {
     private final MemberRepository memberRepository;
     private final MedicineService medicineService;
     private final LogService logService;
+    private final SecurityUtil securityUtil;
 
     public void createPlan(PlanDto planDto) {
         Long memberId = planDto.getMemberId();
@@ -45,7 +46,7 @@ public class PlanService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         if (!requestMember.equals(targetMember)) {
-            SecurityUtil.checkPermission(requestMember, targetMember);
+            securityUtil.checkPermission(requestMember, targetMember);
         } else {
             targetMember = requestMember;
         }
@@ -81,7 +82,7 @@ public class PlanService {
 
 
         if (!requestMember.equals(targetMember)) {
-            SecurityUtil.checkPermission(requestMember, targetMember);
+            securityUtil.checkPermission(requestMember, targetMember);
         } else {
             targetMember = requestMember;
         }
@@ -111,7 +112,7 @@ public class PlanService {
         Member targetMember = plan.getMember();
 
         if (!requestMember.equals(targetMember)) {
-            SecurityUtil.checkPermission(requestMember, targetMember);
+            securityUtil.checkPermission(requestMember, targetMember);
         }
 
         planRepository.delete(plan);
