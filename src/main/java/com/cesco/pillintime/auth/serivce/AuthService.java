@@ -52,19 +52,23 @@ public class AuthService {
 
     public String getSmsCode(SmsDto smsDto) {
         String to = smsDto.getPhone();
+        String formattedTo = to.replace("-", "");
+
         String verficationCode = generateRandomCode(6);
 
         this.messageService = NurigoApp.INSTANCE.initialize(apiKey, secretKey, "https://api.coolsms.co.kr");
 
         Message message = new Message();
         message.setFrom(from);
-        message.setTo(to);
+        message.setTo(formattedTo);
         message.setText("[약속시간] 아래의 인증번호를 입력해주세요\n" + verficationCode);
 
         SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
-        System.out.println(response);
-
-        return verficationCode;
+        if (response != null && !response.getStatusCode().equals("2000")) {
+            throw new CustomException(ErrorCode.EXTERNAL_API_ERROR);
+        } else {
+            return verficationCode;
+        }
     }
 
     // =============================================================
