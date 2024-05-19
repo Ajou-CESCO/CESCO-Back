@@ -61,7 +61,7 @@ public class AuthService {
         Message message = new Message();
         message.setFrom(from);
         message.setTo(formattedTo);
-        message.setText("[약속시간] 아래의 인증번호를 입력해주세요\n" + verficationCode);
+        message.setText("[약속시간] [" +  verficationCode + "] 인증번호를 화면에 입력해주세요");
 
         SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
         if (response != null && !response.getStatusCode().equals("2000")) {
