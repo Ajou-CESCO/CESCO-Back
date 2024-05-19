@@ -13,6 +13,7 @@ public class PlanDto {
     private Long memberId;
     private String medicineId;
     private String medicineName;
+    private Integer cabinetIndex;
     private List<Integer> weekdayList;
     private Integer weekday;
     private List<LocalTime> timeList;
