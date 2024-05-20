@@ -57,7 +57,7 @@ class RelationServiceTest {
         // Given
         Member requestMember = createMember();
         Member targetMember = createMember();
-        Request request = new Request(requestMember.getId(),targetMember.getPhone());
+        Request request = new Request(requestMember,targetMember.getPhone());
 
         when(requestRepository.findById(any())).thenReturn(Optional.of(request));
         when(memberRepository.findById(requestMember.getId())).thenReturn(Optional.of(requestMember));
@@ -83,7 +83,7 @@ class RelationServiceTest {
         // Given
         Member requestMember = createMember();
         Member targetMember = createMember();
-        Request request = new Request(requestMember.getId(),targetMember.getPhone());
+        Request request = new Request(requestMember,targetMember.getPhone());
 
         when(requestRepository.findById(any())).thenReturn(Optional.empty());
         when(memberRepository.findById(requestMember.getId())).thenReturn(Optional.of(requestMember));

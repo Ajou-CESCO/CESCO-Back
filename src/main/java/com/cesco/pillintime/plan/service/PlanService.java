@@ -8,6 +8,8 @@ import com.cesco.pillintime.medicine.service.MedicineService;
 import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.repository.MemberRepository;
 import com.cesco.pillintime.plan.dto.PlanDto;
+import com.cesco.pillintime.plan.dto.RequestPlanDto;
+import com.cesco.pillintime.plan.dto.ResponsePlanDto;
 import com.cesco.pillintime.plan.entity.Plan;
 import com.cesco.pillintime.plan.mapper.PlanMapper;
 import com.cesco.pillintime.plan.repository.PlanRepository;
@@ -31,14 +33,14 @@ public class PlanService {
     private final LogService logService;
     private final SecurityUtil securityUtil;
 
-    public void createPlan(PlanDto planDto) {
-        Long memberId = planDto.getMemberId();
-        Long medicineId = Long.parseLong(planDto.getMedicineId());
-        Integer cabinetIndex = planDto.getCabinetIndex();
-        List<Integer> weekdayList = planDto.getWeekdayList();
-        List<LocalTime> timeList = planDto.getTimeList();
-        LocalDate startAt = planDto.getStartAt();
-        LocalDate endAt = planDto.getEndAt();
+    public void createPlan(RequestPlanDto requestPlanDto) {
+        Long memberId = requestPlanDto.getMemberId();
+        Long medicineId = Long.parseLong(requestPlanDto.getMedicineId());
+        Integer cabinetIndex = requestPlanDto.getCabinetIndex();
+        List<Integer> weekdayList = requestPlanDto.getWeekdayList();
+        List<LocalTime> timeList = requestPlanDto.getTimeList();
+        LocalDate startAt = requestPlanDto.getStartAt();
+        LocalDate endAt = requestPlanDto.getEndAt();
 
         System.out.println(cabinetIndex);
 
@@ -74,7 +76,7 @@ public class PlanService {
         logService.createDoseLog();
     }
 
-    public List<PlanDto> getPlanByMemberId(PlanDto inputPlanDto) {
+    public List<ResponsePlanDto> getPlanByMemberId(RequestPlanDto inputPlanDto) {
         Long targetId = inputPlanDto.getMemberId();
 
         Member requestMember = SecurityUtil.getCurrentMember()
@@ -91,18 +93,20 @@ public class PlanService {
         }
 
         Optional<List<Plan>> planListOptional = planRepository.findByMember(targetMember);
-        List<PlanDto> planDtoList = new ArrayList<>();
+        List<ResponsePlanDto> responsePlanDtoList = new ArrayList<>();
 
         planListOptional.ifPresent(plans -> {
             for (Plan plan : plans) {
-                PlanDto planDto = PlanMapper.INSTANCE.toDto(plan);
-                planDto.setTimeList(new ArrayList<>());
-                planDto.setWeekdayList(new ArrayList<>());
-                planDtoList.add(planDto);
+                ResponsePlanDto responsePlanDto = PlanMapper.INSTANCE.toResponseDto(plan);
+                responsePlanDto.setTime(null);
+                responsePlanDto.setWeekday(null);
+//                responsePlanDto.setTime(LocalTime.MIDNIGHT);  // 자정으로 초기화
+//                responsePlanDto.setWeekday(0);                // 일요일을 기본값으로 초기화
+                responsePlanDtoList.add(responsePlanDto);
             }
         });
 
-        return planDtoList;
+        return responsePlanDtoList;
     }
 
     public void deletePlanById(Long planId) {

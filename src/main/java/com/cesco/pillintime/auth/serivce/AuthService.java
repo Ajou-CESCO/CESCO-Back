@@ -26,7 +26,6 @@ import java.util.Random;
 public class AuthService {
 
     private final MemberRepository memberRepository;
-    private DefaultMessageService messageService;
     private final JwtUtil jwtUtil;
 
     @Value("${COOLSMS_API_KEY}")
@@ -56,14 +55,14 @@ public class AuthService {
 
         String verficationCode = generateRandomCode(6);
 
-        this.messageService = NurigoApp.INSTANCE.initialize(apiKey, secretKey, "https://api.coolsms.co.kr");
+        DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, secretKey, "https://api.coolsms.co.kr");
 
         Message message = new Message();
         message.setFrom(from);
         message.setTo(formattedTo);
         message.setText("[약속시간] [" +  verficationCode + "] 인증번호를 화면에 입력해주세요");
 
-        SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
+        SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
         if (response != null && !response.getStatusCode().equals("2000")) {
             throw new CustomException(ErrorCode.EXTERNAL_API_ERROR);
         } else {

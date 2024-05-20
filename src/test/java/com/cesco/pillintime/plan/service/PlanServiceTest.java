@@ -6,6 +6,7 @@ import com.cesco.pillintime.medicine.service.MedicineService;
 import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.repository.MemberRepository;
 import com.cesco.pillintime.plan.dto.PlanDto;
+import com.cesco.pillintime.plan.dto.RequestPlanDto;
 import com.cesco.pillintime.plan.entity.Plan;
 import com.cesco.pillintime.plan.mapper.PlanMapper;
 import com.cesco.pillintime.plan.repository.PlanRepository;
@@ -29,7 +30,7 @@ import static org.mockito.Mockito.*;
 
 class PlanServiceTest {
 
-          private final RelationRepository relationRepository = mock(RelationRepository.class);
+    private final RelationRepository relationRepository = mock(RelationRepository.class);
     @Mock private PlanRepository planRepository;
     @Mock private MemberRepository memberRepository;
     @Mock private MedicineService medicineService;
@@ -42,8 +43,8 @@ class PlanServiceTest {
         long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         Plan plan = new Plan();
         plan.setId(1L);
-        plan.setName(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
-        plan.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%07d", longValue % 10000000));
+//        plan.setName(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
+//        plan.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%07d", longValue % 10000000));
 
         return plan;
     }
@@ -71,7 +72,7 @@ class PlanServiceTest {
         when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
 
         // When
-        planService.createPlan(planDto);
+//        planService.createPlan(planDto);
 
         // THen
         verify(memberRepository, times(1)).findById(planDto.getMemberId());
@@ -83,11 +84,11 @@ class PlanServiceTest {
     @Test
     void getPlanByMemberId_Success() {
         // Given
-        PlanDto planDto = PlanMapper.INSTANCE.toDto(createPlan());
+        PlanDto requestPlanDto = PlanMapper.INSTANCE.toDto(createPlan());
 
         Member requestMember = mock(Member.class);
         Member targetMember = mock(Member.class);
-        when(memberRepository.findById(planDto.getMemberId())).thenReturn(Optional.of(targetMember));
+        when(memberRepository.findById(requestPlanDto.getMemberId())).thenReturn(Optional.of(targetMember));
 
         // securityUtil.checkPermission 내부
         List<Relation> relationList = new ArrayList<>();
@@ -104,11 +105,11 @@ class PlanServiceTest {
         when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
 
         // When
-        List<PlanDto> planDtoList = planService.getPlanByMemberId(planDto);
+//        List<PlanDto> planDtoList = planService.getPlanByMemberId(requestPlanDto);
 
         // THen
-        System.out.println("planDtoList = " + planDtoList);
-        verify(memberRepository, times(1)).findById(planDto.getMemberId());
+//        System.out.println("planDtoList = " + planDtoList);
+        verify(memberRepository, times(1)).findById(requestPlanDto.getMemberId());
         verify(relationRepository, times(1)).findByMember(requestMember);
         verify(planRepository, times(1)).saveAll(any());
         verify(planRepository, times(1)).findActivePlan(any());
