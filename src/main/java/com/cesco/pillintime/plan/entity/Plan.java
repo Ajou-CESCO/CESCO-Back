@@ -5,6 +5,8 @@ import com.cesco.pillintime.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 import java.time.LocalDate;
@@ -21,7 +23,8 @@ public class Plan {
     private Long id;
 
     @JoinColumn
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
 
     @Column

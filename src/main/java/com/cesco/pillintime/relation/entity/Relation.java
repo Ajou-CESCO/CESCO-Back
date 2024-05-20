@@ -4,6 +4,8 @@ import com.cesco.pillintime.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Data
 @Entity
@@ -15,11 +17,13 @@ public class Relation {
     private Long id;
 
     @JoinColumn
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member manager;
 
     @JoinColumn
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member client;
 
     public Relation(Member manager, Member client) {
