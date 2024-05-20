@@ -1,7 +1,6 @@
 package com.cesco.pillintime.plan.mapper;
 
 import com.cesco.pillintime.plan.dto.PlanDto;
-import com.cesco.pillintime.plan.dto.RequestPlanDto;
 import com.cesco.pillintime.plan.dto.ResponsePlanDto;
 import com.cesco.pillintime.plan.entity.Plan;
 import org.mapstruct.Mapper;
@@ -19,13 +18,7 @@ public interface PlanMapper {
     @Mapping(target = "timeList", ignore = true)
     PlanDto toDto(Plan plan);
 
-    @Mapping(source = "member.id", target = "memberId")
-    @Mapping(target = "weekdayList", ignore = true)
-    @Mapping(target = "timeList", ignore = true)
-    RequestPlanDto toRequestPlanDto(Plan plan);
+//    RequestPlanDto toRequestPlanDto(Plan plan);
 
-    @Mapping(source = "member.id", target = "memberId")
-    @Mapping(target = "weekdayList", ignore = true)
-    @Mapping(target = "timeList", ignore = true)
     ResponsePlanDto toResponseDto(Plan plan);
 }

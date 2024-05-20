@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,18 +41,23 @@ public class LogService {
 
         planRepository.findActivePlan(today).ifPresent(planList -> {
             for (Plan plan : planList) {
-                LocalDate plannedAt = calculateNextPlannedDate(today, plan.getWeekday());
+                LocalDate plannedDate = calculateNextPlannedDate(today, plan.getWeekday());
+                LocalTime plannedTime = plan.getTime();
+                LocalDateTime plannedAt = plannedDate.atTime(plannedTime);
+
                 LocalDate endAt = plan.getEndAt();
 
                 // 해당 날짜 및 Plan 에 대한 Log 가 없을 경우에만 생성
                 // 계산된 plannedAt이 계획의 종료일보다 작거나 같을 경우에만 생성
                 boolean logExists = logRepository.existsByMemberAndPlanAndPlannedAt(plan.getMember(), plan, plannedAt);
-                if (!logExists && plannedAt.isBefore(endAt) || plannedAt.isEqual(endAt)) {
+                if (!logExists && plannedDate.isBefore(endAt) || plannedDate.isEqual(endAt)) {
                     Log log = new Log();
                     log.setMember(plan.getMember());
                     log.setPlan(plan);
-                    log.setTakenStatus(TakenStatus.NOT_COMPLETED);
                     log.setPlannedAt(plannedAt);
+                    log.setTakenStatus(TakenStatus.NOT_COMPLETED);
+
+                    System.out.println(log.getPlannedAt());
 
                     logRepository.save(log);
                 }
@@ -92,11 +98,11 @@ public class LogService {
 
     @Scheduled(cron = "0 1/31 * * * *")
     public void updateDoseLogByCurrentTime() {
-        LocalDate today = LocalDate.now();
-        LocalTime currentTime = LocalTime.now().minusMinutes(30);
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime targetTime = currentTime.minusMinutes(30);
 
         // 예정 시각보다 30분 초과한 미완료된 로그들을 조회하여 업데이트
-        List<Log> incompletedLogList = logRepository.findIncompleteLog(today, currentTime);
+        List<Log> incompletedLogList = logRepository.findIncompleteLog(targetTime);
         incompletedLogList.forEach(log -> {
             log.setTakenStatus(TakenStatus.TIMED_OUT);
             logRepository.save(log);

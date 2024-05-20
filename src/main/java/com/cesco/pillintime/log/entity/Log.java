@@ -5,8 +5,10 @@ import com.cesco.pillintime.plan.entity.Plan;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -21,6 +23,7 @@ public class Log {
 
     @JoinColumn
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
 
     @JoinColumn
@@ -28,7 +31,7 @@ public class Log {
     private Plan plan;
 
     @Column
-    private LocalDate plannedAt;
+    private LocalDateTime plannedAt;
 
     @Column
     private TakenStatus takenStatus;

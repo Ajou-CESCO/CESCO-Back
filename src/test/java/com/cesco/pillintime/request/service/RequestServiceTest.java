@@ -1,7 +1,7 @@
 package com.cesco.pillintime.request.service;
 
-import com.cesco.pillintime.exception.CustomException;
-import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.member.entity.Member;
+import com.cesco.pillintime.member.service.MemberServiceTest;
 import com.cesco.pillintime.request.dto.RequestDto;
 import com.cesco.pillintime.request.entity.Request;
 import com.cesco.pillintime.request.mapper.RequestMapper;
@@ -29,7 +29,7 @@ class RequestServiceTest {
     public static Request createRequest() {
         long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         Request request = new Request();
-//        request.setSenderId(1L);
+        request.setSender(MemberServiceTest.createMember());
         request.setReceiverPhone("010"+"-"+String.format("%04d", longValue % 10000)+"-"+String.format("%04d", longValue*7 % 10000));
         return request;
     }
@@ -43,6 +43,7 @@ class RequestServiceTest {
     @Test
     void createRequest_Success() {
         // Given
+        Member member = MemberServiceTest.createMember();
         Request request = createRequest();
         RequestDto requestDto = RequestMapper.INSTANCE.toDto(request);
 
@@ -51,7 +52,7 @@ class RequestServiceTest {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         when(authentication.getName()).thenReturn("username");
         when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
-        when(SecurityUtil.getCurrentMemberId()).thenReturn(1L);
+        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(member));
 
         // When
         requestService.createRequest(requestDto);
@@ -63,47 +64,27 @@ class RequestServiceTest {
     @Test
     void getRelatedRequest_Success() {
         // Given
+        Member member = MemberServiceTest.createMember();
         Request request = createRequest();
         List<Request> requestList = new ArrayList<>();
+        List<RequestDto> requestDtoList = new ArrayList<>();
+        requestDtoList.add(RequestMapper.INSTANCE.toDto(request));
         requestList.add(request);
 
-        when(requestRepository.findByReceiverPhone(any())).thenReturn(Optional.of(requestList));
+        when(requestRepository.findByReceiverPhone(member.getPhone())).thenReturn(Optional.of(requestList));
 
         // SecurityUtil.getCurrentMember..정상 동작 코드
         Authentication authentication = mock(Authentication.class);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         when(authentication.getName()).thenReturn("username");
         when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
-        when(SecurityUtil.getCurrentMemberPhone()).thenReturn(request.getReceiverPhone());
+        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(member));
 
         // When
-//        List<Request> returnRequest = requestService.getRelatedRequest();
+        List<RequestDto> returnRequestDto = requestService.getRelatedRequest();
 
         // Then
-//        Assertions.assertEquals(requestList,returnRequest);
-        verify(requestRepository,times(1)).findByReceiverPhone(any());
-    }
-
-    @Test
-    void getRelatedRequest_NotFoundPhone() {
-        // Given
-        Request request = createRequest();
-
-        when(requestRepository.findByReceiverPhone(any())).thenReturn(Optional.empty());
-
-        // SecurityUtil.getCurrentMember..정상 동작 코드
-        Authentication authentication = mock(Authentication.class);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        when(authentication.getName()).thenReturn("username");
-        when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
-        when(SecurityUtil.getCurrentMemberPhone()).thenReturn(request.getReceiverPhone());
-
-        // When
-        CustomException exception = Assertions.assertThrows(CustomException.class,
-                () -> requestService.getRelatedRequest());
-
-        // Then
-        Assertions.assertEquals(ErrorCode.NOT_FOUND_REQUEST, exception.getErrorCode());
+        Assertions.assertEquals(requestDtoList,returnRequestDto);
         verify(requestRepository,times(1)).findByReceiverPhone(any());
     }
 

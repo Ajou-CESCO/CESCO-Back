@@ -22,7 +22,6 @@ public class RelationService {
 
     private final RequestRepository requestRepository;
     private final RelationRepository relationRepository;
-    private final MemberRepository memberRepository;
 
     public void createRelation(Long requestId) {
 

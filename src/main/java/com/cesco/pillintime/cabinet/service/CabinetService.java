@@ -14,8 +14,7 @@ import com.cesco.pillintime.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -82,9 +81,6 @@ public class CabinetService {
         String serial = sensorDto.getSerial();
         int index = sensorDto.getIndex();
 
-        System.out.println(serial);
-        System.out.println(index);
-
         // Cabinet 정보 가져오기
         Cabinet cabinet = cabinetRepository.findBySerial(serial)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
@@ -93,21 +89,13 @@ public class CabinetService {
 
         owner.ifPresent(member -> {
             // 현재 날짜, 시각 구하기
-            LocalDate today = LocalDate.now();
-            LocalTime currentTime = LocalTime.now();
+            LocalDateTime currentTime = LocalDateTime.now();
 
-            LocalTime rangeStartTime = currentTime.minusMinutes(30);
-            LocalTime rangeEndTime = currentTime.plusMinutes(30);
-
-            System.out.println(member.getName());
-            System.out.println(member.getId());
-            System.out.println(today);
-            System.out.println(currentTime);
-            System.out.println(rangeStartTime);
-            System.out.println(rangeEndTime);
+            LocalDateTime rangeStartTime = currentTime.minusMinutes(30);
+            LocalDateTime rangeEndTime = currentTime.plusMinutes(30);
 
             // 타겟 로그 조회 후 존재할 시 업데이트
-            logRepository.findTargetLog(member, today, index, rangeStartTime, rangeEndTime)
+            logRepository.findTargetLog(member, index, rangeStartTime, rangeEndTime)
                     .ifPresent(log -> {
                         log.setTakenStatus(TakenStatus.COMPLETED);
                         logRepository.save(log);

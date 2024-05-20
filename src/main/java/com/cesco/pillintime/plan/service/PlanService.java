@@ -7,7 +7,6 @@ import com.cesco.pillintime.medicine.dto.MedicineDto;
 import com.cesco.pillintime.medicine.service.MedicineService;
 import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.repository.MemberRepository;
-import com.cesco.pillintime.plan.dto.PlanDto;
 import com.cesco.pillintime.plan.dto.RequestPlanDto;
 import com.cesco.pillintime.plan.dto.ResponsePlanDto;
 import com.cesco.pillintime.plan.entity.Plan;
@@ -22,6 +21,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -41,8 +41,6 @@ public class PlanService {
         List<LocalTime> timeList = requestPlanDto.getTimeList();
         LocalDate startAt = requestPlanDto.getStartAt();
         LocalDate endAt = requestPlanDto.getEndAt();
-
-        System.out.println(cabinetIndex);
 
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
