@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+    <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="[Fix] 설정 수정">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/auth/serivce/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/auth/serivce/AuthService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -31,6 +33,21 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="PillinTime" type="f1a62948:ProjectNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="PillinTime" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="PillinTime" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="PillinTime" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -41,6 +58,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -48,11 +67,28 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;bigpie1367&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="581484f0-1617-4eef-a838-fda6311154a3" />
+        <option name="url" value="https://github.com/Ajou-CESCO/PillinTime_Backend.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -67,8 +103,55 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
     "Gradle.Build PillinTime.executor": "Run",
     "Gradle.PillinTime [dependencies].executor": "Run",
+    "Gradle.pillintime_backend 빌드.executor": "Run",
+    "JUnit.AuthServiceTest.executor": "Run",
+    "JUnit.AuthServiceTest.login_NotFoundMember.executor": "Run",
+    "JUnit.AuthServiceTest.login_Success.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_NotFoundMember.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success_1L.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success_Null.executor": "Run",
+    "JUnit.HealthServiceTest.createHealth.executor": "Run",
+    "JUnit.HealthServiceTest.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_HealthNotFound.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_Success_1L.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_Success_Null.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_UserNotFound.executor": "Run",
+    "JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개.executor": "Run",
+    "JUnit.MemberServiceTest.CreateUser_Success.executor": "Run",
+    "JUnit.MemberServiceTest.createUser_Phone_Exception.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser_NotFoundUser.executor": "Run",
+    "JUnit.MemberServiceTest.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundUser_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundUser_null.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success_null.executor": "Run",
+    "JUnit.MemberServiceTest.testDeleteUser_NotFoundUser.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_Success_1L.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_Success_targetId_1L.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_NotFoundMember.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_NotFoundRequest.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_Success.executor": "Run",
+    "JUnit.RelationServiceTest.executor": "Run",
+    "JUnit.RelationServiceTest.getRelationList_Success.executor": "Run",
+    "JUnit.RelationServiceTest.getRelationList_Success_together.executor": "Run",
+    "JUnit.RequestServiceTest.createRequest_Success.executor": "Run",
+    "JUnit.RequestServiceTest.deleteRequestById.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest_Success.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -77,8 +160,11 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Shell Script.gradlew.executor": "Run",
     "Spring Boot.PillinTimeApplication.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "develop",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/rlagk/PillinTime_Backend/build.gradle",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -91,75 +177,129 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.cesco.pillintime.dto" />
+      <recent name="com.cesco.pillintime.service" />
+      <recent name="com.cesco.pillintime.entity" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.cesco.pillintime.auth.serivce" />
+      <recent name="com.cesco.pillintime.request.service" />
+      <recent name="com.cesco.pillintime.relation.service" />
+    </key>
+  </component>
   <component name="RunManager" selected="Spring Boot.PillinTimeApplication">
-    <configuration name="PillinTime [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="dependencies" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="gradlew" type="ShConfigurationType" temporary="true">
-      <option name="SCRIPT_TEXT" value="" />
-      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/gradlew" />
-      <option name="SCRIPT_OPTIONS" value="" />
-      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
-      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
-      <option name="INTERPRETER_PATH" value="/bin/sh" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="EXECUTE_IN_TERMINAL" value="true" />
-      <option name="EXECUTE_SCRIPT_FILE" value="true" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="PillinTimeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <option name="ACTIVE_PROFILES" value="dev" />
-      <module name="PillinTime.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cesco.pillintime.PillinTimeApplication" />
+    <configuration name="AuthServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.*" />
+          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceTest.login_NotFoundMember" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
+      <option name="METHOD_NAME" value="login_NotFoundMember" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceTest.login_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
+      <option name="METHOD_NAME" value="login_Success" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CabinetServiceTest.createCabinet_NotFoundCabinet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.cabinet.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.cabinet.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.cabinet.service.CabinetServiceTest" />
+      <option name="METHOD_NAME" value="createCabinet_NotFoundCabinet" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CabinetServiceTest.createCabinet_NotFoundMember" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.cabinet.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.cabinet.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.cabinet.service.CabinetServiceTest" />
+      <option name="METHOD_NAME" value="createCabinet_NotFoundMember" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PillinTimeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="PillinTime.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cesco.pillintime.PillinTimeApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Gradle.PillinTime [dependencies]" />
-      <item itemvalue="Shell Script.gradlew" />
+      <item itemvalue="JUnit.AuthServiceTest" />
+      <item itemvalue="JUnit.AuthServiceTest.login_NotFoundMember" />
+      <item itemvalue="JUnit.AuthServiceTest.login_Success" />
+      <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet" />
+      <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundMember" />
       <item itemvalue="Spring Boot.PillinTimeApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.PillinTimeApplication" />
-        <item itemvalue="Gradle.PillinTime [dependencies]" />
-        <item itemvalue="Shell Script.gradlew" />
+        <item itemvalue="JUnit.AuthServiceTest" />
+        <item itemvalue="JUnit.AuthServiceTest.login_Success" />
+        <item itemvalue="JUnit.AuthServiceTest.login_NotFoundMember" />
+        <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet" />
+        <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundMember" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.10-azul-17.0.10-4caba194b151-d69ea429" />
         <option value="jdk-18.0.2-corretto-18.0.2-4caba194b151-68fdadd5" />
       </set>
     </attachedChunks>
@@ -178,8 +318,36 @@
       <workItem from="1712876689750" duration="851000" />
       <workItem from="1713164802169" duration="8496000" />
       <workItem from="1713419643007" duration="16469000" />
-      <workItem from="1714133515805" duration="1616000" />
+      <workItem from="1714133515805" duration="3124000" />
+      <workItem from="1714386170094" duration="4653000" />
+      <workItem from="1714649649687" duration="238000" />
+      <workItem from="1714896841652" duration="4572000" />
+      <workItem from="1714970263878" duration="8571000" />
+      <workItem from="1715216241945" duration="5872000" />
+      <workItem from="1715233016825" duration="5993000" />
+      <workItem from="1715063065095" duration="2000000" />
+      <workItem from="1715245863746" duration="1362000" />
+      <workItem from="1715563078370" duration="6960000" />
+      <workItem from="1715592347107" duration="4128000" />
+      <workItem from="1715597887035" duration="2745000" />
+      <workItem from="1715600770374" duration="15831000" />
+      <workItem from="1715667309268" duration="617000" />
+      <workItem from="1715688301905" duration="256000" />
+      <workItem from="1715744169407" duration="7552000" />
+      <workItem from="1715821123255" duration="8793000" />
+      <workItem from="1715837773855" duration="2989000" />
+      <workItem from="1715852231522" duration="8162000" />
+      <workItem from="1716004622399" duration="6436000" />
     </task>
+    <task id="LOCAL-00001" summary="[Fix] 설정 수정">
+      <option name="closed" value="true" />
+      <created>1716005165830</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1716005165830</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,14 +358,27 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[Fix] 설정 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] 설정 수정" />
+  </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/PillinTime$MemberServiceTest.ic" NAME="MemberServiceTest 커버리지 결과" MODIFIED="1715521768083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
