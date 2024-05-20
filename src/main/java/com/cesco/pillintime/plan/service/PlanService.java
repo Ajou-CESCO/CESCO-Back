@@ -40,8 +40,6 @@ public class PlanService {
         LocalDate startAt = planDto.getStartAt();
         LocalDate endAt = planDto.getEndAt();
 
-        System.out.println(cabinetIndex);
-
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
