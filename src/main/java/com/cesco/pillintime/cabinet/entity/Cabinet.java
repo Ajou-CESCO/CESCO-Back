@@ -19,7 +19,7 @@ public class Cabinet {
     private String serial;
 
     @JoinColumn(name="memberId")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Member owner;
 
     public Cabinet(String serial, Member member) {

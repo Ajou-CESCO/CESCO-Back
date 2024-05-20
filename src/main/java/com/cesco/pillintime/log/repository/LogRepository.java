@@ -32,6 +32,6 @@ public interface LogRepository extends JpaRepository<Log, Long> {
     @Query("SELECT l FROM Log l WHERE l.plannedAt <= :targetTime AND l.takenStatus = 0")
     List<Log> findIncompleteLog(LocalDateTime targetTime);
 
-    boolean existsByMemberAndPlanAndPlannedAt(Member member, Plan plan, LocalDate plannedAt);
+    boolean existsByMemberAndPlanAndPlannedAt(Member member, Plan plan, LocalDateTime plannedAt);
 
 }

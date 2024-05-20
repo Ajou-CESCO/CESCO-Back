@@ -19,7 +19,7 @@ public class Request {
     private Long id;
 
     @JoinColumn
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Member sender;
 
     @Column

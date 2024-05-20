@@ -42,22 +42,22 @@ public class LogService {
         planRepository.findActivePlan(today).ifPresent(planList -> {
             for (Plan plan : planList) {
                 LocalDate plannedDate = calculateNextPlannedDate(today, plan.getWeekday());
+                LocalTime plannedTime = plan.getTime();
+                LocalDateTime plannedAt = plannedDate.atTime(plannedTime);
+
                 LocalDate endAt = plan.getEndAt();
 
                 // 해당 날짜 및 Plan 에 대한 Log 가 없을 경우에만 생성
                 // 계산된 plannedAt이 계획의 종료일보다 작거나 같을 경우에만 생성
-                boolean logExists = logRepository.existsByMemberAndPlanAndPlannedAt(plan.getMember(), plan, plannedDate);
+                boolean logExists = logRepository.existsByMemberAndPlanAndPlannedAt(plan.getMember(), plan, plannedAt);
                 if (!logExists && plannedDate.isBefore(endAt) || plannedDate.isEqual(endAt)) {
                     Log log = new Log();
                     log.setMember(plan.getMember());
                     log.setPlan(plan);
-
-                    // 날짜 + 시간데이터를 모두 갖도록 수정
-                    LocalTime plannedTime = plan.getTime();
-                    LocalDateTime plannedAt = plannedDate.atTime(plannedTime);
-
                     log.setPlannedAt(plannedAt);
                     log.setTakenStatus(TakenStatus.NOT_COMPLETED);
+
+                    System.out.println(log.getPlannedAt());
 
                     logRepository.save(log);
                 }
@@ -113,9 +113,7 @@ public class LogService {
 
     private LocalDate calculateNextPlannedDate(LocalDate today, Integer weekday) {
         DayOfWeek targetDayOfWeek = DayOfWeek.of(weekday);
-        System.out.println(targetDayOfWeek);
         DayOfWeek todayDayOfWeek = today.getDayOfWeek();
-        System.out.println(todayDayOfWeek);
 
         int daysToAdd = targetDayOfWeek.getValue() - todayDayOfWeek.getValue();
         if (daysToAdd < 0) {

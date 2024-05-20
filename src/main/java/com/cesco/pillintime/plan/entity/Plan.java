@@ -21,7 +21,7 @@ public class Plan {
     private Long id;
 
     @JoinColumn
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Member member;
 
     @Column
@@ -52,9 +52,6 @@ public class Plan {
         this.cabinetIndex = Objects.requireNonNullElse(cabinetIndex, 1);
         this.weekday = weekday;
         this.time = time;
-
-        System.out.println(weekday);
-        System.out.println(this.weekday);
 
         // 시작일이 null이면 오늘 날짜로 설정
         this.startAt = Objects.requireNonNullElseGet(startAt, LocalDate::now);

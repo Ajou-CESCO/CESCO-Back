@@ -20,7 +20,7 @@ public class Log {
     private Long id;
 
     @JoinColumn
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Member member;
 
     @JoinColumn

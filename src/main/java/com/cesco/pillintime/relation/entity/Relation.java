@@ -15,11 +15,11 @@ public class Relation {
     private Long id;
 
     @JoinColumn
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Member manager;
 
     @JoinColumn
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Member client;
 
     public Relation(Member manager, Member client) {
