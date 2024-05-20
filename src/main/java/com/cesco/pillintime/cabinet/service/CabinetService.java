@@ -25,6 +25,7 @@ public class CabinetService {
     private final CabinetRepository cabinetRepository;
     private final MemberRepository memberRepository;
     private final LogRepository logRepository;
+    private final SecurityUtil securityUtil;
 
     public void createCabinet(CabinetDto cabinetDto) {
         String serial = cabinetDto.getSerial();
@@ -33,11 +34,12 @@ public class CabinetService {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Member targetMember = memberRepository.findById(ownerId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        Member targetMember;
 
-        if (!requestMember.equals(targetMember)) {
-            SecurityUtil.checkPermission(requestMember, targetMember);
+        if (!requestMember.getId().equals(ownerId)) { // ??? -> requestMember.getId() == ownerId
+             targetMember = memberRepository.findById(ownerId)
+                            .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+            securityUtil.checkPermission(requestMember, targetMember);
         } else {
             targetMember = requestMember;
         }
@@ -65,7 +67,7 @@ public class CabinetService {
         Member targetMember = cabinet.getOwner();
 
         if (!requestMember.equals(targetMember)) {
-            SecurityUtil.checkPermission(requestMember, targetMember);
+            securityUtil.checkPermission(requestMember, targetMember);
         } else {
             targetMember = requestMember;
         }
@@ -87,7 +89,8 @@ public class CabinetService {
         Cabinet cabinet = cabinetRepository.findBySerial(serial)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
 
-        Optional<Member> owner = memberRepository.findByCabinet(cabinet);
+        Optional<Member> owner = memberRepository.findByCabinet(cabinet); // ??? -> Member owner = cabinet.getOwner();
+
         owner.ifPresent(member -> {
             // 현재 날짜, 시각 구하기
             LocalDate today = LocalDate.now();

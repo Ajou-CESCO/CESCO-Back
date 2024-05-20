@@ -2,7 +2,10 @@ package com.cesco.pillintime.request.service;
 
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
+<<<<<<< HEAD
+=======
 import com.cesco.pillintime.member.entity.Member;
+>>>>>>> develop
 import com.cesco.pillintime.request.dto.RequestDto;
 import com.cesco.pillintime.request.entity.Request;
 import com.cesco.pillintime.request.mapper.RequestMapper;
@@ -30,6 +33,12 @@ public class RequestService {
         return requestRepository.save(request);
     }
 
+<<<<<<< HEAD
+    public List<Request> getRelatedRequest() {
+        String phone = SecurityUtil.getCurrentMemberPhone();
+        return requestRepository.findByReceiverPhone(phone)
+                .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_REQUEST));
+=======
     public List<RequestDto> getRelatedRequest() {
         Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
@@ -46,6 +55,7 @@ public class RequestService {
                 });
 
         return requestDtoList;
+>>>>>>> develop
     }
 
     public void deleteRequestById(Long id) {

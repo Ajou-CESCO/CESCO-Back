@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/log/service/LogServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/log/service/LogServiceTest.java" afterDir="false" />
+=======
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="[Fix] 설정 수정">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/auth/serivce/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/auth/serivce/AuthService.java" afterDir="false" />
+>>>>>>> develop
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +107,90 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Build PillinTime.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PillinTime [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.pillintime_backend 빌드.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AuthServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AuthServiceTest.login_NotFoundMember.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AuthServiceTest.login_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CabinetServiceTest.createCabinet_NotFoundMember.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CabinetServiceTest.createCabinet_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CabinetServiceTest.createCabinet_Success_1L.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CabinetServiceTest.createCabinet_Success_Null.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CabinetServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HealthServiceTest.createHealth.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HealthServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HealthServiceTest.getHealthByMemberId_HealthNotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HealthServiceTest.getHealthByMemberId_Success_1L.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HealthServiceTest.getHealthByMemberId_Success_Null.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HealthServiceTest.getHealthByMemberId_UserNotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.CreateUser_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.createUser_ExistPhone.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.createUser_Phone_Exception.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.deleteUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.deleteUser_NotFoundMember.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.deleteUser_NotFoundUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.deleteUser_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.getUserById_NotFoundMember_1L.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.getUserById_NotFoundMember_null.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.getUserById_NotFoundUser_1L.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.getUserById_NotFoundUser_null.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.getUserById_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.getUserById_Success_1L.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.getUserById_Success_null.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.testDeleteUser_NotFoundUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.updateUserById.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.updateUserById_.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.updateUserById_Success_1L.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MemberServiceTest.updateUserById_Success_targetId_1L.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RelationServiceTest.createRelation_NotFoundMember.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RelationServiceTest.createRelation_NotFoundRequest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RelationServiceTest.createRelation_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RelationServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RelationServiceTest.getRelationList_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RelationServiceTest.getRelationList_Success_together.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RequestServiceTest.createRequest_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RequestServiceTest.deleteRequestById.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RequestServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RequestServiceTest.getRelatedRequest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RequestServiceTest.getRelatedRequest_Success.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Shell Script.gradlew.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PillinTimeApplication.executor&quot;: &quot;Run&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/52-Ref-testcase&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/rlagk/PillinTime_Backend/build.gradle&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+=======
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
@@ -175,8 +265,9 @@
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
+>>>>>>> develop
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.cesco.pillintime.dto" />
@@ -187,12 +278,18 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.cesco.pillintime.log.service" />
+      <recent name="com.cesco.pillintime.medicine.service" />
+      <recent name="com.cesco.pillintime.plan.service" />
       <recent name="com.cesco.pillintime.auth.serivce" />
       <recent name="com.cesco.pillintime.request.service" />
-      <recent name="com.cesco.pillintime.relation.service" />
     </key>
   </component>
+<<<<<<< HEAD
+  <component name="RunManager" selected="JUnit.CabinetServiceTest">
+=======
   <component name="RunManager" selected="Spring Boot.PillinTimeApplication">
+>>>>>>> develop
     <configuration name="AuthServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
@@ -208,39 +305,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AuthServiceTest.login_NotFoundMember" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
-      <option name="METHOD_NAME" value="login_NotFoundMember" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AuthServiceTest.login_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PillinTime.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.auth.serivce.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.auth.serivce" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.auth.serivce.AuthServiceTest" />
-      <option name="METHOD_NAME" value="login_Success" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CabinetServiceTest.createCabinet_NotFoundCabinet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CabinetServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
@@ -250,24 +315,59 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cesco.pillintime.cabinet.service" />
       <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.cabinet.service.CabinetServiceTest" />
-      <option name="METHOD_NAME" value="createCabinet_NotFoundCabinet" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CabinetServiceTest.createCabinet_NotFoundMember" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="HealthServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cesco.pillintime.cabinet.service.*" />
+          <option name="PATTERN" value="com.cesco.pillintime.health.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cesco.pillintime.cabinet.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.cabinet.service.CabinetServiceTest" />
-      <option name="METHOD_NAME" value="createCabinet_NotFoundMember" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.health.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.health.service.HealthServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RelationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.relation.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.relation.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.relation.service.RelationServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RequestServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PillinTime.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cesco.pillintime.request.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cesco.pillintime.request.service" />
+      <option name="MAIN_CLASS_NAME" value="com.cesco.pillintime.request.service.RequestServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PillinTimeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="PillinTime.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cesco.pillintime.PillinTimeApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -280,20 +380,27 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.CabinetServiceTest" />
+      <item itemvalue="JUnit.RequestServiceTest" />
+      <item itemvalue="JUnit.HealthServiceTest" />
+      <item itemvalue="JUnit.RelationServiceTest" />
       <item itemvalue="JUnit.AuthServiceTest" />
+<<<<<<< HEAD
+=======
       <item itemvalue="JUnit.AuthServiceTest.login_NotFoundMember" />
       <item itemvalue="JUnit.AuthServiceTest.login_Success" />
       <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet" />
       <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundMember" />
+>>>>>>> develop
       <item itemvalue="Spring Boot.PillinTimeApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CabinetServiceTest" />
+        <item itemvalue="JUnit.RequestServiceTest" />
+        <item itemvalue="JUnit.RelationServiceTest" />
+        <item itemvalue="JUnit.HealthServiceTest" />
         <item itemvalue="JUnit.AuthServiceTest" />
-        <item itemvalue="JUnit.AuthServiceTest.login_Success" />
-        <item itemvalue="JUnit.AuthServiceTest.login_NotFoundMember" />
-        <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet" />
-        <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundMember" />
       </list>
     </recent_temporary>
   </component>
@@ -337,6 +444,11 @@
       <workItem from="1715821123255" duration="8793000" />
       <workItem from="1715837773855" duration="2989000" />
       <workItem from="1715852231522" duration="8162000" />
+<<<<<<< HEAD
+      <workItem from="1716007427695" duration="3131000" />
+      <workItem from="1716014258839" duration="19481000" />
+      <workItem from="1716188542472" duration="589000" />
+=======
       <workItem from="1716004622399" duration="6436000" />
     </task>
     <task id="LOCAL-00001" summary="[Fix] 설정 수정">
@@ -346,6 +458,7 @@
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
       <updated>1716005165830</updated>
+>>>>>>> develop
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />

@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.aspectj.runtime.internal.Conversions.intValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -34,7 +33,7 @@ class HealthServiceTest {
     public static Health createHealthObject() {
         long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         Health health = new Health();
-        health.setId(intValue(longValue) % 10);
+        health.setId(longValue % 10);
         health.setCal(15.7);
 
         return health;
@@ -68,6 +67,7 @@ class HealthServiceTest {
 
     @Test
     void getHealthByMemberId_Success_1L() {
+        // Given
         Health health = mock(Health.class);
         Member requestMember = mock(Member.class);
         Member targetMember = mock(Member.class);
@@ -88,16 +88,17 @@ class HealthServiceTest {
         List<HealthDto> healthDtoList = healthService.getHealthByMemberId(1L);
 
         // Then
-        System.out.println("healthList = " + healthDtoList);
-        verify(healthRepository, times(1)).findByMember(any());
+        List<HealthDto> healthDtoArrayList = new ArrayList<>();
+        healthDtoArrayList.add(HealthMapper.INSTANCE.toDto(health));
+        Assertions.assertEquals(healthDtoArrayList,healthDtoList);
         verify(memberRepository, times(1)).findById(any());
+        verify(healthRepository, times(1)).findByMember(any());
     }
 
     @Test
     void getHealthByMemberId_Success_Null() {
         Health health = mock(Health.class);
         Member requestMember = mock(Member.class);
-        Member targetMember = mock(Member.class);
         List<Health> healthList = new ArrayList<>();
         healthList.add(health);
 
@@ -111,22 +112,21 @@ class HealthServiceTest {
         when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
 
         // When
-        healthService.getHealthByMemberId(null);
+        List<HealthDto> healthDtoList = healthService.getHealthByMemberId(null);
 
         // Then
+        List<HealthDto> healthDtoArrayList = new ArrayList<>();
+        healthDtoArrayList.add(HealthMapper.INSTANCE.toDto(health));
+        Assertions.assertEquals(healthDtoArrayList, healthDtoList);
         verify(healthRepository, times(1)).findByMember(any());
         verify(memberRepository, never()).findById(any());
     }
 
     @Test
     void getHealthByMemberId_UserNotFound() {
-        Health health = mock(Health.class);
         Member requestMember = mock(Member.class);
-        List<Health> healthList = new ArrayList<>();
-        healthList.add(health);
 
         when(memberRepository.findById(1L)).thenReturn(Optional.empty());
-        when(healthRepository.findByMember(requestMember)).thenReturn(Optional.of(healthList));
 
         // SecurityUtil.getCurrentMember..정상 동작 코드
         Authentication authentication = mock(Authentication.class);
@@ -136,7 +136,8 @@ class HealthServiceTest {
         when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
 
         // When
-        CustomException customException = Assertions.assertThrows(CustomException.class, () -> healthService.getHealthByMemberId(1L));
+        CustomException customException = Assertions.assertThrows(CustomException.class,
+                () -> healthService.getHealthByMemberId(1L));
 
         // Then
         Assertions.assertEquals(ErrorCode.NOT_FOUND_USER, customException.getErrorCode());
@@ -146,11 +147,8 @@ class HealthServiceTest {
 
     @Test
     void getHealthByMemberId_HealthNotFound() {
-        Health health = mock(Health.class);
         Member requestMember = mock(Member.class);
         Member targetMember = mock(Member.class);
-        List<Health> healthList = new ArrayList<>();
-        healthList.add(health);
 
         when(memberRepository.findById(1L)).thenReturn(Optional.of(targetMember));
         when(healthRepository.findByMember(requestMember)).thenReturn(Optional.empty());
@@ -163,7 +161,8 @@ class HealthServiceTest {
         when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
 
         // When
-        CustomException customException = Assertions.assertThrows(CustomException.class, () -> healthService.getHealthByMemberId(1L));
+        CustomException customException = Assertions.assertThrows(CustomException.class,
+                () -> healthService.getHealthByMemberId(1L));
 
         // Then
         Assertions.assertEquals(ErrorCode.NOT_FOUND_HEALTH, customException.getErrorCode());

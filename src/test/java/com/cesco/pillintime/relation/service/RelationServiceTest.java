@@ -29,7 +29,7 @@ class RelationServiceTest {
 
     private RelationService relationService;
 
-    public static Member createMemberDto() {
+    public static Member createMember() {
         long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         Member member = new Member();
         member.setId(1L);
@@ -37,8 +37,8 @@ class RelationServiceTest {
         member.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%06d", longValue % 10000000));
         member.setPhone(String.format("%03d", longValue % 1000));
         member.setManager(true);
-        member.setHasCase(true);
         member.setSubscriber(true);
+        // 캐비넷
 
         return member;
     }
@@ -55,8 +55,8 @@ class RelationServiceTest {
     void createRelation_Success() {
         System.out.println("createRelation_Success");
         // Given
-        Member requestMember = createMemberDto();
-        Member targetMember = createMemberDto();
+        Member requestMember = createMember();
+        Member targetMember = createMember();
         Request request = new Request(requestMember.getId(),targetMember.getPhone());
 
         when(requestRepository.findById(any())).thenReturn(Optional.of(request));
@@ -81,8 +81,8 @@ class RelationServiceTest {
     void createRelation_NotFoundRequest() {
         System.out.println("createRelation_NotFoundRequest");
         // Given
-        Member requestMember = createMemberDto();
-        Member targetMember = createMemberDto();
+        Member requestMember = createMember();
+        Member targetMember = createMember();
         Request request = new Request(requestMember.getId(),targetMember.getPhone());
 
         when(requestRepository.findById(any())).thenReturn(Optional.empty());
@@ -109,8 +109,8 @@ class RelationServiceTest {
     void createRelation_NotFoundMember() {
         System.out.println("createRelation_NotFoundMember");
         // Given
-        Member requestMember = createMemberDto();
-        Member targetMember = createMemberDto();
+        Member requestMember = createMember();
+        Member targetMember = createMember();
         Request request = new Request(null,targetMember.getPhone());
 
         when(requestRepository.findById(any())).thenReturn(Optional.of(request));
@@ -136,7 +136,7 @@ class RelationServiceTest {
     void getRelationList_Success_alone() {
         System.out.println("getRelationList_Success_alone");
         // Given
-        Member tokenMember = createMemberDto();
+        Member tokenMember = createMember();
         when(relationRepository.findByMember(any())).thenReturn(Optional.empty());
 
         // SecurityUtil.getCurrentMember..정상 동작 코드
@@ -157,7 +157,7 @@ class RelationServiceTest {
     void getRelationList_Success_together() {
         System.out.println("getRelationList_Success_together");
         // Given
-        Member tokenMember = createMemberDto();
+        Member tokenMember = createMember();
         List<Relation> relationList = new ArrayList<>();
         when(relationRepository.findByMember(any())).thenReturn(Optional.of(relationList));
 
