@@ -45,14 +45,13 @@ public class Plan {
     @Column
     private LocalDate endAt;
 
-    public Plan(Member member, MedicineDto medicineDto, Integer weekday, LocalTime time, LocalDate startAt, LocalDate endAt) {
+    public Plan(Member member, MedicineDto medicineDto, Integer cabinetIndex, Integer weekday, LocalTime time, LocalDate startAt, LocalDate endAt) {
         this.member = member;
         this.medicineId = medicineDto.getMedicineCode();
         this.medicineName = medicineDto.getMedicineName();
+        this.cabinetIndex = Objects.requireNonNullElse(cabinetIndex, 1);
         this.weekday = weekday;
         this.time = time;
-
-        this.cabinetIndex = 1;
 
         // 시작일이 null이면 오늘 날짜로 설정
         this.startAt = Objects.requireNonNullElseGet(startAt, LocalDate::now);
@@ -68,6 +67,7 @@ public class Plan {
                 ", member=" + member.getName() +
                 ", medicineId='" + medicineId + '\'' +
                 ", medicineName='" + medicineName + '\'' +
+                ", cabinetIndex='" + cabinetIndex + '\'' +
                 ", weekday=" + weekday +
                 ", time='" + time + '\'' +
                 ", startAt=" + startAt +

@@ -32,10 +32,7 @@ public class RelationService {
         Request request = requestRepository.findById(requestId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REQUEST));
 
-        // 요청을 전송한 사용자가 회원탈퇴 했을 경우
-        Long managerId = request.getSenderId();
-        Member manager = memberRepository.findById(managerId)
-                .orElseThrow(() -> new CustomException((ErrorCode.NOT_FOUND_USER)));
+        Member manager = request.getSender();
 
         Relation relation = new Relation(manager, client);
         relationRepository.save(relation);

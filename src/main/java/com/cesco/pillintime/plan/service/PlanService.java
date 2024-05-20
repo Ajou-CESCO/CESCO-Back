@@ -34,10 +34,13 @@ public class PlanService {
     public void createPlan(PlanDto planDto) {
         Long memberId = planDto.getMemberId();
         Long medicineId = Long.parseLong(planDto.getMedicineId());
+        Integer cabinetIndex = planDto.getCabinetIndex();
         List<Integer> weekdayList = planDto.getWeekdayList();
         List<LocalTime> timeList = planDto.getTimeList();
         LocalDate startAt = planDto.getStartAt();
         LocalDate endAt = planDto.getEndAt();
+
+        System.out.println(cabinetIndex);
 
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
@@ -62,7 +65,7 @@ public class PlanService {
         List<Plan> planList = new ArrayList<>();
         for (Integer weekday : weekdayList) {
             for (LocalTime time : timeList) {
-                Plan plan = new Plan(targetMember, medicineDto, weekday, time, startAt, endAt);
+                Plan plan = new Plan(targetMember, medicineDto, cabinetIndex, weekday, time, startAt, endAt);
                 planList.add(plan);
             }
         }

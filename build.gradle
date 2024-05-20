@@ -50,7 +50,15 @@ dependencies {
 
     // JSON
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+    // CoolSMS
+    implementation 'net.nurigo:sdk:4.3.0'
 }
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << "-parameters"
+}
+
 
 //tasks.named('test') {w
 //    useJUnitPlatform()

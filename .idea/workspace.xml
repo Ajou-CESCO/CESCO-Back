@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/log/service/LogServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cesco/pillintime/log/service/LogServiceTest.java" afterDir="false" />
+=======
+    <list default="true" id="36213f37-0fe5-46db-9329-bf53442c91ab" name="Changes" comment="[Fix] 설정 수정">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/auth/serivce/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cesco/pillintime/auth/serivce/AuthService.java" afterDir="false" />
+>>>>>>> develop
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,14 +64,28 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;bigpie1367&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="581484f0-1617-4eef-a838-fda6311154a3" />
+        <option name="url" value="https://github.com/Ajou-CESCO/PillinTime_Backend.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -88,6 +107,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
@@ -170,6 +190,82 @@
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.Build PillinTime.executor": "Run",
+    "Gradle.PillinTime [dependencies].executor": "Run",
+    "Gradle.pillintime_backend 빌드.executor": "Run",
+    "JUnit.AuthServiceTest.executor": "Run",
+    "JUnit.AuthServiceTest.login_NotFoundMember.executor": "Run",
+    "JUnit.AuthServiceTest.login_Success.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_NotFoundMember.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success_1L.executor": "Run",
+    "JUnit.CabinetServiceTest.createCabinet_Success_Null.executor": "Run",
+    "JUnit.HealthServiceTest.createHealth.executor": "Run",
+    "JUnit.HealthServiceTest.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_HealthNotFound.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_Success_1L.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_Success_Null.executor": "Run",
+    "JUnit.HealthServiceTest.getHealthByMemberId_UserNotFound.executor": "Run",
+    "JUnit.MemberServiceTest,CreateUser_Success 및 그 외 8개.executor": "Run",
+    "JUnit.MemberServiceTest.CreateUser_Success.executor": "Run",
+    "JUnit.MemberServiceTest.createUser_Phone_Exception.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser.executor": "Run",
+    "JUnit.MemberServiceTest.deleteUser_NotFoundUser.executor": "Run",
+    "JUnit.MemberServiceTest.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundRelation_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundUser_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_NotFoundUser_null.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success_1L.executor": "Run",
+    "JUnit.MemberServiceTest.getUserById_Success_null.executor": "Run",
+    "JUnit.MemberServiceTest.testDeleteUser_NotFoundUser.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_Success_1L.executor": "Run",
+    "JUnit.MemberServiceTest.updateUserById_Success_targetId_1L.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_NotFoundMember.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_NotFoundRequest.executor": "Run",
+    "JUnit.RelationServiceTest.createRelation_Success.executor": "Run",
+    "JUnit.RelationServiceTest.executor": "Run",
+    "JUnit.RelationServiceTest.getRelationList_Success.executor": "Run",
+    "JUnit.RelationServiceTest.getRelationList_Success_together.executor": "Run",
+    "JUnit.RequestServiceTest.createRequest_Success.executor": "Run",
+    "JUnit.RequestServiceTest.deleteRequestById.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest_NotFoundPhone.executor": "Run",
+    "JUnit.RequestServiceTest.getRelatedRequest_Success.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Shell Script.gradlew.executor": "Run",
+    "Spring Boot.PillinTimeApplication.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "develop",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/rlagk/PillinTime_Backend/build.gradle",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
+>>>>>>> develop
   }
 }</component>
   <component name="RecentsManager">
@@ -189,7 +285,11 @@
       <recent name="com.cesco.pillintime.request.service" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="JUnit.CabinetServiceTest">
+=======
+  <component name="RunManager" selected="Spring Boot.PillinTimeApplication">
+>>>>>>> develop
     <configuration name="AuthServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PillinTime.test" />
       <extension name="coverage">
@@ -272,12 +372,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PillinTimeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="PillinTime.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cesco.pillintime.PillinTimeApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="JUnit.CabinetServiceTest" />
       <item itemvalue="JUnit.RequestServiceTest" />
       <item itemvalue="JUnit.HealthServiceTest" />
       <item itemvalue="JUnit.RelationServiceTest" />
       <item itemvalue="JUnit.AuthServiceTest" />
+<<<<<<< HEAD
+=======
+      <item itemvalue="JUnit.AuthServiceTest.login_NotFoundMember" />
+      <item itemvalue="JUnit.AuthServiceTest.login_Success" />
+      <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundCabinet" />
+      <item itemvalue="JUnit.CabinetServiceTest.createCabinet_NotFoundMember" />
+>>>>>>> develop
       <item itemvalue="Spring Boot.PillinTimeApplication" />
     </list>
     <recent_temporary>
@@ -293,7 +407,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-18.0.2-corretto-18.0.2-f644763e9732-da6bd485" />
+        <option value="jdk-18.0.2-corretto-18.0.2-4caba194b151-68fdadd5" />
       </set>
     </attachedChunks>
   </component>
@@ -330,10 +444,23 @@
       <workItem from="1715821123255" duration="8793000" />
       <workItem from="1715837773855" duration="2989000" />
       <workItem from="1715852231522" duration="8162000" />
+<<<<<<< HEAD
       <workItem from="1716007427695" duration="3131000" />
       <workItem from="1716014258839" duration="19481000" />
       <workItem from="1716188542472" duration="589000" />
+=======
+      <workItem from="1716004622399" duration="6436000" />
     </task>
+    <task id="LOCAL-00001" summary="[Fix] 설정 수정">
+      <option name="closed" value="true" />
+      <created>1716005165830</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1716005165830</updated>
+>>>>>>> develop
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,7 +484,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="[Fix] 설정 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] 설정 수정" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
