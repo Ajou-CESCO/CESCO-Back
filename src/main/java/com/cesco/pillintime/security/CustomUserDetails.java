@@ -42,7 +42,11 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return memberDto.getName();
+        try {
+            return memberDto.getName();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public Optional<Member> getMember() {
