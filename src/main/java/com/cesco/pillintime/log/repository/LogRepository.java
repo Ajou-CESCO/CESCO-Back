@@ -19,7 +19,8 @@ public interface LogRepository extends JpaRepository<Log, Long> {
     @Query("SELECT l FROM Log l WHERE l.member= :member")
     Optional<List<Log>> findByMember(Member member);
 
-    Optional<List<Log>> findByMemberAndPlannedAt(Member member, LocalDate today);
+    @Query("SELECT l FROM Log l WHERE l.member = :member AND l.plannedAt BETWEEN :startOfDay AND :endOfDay")
+    Optional<List<Log>> findByMemberAndPlannedAtBetween(Member member, LocalDateTime startOfDay, LocalDateTime endOfDay);
 
     @Query("SELECT l FROM Log l WHERE l.member = :member AND l.plan.cabinetIndex = :index AND l.plannedAt BETWEEN :rangeStartAt AND :rangeEndAt")
     Optional<Log> findTargetLog(

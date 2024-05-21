@@ -83,12 +83,17 @@ public class LogService {
         }
 
         LocalDate today = LocalDate.now();
-        Optional<List<Log>> logListOptional = logRepository.findByMemberAndPlannedAt(targetMember, today);
+        LocalDateTime startOfDay = today.atStartOfDay();
+        LocalDateTime endOfDay = today.atTime(LocalTime.MAX);
+
+        Optional<List<Log>> logListOptional = logRepository.findByMemberAndPlannedAtBetween(targetMember, startOfDay, endOfDay);
 
         List<LogDto> logDtoList = new ArrayList<>();
         logListOptional.ifPresent(logs -> {
             for (Log log : logs) {
+                System.out.println(log.getPlannedAt());
                 LogDto logDto = LogMapper.INSTANCE.toDto(log);
+                System.out.println(logDto.getPlannedAt());
                 logDtoList.add(logDto);
             }
         });
