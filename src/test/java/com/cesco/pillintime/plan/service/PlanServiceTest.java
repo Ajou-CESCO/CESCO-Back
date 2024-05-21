@@ -1,12 +1,11 @@
 package com.cesco.pillintime.plan.service;
 
 import com.cesco.pillintime.log.service.LogService;
-import com.cesco.pillintime.medicine.dto.MedicineDto;
 import com.cesco.pillintime.medicine.service.MedicineService;
 import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.repository.MemberRepository;
+import com.cesco.pillintime.member.service.MemberServiceTest;
 import com.cesco.pillintime.plan.dto.PlanDto;
-import com.cesco.pillintime.plan.dto.RequestPlanDto;
 import com.cesco.pillintime.plan.entity.Plan;
 import com.cesco.pillintime.plan.mapper.PlanMapper;
 import com.cesco.pillintime.plan.repository.PlanRepository;
@@ -45,13 +44,20 @@ class PlanServiceTest {
         plan.setId(1L);
 //        plan.setName(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
 //        plan.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%07d", longValue % 10000000));
-
+        plan.setMember(MemberServiceTest.createMember());
+        plan.setMedicineId(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
+        plan.setMedicineName(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
+        plan.setCabinetIndex((int) (longValue % 10));
+        plan.setWeekday();
+        plan.setTimeList();
+        plan.setstartAt();
+        plan.setDndAt();
         return plan;
     }
     @Test
     void createPlan_Success() {
         // Given
-        PlanDto planDto = PlanMapper.INSTANCE.toDto(createPlan());
+        Plan plan = createPlan();
 
         Member requestMember = mock(Member.class);
         Member targetMember = mock(Member.class);

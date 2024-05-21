@@ -7,8 +7,7 @@ import com.cesco.pillintime.medicine.dto.MedicineDto;
 import com.cesco.pillintime.medicine.service.MedicineService;
 import com.cesco.pillintime.member.entity.Member;
 import com.cesco.pillintime.member.repository.MemberRepository;
-import com.cesco.pillintime.plan.dto.RequestPlanDto;
-import com.cesco.pillintime.plan.dto.ResponsePlanDto;
+import com.cesco.pillintime.plan.dto.PlanDto;
 import com.cesco.pillintime.plan.entity.Plan;
 import com.cesco.pillintime.plan.mapper.PlanMapper;
 import com.cesco.pillintime.plan.repository.PlanRepository;
@@ -33,14 +32,14 @@ public class PlanService {
     private final LogService logService;
     private final SecurityUtil securityUtil;
 
-    public void createPlan(RequestPlanDto requestPlanDto) {
-        Long memberId = requestPlanDto.getMemberId();
-        Long medicineId = Long.parseLong(requestPlanDto.getMedicineId());
-        Integer cabinetIndex = requestPlanDto.getCabinetIndex();
-        List<Integer> weekdayList = requestPlanDto.getWeekdayList();
-        List<LocalTime> timeList = requestPlanDto.getTimeList();
-        LocalDate startAt = requestPlanDto.getStartAt();
-        LocalDate endAt = requestPlanDto.getEndAt();
+    public void createPlan(PlanDto planDto) {
+        Long memberId = planDto.getMemberId();
+        Long medicineId = Long.parseLong(planDto.getMedicineId());
+        Integer cabinetIndex = planDto.getCabinetIndex();
+        List<Integer> weekdayList = planDto.getWeekdayList();
+        List<LocalTime> timeList = planDto.getTimeList();
+        LocalDate startAt = planDto.getStartAt();
+        LocalDate endAt = planDto.getEndAt();
 
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
@@ -74,7 +73,7 @@ public class PlanService {
         logService.createDoseLog();
     }
 
-    public List<ResponsePlanDto> getPlanByMemberId(RequestPlanDto inputPlanDto) {
+    public List<PlanDto> getPlanByMemberId(PlanDto inputPlanDto) {
         Long targetId = inputPlanDto.getMemberId();
 
         Member requestMember = SecurityUtil.getCurrentMember()
@@ -91,20 +90,20 @@ public class PlanService {
         }
 
         Optional<List<Plan>> planListOptional = planRepository.findByMember(targetMember);
-        List<ResponsePlanDto> responsePlanDtoList = new ArrayList<>();
+        List<PlanDto> PlanDtoList = new ArrayList<>();
 
         planListOptional.ifPresent(plans -> {
             for (Plan plan : plans) {
-                ResponsePlanDto responsePlanDto = PlanMapper.INSTANCE.toResponseDto(plan);
-                responsePlanDto.setTime(null);
-                responsePlanDto.setWeekday(null);
+                PlanDto PlanDto = PlanMapper.INSTANCE.toDto(plan);
+                PlanDto.setTimeList(new ArrayList<>());
+                PlanDto.setWeekdayList(new ArrayList<>());
 //                responsePlanDto.setTime(LocalTime.MIDNIGHT);  // 자정으로 초기화
 //                responsePlanDto.setWeekday(0);                // 일요일을 기본값으로 초기화
-                responsePlanDtoList.add(responsePlanDto);
+                PlanDtoList.add(PlanDto);
             }
         });
 
-        return responsePlanDtoList;
+        return PlanDtoList;
     }
 
     public void deletePlanById(Long planId) {
