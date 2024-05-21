@@ -30,4 +30,10 @@ public class RelationController {
         return ResponseUtil.makeResponse(200, "Success get relation", relationList);
     }
 
+    @DeleteMapping
+    public ResponseEntity<ResponseDto> deleteRelation(@RequestParam Long relationId) {
+        relationService.deleteRelation(relationId);
+        return ResponseUtil.makeResponse(200, "Success delete relation", null);
+    }
+
 }
