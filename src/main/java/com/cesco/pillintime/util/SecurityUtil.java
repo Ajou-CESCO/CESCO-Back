@@ -41,7 +41,7 @@ public class SecurityUtil {
     private static CustomUserDetails getUserDetails() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication.getName() == null) {
-            throw new RuntimeException("No authentication information");
+            throw new CustomException(ErrorCode.TOKEN_IS_INVALID);
         }
 
         return (CustomUserDetails) authentication.getPrincipal();

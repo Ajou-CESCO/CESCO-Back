@@ -24,7 +24,6 @@ public class RelationService {
     private final RelationRepository relationRepository;
 
     public void createRelation(Long requestId) {
-
         Member client = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
@@ -65,5 +64,19 @@ public class RelationService {
         }
 
         return relationDtoList;
+    }
+
+    public void deleteRelation(Long relationId) {
+        Member requestMember = SecurityUtil.getCurrentMember()
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        Relation relation = relationRepository.findById(relationId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
+
+        if (requestMember.equals(relation.getClient()) || requestMember.equals(relation.getManager())) {
+            relationRepository.delete(relation);
+        } else {
+            throw new CustomException(ErrorCode.INVALID_USER_ACCESS);
+        }
     }
 }
