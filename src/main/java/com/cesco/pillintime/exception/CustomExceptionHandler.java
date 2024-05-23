@@ -1,7 +1,7 @@
 package com.cesco.pillintime.exception;
 
-import com.cesco.pillintime.dto.ResponseDto;
-import com.cesco.pillintime.util.ResponseUtil;
+import com.cesco.pillintime.response.dto.ResponseDto;
+import com.cesco.pillintime.response.util.ResponseUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

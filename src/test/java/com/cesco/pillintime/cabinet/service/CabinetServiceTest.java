@@ -1,17 +1,18 @@
 package com.cesco.pillintime.cabinet.service;
 
-import com.cesco.pillintime.cabinet.dto.CabinetDto;
-import com.cesco.pillintime.cabinet.entity.Cabinet;
-import com.cesco.pillintime.cabinet.repository.CabinetRepository;
+import com.cesco.pillintime.api.cabinet.dto.CabinetDto;
+import com.cesco.pillintime.api.cabinet.entity.Cabinet;
+import com.cesco.pillintime.api.cabinet.repository.CabinetRepository;
+import com.cesco.pillintime.api.cabinet.service.CabinetService;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.log.repository.LogRepository;
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.member.repository.MemberRepository;
-import com.cesco.pillintime.relation.entity.Relation;
-import com.cesco.pillintime.relation.repository.RelationRepository;
+import com.cesco.pillintime.api.log.repository.LogRepository;
+import com.cesco.pillintime.api.member.entity.Member;
+import com.cesco.pillintime.api.member.repository.MemberRepository;
+import com.cesco.pillintime.api.relation.entity.Relation;
+import com.cesco.pillintime.api.relation.repository.RelationRepository;
 import com.cesco.pillintime.security.CustomUserDetails;
-import com.cesco.pillintime.util.SecurityUtil;
+import com.cesco.pillintime.security.SecurityUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,15 +1,16 @@
 package com.cesco.pillintime.log.service;
 
-import com.cesco.pillintime.log.dto.LogDto;
-import com.cesco.pillintime.log.entity.Log;
-import com.cesco.pillintime.log.repository.LogRepository;
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.member.repository.MemberRepository;
-import com.cesco.pillintime.plan.repository.PlanRepository;
-import com.cesco.pillintime.relation.entity.Relation;
-import com.cesco.pillintime.relation.repository.RelationRepository;
+import com.cesco.pillintime.api.log.dto.LogDto;
+import com.cesco.pillintime.api.log.entity.Log;
+import com.cesco.pillintime.api.log.repository.LogRepository;
+import com.cesco.pillintime.api.log.service.LogService;
+import com.cesco.pillintime.api.member.entity.Member;
+import com.cesco.pillintime.api.member.repository.MemberRepository;
+import com.cesco.pillintime.api.plan.repository.PlanRepository;
+import com.cesco.pillintime.api.relation.entity.Relation;
+import com.cesco.pillintime.api.relation.repository.RelationRepository;
 import com.cesco.pillintime.security.CustomUserDetails;
-import com.cesco.pillintime.util.SecurityUtil;
+import com.cesco.pillintime.security.SecurityUtil;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
