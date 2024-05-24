@@ -1,6 +1,7 @@
 package com.cesco.pillintime.plan.mapper;
 
 import com.cesco.pillintime.plan.dto.PlanDto;
+import com.cesco.pillintime.plan.dto.RequestPlanDto;
 import com.cesco.pillintime.plan.dto.ResponsePlanDto;
 import com.cesco.pillintime.plan.entity.Plan;
 import org.mapstruct.Mapper;
@@ -20,5 +21,6 @@ public interface PlanMapper {
 
 //    RequestPlanDto toRequestPlanDto(Plan plan);
 
+    Plan toEntity(RequestPlanDto planDto);
     ResponsePlanDto toResponseDto(Plan plan);
 }

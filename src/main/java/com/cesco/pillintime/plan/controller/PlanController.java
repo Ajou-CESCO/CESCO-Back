@@ -2,6 +2,8 @@ package com.cesco.pillintime.plan.controller;
 
 import com.cesco.pillintime.dto.ResponseDto;
 import com.cesco.pillintime.plan.dto.PlanDto;
+import com.cesco.pillintime.plan.dto.RequestPlanDto;
+import com.cesco.pillintime.plan.dto.ResponsePlanDto;
 import com.cesco.pillintime.plan.service.PlanService;
 import com.cesco.pillintime.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +20,14 @@ public class PlanController {
     private final PlanService planService;
 
     @PostMapping
-    public ResponseEntity<ResponseDto> createPlan(@RequestBody PlanDto planDto) {
+    public ResponseEntity<ResponseDto> createPlan(@RequestBody RequestPlanDto planDto) {
         planService.createPlan(planDto);
         return ResponseUtil.makeResponse(200, "Success create plan", null);
     }
 
     @GetMapping
-    public ResponseEntity<ResponseDto> getPlanByMemberId(@RequestBody PlanDto planDto) {
-        List<PlanDto> planDtoList = planService.getPlanByMemberId(planDto);
+    public ResponseEntity<ResponseDto> getPlanByMemberId(@RequestBody RequestPlanDto planDto) {
+        List<ResponsePlanDto> planDtoList = planService.getPlanByMemberId(planDto);
         return ResponseUtil.makeResponse(200, "Success get dose plan", planDtoList);
     }
 
