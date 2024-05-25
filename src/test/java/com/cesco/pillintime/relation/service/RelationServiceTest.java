@@ -1,16 +1,17 @@
 package com.cesco.pillintime.relation.service;
 
+import com.cesco.pillintime.api.relation.service.RelationService;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.member.entity.Member;
+import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.member.service.MemberServiceTest;
-import com.cesco.pillintime.relation.dto.RelationDto;
-import com.cesco.pillintime.relation.entity.Relation;
-import com.cesco.pillintime.relation.repository.RelationRepository;
-import com.cesco.pillintime.request.entity.Request;
-import com.cesco.pillintime.request.repository.RequestRepository;
+import com.cesco.pillintime.api.relation.dto.RelationDto;
+import com.cesco.pillintime.api.relation.entity.Relation;
+import com.cesco.pillintime.api.relation.repository.RelationRepository;
+import com.cesco.pillintime.api.request.entity.Request;
+import com.cesco.pillintime.api.request.repository.RequestRepository;
 import com.cesco.pillintime.security.CustomUserDetails;
-import com.cesco.pillintime.util.SecurityUtil;
+import com.cesco.pillintime.security.SecurityUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

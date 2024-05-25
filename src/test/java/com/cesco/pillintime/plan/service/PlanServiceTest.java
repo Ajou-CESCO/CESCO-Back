@@ -1,28 +1,29 @@
 package com.cesco.pillintime.plan.service;
 
-import com.cesco.pillintime.log.service.LogService;
-import com.cesco.pillintime.medicine.dto.MedicineDto;
-import com.cesco.pillintime.medicine.service.MedicineService;
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.member.repository.MemberRepository;
+import com.cesco.pillintime.api.log.service.LogService;
+import com.cesco.pillintime.api.medicine.dto.MedicineDto;
+import com.cesco.pillintime.api.medicine.service.MedicineService;
+import com.cesco.pillintime.api.member.entity.Member;
+import com.cesco.pillintime.api.member.repository.MemberRepository;
+import com.cesco.pillintime.api.plan.dto.RequestPlanDto;
+import com.cesco.pillintime.api.plan.dto.ResponsePlanDto;
+import com.cesco.pillintime.api.plan.service.PlanService;
 import com.cesco.pillintime.member.service.MemberServiceTest;
-import com.cesco.pillintime.plan.dto.PlanDto;
-import com.cesco.pillintime.plan.dto.RequestPlanDto;
-import com.cesco.pillintime.plan.dto.ResponsePlanDto;
-import com.cesco.pillintime.plan.entity.Plan;
-import com.cesco.pillintime.plan.mapper.PlanMapper;
-import com.cesco.pillintime.plan.repository.PlanRepository;
-import com.cesco.pillintime.relation.entity.Relation;
-import com.cesco.pillintime.relation.repository.RelationRepository;
+import com.cesco.pillintime.api.plan.dto.PlanDto;
+import com.cesco.pillintime.api.plan.entity.Plan;
+import com.cesco.pillintime.api.plan.mapper.PlanMapper;
+import com.cesco.pillintime.api.plan.repository.PlanRepository;
+import com.cesco.pillintime.api.relation.entity.Relation;
+import com.cesco.pillintime.api.relation.repository.RelationRepository;
 import com.cesco.pillintime.security.CustomUserDetails;
-import com.cesco.pillintime.util.SecurityUtil;
+import com.cesco.pillintime.security.SecurityUtil;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 
 import java.time.LocalTime;
 import java.util.*;

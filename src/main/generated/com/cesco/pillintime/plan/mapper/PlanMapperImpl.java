@@ -1,10 +1,12 @@
 package com.cesco.pillintime.plan.mapper;
 
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.plan.dto.PlanDto;
-import com.cesco.pillintime.plan.dto.RequestPlanDto;
-import com.cesco.pillintime.plan.dto.ResponsePlanDto;
-import com.cesco.pillintime.plan.entity.Plan;
+import com.cesco.pillintime.api.member.entity.Member;
+import com.cesco.pillintime.api.plan.dto.PlanDto;
+import com.cesco.pillintime.api.plan.dto.RequestPlanDto;
+import com.cesco.pillintime.api.plan.dto.ResponsePlanDto;
+import com.cesco.pillintime.api.plan.entity.Plan;
+import com.cesco.pillintime.api.plan.mapper.PlanMapper;
+
 import javax.annotation.processing.Generated;
 
 @Generated(

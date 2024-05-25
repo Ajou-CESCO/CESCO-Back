@@ -1,12 +1,12 @@
 package com.cesco.pillintime.security;
 
-import com.cesco.pillintime.cabinet.entity.Cabinet;
-import com.cesco.pillintime.cabinet.repository.CabinetRepository;
+import com.cesco.pillintime.api.cabinet.entity.Cabinet;
+import com.cesco.pillintime.api.cabinet.repository.CabinetRepository;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.member.dto.MemberDto;
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.member.mapper.MemberMapper;
+import com.cesco.pillintime.api.member.dto.MemberDto;
+import com.cesco.pillintime.api.member.entity.Member;
+import com.cesco.pillintime.api.member.mapper.MemberMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,7 +42,11 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return memberDto.getName();
+        try {
+            return memberDto.getName();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public Optional<Member> getMember() {

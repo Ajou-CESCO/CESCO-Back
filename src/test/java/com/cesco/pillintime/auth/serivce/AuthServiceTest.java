@@ -1,11 +1,12 @@
 package com.cesco.pillintime.auth.serivce;
 
-import com.cesco.pillintime.auth.dto.LoginDto;
+import com.cesco.pillintime.api.auth.dto.LoginDto;
+import com.cesco.pillintime.api.auth.serivce.AuthService;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.member.repository.MemberRepository;
-import com.cesco.pillintime.util.JwtUtil;
+import com.cesco.pillintime.api.member.entity.Member;
+import com.cesco.pillintime.api.member.repository.MemberRepository;
+import com.cesco.pillintime.security.JwtUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

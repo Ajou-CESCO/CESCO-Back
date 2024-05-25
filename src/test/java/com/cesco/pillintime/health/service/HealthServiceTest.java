@@ -1,15 +1,16 @@
 package com.cesco.pillintime.health.service;
 
+import com.cesco.pillintime.api.health.service.HealthService;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.health.dto.HealthDto;
-import com.cesco.pillintime.health.entity.Health;
-import com.cesco.pillintime.health.mapper.HealthMapper;
-import com.cesco.pillintime.health.repository.HealthRepository;
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.member.repository.MemberRepository;
+import com.cesco.pillintime.api.health.dto.HealthDto;
+import com.cesco.pillintime.api.health.entity.Health;
+import com.cesco.pillintime.api.health.mapper.HealthMapper;
+import com.cesco.pillintime.api.health.repository.HealthRepository;
+import com.cesco.pillintime.api.member.entity.Member;
+import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.security.CustomUserDetails;
-import com.cesco.pillintime.util.SecurityUtil;
+import com.cesco.pillintime.security.SecurityUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

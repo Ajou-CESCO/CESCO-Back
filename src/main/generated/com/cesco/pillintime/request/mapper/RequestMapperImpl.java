@@ -1,8 +1,9 @@
 package com.cesco.pillintime.request.mapper;
 
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.request.dto.RequestDto;
-import com.cesco.pillintime.request.entity.Request;
+import com.cesco.pillintime.api.request.dto.RequestDto;
+import com.cesco.pillintime.api.request.entity.Request;
+import com.cesco.pillintime.api.request.mapper.RequestMapper;
+import com.cesco.pillintime.api.member.entity.Member;
 import javax.annotation.processing.Generated;
 
 @Generated(

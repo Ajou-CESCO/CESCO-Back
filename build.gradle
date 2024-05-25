@@ -53,6 +53,9 @@ dependencies {
 
     // CoolSMS
     implementation 'net.nurigo:sdk:4.3.0'
+
+    // FCM
+    implementation 'com.google.firebase:firebase-admin:9.2.0'           // Google Firebase Admin
 }
 
 tasks.withType(JavaCompile).configureEach {

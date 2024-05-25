@@ -2,8 +2,6 @@ package com.cesco.pillintime.security;
 
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.security.CustomUserDetailsService;
-import com.cesco.pillintime.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

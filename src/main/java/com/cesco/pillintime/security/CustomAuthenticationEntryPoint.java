@@ -1,8 +1,8 @@
 package com.cesco.pillintime.security;
 
-import com.cesco.pillintime.dto.ResponseDto;
+import com.cesco.pillintime.response.dto.ResponseDto;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.util.ResponseUtil;
+import com.cesco.pillintime.response.util.ResponseUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
