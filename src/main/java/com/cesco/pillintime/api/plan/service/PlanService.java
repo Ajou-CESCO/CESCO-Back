@@ -60,11 +60,11 @@ public class PlanService {
         logService.createDoseLog();
     }
 
-    public List<ResponsePlanDto> getPlanByMemberId(String memberId) {
+    public List<ResponsePlanDto> getPlanByMemberId(Long memberId) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Member targetMember = memberRepository.findById(Long.parseLong(memberId))
+        Member targetMember = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         if (!requestMember.equals(targetMember)) {
@@ -82,20 +82,20 @@ public class PlanService {
         return planDtoList;
     }
 
-    public void deletePlanById(Long planId) {
+    public void deletePlanById(Long memberId, Long medicineId, int cabinetIndex) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Plan plan = planRepository.findById(planId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_PLAN));
-
-        Member targetMember = plan.getMember();
+        Member targetMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         if (!requestMember.equals(targetMember)) {
             securityUtil.checkPermission(requestMember, targetMember);
+        } else {
+            targetMember = requestMember;
         }
 
-        planRepository.delete(plan);
+        planRepository.findTargetPlan(targetMember, medicineId, cabinetIndex)
+                .ifPresent(planRepository::deleteAll);
     }
-
 }
