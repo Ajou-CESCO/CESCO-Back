@@ -29,17 +29,10 @@ jobs:
         distribution: 'temurin'
 
     - uses: actions/checkout@v3
+    - run: mkdir ./src/main/resources/firebase
     - run: touch ./src/main/resources/application-dev.properties
     - run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application-dev.properties
 
-    - name: Install jq
-      run: sudo apt-get update && sudo apt-get install -y jq
-
-    - run: mkdir ./src/main/resources/firebase
-
-    - name: Create fcm-secret.json
-      run: echo "${{ secrets.FCM_PROPERTIES }}" | jq --raw-input --raw-output '.' > ./src/main/resources/firebase/fcm-secret.json
-    
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
@@ -74,4 +67,7 @@ jobs:
 
       - name: delete old docker image
         run: sudo docker system prune -f
+
+      - name: copy dependencies
+        run: sudo docker cp /root/fcm-secret.json pillintime_spring:/app/src/main/resources/firebase/
       
