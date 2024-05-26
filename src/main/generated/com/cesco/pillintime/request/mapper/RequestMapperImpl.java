@@ -1,15 +1,14 @@
 package com.cesco.pillintime.request.mapper;
 
-import com.cesco.pillintime.api.request.dto.RequestDto;
-import com.cesco.pillintime.api.request.entity.Request;
-import com.cesco.pillintime.api.request.mapper.RequestMapper;
-import com.cesco.pillintime.api.member.entity.Member;
+import com.cesco.pillintime.member.entity.Member;
+import com.cesco.pillintime.request.dto.RequestDto;
+import com.cesco.pillintime.request.entity.Request;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-23T19:18:02+0900",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
+    date = "2024-05-18T13:26:45+0900",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 18.0.2 (Azul Systems, Inc.)"
 )
 public class RequestMapperImpl implements RequestMapper {
 
@@ -37,7 +36,6 @@ public class RequestMapperImpl implements RequestMapper {
         requestDto.setSenderId( requestSenderId( request ) );
         requestDto.setSenderName( requestSenderName( request ) );
         requestDto.setSenderPhone( requestSenderPhone( request ) );
-        requestDto.setId( request.getId() );
         requestDto.setReceiverPhone( request.getReceiverPhone() );
 
         return requestDto;
