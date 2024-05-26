@@ -32,6 +32,7 @@ jobs:
     - run: touch ./src/main/resources/application-dev.properties
     - run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application-dev.properties
 
+    - run: mkdir ./src/main/resources/firebase
     - run: touch ./src/main/resources/firebase/fcm-secret.json
     - run: echo "${{ secrets.FCM_PROPERTIES }}" > .src/main/resources/firebase/fcm-secret.json
 
