@@ -34,7 +34,7 @@ jobs:
 
     - run: mkdir ./src/main/resources/firebase
     - run: touch ./src/main/resources/firebase/fcm-secret.json
-    - run: echo "${{ secrets.FCM_PROPERTIES }}" > ./src/main/resources/firebase/fcm-secret.json
+    - run: echo "${{ secrets.FCM_PROPERTIES }}" | jq --raw-input --raw-output '.' > ./src/main/resources/firebase/fcm-secret.json
 
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
