@@ -52,7 +52,7 @@ public class MemberServiceTest {
         member.setName(UUID.randomUUID().toString().replace("-", "").substring(0, 4));
         member.setSsn(String.format("%06d", longValue % 1000000) +"-"+ String.format("%07d", longValue % 10000000));
         member.setPhone("010"+"-"+String.format("%04d", longValue % 10000)+"-"+String.format("%04d", longValue % 1000));
-        member.setManager(true);
+        member.setManager(false);
         member.setSubscriber(true);
         member.setCabinet(mock(Cabinet.class));
 

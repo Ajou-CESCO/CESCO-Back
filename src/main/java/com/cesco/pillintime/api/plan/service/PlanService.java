@@ -1,6 +1,7 @@
 package com.cesco.pillintime.api.plan.service;
 
-import com.cesco.pillintime.api.plan.dto.PlanDto;
+import com.cesco.pillintime.api.plan.dto.RequestPlanDto;
+import com.cesco.pillintime.api.plan.dto.ResponsePlanDto;
 import com.cesco.pillintime.api.plan.mapper.PlanMapper;
 import com.cesco.pillintime.api.plan.repository.PlanRepository;
 import com.cesco.pillintime.exception.CustomException;
@@ -32,7 +33,7 @@ public class PlanService {
     private final LogService logService;
     private final SecurityUtil securityUtil;
 
-    public void createPlan(PlanDto planDto) {
+    public void createPlan(RequestPlanDto planDto) {
         Long memberId = planDto.getMemberId();
         Long medicineId = Long.parseLong(planDto.getMedicineId());
         Integer cabinetIndex = planDto.getCabinetIndex();
@@ -73,7 +74,7 @@ public class PlanService {
         logService.createDoseLog();
     }
 
-    public List<PlanDto> getPlanByMemberId(PlanDto inputPlanDto) {
+    public List<ResponsePlanDto> getPlanByMemberId(RequestPlanDto inputPlanDto) {
         Long targetId = inputPlanDto.getMemberId();
 
         Member requestMember = SecurityUtil.getCurrentMember()
@@ -90,15 +91,15 @@ public class PlanService {
         }
 
         Optional<List<Plan>> planListOptional = planRepository.findByMember(targetMember);
-        List<PlanDto> PlanDtoList = new ArrayList<>();
+        List<ResponsePlanDto> PlanDtoList = new ArrayList<>();
 
         planListOptional.ifPresent(plans -> {
             for (Plan plan : plans) {
-                PlanDto PlanDto = PlanMapper.INSTANCE.toDto(plan);
-                PlanDto.setTimeList(new ArrayList<>());
-                PlanDto.setWeekdayList(new ArrayList<>());
-//                responsePlanDto.setTime(LocalTime.MIDNIGHT);  // 자정으로 초기화
-//                responsePlanDto.setWeekday(0);                // 일요일을 기본값으로 초기화
+                ResponsePlanDto PlanDto = PlanMapper.INSTANCE.toResponseDto(plan);
+//                PlanDto.setTimeList(new ArrayList<>());
+//                PlanDto.setWeekdayList(new ArrayList<>());
+                PlanDto.setTime(LocalTime.MIDNIGHT);  // 자정으로 초기화
+                PlanDto.setWeekday(0);                // 일요일을 기본값으로 초기화
                 PlanDtoList.add(PlanDto);
             }
         });
