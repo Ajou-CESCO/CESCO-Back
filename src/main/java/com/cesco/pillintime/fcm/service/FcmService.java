@@ -45,7 +45,7 @@ public class FcmService {
 
         HttpEntity<String> entity = new HttpEntity<>(message, headers);
 
-        String API_URL = "<https://fcm.googleapis.com/v1/projects/adjh54-a0189/messages:send>";
+        String API_URL = "<https://fcm.googleapis.com/v1/projects/pillintime-49253/messages:send>";
         ResponseEntity<String> response = restTemplate.exchange(API_URL, HttpMethod.POST, entity, String.class);
 
         System.out.println(response.getStatusCode());
@@ -67,7 +67,7 @@ public class FcmService {
     // =================================================================
 
     private String getAccessToken() throws IOException {
-        String firebaseConfigPath = "firebase/adjh54-dev-firebase-key.json";
+        String firebaseConfigPath = "firebase/pillintime-49253-firebase-adminsdk-h24ql-37643bea17.json";
 
         GoogleCredentials googleCredentials = GoogleCredentials
                 .fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())

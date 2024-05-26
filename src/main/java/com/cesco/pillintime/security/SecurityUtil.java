@@ -5,7 +5,6 @@ import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.relation.entity.Relation;
 import com.cesco.pillintime.api.relation.repository.RelationRepository;
-import com.cesco.pillintime.security.CustomUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
