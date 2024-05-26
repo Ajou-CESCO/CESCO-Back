@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +33,10 @@ public class RequestService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         String receiverPhone = requestDto.getReceiverPhone();
+
+        Request request = requestRepository.findBySenderAndReceiverPhone(member, receiverPhone)
+                .orElseGet(() -> new Request(member, receiverPhone));
+
         memberRepository.findByPhone(receiverPhone)
                 .ifPresent((targetMember) -> {
                     FcmRequestDto fcmRequestDto = new FcmRequestDto(
@@ -47,8 +52,7 @@ public class RequestService {
                     }
                 });
 
-        Request request = new Request(member, receiverPhone);
-        return requestRepository.save(request);
+        return request;
     }
 
 
