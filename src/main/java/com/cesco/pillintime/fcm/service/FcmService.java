@@ -67,7 +67,7 @@ public class FcmService {
     // =================================================================
 
     private String getAccessToken() throws IOException {
-        String firebaseConfigPath = "firebase/pillintime-49253-firebase-adminsdk-h24ql-37643bea17.json";
+        String firebaseConfigPath = "firebase/fcm-secret.json";
 
         GoogleCredentials googleCredentials = GoogleCredentials
                 .fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())
