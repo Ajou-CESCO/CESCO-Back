@@ -35,8 +35,9 @@ jobs:
     - name: Install jq
       run: sudo apt-get update && sudo apt-get install -y jq
 
+    - run: mkdir ./src/main/resources/firebase
+
     - name: Create fcm-secret.json
-      run: mkdir ./src/main/resources/firebase
       run: echo "${{ secrets.FCM_PROPERTIES }}" | jq --raw-input --raw-output '.' > ./src/main/resources/firebase/fcm-secret.json
     
     - name: Build with Gradle
