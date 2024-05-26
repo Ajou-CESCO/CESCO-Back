@@ -28,6 +28,9 @@ public class Member {
     private Integer gender;
 
     @Column
+    private String fcmToken = null;
+
+    @Column
     private boolean isManager = false;
 
     @Column

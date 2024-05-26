@@ -45,7 +45,7 @@ public class MedicineService {
         } catch (CustomException e) {
             throw e;
         } catch (Exception e) {
-            throw new CustomException(ErrorCode.EXTERNAL_API_ERROR);
+            throw new CustomException(ErrorCode.EXTERNAL_SERVER_ERROR);
         }
     }
 
@@ -57,7 +57,7 @@ public class MedicineService {
 
             return Optional.of(getMedicineDtoList(result, apiUrl));
         } catch (Exception e) {
-            throw new CustomException(ErrorCode.EXTERNAL_API_ERROR);
+            throw new CustomException(ErrorCode.EXTERNAL_SERVER_ERROR);
         }
     }
 
