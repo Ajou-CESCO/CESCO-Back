@@ -3,6 +3,9 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+.gradle/
+.idea/
+src/main/resources/firebase/
 
 ### STS ###
 .apt_generated
