@@ -36,8 +36,8 @@ public class RequestService {
                 .ifPresent((targetMember) -> {
                     FcmRequestDto fcmRequestDto = new FcmRequestDto(
                             targetMember.getId(),
-                            "[약속시간] 보호관계 요청",
-                            member.getName() + "님으로부터 보호관계 요청이 들어왔어요"
+                            "[약속시간] \uD83D\uDD14 띵동 \uD83D\uDD14",
+                            member.getName() + " 님으로부터 보호관계 요청이 왔어요 \uD83D\uDC8C"
                     );
 
                     try {
