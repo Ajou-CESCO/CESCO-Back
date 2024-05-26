@@ -45,10 +45,8 @@ public class FcmService {
 
         HttpEntity<String> entity = new HttpEntity<>(message, headers);
 
-        String API_URL = "<https://fcm.googleapis.com/v1/projects/pillintime-49253/messages:send>";
+        String API_URL = "https://fcm.googleapis.com/v1/projects/pillintime-49253/messages:send";
         ResponseEntity<String> response = restTemplate.exchange(API_URL, HttpMethod.POST, entity, String.class);
-
-        System.out.println(response.getStatusCode());
     }
 
     public void sendFcmToken(FcmTokenDto fcmTokenDto) {
@@ -71,7 +69,7 @@ public class FcmService {
 
         GoogleCredentials googleCredentials = GoogleCredentials
                 .fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())
-                .createScoped(List.of("<https://www.googleapis.com/auth/cloud-platform>"));
+                .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
 
         googleCredentials.refreshIfExpired();
         return googleCredentials.getAccessToken().getTokenValue();
