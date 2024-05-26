@@ -1,15 +1,15 @@
-package com.cesco.pillintime.log.mapper;
+package com.cesco.pillintime.api.log.mapper;
 
-import com.cesco.pillintime.log.dto.LogDto;
-import com.cesco.pillintime.log.entity.Log;
-import com.cesco.pillintime.member.entity.Member;
-import com.cesco.pillintime.plan.entity.Plan;
+import com.cesco.pillintime.api.log.dto.LogDto;
+import com.cesco.pillintime.api.log.entity.Log;
+import com.cesco.pillintime.api.member.entity.Member;
+import com.cesco.pillintime.api.plan.entity.Plan;
 import java.time.LocalTime;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-23T19:18:02+0900",
+    date = "2024-05-25T19:13:56+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 public class LogMapperImpl implements LogMapper {

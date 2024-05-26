@@ -1,12 +1,12 @@
-package com.cesco.pillintime.health.mapper;
+package com.cesco.pillintime.api.health.mapper;
 
-import com.cesco.pillintime.health.dto.HealthDto;
-import com.cesco.pillintime.health.entity.Health;
+import com.cesco.pillintime.api.health.dto.HealthDto;
+import com.cesco.pillintime.api.health.entity.Health;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-23T19:18:02+0900",
+    date = "2024-05-25T19:13:56+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 public class HealthMapperImpl implements HealthMapper {

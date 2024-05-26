@@ -1,14 +1,13 @@
-package com.cesco.pillintime.request.mapper;
+package com.cesco.pillintime.api.request.mapper;
 
+import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.request.dto.RequestDto;
 import com.cesco.pillintime.api.request.entity.Request;
-import com.cesco.pillintime.api.request.mapper.RequestMapper;
-import com.cesco.pillintime.api.member.entity.Member;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-23T19:18:02+0900",
+    date = "2024-05-25T19:13:56+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 public class RequestMapperImpl implements RequestMapper {

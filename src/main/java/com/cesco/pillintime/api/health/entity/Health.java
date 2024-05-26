@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
@@ -29,6 +30,9 @@ public class Health {
     @ManyToOne
     @JoinColumn
     private Member member;
+
+    @Column
+    private LocalDateTime lastUpLoadTime = LocalDateTime.now();
 
     public Health(Integer steps, double cal, LocalTime sleepTime, Member member) {
         this.steps = steps;

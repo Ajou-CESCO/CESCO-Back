@@ -1,17 +1,15 @@
-package com.cesco.pillintime.plan.mapper;
+package com.cesco.pillintime.api.plan.mapper;
 
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.plan.dto.PlanDto;
 import com.cesco.pillintime.api.plan.dto.RequestPlanDto;
 import com.cesco.pillintime.api.plan.dto.ResponsePlanDto;
 import com.cesco.pillintime.api.plan.entity.Plan;
-import com.cesco.pillintime.api.plan.mapper.PlanMapper;
-
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-23T20:50:51+0900",
+    date = "2024-05-25T19:13:56+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 public class PlanMapperImpl implements PlanMapper {
@@ -65,6 +63,8 @@ public class PlanMapperImpl implements PlanMapper {
         responsePlanDto.setMedicineName( plan.getMedicineName() );
         responsePlanDto.setWeekday( plan.getWeekday() );
         responsePlanDto.setTime( plan.getTime() );
+        responsePlanDto.setStartAt( plan.getStartAt() );
+        responsePlanDto.setEndAt( plan.getEndAt() );
 
         return responsePlanDto;
     }

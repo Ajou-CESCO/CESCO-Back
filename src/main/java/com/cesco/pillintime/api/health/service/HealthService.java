@@ -13,8 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -32,7 +34,7 @@ public class HealthService {
 
         Member member = securityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
-
+        System.out.println("member.getId() = " + member.getId());
         Health health = new Health(steps, cal, sleepTime, member);
         healthRepository.save(health);
     }
@@ -45,14 +47,22 @@ public class HealthService {
                 memberRepository.findById(targetId)
                         .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
+// 방법 1 - DB -> 리스트 -> 최신 데이터
         List<Health> healthList = healthRepository.findByMember(targetMember)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
 
-        List<HealthDto> healthDtoList = new ArrayList<>();
-        for (Health health : healthList) {
-            HealthDto healthDto = HealthMapper.INSTANCE.toDto(health);
-            healthDtoList.add(healthDto);
+        Health maxHealth = new Health();
+        maxHealth.setLastUpLoadTime(LocalDateTime.MIN);
+        for(Health health : healthList){
+            maxHealth = health.getLastUpLoadTime().isAfter(maxHealth.getLastUpLoadTime()) ? health : maxHealth;
         }
+
+// 방법 2 - DB -> 최신 데이터
+//        Health maxHealth = healthRepository.findMaxLocalDateTimeByMember(targetMember).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
+
+        List<HealthDto> healthDtoList = new ArrayList<>();
+        HealthDto healthDto = HealthMapper.INSTANCE.toDto(maxHealth);
+        healthDtoList.add(healthDto);
 
         return healthDtoList;
     }
