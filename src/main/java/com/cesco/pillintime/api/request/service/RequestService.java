@@ -1,5 +1,6 @@
 package com.cesco.pillintime.api.request.service;
 
+import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.api.member.entity.Member;
@@ -7,10 +8,14 @@ import com.cesco.pillintime.api.request.dto.RequestDto;
 import com.cesco.pillintime.api.request.entity.Request;
 import com.cesco.pillintime.api.request.mapper.RequestMapper;
 import com.cesco.pillintime.api.request.repository.RequestRepository;
+import com.cesco.pillintime.fcm.dto.FcmMessageDto;
+import com.cesco.pillintime.fcm.dto.FcmRequestDto;
+import com.cesco.pillintime.fcm.service.FcmService;
 import com.cesco.pillintime.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +24,28 @@ import java.util.List;
 public class RequestService {
 
     private final RequestRepository requestRepository;
+    private final MemberRepository memberRepository;
+    private final FcmService fcmService;
 
     public Request createRequest(RequestDto requestDto) {
         Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         String receiverPhone = requestDto.getReceiverPhone();
+        memberRepository.findByPhone(receiverPhone)
+                .ifPresent((targetMember) -> {
+                    FcmRequestDto fcmRequestDto = new FcmRequestDto(
+                            targetMember.getId(),
+                            "[약속시간] 보호관계 요청",
+                            member.getName() + "님으로부터 보호관계 요청이 들어왔어요"
+                    );
+
+                    try {
+                        fcmService.sendPushAlarm(fcmRequestDto);
+                    } catch (IOException e) {
+                        throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
+                    }
+                });
 
         Request request = new Request(member, receiverPhone);
         return requestRepository.save(request);

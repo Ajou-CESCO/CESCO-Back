@@ -37,7 +37,8 @@ public enum ErrorCode {
 
     // 500 Internal Server
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50001, "Internal server error"),
-    EXTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50002, "External server error");
+    EXTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50002, "External server error"),
+    FCM_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50003, "Fcm server error");
 
     private final HttpStatus httpStatus;	// HttpStatus
     private final int code;				// ACCOUNT-001
