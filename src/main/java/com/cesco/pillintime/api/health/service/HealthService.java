@@ -1,25 +1,19 @@
 package com.cesco.pillintime.api.health.service;
 
-import com.cesco.pillintime.api.health.repository.HealthRepository;
-import com.cesco.pillintime.exception.CustomException;
-import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.api.health.dto.HealthDto;
 import com.cesco.pillintime.api.health.entity.Health;
 import com.cesco.pillintime.api.health.mapper.HealthMapper;
+import com.cesco.pillintime.api.health.repository.HealthRepository;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static java.time.LocalTime.now;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +21,6 @@ public class HealthService {
 
     private final HealthRepository healthRepository;
     private final MemberRepository memberRepository;
-    private final SecurityUtil securityUtil;
 
     public void createHealth(@RequestBody HealthDto healthDto) {
         Integer steps = healthDto.getSteps();
