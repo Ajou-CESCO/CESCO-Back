@@ -76,6 +76,7 @@ public class MedicineService {
         }
 
         urlConnection.disconnect();
+        System.out.println("result = " + result);
         return parseJsonResponse(result.toString());
     }
 
