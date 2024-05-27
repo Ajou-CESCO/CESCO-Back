@@ -44,7 +44,7 @@ class HealthServiceTest {
     void setUp() {
         memberRepository = mock(MemberRepository.class);
         healthRepository = mock(HealthRepository.class);
-        healthService = new HealthService(healthRepository, memberRepository);
+        healthnew HealthService(healthRepository, memberRepository);
     }
 
     @Test

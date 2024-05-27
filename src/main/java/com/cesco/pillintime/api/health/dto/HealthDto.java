@@ -3,6 +3,7 @@ package com.cesco.pillintime.api.health.dto;
 import lombok.Data;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
@@ -16,4 +17,5 @@ public class HealthDto {
 
     private LocalTime sleepTime;
 
+    private LocalDateTime lastUpLoadTime;
 }
