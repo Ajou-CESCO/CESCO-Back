@@ -3,6 +3,8 @@ package com.cesco.pillintime.api.log.service;
 import com.cesco.pillintime.api.log.entity.Log;
 import com.cesco.pillintime.api.log.mapper.LogMapper;
 import com.cesco.pillintime.api.log.repository.LogRepository;
+import com.cesco.pillintime.api.relation.entity.Relation;
+import com.cesco.pillintime.api.relation.repository.RelationRepository;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.api.log.dto.LogDto;
@@ -11,12 +13,15 @@ import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.api.plan.entity.Plan;
 import com.cesco.pillintime.api.plan.repository.PlanRepository;
+import com.cesco.pillintime.fcm.dto.FcmRequestDto;
+import com.cesco.pillintime.fcm.service.FcmService;
 import com.cesco.pillintime.security.SecurityUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,6 +37,8 @@ public class LogService {
     private final LogRepository logRepository;
     private final PlanRepository planRepository;
     private final MemberRepository memberRepository;
+    private final RelationRepository relationRepository;
+    private final FcmService fcmService;
     private final SecurityUtil securityUtil;
 
     @Scheduled(cron = "0 50 23 * * SUN")
@@ -111,6 +118,35 @@ public class LogService {
         incompletedLogList.forEach(log -> {
             log.setTakenStatus(TakenStatus.TIMED_OUT);
             logRepository.save(log);
+
+            Member client = log.getMember();
+            FcmRequestDto fcmRequestDto = new FcmRequestDto(
+                    client.getId(),
+                    "[약속시간] \uD83D\uDEA8 알림 \uD83D\uDEA8",
+                    "‼\uFE0F " + log.getPlannedAt() + " 에 " + log.getPlan().getCabinetIndex() + "번째 칸의 약을 먹지 않았어요."
+            );
+
+            try {
+                fcmService.sendPushAlarm(fcmRequestDto);
+            } catch (IOException e) {
+                throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
+            }
+
+            relationRepository.findByMember(client)
+                    .ifPresent((list) -> {
+                        for (Relation relation : list) {
+                            Member manager = relation.getManager();
+
+                            fcmRequestDto.setTargetId(manager.getId());
+                            fcmRequestDto.setBody(log.getMember().getName() + " 님이 " + log.getPlannedAt() + " 에 "
+                            + log.getPlan().getCabinetIndex() + "번째 칸의 약을 먹지 않았어요. 찌르기로 피보호자에게 복약을 요청해보세요.");
+                            try {
+                                fcmService.sendPushAlarm(fcmRequestDto);
+                            } catch (IOException e) {
+                                throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
+                            }
+                        }
+                    });
         });
     }
 
