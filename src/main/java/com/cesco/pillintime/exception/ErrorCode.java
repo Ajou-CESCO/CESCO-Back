@@ -36,7 +36,9 @@ public enum ErrorCode {
     NOT_FOUND_OWNER(HttpStatus.NOT_FOUND, 40409, "Not found owner"),
 
     // 500 Internal Server
-    EXTERNAL_API_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50001, "External api error");
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50001, "Internal server error"),
+    EXTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50002, "External server error"),
+    FCM_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50003, "Fcm server error");
 
     private final HttpStatus httpStatus;	// HttpStatus
     private final int code;				// ACCOUNT-001

@@ -1,6 +1,5 @@
 package com.cesco.pillintime.api.plan.controller;
 
-import com.cesco.pillintime.api.plan.dto.PlanDto;
 import com.cesco.pillintime.api.plan.dto.RequestPlanDto;
 import com.cesco.pillintime.api.plan.dto.ResponsePlanDto;
 import com.cesco.pillintime.api.plan.service.PlanService;
@@ -26,14 +25,14 @@ public class PlanController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseDto> getPlanByMemberId(@RequestBody RequestPlanDto planDto) {
-        List<ResponsePlanDto> planDtoList = planService.getPlanByMemberId(planDto);
+    public ResponseEntity<ResponseDto> getPlanByMemberId(@RequestParam Long memberId) {
+        List<ResponsePlanDto> planDtoList = planService.getPlanByMemberId(memberId);
         return ResponseUtil.makeResponse(200, "Success get dose plan", planDtoList);
     }
 
-    @DeleteMapping("/{planId}")
-    public ResponseEntity<ResponseDto> deletePlanById(@PathVariable Long planId) {
-        planService.deletePlanById(planId);
+    @DeleteMapping
+    public ResponseEntity<ResponseDto> deletePlan(@RequestParam Long memberId, Long medicineId, int cabinetIndex) {
+        planService.deletePlanById(memberId, medicineId, cabinetIndex);
         return ResponseUtil.makeResponse(200, "Success delete dose plan", null);
     }
 }
