@@ -32,7 +32,7 @@ public class HealthService {
         double cal = healthDto.getCal();
         LocalTime sleepTime = healthDto.getSleepTime();
 
-        Member member = securityUtil.getCurrentMember()
+        Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
         System.out.println("member.getId() = " + member.getId());
         Health health = new Health(steps, cal, sleepTime, member);
@@ -47,18 +47,7 @@ public class HealthService {
                 memberRepository.findById(targetId)
                         .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-// 방법 1 - DB -> 리스트 -> 최신 데이터
-        List<Health> healthList = healthRepository.findByMember(targetMember)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
-
-        Health maxHealth = new Health();
-        maxHealth.setLastUpLoadTime(LocalDateTime.MIN);
-        for(Health health : healthList){
-            maxHealth = health.getLastUpLoadTime().isAfter(maxHealth.getLastUpLoadTime()) ? health : maxHealth;
-        }
-
-// 방법 2 - DB -> 최신 데이터
-//        Health maxHealth = healthRepository.findMaxLocalDateTimeByMember(targetMember).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
+        Health maxHealth = healthRepository.findMaxLocalDateTimeByMember(targetMember).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
 
         List<HealthDto> healthDtoList = new ArrayList<>();
         HealthDto healthDto = HealthMapper.INSTANCE.toDto(maxHealth);
