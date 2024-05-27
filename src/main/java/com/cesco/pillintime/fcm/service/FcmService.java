@@ -47,6 +47,7 @@ public class FcmService {
 
         String API_URL = "https://fcm.googleapis.com/v1/projects/pillintime-49253/messages:send";
         ResponseEntity<String> response = restTemplate.exchange(API_URL, HttpMethod.POST, entity, String.class);
+        System.out.println(response);
     }
 
     public void sendFcmToken(FcmTokenDto fcmTokenDto) {
@@ -79,6 +80,8 @@ public class FcmService {
         ObjectMapper om = new ObjectMapper();
 
         String fcmToken = targetMember.getFcmToken();
+        System.out.println(fcmToken);
+        System.out.println(targetMember);
 
         FcmMessageDto fcmMessageDto = FcmMessageDto.builder()
                 .message(FcmMessageDto.Message.builder()

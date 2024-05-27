@@ -15,9 +15,11 @@ import com.cesco.pillintime.api.plan.entity.Plan;
 import com.cesco.pillintime.api.plan.repository.PlanRepository;
 import com.cesco.pillintime.fcm.dto.FcmRequestDto;
 import com.cesco.pillintime.fcm.service.FcmService;
+import com.cesco.pillintime.fcm.strategy.FcmStrategy;
 import com.cesco.pillintime.security.SecurityUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +28,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +40,7 @@ public class LogService {
     private final RelationRepository relationRepository;
     private final FcmService fcmService;
     private final SecurityUtil securityUtil;
+    private final ApplicationContext context;
 
     @Scheduled(cron = "0 50 23 * * SUN")
     @Transactional
@@ -119,34 +120,17 @@ public class LogService {
             log.setTakenStatus(TakenStatus.TIMED_OUT);
             logRepository.save(log);
 
-            Member client = log.getMember();
-            FcmRequestDto fcmRequestDto = new FcmRequestDto(
-                    client.getId(),
-                    "[약속시간] \uD83D\uDEA8 알림 \uD83D\uDEA8",
-                    "‼\uFE0F " + log.getPlannedAt() + " 에 " + log.getPlan().getCabinetIndex() + "번째 칸의 약을 먹지 않았어요."
-            );
+            Map<String, Object> requestParams = new HashMap<>();
+            requestParams.put("log", log);
 
             try {
-                fcmService.sendPushAlarm(fcmRequestDto);
+                FcmStrategy clientStrategy = context.getBean("clientOverLogStrategy", FcmStrategy.class);
+                FcmStrategy managerStrategy = context.getBean("managerOverLogStrategy", FcmStrategy.class);
+                clientStrategy.execute(requestParams);
+                managerStrategy.execute(requestParams);
             } catch (IOException e) {
                 throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
             }
-
-            relationRepository.findByMember(client)
-                    .ifPresent((list) -> {
-                        for (Relation relation : list) {
-                            Member manager = relation.getManager();
-
-                            fcmRequestDto.setTargetId(manager.getId());
-                            fcmRequestDto.setBody(log.getMember().getName() + " 님이 " + log.getPlannedAt() + " 에 "
-                            + log.getPlan().getCabinetIndex() + "번째 칸의 약을 먹지 않았어요. 찌르기로 피보호자에게 복약을 요청해보세요.");
-                            try {
-                                fcmService.sendPushAlarm(fcmRequestDto);
-                            } catch (IOException e) {
-                                throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
-                            }
-                        }
-                    });
         });
     }
 
