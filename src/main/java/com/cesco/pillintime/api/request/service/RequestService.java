@@ -11,14 +11,14 @@ import com.cesco.pillintime.api.request.repository.RequestRepository;
 import com.cesco.pillintime.fcm.dto.FcmMessageDto;
 import com.cesco.pillintime.fcm.dto.FcmRequestDto;
 import com.cesco.pillintime.fcm.service.FcmService;
+import com.cesco.pillintime.fcm.strategy.FcmStrategy;
 import com.cesco.pillintime.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -26,27 +26,31 @@ public class RequestService {
 
     private final RequestRepository requestRepository;
     private final MemberRepository memberRepository;
-    private final FcmService fcmService;
+    private final ApplicationContext context;
 
     public Request createRequest(RequestDto requestDto) {
-        Member member = SecurityUtil.getCurrentMember()
+        Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         String receiverPhone = requestDto.getReceiverPhone();
 
-        Request request = requestRepository.findBySenderAndReceiverPhone(member, receiverPhone)
-                .orElseGet(() -> new Request(member, receiverPhone));
+        Request request = requestRepository.findBySenderAndReceiverPhone(requestMember, receiverPhone)
+                .orElseGet(() -> {
+                    Request newRequest = new Request(requestMember, receiverPhone);
+                    return requestRepository.save(newRequest);
+                });
+
+        System.out.println(request.getId());
 
         memberRepository.findByPhone(receiverPhone)
                 .ifPresent((targetMember) -> {
-                    FcmRequestDto fcmRequestDto = new FcmRequestDto(
-                            targetMember.getId(),
-                            "[약속시간] \uD83D\uDD14 띵동 \uD83D\uDD14",
-                            member.getName() + " 님으로부터 보호관계 요청이 왔어요 \uD83D\uDC8C"
-                    );
+                    Map<String, Object> requestParams = new HashMap<>();
+                    requestParams.put("requestMember", requestMember);
+                    requestParams.put("targetMember", targetMember);
 
                     try {
-                        fcmService.sendPushAlarm(fcmRequestDto);
+                        FcmStrategy requestStrategy = context.getBean("requestStrategy", FcmStrategy.class);
+                        requestStrategy.execute(requestParams);
                     } catch (IOException e) {
                         throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
                     }

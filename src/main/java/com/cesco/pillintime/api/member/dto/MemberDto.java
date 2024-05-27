@@ -12,6 +12,7 @@ public class MemberDto {
     private String phone;
     private Integer gender;
     private Long cabinetId;
+    private String fcmToken;
 
     @JsonProperty(value = "isManager")
     private boolean isManager;

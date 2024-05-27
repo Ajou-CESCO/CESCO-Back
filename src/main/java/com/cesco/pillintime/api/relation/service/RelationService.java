@@ -10,12 +10,16 @@ import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.api.request.repository.RequestRepository;
 import com.cesco.pillintime.fcm.dto.FcmRequestDto;
 import com.cesco.pillintime.fcm.service.FcmService;
+import com.cesco.pillintime.fcm.strategy.FcmStrategy;
 import com.cesco.pillintime.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -23,27 +27,28 @@ public class RelationService {
 
     private final RequestRepository requestRepository;
     private final RelationRepository relationRepository;
-    private final FcmService fcmService;
+    private final ApplicationContext context;
 
     public void createRelation(Long requestId) {
-        Member client = SecurityUtil.getCurrentMember()
+        Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         Request request = requestRepository.findById(requestId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REQUEST));
 
-        Member manager = request.getSender();
+        Member targetMember = request.getSender();
 
-        Relation relation = new Relation(manager, client);
+        Relation relation = new Relation(targetMember, requestMember);
         relationRepository.save(relation);
         requestRepository.delete(request);
 
-        FcmRequestDto fcmRequestDto = new FcmRequestDto(
-                manager.getId(), "[약속시간] 📢 보호관계 수락 알림 📢",
-                client.getName() + " 님이 보호관계를 수락했어요 \uD83D\uDE04 지금 바로 " + client.getName() + " 님을 케어해보세요."
-        );
+        Map<String, Object> requestParams = new HashMap<>();
+        requestParams.put("requestMember", requestMember);
+        requestParams.put("targetMember", targetMember);
+
         try {
-            fcmService.sendPushAlarm(fcmRequestDto);
+            FcmStrategy relationStrategy = context.getBean("requestStrategy", FcmStrategy.class);
+            relationStrategy.execute(requestParams);
         } catch (Exception e) {
             throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
         }
