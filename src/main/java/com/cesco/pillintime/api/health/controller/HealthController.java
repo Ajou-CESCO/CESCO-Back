@@ -25,7 +25,7 @@ public class HealthController {
 
     @GetMapping("/{targetId}")
     public ResponseEntity<ResponseDto> getHealthByMemberId(@PathVariable(name="targetId",required = false) Long targetId) {
-        List<HealthDto> healthDtoList = healthService.getHealthByMemberId(targetId);
-        return ResponseUtil.makeResponse(200, "Success get health data", healthDtoList);
+        HealthDto healthDto = healthService.getHealthByMemberId(targetId);
+        return ResponseUtil.makeResponse(200, "Success get health data", healthDto);
     }
 }

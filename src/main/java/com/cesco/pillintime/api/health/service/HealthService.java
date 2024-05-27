@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static java.time.LocalTime.now;
+
 @Service
 @RequiredArgsConstructor
 public class HealthService {
@@ -39,7 +41,7 @@ public class HealthService {
         healthRepository.save(health);
     }
 
-    public List<HealthDto> getHealthByMemberId(Long targetId) {
+    public HealthDto getHealthByMemberId(Long targetId) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
@@ -49,10 +51,6 @@ public class HealthService {
 
         Health maxHealth = healthRepository.findMaxLocalDateTimeByMember(targetMember).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
 
-        List<HealthDto> healthDtoList = new ArrayList<>();
-        HealthDto healthDto = HealthMapper.INSTANCE.toDto(maxHealth);
-        healthDtoList.add(healthDto);
-
-        return healthDtoList;
+        return HealthMapper.INSTANCE.toDto(maxHealth);
     }
 }
