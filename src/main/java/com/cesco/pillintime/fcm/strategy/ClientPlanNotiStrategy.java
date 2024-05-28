@@ -17,7 +17,7 @@ public class ClientPlanNotiStrategy implements FcmStrategy {
     public void execute(Map<String, Object> params) throws IOException {
         List<FcmRequestDto> fcmRequestDtoList = makeRequestDtoList(params);
         for (FcmRequestDto fcmRequestDto : fcmRequestDtoList) {
-            fcmService.sendPushAlarm(fcmRequestDto);
+            fcmService.sendPushAlarm(fcmRequestDto, true);
         }
     }
 

@@ -23,7 +23,7 @@ public class FcmController {
 
     @PostMapping("/push")
     public ResponseEntity<ResponseDto> sendPushAlarm(@RequestBody FcmRequestDto fcmRequestDto) throws IOException {
-        fcmService.sendPushAlarm(fcmRequestDto);
+        fcmService.sendPushAlarm(fcmRequestDto, true);
         return ResponseUtil.makeResponse(200, "Success send push", null);
     }
 

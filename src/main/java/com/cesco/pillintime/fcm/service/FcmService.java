@@ -27,14 +27,16 @@ public class FcmService {
     private final MemberRepository memberRepository;
     private final SecurityUtil securityUtil;
 
-    public void sendPushAlarm(FcmRequestDto fcmRequestDto) throws IOException {
-        Member requestMember = SecurityUtil.getCurrentMember()
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
-
+    public void sendPushAlarm(FcmRequestDto fcmRequestDto, boolean checkMember) throws IOException {
         Member targetMember = memberRepository.findById(fcmRequestDto.getTargetId())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        securityUtil.checkPermission(requestMember, targetMember);
+        if (checkMember) {
+            Member requestMember = SecurityUtil.getCurrentMember()
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+            securityUtil.checkPermission(requestMember, targetMember);
+        }
 
         String message = makeMessage(fcmRequestDto, targetMember);
         RestTemplate restTemplate = new RestTemplate();
