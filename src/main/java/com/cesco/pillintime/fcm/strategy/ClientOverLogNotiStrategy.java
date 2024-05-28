@@ -21,7 +21,7 @@ public class ClientOverLogNotiStrategy implements FcmStrategy {
     public void execute(Map<String, Object> params) throws IOException {
         List<FcmRequestDto> fcmRequestDtoList = makeRequestDtoList(params);
         for (FcmRequestDto fcmRequestDto : fcmRequestDtoList) {
-            fcmService.sendPushAlarm(fcmRequestDto, true);
+            fcmService.sendPushAlarm(fcmRequestDto, false);
         }
     }
 
@@ -33,7 +33,7 @@ public class ClientOverLogNotiStrategy implements FcmStrategy {
         FcmRequestDto fcmRequestDto = new FcmRequestDto();
         fcmRequestDto.setTargetId(log.getMember().getId());
         fcmRequestDto.setTitle("[약속시간] \uD83D\uDEA8 알림 \uD83D\uDEA8");
-        fcmRequestDto.setBody("‼️ " + log.getPlannedAt() + " 에 " + log.getPlan().getCabinetIndex() + "번째 칸의 약을 먹지 않았어요.");
+        fcmRequestDto.setBody("‼️ " + log.getPlannedAt().toLocalTime() + " 에 " + log.getPlan().getCabinetIndex() + "번째 칸의 약을 먹지 않았어요.");
 
         fcmRequestDtoList.add(fcmRequestDto);
         return fcmRequestDtoList;

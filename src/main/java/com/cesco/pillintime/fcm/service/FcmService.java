@@ -48,6 +48,7 @@ public class FcmService {
         HttpEntity<String> entity = new HttpEntity<>(message, headers);
 
         String API_URL = "https://fcm.googleapis.com/v1/projects/pillintime-49253/messages:send";
+        System.out.println(API_URL);
         ResponseEntity<String> response = restTemplate.exchange(API_URL, HttpMethod.POST, entity, String.class);
         System.out.println(response);
     }
