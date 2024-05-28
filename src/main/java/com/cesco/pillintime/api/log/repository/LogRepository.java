@@ -29,8 +29,13 @@ public interface LogRepository extends JpaRepository<Log, Long> {
             @Param("rangeEndAt") LocalDateTime rangeEndAt
     );
 
+    // 시간초과된 미복용 로그를 조회하기 위한 쿼리
     @Query("SELECT l FROM Log l WHERE l.plannedAt <= :targetTime AND l.takenStatus = 0")
     List<Log> findIncompleteLog(LocalDateTime targetTime);
+
+    // 예정된 미복용 로그를 조회하기 위한 쿼리
+    @Query("SELECT l FROM Log l WHERE l.plannedAt BETWEEN :startOfSecond AND :endOfSecond AND l.takenStatus = 0")
+    Optional<List<Log>> findPlannedLog(LocalDateTime startOfSecond, LocalDateTime endOfSecond);
 
     boolean existsByMemberAndPlanAndPlannedAt(Member member, Plan plan, LocalDateTime plannedAt);
 

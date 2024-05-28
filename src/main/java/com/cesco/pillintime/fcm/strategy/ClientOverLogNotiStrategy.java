@@ -1,6 +1,8 @@
 package com.cesco.pillintime.fcm.strategy;
 
 import com.cesco.pillintime.api.log.entity.Log;
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.fcm.dto.FcmRequestDto;
 import com.cesco.pillintime.fcm.service.FcmService;
 import lombok.AllArgsConstructor;
@@ -18,7 +20,7 @@ public class ClientOverLogNotiStrategy implements FcmStrategy {
     private final FcmService fcmService;
 
     @Override
-    public void execute(Map<String, Object> params) throws IOException {
+    public void execute(Map<String, Object> params) {
         List<FcmRequestDto> fcmRequestDtoList = makeRequestDtoList(params);
         for (FcmRequestDto fcmRequestDto : fcmRequestDtoList) {
             fcmService.sendPushAlarm(fcmRequestDto, false);

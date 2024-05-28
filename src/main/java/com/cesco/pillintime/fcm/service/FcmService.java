@@ -27,7 +27,7 @@ public class FcmService {
     private final MemberRepository memberRepository;
     private final SecurityUtil securityUtil;
 
-    public void sendPushAlarm(FcmRequestDto fcmRequestDto, boolean checkMember) throws IOException {
+    public void sendPushAlarm(FcmRequestDto fcmRequestDto, boolean checkMember) {
         Member targetMember = memberRepository.findById(fcmRequestDto.getTargetId())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
@@ -38,19 +38,22 @@ public class FcmService {
             securityUtil.checkPermission(requestMember, targetMember);
         }
 
-        String message = makeMessage(fcmRequestDto, targetMember);
-        RestTemplate restTemplate = new RestTemplate();
+        try {
+            String message = makeMessage(fcmRequestDto, targetMember);
+            RestTemplate restTemplate = new RestTemplate();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + getAccessToken());
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("Authorization", "Bearer " + getAccessToken());
 
-        HttpEntity<String> entity = new HttpEntity<>(message, headers);
+            HttpEntity<String> entity = new HttpEntity<>(message, headers);
 
-        String API_URL = "https://fcm.googleapis.com/v1/projects/pillintime-49253/messages:send";
-        System.out.println(API_URL);
-        ResponseEntity<String> response = restTemplate.exchange(API_URL, HttpMethod.POST, entity, String.class);
-        System.out.println(response);
+            String API_URL = "https://fcm.googleapis.com/v1/projects/pillintime-49253/messages:send";
+            ResponseEntity<String> response = restTemplate.exchange(API_URL, HttpMethod.POST, entity, String.class);
+        } catch (Exception e) {
+            throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
+        }
+
     }
 
     public void sendFcmToken(FcmTokenDto fcmTokenDto) {

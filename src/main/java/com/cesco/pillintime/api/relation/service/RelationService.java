@@ -46,12 +46,8 @@ public class RelationService {
         requestParams.put("requestMember", requestMember);
         requestParams.put("targetMember", targetMember);
 
-        try {
-            FcmStrategy relationStrategy = context.getBean("requestStrategy", FcmStrategy.class);
-            relationStrategy.execute(requestParams);
-        } catch (Exception e) {
-            throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
-        }
+        FcmStrategy relationStrategy = context.getBean("relationCreatedStrategy", FcmStrategy.class);
+        relationStrategy.execute(requestParams);
     }
 
     public List<RelationDto> getRelationList() {

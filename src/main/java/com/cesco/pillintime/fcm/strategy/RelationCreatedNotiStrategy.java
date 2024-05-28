@@ -4,19 +4,20 @@ import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.fcm.dto.FcmRequestDto;
 import com.cesco.pillintime.fcm.service.FcmService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
+@Component("relationCreatedStrategy")
 public class RelationCreatedNotiStrategy implements FcmStrategy {
 
     private final FcmService fcmService;
 
     @Override
-    public void execute(Map<String, Object> params) throws IOException {
+    public void execute(Map<String, Object> params) {
         List<FcmRequestDto> fcmRequestDtoList = makeRequestDtoList(params);
         for (FcmRequestDto fcmRequestDto : fcmRequestDtoList) {
             fcmService.sendPushAlarm(fcmRequestDto, true);

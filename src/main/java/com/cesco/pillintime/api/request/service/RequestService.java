@@ -48,12 +48,8 @@ public class RequestService {
                     requestParams.put("requestMember", requestMember);
                     requestParams.put("targetMember", targetMember);
 
-                    try {
-                        FcmStrategy requestStrategy = context.getBean("requestStrategy", FcmStrategy.class);
-                        requestStrategy.execute(requestParams);
-                    } catch (IOException e) {
-                        throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
-                    }
+                    FcmStrategy requestStrategy = context.getBean("requestStrategy", FcmStrategy.class);
+                    requestStrategy.execute(requestParams);
                 });
 
         return request;

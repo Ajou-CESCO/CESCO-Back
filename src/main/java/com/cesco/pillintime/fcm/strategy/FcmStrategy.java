@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface FcmStrategy {
 
-    void execute(Map<String, Object> params) throws IOException;
+    void execute(Map<String, Object> params);
     List<FcmRequestDto> makeRequestDtoList(Map<String, Object> params);
 
 }

@@ -28,6 +28,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -37,8 +38,6 @@ public class LogService {
     private final LogRepository logRepository;
     private final PlanRepository planRepository;
     private final MemberRepository memberRepository;
-    private final RelationRepository relationRepository;
-    private final FcmService fcmService;
     private final SecurityUtil securityUtil;
     private final ApplicationContext context;
 
@@ -113,7 +112,22 @@ public class LogService {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime targetTime = currentTime.minusMinutes(30);
 
-        // 예정 시각보다 30분 초과한 미완료된 로그들을 조회하여 업데이트
+        LocalDateTime startOfSecond = currentTime.truncatedTo(ChronoUnit.SECONDS);
+        LocalDateTime endOfSecond = startOfSecond.plus(999, ChronoUnit.MILLIS);
+
+        // 현재 시각과 일치하는 예정 계획이 있을 경우 푸시알림
+        logRepository.findPlannedLog(startOfSecond, endOfSecond)
+                .ifPresent((plannedLogList) -> {
+                    for (Log log : plannedLogList) {
+                        Map<String, Object> requestParams = new HashMap<>();
+                        requestParams.put("log", log);
+
+                        FcmStrategy clientPlanStrategy = context.getBean("clientPlanStrategy", FcmStrategy.class);
+                        clientPlanStrategy.execute(requestParams);
+                    }
+                });
+
+        // 예정 시각보다 30분 초과한 미완료된 로그들을 조회하여 업데이트 및 푸시알림
         List<Log> incompletedLogList = logRepository.findIncompleteLog(targetTime);
         incompletedLogList.forEach(log -> {
             log.setTakenStatus(TakenStatus.TIMED_OUT);
@@ -122,14 +136,10 @@ public class LogService {
             Map<String, Object> requestParams = new HashMap<>();
             requestParams.put("log", log);
 
-            try {
-                FcmStrategy clientStrategy = context.getBean("clientOverLogStrategy", FcmStrategy.class);
-                FcmStrategy managerStrategy = context.getBean("managerOverLogStrategy", FcmStrategy.class);
-                clientStrategy.execute(requestParams);
-                managerStrategy.execute(requestParams);
-            } catch (IOException e) {
-                throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
-            }
+            FcmStrategy clientLogStrategy = context.getBean("clientOverLogStrategy", FcmStrategy.class);
+            FcmStrategy managerLogStrategy = context.getBean("managerOverLogStrategy", FcmStrategy.class);
+            clientLogStrategy.execute(requestParams);
+            managerLogStrategy.execute(requestParams);
         });
     }
 
