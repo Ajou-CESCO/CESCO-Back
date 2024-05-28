@@ -65,8 +65,6 @@ public class LogService {
                     log.setPlannedAt(plannedAt);
                     log.setTakenStatus(TakenStatus.NOT_COMPLETED);
 
-                    System.out.println(log.getPlannedAt());
-
                     logRepository.save(log);
                 }
             }
@@ -109,7 +107,8 @@ public class LogService {
         return logDtoList;
     }
 
-    @Scheduled(cron = "0 1/31 * * * *")
+//    @Scheduled(cron = "0 1/31 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     public void updateDoseLogByCurrentTime() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime targetTime = currentTime.minusMinutes(30);
