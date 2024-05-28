@@ -1,7 +1,6 @@
 package com.cesco.pillintime.api.adverse.controller;
 
-import com.cesco.pillintime.api.adverse.dto.AdverseDto;
-import com.cesco.pillintime.api.adverse.service.AdverseService;
+import com.cesco.pillintime.api.adverse.service.Adverse;
 import com.cesco.pillintime.response.dto.ResponseDto;
 import com.cesco.pillintime.response.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +17,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdverseController {
 
-    private final AdverseService adverseService;
+    private final Adverse adverseService;
 
     @GetMapping
-    public ResponseEntity<ResponseDto> search(@RequestParam(name = "drugName") String drugName) {
-        List<AdverseDto> adverseDtoList = adverseService.search(drugName);
+    public ResponseEntity<ResponseDto> search(@RequestParam(name = "name") String name) {
+        List<String> adverseDtoList = adverseService.search(name);
         return ResponseUtil.makeResponse(200, "Success login", adverseDtoList);
     }
 
