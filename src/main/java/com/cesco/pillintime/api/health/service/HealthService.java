@@ -9,6 +9,7 @@ import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.security.SecurityUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ public class HealthService {
     private final HealthRepository healthRepository;
     private final MemberRepository memberRepository;
 
+    @Transactional
     public void createHealth(@RequestBody HealthDto healthDto) {
         Integer steps = healthDto.getSteps();
         double cal = healthDto.getCal();

@@ -8,6 +8,7 @@ import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.mapper.MemberMapper;
 import com.cesco.pillintime.security.JwtUtil;
 import com.cesco.pillintime.security.SecurityUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class MemberService {
     private final JwtUtil jwtUtil;
     private final SecurityUtil securityUtil;
 
+    @Transactional
     public String createUser(MemberDto memberDto){
 
         String name = memberDto.getName();
@@ -63,6 +65,7 @@ public class MemberService {
         return null;
     }
 
+    @Transactional
     public MemberDto updateUserById(Long targetId, MemberDto memberDto) {
 
         String ssn = memberDto.getSsn();
@@ -90,6 +93,7 @@ public class MemberService {
         return MemberMapper.INSTANCE.toDto(targetMember);
     }
 
+    @Transactional
     public void deleteUser(){
         Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));

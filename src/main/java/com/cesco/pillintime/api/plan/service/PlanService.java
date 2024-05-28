@@ -13,6 +13,7 @@ import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.api.plan.entity.Plan;
 import com.cesco.pillintime.security.SecurityUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class PlanService {
     private final LogService logService;
     private final SecurityUtil securityUtil;
 
+    @Transactional
     public void createPlan(RequestPlanDto requestPlanDto) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
@@ -79,6 +81,7 @@ public class PlanService {
         return planDtoList;
     }
 
+    @Transactional
     public void deletePlanById(Long memberId, Long medicineId, int cabinetIndex) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));

@@ -8,16 +8,13 @@ import com.cesco.pillintime.api.request.dto.RequestDto;
 import com.cesco.pillintime.api.request.entity.Request;
 import com.cesco.pillintime.api.request.mapper.RequestMapper;
 import com.cesco.pillintime.api.request.repository.RequestRepository;
-import com.cesco.pillintime.fcm.dto.FcmMessageDto;
-import com.cesco.pillintime.fcm.dto.FcmRequestDto;
-import com.cesco.pillintime.fcm.service.FcmService;
 import com.cesco.pillintime.fcm.strategy.FcmStrategy;
 import com.cesco.pillintime.security.SecurityUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -28,6 +25,7 @@ public class RequestService {
     private final MemberRepository memberRepository;
     private final ApplicationContext context;
 
+    @Transactional
     public Request createRequest(RequestDto requestDto) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
@@ -74,6 +72,7 @@ public class RequestService {
         return requestDtoList;
     }
 
+    @Transactional
     public void deleteRequestById(Long id) {
         requestRepository.deleteById(id);
     }

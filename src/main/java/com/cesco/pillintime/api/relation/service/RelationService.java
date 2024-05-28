@@ -8,10 +8,9 @@ import com.cesco.pillintime.api.request.entity.Request;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.api.request.repository.RequestRepository;
-import com.cesco.pillintime.fcm.dto.FcmRequestDto;
-import com.cesco.pillintime.fcm.service.FcmService;
 import com.cesco.pillintime.fcm.strategy.FcmStrategy;
 import com.cesco.pillintime.security.SecurityUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -29,6 +28,7 @@ public class RelationService {
     private final RelationRepository relationRepository;
     private final ApplicationContext context;
 
+    @Transactional
     public void createRelation(Long requestId) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
@@ -79,6 +79,7 @@ public class RelationService {
         return relationDtoList;
     }
 
+    @Transactional
     public void deleteRelation(Long relationId) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));

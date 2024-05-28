@@ -1,14 +1,12 @@
 package com.cesco.pillintime.api.health.controller;
 
-import com.cesco.pillintime.api.health.service.HealthService;
 import com.cesco.pillintime.api.health.dto.HealthDto;
+import com.cesco.pillintime.api.health.service.HealthService;
 import com.cesco.pillintime.response.dto.ResponseDto;
 import com.cesco.pillintime.response.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/health")

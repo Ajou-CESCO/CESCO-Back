@@ -11,6 +11,7 @@ import com.cesco.pillintime.api.log.repository.LogRepository;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.security.SecurityUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class CabinetService {
     private final LogRepository logRepository;
     private final SecurityUtil securityUtil;
 
+    @Transactional
     public void createCabinet(CabinetDto cabinetDto) {
         String serial = cabinetDto.getSerial();
         Long ownerId = cabinetDto.getOwnerId();
@@ -56,6 +58,7 @@ public class CabinetService {
         }
     }
 
+    @Transactional
     public void deleteCabinet(Long cabinetId) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
@@ -77,6 +80,7 @@ public class CabinetService {
         memberRepository.save(targetMember);
     }
 
+    @Transactional
     public void getSensorData(SensorDto sensorDto) {
         String serial = sensorDto.getSerial();
         int index = sensorDto.getIndex();

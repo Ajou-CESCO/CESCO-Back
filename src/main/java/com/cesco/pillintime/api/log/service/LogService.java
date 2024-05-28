@@ -1,20 +1,16 @@
 package com.cesco.pillintime.api.log.service;
 
+import com.cesco.pillintime.api.log.dto.LogDto;
 import com.cesco.pillintime.api.log.entity.Log;
+import com.cesco.pillintime.api.log.entity.TakenStatus;
 import com.cesco.pillintime.api.log.mapper.LogMapper;
 import com.cesco.pillintime.api.log.repository.LogRepository;
-import com.cesco.pillintime.api.relation.entity.Relation;
-import com.cesco.pillintime.api.relation.repository.RelationRepository;
-import com.cesco.pillintime.exception.CustomException;
-import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.api.log.dto.LogDto;
-import com.cesco.pillintime.api.log.entity.TakenStatus;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.api.plan.entity.Plan;
 import com.cesco.pillintime.api.plan.repository.PlanRepository;
-import com.cesco.pillintime.fcm.dto.FcmRequestDto;
-import com.cesco.pillintime.fcm.service.FcmService;
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.fcm.strategy.FcmStrategy;
 import com.cesco.pillintime.security.SecurityUtil;
 import jakarta.transaction.Transactional;
@@ -23,7 +19,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -107,6 +102,7 @@ public class LogService {
     }
 
 //    @Scheduled(cron = "0 1/31 * * * *")
+    @Transactional
     @Scheduled(cron = "0 * * * * *")
     public void updateDoseLogByCurrentTime() {
         LocalDateTime currentTime = LocalDateTime.now();
