@@ -51,6 +51,13 @@ public class HealthService {
 
         List<HealthDto> healthDtoList = new ArrayList<>();
         HealthDto healthDto = HealthMapper.INSTANCE.toDto(maxHealth);
+        Integer averStep = 5000;
+        int i = 24 - Integer.parseInt(targetMember.getSsn().substring(1, 2));
+        i = i < 0 ? i+100 : i ;
+        String step = healthDto.getSteps() <=  averStep ? i/10*10 + "대 평균까지 " + (averStep-healthDto.getSteps()) + "걸음 남았습니다.": "";
+        System.out.println("step = " + averStep);
+        healthDto.setStepsMessage(step);
+        healthDto.setSleepTimeMessage("어제보다 " + 26 + "시간 더 주무셨어요.");
         healthDtoList.add(healthDto);
 
         return healthDtoList;
