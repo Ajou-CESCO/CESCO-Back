@@ -1,15 +1,13 @@
 package com.cesco.pillintime.api.relation.service;
 
+import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.relation.dto.RelationDto;
 import com.cesco.pillintime.api.relation.entity.Relation;
 import com.cesco.pillintime.api.relation.repository.RelationRepository;
-import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.request.entity.Request;
+import com.cesco.pillintime.api.request.repository.RequestRepository;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.api.request.repository.RequestRepository;
-import com.cesco.pillintime.fcm.dto.FcmRequestDto;
-import com.cesco.pillintime.fcm.service.FcmService;
 import com.cesco.pillintime.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,6 @@ public class RelationService {
 
     private final RequestRepository requestRepository;
     private final RelationRepository relationRepository;
-    private final FcmService fcmService;
 
     public void createRelation(Long requestId) {
         Member client = SecurityUtil.getCurrentMember()
@@ -38,15 +35,6 @@ public class RelationService {
         relationRepository.save(relation);
         requestRepository.delete(request);
 
-        FcmRequestDto fcmRequestDto = new FcmRequestDto(
-                manager.getId(), "[약속시간] 📢 보호관계 수락 알림 📢",
-                client.getName() + " 님이 보호관계를 수락했어요 \uD83D\uDE04 지금 바로 " + client.getName() + " 님을 케어해보세요."
-        );
-        try {
-            fcmService.sendPushAlarm(fcmRequestDto);
-        } catch (Exception e) {
-            throw new CustomException(ErrorCode.FCM_SERVER_ERROR);
-        }
     }
 
     public List<RelationDto> getRelationList() {

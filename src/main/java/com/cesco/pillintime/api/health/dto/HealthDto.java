@@ -22,4 +22,6 @@ public class HealthDto {
     private String sleepTimeMessage;
 
     private LocalDateTime lastUpLoadTime;
+
+    private Integer averageSteps;
 }

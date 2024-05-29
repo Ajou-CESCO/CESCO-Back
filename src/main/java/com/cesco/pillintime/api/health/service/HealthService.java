@@ -10,13 +10,13 @@ import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -51,15 +51,26 @@ public class HealthService {
 
         List<HealthDto> healthDtoList = new ArrayList<>();
         HealthDto healthDto = HealthMapper.INSTANCE.toDto(maxHealth);
-        Integer averStep = 5000;
-        int i = 24 - Integer.parseInt(targetMember.getSsn().substring(1, 2));
-        i = i < 0 ? i+100 : i ;
-        String step = healthDto.getSteps() <=  averStep ? i/10*10 + "대 평균까지 " + (averStep-healthDto.getSteps()) + "걸음 남았습니다.": "";
-        System.out.println("step = " + averStep);
+        Integer averStep = 6482;
+        healthDto.setAverageSteps(averStep);
+
+        String step = getStringStep(targetMember, healthDto, averStep);
         healthDto.setStepsMessage(step);
-        healthDto.setSleepTimeMessage("어제보다 " + 26 + "시간 더 주무셨어요.");
+
+        healthDto.setSleepTimeMessage("어제보다 " + 99 + "시간 더 주무셨어요.");
         healthDtoList.add(healthDto);
 
         return healthDtoList;
+    }
+
+    @NotNull
+    private static String getStringStep(Member targetMember, HealthDto healthDto, Integer averStep) {
+        int currentAge = LocalDate.now().getYear()%100 - Integer.parseInt(targetMember.getSsn().substring(1, 2));
+
+        String ageGroup = (currentAge < 0 ? currentAge+100 : currentAge) /10*10 + "대 ";
+        String ageMessage = healthDto.getSteps() < averStep ?
+                "평균까지 " + (averStep - healthDto.getSteps()) + "걸음 남았습니다." :
+                "평균보다 " + (healthDto.getSteps()- averStep) + "걸음 더 걸었어요!";
+        return ageGroup+ageMessage;
     }
 }
