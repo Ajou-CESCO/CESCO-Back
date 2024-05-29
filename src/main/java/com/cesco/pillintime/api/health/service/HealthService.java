@@ -11,9 +11,11 @@ import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.security.SecurityUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Service
@@ -46,6 +48,26 @@ public class HealthService {
 
         Health maxHealth = healthRepository.findMaxLocalDateTimeByMember(targetMember).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
 
-        return HealthMapper.INSTANCE.toDto(maxHealth);
+        HealthDto healthDto = HealthMapper.INSTANCE.toDto(maxHealth);
+        Integer averStep = 6482;
+        healthDto.setAverageSteps(averStep);
+
+        String step = getStringStep(targetMember, healthDto, averStep);
+        healthDto.setStepsMessage(step);
+
+        healthDto.setSleepTimeMessage("어제보다 " + 99 + "시간 더 주무셨어요.");
+
+        return healthDto;
+    }
+
+    @NotNull
+    private static String getStringStep(Member targetMember, HealthDto healthDto, Integer averStep) {
+        int currentAge = LocalDate.now().getYear()%100 - Integer.parseInt(targetMember.getSsn().substring(1, 2));
+
+        String ageGroup = (currentAge < 0 ? currentAge+100 : currentAge) /10*10 + "대 ";
+        String ageMessage = healthDto.getSteps() < averStep ?
+                "평균까지 " + (averStep - healthDto.getSteps()) + "걸음 남았습니다." :
+                "평균보다 " + (healthDto.getSteps()- averStep) + "걸음 더 걸었어요!";
+        return ageGroup+ageMessage;
     }
 }

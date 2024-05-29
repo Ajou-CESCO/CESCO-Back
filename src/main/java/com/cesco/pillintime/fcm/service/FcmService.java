@@ -11,7 +11,6 @@ import com.cesco.pillintime.security.SecurityUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.*;
@@ -57,7 +56,6 @@ public class FcmService {
 
     }
 
-    @Transactional
     public void sendFcmToken(FcmTokenDto fcmTokenDto) {
         Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
@@ -88,8 +86,6 @@ public class FcmService {
         ObjectMapper om = new ObjectMapper();
 
         String fcmToken = targetMember.getFcmToken();
-        System.out.println(fcmToken);
-        System.out.println(targetMember);
 
         FcmMessageDto fcmMessageDto = FcmMessageDto.builder()
                 .message(FcmMessageDto.Message.builder()
