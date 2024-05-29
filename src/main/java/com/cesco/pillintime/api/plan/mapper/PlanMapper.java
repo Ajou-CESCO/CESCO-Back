@@ -6,7 +6,6 @@ import com.cesco.pillintime.api.plan.dto.RequestPlanDto;
 import com.cesco.pillintime.api.plan.dto.ResponsePlanDto;
 import com.cesco.pillintime.api.plan.entity.Plan;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDate;

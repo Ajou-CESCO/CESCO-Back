@@ -8,12 +8,17 @@ import com.cesco.pillintime.api.request.entity.Request;
 import com.cesco.pillintime.api.request.repository.RequestRepository;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.fcm.strategy.FcmStrategy;
 import com.cesco.pillintime.security.SecurityUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -22,19 +27,29 @@ public class RelationService {
     private final RequestRepository requestRepository;
     private final RelationRepository relationRepository;
 
+    private final ApplicationContext context;
+
+    @Transactional
     public void createRelation(Long requestId) {
-        Member client = SecurityUtil.getCurrentMember()
+        Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         Request request = requestRepository.findById(requestId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REQUEST));
 
-        Member manager = request.getSender();
+        Member targetMember = request.getSender();
 
-        Relation relation = new Relation(manager, client);
+        Relation relation = new Relation(targetMember, requestMember);
         relationRepository.save(relation);
         requestRepository.delete(request);
 
+
+        Map<String, Object> requestParams = new HashMap<>();
+        requestParams.put("requestMember", requestMember);
+        requestParams.put("targetMember", targetMember);
+
+        FcmStrategy relationStrategy = context.getBean("relationCreatedStrategy", FcmStrategy.class);
+        relationStrategy.execute(requestParams);
     }
 
     public List<RelationDto> getRelationList() {
@@ -66,6 +81,7 @@ public class RelationService {
         return relationDtoList;
     }
 
+    @Transactional
     public void deleteRelation(Long relationId) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
