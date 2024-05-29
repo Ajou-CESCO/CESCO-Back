@@ -37,6 +37,9 @@ public class FcmService {
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
             securityUtil.checkPermission(requestMember, targetMember);
+
+            fcmRequestDto.setTitle("[약속시간] \uD83D\uDC89 콕 찌르기 \uD83D\uDC89");
+            fcmRequestDto.setBody(requestMember.getName() + " 님이 저를 찔렀어요");
         }
 
         try {
@@ -88,8 +91,6 @@ public class FcmService {
         ObjectMapper om = new ObjectMapper();
 
         String fcmToken = targetMember.getFcmToken();
-        System.out.println(fcmToken);
-        System.out.println(targetMember);
 
         FcmMessageDto fcmMessageDto = FcmMessageDto.builder()
                 .message(FcmMessageDto.Message.builder()
