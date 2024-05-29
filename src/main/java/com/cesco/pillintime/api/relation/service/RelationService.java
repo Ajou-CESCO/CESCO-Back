@@ -1,13 +1,13 @@
 package com.cesco.pillintime.api.relation.service;
 
+import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.relation.dto.RelationDto;
 import com.cesco.pillintime.api.relation.entity.Relation;
 import com.cesco.pillintime.api.relation.repository.RelationRepository;
-import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.request.entity.Request;
+import com.cesco.pillintime.api.request.repository.RequestRepository;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.api.request.repository.RequestRepository;
 import com.cesco.pillintime.fcm.strategy.FcmStrategy;
 import com.cesco.pillintime.security.SecurityUtil;
 import jakarta.transaction.Transactional;
@@ -26,6 +26,7 @@ public class RelationService {
 
     private final RequestRepository requestRepository;
     private final RelationRepository relationRepository;
+
     private final ApplicationContext context;
 
     @Transactional
@@ -41,6 +42,7 @@ public class RelationService {
         Relation relation = new Relation(targetMember, requestMember);
         relationRepository.save(relation);
         requestRepository.delete(request);
+
 
         Map<String, Object> requestParams = new HashMap<>();
         requestParams.put("requestMember", requestMember);
