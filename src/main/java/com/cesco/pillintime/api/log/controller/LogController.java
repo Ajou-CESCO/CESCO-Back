@@ -1,5 +1,6 @@
 package com.cesco.pillintime.api.log.controller;
 
+import com.cesco.pillintime.api.log.dto.SensorDto;
 import com.cesco.pillintime.response.dto.ResponseDto;
 import com.cesco.pillintime.api.log.dto.LogDto;
 import com.cesco.pillintime.api.log.service.LogService;
@@ -21,5 +22,11 @@ public class LogController {
     public ResponseEntity<ResponseDto> getDoseLogByMemberId(@RequestParam Long memberId) {
         List<LogDto> logDtoList = logService.getDoseLogByMemberId(memberId);
         return ResponseUtil.makeResponse(200, "Success get dose log", logDtoList);
+    }
+
+    @PatchMapping
+    public ResponseEntity<ResponseDto> updateDoseLogByCabinet(@RequestBody SensorDto sensorDto) {
+        logService.updateDoseLogByCabinet(sensorDto);
+        return ResponseUtil.makeResponse(200, "Success post sensor", null);
     }
 }

@@ -1,4 +1,4 @@
-package com.cesco.pillintime.api.cabinet.dto;
+package com.cesco.pillintime.api.log.dto;
 
 import lombok.Data;
 

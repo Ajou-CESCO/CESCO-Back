@@ -2,7 +2,6 @@ package com.cesco.pillintime.api.cabinet.controller;
 
 import com.cesco.pillintime.api.cabinet.service.CabinetService;
 import com.cesco.pillintime.api.cabinet.dto.CabinetDto;
-import com.cesco.pillintime.api.cabinet.dto.SensorDto;
 import com.cesco.pillintime.response.dto.ResponseDto;
 import com.cesco.pillintime.response.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +19,6 @@ public class CabinetController {
     public ResponseEntity<ResponseDto> createCabinet(@RequestBody CabinetDto cabinetDto) {
         cabinetService.createCabinet(cabinetDto);
         return ResponseUtil.makeResponse(200, "Success create case",  null);
-    }
-
-    @PostMapping("/sensor")
-    public ResponseEntity<ResponseDto> getSensorData(@RequestBody SensorDto sensorDto) {
-        cabinetService.getSensorData(sensorDto);
-        return ResponseUtil.makeResponse(200, "Success post sensor", null);
     }
 
     @DeleteMapping("/{cabinetId}")

@@ -1,5 +1,8 @@
 package com.cesco.pillintime.api.log.service;
 
+import com.cesco.pillintime.api.log.dto.SensorDto;
+import com.cesco.pillintime.api.cabinet.entity.Cabinet;
+import com.cesco.pillintime.api.cabinet.repository.CabinetRepository;
 import com.cesco.pillintime.api.log.dto.LogDto;
 import com.cesco.pillintime.api.log.entity.Log;
 import com.cesco.pillintime.api.log.entity.TakenStatus;
@@ -33,6 +36,7 @@ public class LogService {
     private final LogRepository logRepository;
     private final PlanRepository planRepository;
     private final MemberRepository memberRepository;
+    private final CabinetRepository cabinetRepository;
     private final SecurityUtil securityUtil;
     private final ApplicationContext context;
 
@@ -99,6 +103,33 @@ public class LogService {
         });
 
         return logDtoList;
+    }
+
+    @Transactional
+    public void updateDoseLogByCabinet(SensorDto sensorDto) {
+        String serial = sensorDto.getSerial();
+        int index = sensorDto.getIndex();
+
+        // Cabinet 정보 가져오기
+        Cabinet cabinet = cabinetRepository.findBySerial(serial)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
+
+        Optional<Member> owner = memberRepository.findByCabinet(cabinet); // ??? -> Member owner = cabinet.getOwner();
+
+        owner.ifPresent(member -> {
+            // 현재 날짜, 시각 구하기
+            LocalDateTime currentTime = LocalDateTime.now();
+
+            LocalDateTime rangeStartTime = currentTime.minusMinutes(30);
+            LocalDateTime rangeEndTime = currentTime.plusMinutes(30);
+
+            // 타겟 로그 조회 후 존재할 시 업데이트
+            logRepository.findTargetLog(member, index, rangeStartTime, rangeEndTime)
+                    .ifPresent(log -> {
+                        log.setTakenStatus(TakenStatus.COMPLETED);
+                        logRepository.save(log);
+                    });
+        });
     }
 
     @Transactional
