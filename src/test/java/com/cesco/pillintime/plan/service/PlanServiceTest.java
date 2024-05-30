@@ -9,7 +9,6 @@ import com.cesco.pillintime.api.plan.dto.RequestPlanDto;
 import com.cesco.pillintime.api.plan.dto.ResponsePlanDto;
 import com.cesco.pillintime.api.plan.service.PlanService;
 import com.cesco.pillintime.member.service.MemberServiceTest;
-import com.cesco.pillintime.api.plan.dto.PlanDto;
 import com.cesco.pillintime.api.plan.entity.Plan;
 import com.cesco.pillintime.api.plan.mapper.PlanMapper;
 import com.cesco.pillintime.api.plan.repository.PlanRepository;

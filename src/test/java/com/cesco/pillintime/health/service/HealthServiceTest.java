@@ -86,7 +86,7 @@ class HealthServiceTest {
         when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
 
         // When
-        List<HealthDto> healthDtoList = healthService.getHealthByMemberId(1L);
+        HealthDto healthDtoList = healthService.getHealthByMemberId(1L);
 
         // Then
         List<HealthDto> healthDtoArrayList = new ArrayList<>();
@@ -113,7 +113,7 @@ class HealthServiceTest {
         when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
 
         // When
-        List<HealthDto> healthDtoList = healthService.getHealthByMemberId(null);
+        HealthDto healthDtoList = healthService.getHealthByMemberId(null);
 
         // Then
         List<HealthDto> healthDtoArrayList = new ArrayList<>();

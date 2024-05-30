@@ -28,6 +28,7 @@ public class Log {
 
     @JoinColumn
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Plan plan;
 
     @Column

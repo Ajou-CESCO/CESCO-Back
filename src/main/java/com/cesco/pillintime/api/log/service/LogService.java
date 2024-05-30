@@ -1,19 +1,21 @@
 package com.cesco.pillintime.api.log.service;
 
+import com.cesco.pillintime.api.log.dto.LogDto;
 import com.cesco.pillintime.api.log.entity.Log;
+import com.cesco.pillintime.api.log.entity.TakenStatus;
 import com.cesco.pillintime.api.log.mapper.LogMapper;
 import com.cesco.pillintime.api.log.repository.LogRepository;
-import com.cesco.pillintime.exception.CustomException;
-import com.cesco.pillintime.exception.ErrorCode;
-import com.cesco.pillintime.api.log.dto.LogDto;
-import com.cesco.pillintime.api.log.entity.TakenStatus;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.api.plan.entity.Plan;
 import com.cesco.pillintime.api.plan.repository.PlanRepository;
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.fcm.strategy.FcmStrategy;
 import com.cesco.pillintime.security.SecurityUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +23,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +34,7 @@ public class LogService {
     private final PlanRepository planRepository;
     private final MemberRepository memberRepository;
     private final SecurityUtil securityUtil;
+    private final ApplicationContext context;
 
     @Scheduled(cron = "0 50 23 * * SUN")
     @Transactional
@@ -56,8 +58,6 @@ public class LogService {
                     log.setPlan(plan);
                     log.setPlannedAt(plannedAt);
                     log.setTakenStatus(TakenStatus.NOT_COMPLETED);
-
-                    System.out.println(log.getPlannedAt());
 
                     logRepository.save(log);
                 }
@@ -101,16 +101,41 @@ public class LogService {
         return logDtoList;
     }
 
-    @Scheduled(cron = "0 1/31 * * * *")
+    @Transactional
+//    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0/30 * * * *")
     public void updateDoseLogByCurrentTime() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime targetTime = currentTime.minusMinutes(30);
 
-        // 예정 시각보다 30분 초과한 미완료된 로그들을 조회하여 업데이트
+        LocalDateTime startOfSecond = currentTime.truncatedTo(ChronoUnit.SECONDS);
+        LocalDateTime endOfSecond = startOfSecond.plus(999, ChronoUnit.MILLIS);
+
+        // 현재 시각과 일치하는 예정 계획이 있을 경우 푸시알림
+        logRepository.findPlannedLog(startOfSecond, endOfSecond)
+                .ifPresent((plannedLogList) -> {
+                    for (Log log : plannedLogList) {
+                        Map<String, Object> requestParams = new HashMap<>();
+                        requestParams.put("log", log);
+
+                        FcmStrategy clientPlanStrategy = context.getBean("clientPlanStrategy", FcmStrategy.class);
+                        clientPlanStrategy.execute(requestParams);
+                    }
+                });
+
+        // 예정 시각보다 30분 초과한 미완료된 로그들을 조회하여 업데이트 및 푸시알림
         List<Log> incompletedLogList = logRepository.findIncompleteLog(targetTime);
         incompletedLogList.forEach(log -> {
             log.setTakenStatus(TakenStatus.TIMED_OUT);
             logRepository.save(log);
+
+            Map<String, Object> requestParams = new HashMap<>();
+            requestParams.put("log", log);
+
+            FcmStrategy clientLogStrategy = context.getBean("clientOverLogStrategy", FcmStrategy.class);
+            FcmStrategy managerLogStrategy = context.getBean("managerOverLogStrategy", FcmStrategy.class);
+            clientLogStrategy.execute(requestParams);
+            managerLogStrategy.execute(requestParams);
         });
     }
 

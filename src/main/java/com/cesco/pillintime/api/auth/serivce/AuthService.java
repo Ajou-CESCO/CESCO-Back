@@ -64,7 +64,7 @@ public class AuthService {
 
         SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
         if (response != null && !response.getStatusCode().equals("2000")) {
-            throw new CustomException(ErrorCode.EXTERNAL_API_ERROR);
+            throw new CustomException(ErrorCode.EXTERNAL_SERVER_ERROR);
         } else {
             return verficationCode;
         }
