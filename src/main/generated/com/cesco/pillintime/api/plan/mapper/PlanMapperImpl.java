@@ -1,5 +1,4 @@
 package com.cesco.pillintime.api.plan.mapper;
-
 import javax.annotation.processing.Generated;
 
 @Generated(

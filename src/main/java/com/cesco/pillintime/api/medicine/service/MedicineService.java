@@ -1,5 +1,6 @@
 package com.cesco.pillintime.api.medicine.service;
 
+import com.cesco.pillintime.api.adverse.service.Adverse;
 import com.cesco.pillintime.api.medicine.dto.MedicineDto;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
@@ -23,6 +24,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class MedicineService {
+
+    private final Adverse adverse;
 
     @Value("${EASY_DRUG_INFO_SERVICE_URL}")
     private String serviceUrl;
@@ -79,7 +82,7 @@ public class MedicineService {
         return parseJsonResponse(result.toString());
     }
 
-    public static List<MedicineDto> parseJsonResponse(String jsonResponse) throws JsonProcessingException {
+    public List<MedicineDto> parseJsonResponse(String jsonResponse) throws JsonProcessingException {
         List<MedicineDto> medicineDtoList = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -96,6 +99,8 @@ public class MedicineService {
 
             medicineDto.setCompanyName(removeNewLines(item.get("entpName").asText()));
             medicineDto.setMedicineName(removeNewLines(item.get("itemName").asText()));
+
+            medicineDto.setTypeNamelist(adverse.search(medicineDto.getMedicineName()));
             medicineDto.setMedicineCode(removeNewLines(item.get("itemSeq").asText()));
 
             String itemImage = ("null".equals(item.get("itemImage").asText())) ? "" : removeNewLines(item.get("itemImage").asText());
