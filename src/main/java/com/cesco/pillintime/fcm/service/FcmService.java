@@ -31,12 +31,15 @@ public class FcmService {
         Member targetMember = memberRepository.findById(fcmRequestDto.getTargetId())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
+        Member requestMember = null;
         if (checkMember) {
-            Member requestMember = SecurityUtil.getCurrentMember()
+            requestMember = SecurityUtil.getCurrentMember()
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
             securityUtil.checkPermission(requestMember, targetMember);
+        }
 
+        if (fcmRequestDto.getBody().isEmpty() && requestMember != null) {
             fcmRequestDto.setTitle("[약속시간] \uD83D\uDC89 콕 찌르기 \uD83D\uDC89");
             fcmRequestDto.setBody(requestMember.getName() + " 님이 저를 찔렀어요");
         }
