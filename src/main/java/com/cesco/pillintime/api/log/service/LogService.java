@@ -101,9 +101,9 @@ public class LogService {
         return logDtoList;
     }
 
-//    @Scheduled(cron = "0 1/31 * * * *")
     @Transactional
-    @Scheduled(cron = "0 * * * * *")
+//    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0/30 * * * *")
     public void updateDoseLogByCurrentTime() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime targetTime = currentTime.minusMinutes(30);

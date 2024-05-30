@@ -43,7 +43,6 @@ public class RelationService {
         relationRepository.save(relation);
         requestRepository.delete(request);
 
-
         Map<String, Object> requestParams = new HashMap<>();
         requestParams.put("requestMember", requestMember);
         requestParams.put("targetMember", targetMember);
