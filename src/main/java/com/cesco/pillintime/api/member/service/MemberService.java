@@ -34,11 +34,6 @@ public class MemberService {
                     throw new CustomException(ErrorCode.ALREADY_EXISTS_PHONE);
                 });
 
-        memberRepository.findBySsn(ssn)
-                .ifPresent((member) -> {
-                    throw new CustomException(ErrorCode.ALREADY_EXISTS_SSN);
-                });
-
         // 회원가입 진행 Mapper로 왜 안바꿈?
         Member member = new Member(name, phone, ssn, isManager);
         memberRepository.save(member);

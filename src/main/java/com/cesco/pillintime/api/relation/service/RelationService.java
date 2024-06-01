@@ -90,6 +90,13 @@ public class RelationService {
 
         if (requestMember.equals(relation.getClient()) || requestMember.equals(relation.getManager())) {
             relationRepository.delete(relation);
+
+            Map<String, Object> requestParams = new HashMap<>();
+            requestParams.put("requestMember", requestMember);
+            requestParams.put("relation", relation);
+
+            FcmStrategy relationDeletedStrategy = context.getBean("relationDeletedStrategy", FcmStrategy.class);
+            relationDeletedStrategy.execute(requestParams);
         } else {
             throw new CustomException(ErrorCode.INVALID_USER_ACCESS);
         }
