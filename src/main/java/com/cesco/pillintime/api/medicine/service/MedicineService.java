@@ -2,6 +2,7 @@ package com.cesco.pillintime.api.medicine.service;
 
 import com.cesco.pillintime.api.adverse.service.Adverse;
 import com.cesco.pillintime.api.medicine.dto.MedicineDto;
+import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,9 +18,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +43,14 @@ public class MedicineService {
             String encodedName = URLEncoder.encode(name, "UTF-8");
             String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemName=" + encodedName + "&type=json";
 
-            return getMedicineDtoList(result, apiUrl);
+            List<MedicineDto> medicineDtoList = getMedicineDtoList(result, apiUrl);
+
+            for ( MedicineDto medicineDto : medicineDtoList ) {
+                Map<String, String> a = adverse.DURSearch(medicineDto.getMedicineName(),null);
+                medicineDto.setTypeNamelist(a);
+            }
+
+            return medicineDtoList;
         } catch (CustomException e) {
             throw e;
         } catch (Exception e) {
@@ -52,13 +58,20 @@ public class MedicineService {
         }
     }
 
-    public Optional<List<MedicineDto>> getMedicineByMedicineId(Long medicineId) {
+    public Optional<List<MedicineDto>> getMedicineByMedicineId(Long medicineId, Member targetMember) {
         try {
             StringBuilder result = new StringBuilder();
 
             String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemSeq=" + medicineId + "&type=json";
 
-            return Optional.of(getMedicineDtoList(result, apiUrl));
+            List<MedicineDto> medicineDtoList = getMedicineDtoList(result, apiUrl);
+
+            for ( MedicineDto medicineDto : medicineDtoList ) {
+                Map<String, String> a = adverse.DURSearch(medicineDto.getMedicineName(), targetMember);
+                medicineDto.setTypeNamelist(a);
+            }
+
+            return Optional.of(medicineDtoList);
         } catch (Exception e) {
             throw new CustomException(ErrorCode.EXTERNAL_SERVER_ERROR);
         }
@@ -99,8 +112,6 @@ public class MedicineService {
 
             medicineDto.setCompanyName(removeNewLines(item.get("entpName").asText()));
             medicineDto.setMedicineName(removeNewLines(item.get("itemName").asText()));
-
-            medicineDto.setTypeNamelist(adverse.search(medicineDto.getMedicineName()));
             medicineDto.setMedicineCode(removeNewLines(item.get("itemSeq").asText()));
 
             String itemImage = ("null".equals(item.get("itemImage").asText())) ? "" : removeNewLines(item.get("itemImage").asText());

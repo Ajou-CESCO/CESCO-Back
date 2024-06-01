@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/adverse")
@@ -21,7 +22,7 @@ public class AdverseController {
 
     @GetMapping
     public ResponseEntity<ResponseDto> search(@RequestParam(name = "name") String name) {
-        List<String> adverseDtoList = adverseService.search(name);
+        Map<String, String> adverseDtoList = adverseService.DURSearch(name,null);
         return ResponseUtil.makeResponse(200, "Success login", adverseDtoList);
     }
 

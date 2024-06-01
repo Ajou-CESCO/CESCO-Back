@@ -4,11 +4,13 @@ import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.plan.entity.Plan;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface PlanRepository extends JpaRepository<Plan, Long> {
@@ -22,4 +24,6 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     @Query("SELECT p FROM Plan p WHERE p.member= :member AND p.medicineId= :medicineId AND p.cabinetIndex= :cabinetIndex")
     Optional<List<Plan>> findTargetPlan(Member member, Long medicineId, int cabinetIndex);
 
+    @Query("SELECT DISTINCT p.medicineName FROM Plan p WHERE p.member= :member")
+    Optional<Set<String>> findUniqueMedicineName(@Param("member") Member member);
 }
