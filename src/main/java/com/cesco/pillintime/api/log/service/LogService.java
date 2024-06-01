@@ -43,6 +43,7 @@ public class LogService {
     @Scheduled(cron = "0 50 23 * * SUN")
     @Transactional
     public void createDoseLog() {
+        LocalDateTime now = LocalDateTime.now();
         LocalDate today = LocalDate.now();
 
         planRepository.findActivePlan(today).ifPresent(planList -> {
@@ -50,6 +51,11 @@ public class LogService {
                 LocalDate plannedDate = calculateNextPlannedDate(today, plan.getWeekday());
                 LocalTime plannedTime = plan.getTime();
                 LocalDateTime plannedAt = plannedDate.atTime(plannedTime);
+
+                // 현재 시각보다 예정 시각이 빠른 경우 무시
+                if (plannedAt.isBefore(now)) {
+                    continue;
+                }
 
                 LocalDate endAt = plan.getEndAt();
 
@@ -95,9 +101,7 @@ public class LogService {
         List<LogDto> logDtoList = new ArrayList<>();
         logListOptional.ifPresent(logs -> {
             for (Log log : logs) {
-                System.out.println(log.getPlannedAt());
                 LogDto logDto = LogMapper.INSTANCE.toDto(log);
-                System.out.println(logDto.getPlannedAt());
                 logDtoList.add(logDto);
             }
         });
