@@ -44,23 +44,24 @@ public class HealthService {
     private static final NavigableMap<Integer, Integer> heartRateMap = new TreeMap<>();
 
     static {
-        heartRateMap.put(19, 80); // 10대
-        heartRateMap.put(39, 70); // 20-30대
-        heartRateMap.put(59, 60); // 60세 이하
+        heartRateMap.put(0, 80); // 0대
+        heartRateMap.put(10, 80); // 10대
+        heartRateMap.put(20, 70); // 20-30대
+        heartRateMap.put(40, 60); // 60세 이하
         heartRateMap.put(89, 50); // 이후 나이
     }
 
     private static final NavigableMap<Integer, Integer> calorieMap = new TreeMap<>();
 
     static {
-        calorieMap.put(19, 2600);
-        calorieMap.put(29, 2550);
-        calorieMap.put(39, 2500);
-        calorieMap.put(49, 2400);
-        calorieMap.put(59, 2300);
-        calorieMap.put(64, 2100);
-        calorieMap.put(69, 2100);
-        calorieMap.put(74, 1850);
+        calorieMap.put(0, 2200);
+        calorieMap.put(10, 2600);
+        calorieMap.put(20, 2550);
+        calorieMap.put(30, 2500);
+        calorieMap.put(40, 2400);
+        calorieMap.put(50, 2300);
+        calorieMap.put(60, 2100);
+        calorieMap.put(70, 1850);
     }
     @Transactional
     public void createHealth(@RequestBody HealthDto healthDto) {
@@ -107,6 +108,8 @@ public class HealthService {
 
         // 권장 소모 칼로리, 메시지 생성
         Long caloire = (todayHealthDto.getCalorie() != null) ? todayHealthDto.getCalorie() : 0L;
+        System.out.println("currentAge = " + currentAge);
+        System.out.println("calorieMap.floorEntry(currentAge).getValue() = " + calorieMap.floorEntry(currentAge).getValue());
         Long recommendCalorie = Long.valueOf(calorieMap.floorEntry(currentAge).getValue());
         String calorieMessage = recommendCalorie+"kcal";
 
