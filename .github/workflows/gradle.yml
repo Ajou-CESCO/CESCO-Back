@@ -63,7 +63,7 @@ jobs:
         run: sudo docker stop $(sudo docker ps -q) 2>/dev/null || true
 
       - name: docker run new container
-        run: sudo docker run --name pillintime_spring --rm -d -p 8080:8080 pillintime/pillintime_spring
+        run: sudo docker run -d -p 8080:8080 --name pillintime_spring pillintime_spring 
 
       - name: delete old docker image
         run: sudo docker system prune -f
