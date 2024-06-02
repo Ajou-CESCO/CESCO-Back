@@ -98,24 +98,21 @@ public class HealthService {
         }
 
         // 현재 나이, 나이 대 생성
-        Integer currentAge = (LocalDate.now().getYear() % 100 - Integer.parseInt(targetMember.getSsn().substring(1, 2)));
-        long ageGroup = (currentAge < 0 ? currentAge + 100 : currentAge) / 10 * 10;
-
+        int currentAge = (LocalDate.now().getYear() % 100 - Integer.parseInt(targetMember.getSsn().substring(0, 2)));
+        int ageGroup = (currentAge < 0 ? currentAge + 100 : currentAge) / 10 * 10;
         // 평균 도보, 메시지 생성
         Long step = (todayHealthDto.getSteps() != null) ? todayHealthDto.getSteps() : 0L;
-        Long averStep = (long) meanStep[(int) (ageGroup/10)];
+        Long averStep = (long) meanStep[ageGroup/10];
         String stepMessage = getStringStep(ageGroup, step, averStep);
 
         // 권장 소모 칼로리, 메시지 생성
         Long caloire = (todayHealthDto.getCalorie() != null) ? todayHealthDto.getCalorie() : 0L;
-        System.out.println("currentAge = " + currentAge);
-        System.out.println("calorieMap.floorEntry(currentAge).getValue() = " + calorieMap.floorEntry(currentAge).getValue());
-        Long recommendCalorie = Long.valueOf(calorieMap.floorEntry(currentAge).getValue());
+        Long recommendCalorie = Long.valueOf(calorieMap.floorEntry(ageGroup).getValue());
         String calorieMessage = recommendCalorie+"kcal";
 
         // 현재 나이 대 권장 심박수, 메시지 생성
         Long heartRate = (todayHealthDto.getHeartRate() != null) ? todayHealthDto.getHeartRate() : 0L;
-        Long recommendHeartRate = Long.valueOf(heartRateMap.floorEntry(currentAge).getValue());
+        Long recommendHeartRate = Long.valueOf(heartRateMap.floorEntry(ageGroup).getValue());
         String heartRateMessage = recommendHeartRate + "-" + (recommendHeartRate + 10) + "bpm";
 
         // 권장 수면, 메시지 생성
@@ -128,9 +125,9 @@ public class HealthService {
             sleepMessage = "오늘 " + todaySleepTime + "시간 잤어요";
         }
 
-        Long recommendSleepTime = sleepTimeMap.floorEntry(currentAge).getValue();
+        Long recommendSleepTime = sleepTimeMap.floorEntry(ageGroup).getValue();
 
-        todayHealthDto.setAgeGroup(ageGroup);
+        todayHealthDto.setAgeGroup((long) ageGroup);
         todayHealthDto.setSteps(step);
         todayHealthDto.setAverStep(averStep);
         todayHealthDto.setStepsMessage(stepMessage);
@@ -148,7 +145,7 @@ public class HealthService {
         return todayHealthDto;
     }
 
-    private static String getStringStep(Long ageGroup, Long step, Long averStep) {
+    private static String getStringStep(int ageGroup, Long step, Long averStep) {
         if (step == 0) {
             return "오늘 걸음수가 기록되지 않았어요";
         }
