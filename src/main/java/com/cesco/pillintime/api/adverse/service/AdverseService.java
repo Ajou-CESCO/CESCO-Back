@@ -133,8 +133,14 @@ public class AdverseService {
 
         try {
             JsonNode body = objectMapper.readTree(jsonResponse).get("body");
-            int totalCount = body.get("totalCount").asInt(); // boolean items = body.has("items");
-            if(totalCount == 0)
+            int totalCount;
+            try {
+                totalCount = body.get("totalCount").asInt(); // boolean items = body.has("items");
+            } catch (Exception e) {
+                totalCount = 0;
+            }
+
+            if (totalCount == 0)
                 return "";
             String value = body.get("items").get(0).get(key).asText(); // itemsArray == Json 배열
             if(value == "null") return "";
