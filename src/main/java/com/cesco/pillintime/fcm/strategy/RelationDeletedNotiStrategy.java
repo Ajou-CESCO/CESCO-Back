@@ -21,7 +21,7 @@ public class RelationDeletedNotiStrategy implements FcmStrategy {
     public void execute(Map<String, Object> params) {
         List<FcmRequestDto> fcmRequestDtoList = makeRequestDtoList(params);
         for (FcmRequestDto fcmRequestDto : fcmRequestDtoList) {
-            fcmService.sendPushAlarm(fcmRequestDto, true);
+            fcmService.sendPushAlarm(fcmRequestDto, false);
         }
     }
 

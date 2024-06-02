@@ -89,8 +89,6 @@ public class RelationService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
 
         if (requestMember.equals(relation.getClient()) || requestMember.equals(relation.getManager())) {
-            relationRepository.delete(relation);
-
             Map<String, Object> requestParams = new HashMap<>();
             requestParams.put("requestMember", requestMember);
             requestParams.put("relation", relation);
