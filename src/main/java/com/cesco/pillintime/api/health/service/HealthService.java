@@ -101,8 +101,9 @@ public class HealthService {
 
         // 평균 도보, 메시지 생성
         Long step = todayHealthDto.getSteps();
+        if (step == null) step = 0L;
         Long averStep = (long) meanStep[(int) (ageGroup/10)];
-        String stepMessage = ageGroup + "대 " + getStringStep(step, averStep);
+        String stepMessage = getStringStep(ageGroup, step, averStep);
 
         // 권장 소모 칼로리, 메시지 생성
         Long caloire = todayHealthDto.getCalorie();
@@ -119,6 +120,7 @@ public class HealthService {
         // 권장 수면, 메시지 생성
         String sleepMessage = null;
         Long todaySleepTime = todayHealthDto.getSleepTime();
+        if (todaySleepTime == null) todaySleepTime = 0L;
         if (yesterdayHealthDto != null) {
             Long yesterdaySleepTime = yesterdayHealthDto.getSleepTime();
             sleepMessage = getStringSleep(todaySleepTime, yesterdaySleepTime);
@@ -146,15 +148,21 @@ public class HealthService {
         return todayHealthDto;
     }
 
-    private static String getStringStep(Long Step, Long averStep) {
-        return (Step < averStep ?
-                "평균까지 " + (averStep - Step) + "보 남았습니다." :
-                "평균보다 " + (Step - averStep) + "보 더 걸었어요!");
+    private static String getStringStep(Long ageGroup, Long step, Long averStep) {
+        if (step == 0) {
+            return "오늘 걸음수가 기록되지 않았어요";
+        }
+
+        return (step < averStep ?
+                ageGroup + "대 평균까지 " + (averStep - step) + "보 남았습니다." :
+                ageGroup + "대 평균보다 " + (step - averStep) + "보 더 걸었어요!");
     }
 
     private static String getStringSleep(Long todaySleepTime, Long yesterdaySleepTime) {
-        System.out.println(todaySleepTime);
-        System.out.println(yesterdaySleepTime);
+        if (todaySleepTime == 0) {
+            return "오늘 수면시간이 기록되지 않았어요";
+        }
+
         return (todaySleepTime > yesterdaySleepTime ?
                 "어제보다 " + (todaySleepTime - yesterdaySleepTime) + "시간 더 주무셨어요." :
                 "어제보다 " + (yesterdaySleepTime - todaySleepTime) + "시간 덜 주무셨어요.");
