@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.NavigableMap;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -74,65 +75,75 @@ public class HealthService {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        System.out.println(requestMember.getName());
-
         Member targetMember = (targetId == null) ? requestMember :
                 memberRepository.findById(targetId)
                         .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Optional<Health> optionalHealth = healthRepository.findNewestHealth(targetMember);
-        if (optionalHealth.isEmpty()) {
+        LocalDate today = LocalDateTime.now().toLocalDate();
+        LocalDate yesterday = LocalDateTime.now().minusDays(1).toLocalDate();
+
+        Optional<Health> todayHealthOptional = healthRepository.findRecentHealthByDate(targetMember, today);
+        Optional<Health> yesterdayHealthOptional = healthRepository.findRecentHealthByDate(targetMember, yesterday);
+
+        if (todayHealthOptional.isEmpty()) {
             return null;
         }
 
-        HealthDto healthDto = HealthMapper.INSTANCE.toDto(optionalHealth.get());
-
+        HealthDto todayHealthDto = HealthMapper.INSTANCE.toDto(todayHealthOptional.get());
+        HealthDto yesterdayHealthDto = null;
+        if (yesterdayHealthOptional.isPresent()) {
+            yesterdayHealthDto = HealthMapper.INSTANCE.toDto(yesterdayHealthOptional.get());
+        }
 
         // 현재 나이, 나이 대 생성
-        Integer currentAge = (LocalDate.now().getYear()%100 - Integer.parseInt(targetMember.getSsn().substring(1, 2)));
-        long ageGroup = (currentAge < 0 ? currentAge+100 : currentAge) /10*10;
-
+        Integer currentAge = (LocalDate.now().getYear() % 100 - Integer.parseInt(targetMember.getSsn().substring(1, 2)));
+        long ageGroup = (currentAge < 0 ? currentAge + 100 : currentAge) / 10 * 10;
 
         // 평균 도보, 메시지 생성
-//        Long step = healthDto.getSteps();
+        Long step = todayHealthDto.getSteps();
         Long averStep = (long) meanStep[(int) (ageGroup/10)];
-        String stepMessage = ageGroup + "대 "+ getStringStep(healthDto.getSteps(), averStep);
+        String stepMessage = ageGroup + "대 " + getStringStep(step, averStep);
 
         // 권장 소모 칼로리, 메시지 생성
+        Long caloire = todayHealthDto.getCalorie();
+        if (caloire == null) caloire = 0L;
         Long recommendCalorie = Long.valueOf(calorieMap.floorEntry(currentAge).getValue());
         String calorieMessage = recommendCalorie+"kcal";
 
         // 현재 나이 대 권장 심박수, 메시지 생성
-        Long heartRate = Long.valueOf(heartRateMap.floorEntry(currentAge).getValue());
-        String heartRateMessage = heartRate + "-" + (heartRate+10) + "bpm";
-
+        Long heartRate = todayHealthDto.getHeartRate();
+        if (heartRate == null) heartRate = 0L;
+        Long recommendHeartRate = Long.valueOf(heartRateMap.floorEntry(currentAge).getValue());
+        String heartRateMessage = recommendHeartRate + "-" + (recommendHeartRate + 10) + "bpm";
 
         // 권장 수면, 메시지 생성
-        Long todaySleepTime = healthRepository.findByHealth(LocalDate.now()).orElse(null).getSleepTime();
-        Long yesterdaySleepTime = healthRepository.findByHealth(LocalDate.now().minusDays(1)).orElse(null).getSleepTime();
-
-        String sleepMessage = getStringSleep(todaySleepTime, yesterdaySleepTime);
+        String sleepMessage = null;
+        Long todaySleepTime = todayHealthDto.getSleepTime();
+        if (yesterdayHealthDto != null) {
+            Long yesterdaySleepTime = yesterdayHealthDto.getSleepTime();
+            sleepMessage = getStringSleep(todaySleepTime, yesterdaySleepTime);
+        } else {
+            sleepMessage = "오늘 " + todaySleepTime + "시간 잤어요";
+        }
 
         Long recommendSleepTime = sleepTimeMap.floorEntry(currentAge).getValue();
 
+        todayHealthDto.setAgeGroup(ageGroup);
+        todayHealthDto.setSteps(step);
+        todayHealthDto.setAverStep(averStep);
+        todayHealthDto.setStepsMessage(stepMessage);
 
-        healthDto.setAgeGroup(ageGroup);
+        todayHealthDto.setCalorie(caloire);
+        todayHealthDto.setCalorieMessage(calorieMessage);
 
-//        healthDto.setSteps(step);
-        healthDto.setAverStep(averStep);
-        healthDto.setStepsMessage(stepMessage);
+        todayHealthDto.setHeartRate(heartRate);
+        todayHealthDto.setHeartRateMessage(heartRateMessage);
 
-        healthDto.setCalorie(recommendCalorie);
-        healthDto.setCalorieMessage(calorieMessage);
+        todayHealthDto.setSleepTime(todaySleepTime);
+        todayHealthDto.setRecommendSleepTime(recommendSleepTime);
+        todayHealthDto.setSleepTimeMessage(sleepMessage);
 
-        healthDto.setHeartRate(heartRate);
-        healthDto.setHeartRateMessage(heartRateMessage);
-
-        healthDto.setSleepTime(todaySleepTime);
-        healthDto.setRecommendSleepTime(recommendSleepTime);
-        healthDto.setSleepTimeMessage(sleepMessage);
-
-        return healthDto;
+        return todayHealthDto;
     }
 
     private static String getStringStep(Long Step, Long averStep) {
@@ -142,8 +153,10 @@ public class HealthService {
     }
 
     private static String getStringSleep(Long todaySleepTime, Long yesterdaySleepTime) {
-        return (todaySleepTime < yesterdaySleepTime ?
-                "어제보다 " + (yesterdaySleepTime-todaySleepTime) + "시간 더 주무셨어요." :
-                "어제보다 " + (todaySleepTime-yesterdaySleepTime) + "시간 덜 주무셨어요.");
+        System.out.println(todaySleepTime);
+        System.out.println(yesterdaySleepTime);
+        return (todaySleepTime > yesterdaySleepTime ?
+                "어제보다 " + (todaySleepTime - yesterdaySleepTime) + "시간 더 주무셨어요." :
+                "어제보다 " + (yesterdaySleepTime - todaySleepTime) + "시간 덜 주무셨어요.");
     }
 }
