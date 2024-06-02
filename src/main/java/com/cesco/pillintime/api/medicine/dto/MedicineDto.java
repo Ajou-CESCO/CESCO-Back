@@ -13,9 +13,10 @@ public class MedicineDto {
     private String medicineCode;
     private String medicineImage;
     private String medicineEffect;
+    private Map<String,String> medicineAdverse;
     private String useMethod;
     private String useWarning;
     private String useSideEffect;
     private String depositMethod;
-    private Map<String,String> adverseMap;
+
 }

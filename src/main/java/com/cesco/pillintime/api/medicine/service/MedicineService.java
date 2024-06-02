@@ -76,7 +76,7 @@ public class MedicineService {
                 medicineDto.setMedicineSeries(adverseMap.get("sersName"));
                 adverseMap.remove("sersName");
 
-                medicineDto.setAdverseMap(adverseMap);
+                medicineDto.setMedicineAdverse(adverseMap);
             }
 
             return medicineDtoList;
