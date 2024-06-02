@@ -119,7 +119,7 @@ public class MedicineService {
 
         for (JsonNode item : itemsArray) {
             MedicineDto medicineDto = new MedicineDto();
-            String nullText = "해당사항 없습니다";
+            String nullText = "해당 사항 없습니다";
 
             medicineDto.setCompanyName(removeNewLines(item.hasNonNull("entpName") ? item.get("entpName").asText() : nullText));
             medicineDto.setMedicineName(removeNewLines(item.hasNonNull("itemName") ? item.get("itemName").asText() : nullText));
