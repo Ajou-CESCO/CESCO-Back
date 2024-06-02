@@ -1,6 +1,5 @@
 package com.cesco.pillintime.api.adverse.service;
 
-import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.plan.repository.PlanRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -21,8 +20,6 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class Adverse {
-
-    private final PlanRepository planRepository;
 
     @Value("${DRUG_AVERSE_COMB_SERVICE_URL}")
     private String CombineUrl;
@@ -46,24 +43,22 @@ public class Adverse {
     @Value("${EASY_DRUG_AVERSE_SERVICE_KEY}")
     private String serviceKey;
 
-    public Map<String, String> DURSearch(String drugName, Member targetMember) {
+    public Map<String, String> DURSearch(String drugName, Map<String,String> medicationNameAndDuplicationAdverseList) {
         String adverseSet = readyOpenApi(DurInfoUrl, drugName);
-        if(adverseSet == null) {
-            return null;
-        }
+        if(adverseSet == null) return null;
         List<String> adverseNameList = Arrays.asList(adverseSet.split(","));
-        Map<String, String> search = search(adverseNameList, drugName);
 
-        if(targetMember != null) {
-            Set<String> medicAdverseList = Dupl(targetMember);
-            search.putAll(otherSearch(medicAdverseList, drugName));
+        Map<String, String> search = adverseSearch(adverseNameList, drugName);
+
+        if(medicationNameAndDuplicationAdverseList != null) {
+            search.putAll(otherAdverseSearch(drugName, medicationNameAndDuplicationAdverseList));
         }
 
         return search;
     }
 
     // =================================================================================
-    public Map<String, String> search(List<String> adverseNameList, String drugName) {
+    public Map<String, String> adverseSearch(List<String> adverseNameList, String drugName) {
         Map<String, String> typeNameList = new HashMap<>();
         Map<String, String> serviceUrlList = Map.of(
                 "노인주의", SeniorUrl,
@@ -85,19 +80,21 @@ public class Adverse {
 
         return typeNameList;
     }
-    public Map<String, String> otherSearch(Set<String> medicAdverseList, String drugName) {
+    public Map<String, String> otherAdverseSearch(String drugName, Map<String,String> medicationNameAndDuplicationAdverseList) {
         Map<String, String> typeNameList = new HashMap<>();
-        Map<String, String> serviceUrlList = Map.of(
-//                "병용금기", CombineUrl,
-                "효능군중복", DuplicateUrl
+
+        String adverse = readyOpenApi(DuplicateUrl,drugName);
+        if(medicationNameAndDuplicationAdverseList.containsValue(adverse)){
+            typeNameList.put("효능군중복",drugName);
+        }
+
 //                "서방정분할주의", DivideUrl
-        );
-        serviceUrlList.forEach((key,value) -> {
-            String adverse = readyOpenApi(value,drugName);
-            if(medicAdverseList.contains(adverse)){
-                typeNameList.put(key,drugName);
-            }
-        });
+//        String adverseNameSet = readyOpenApi(DuplicateUrl,drugName);
+//        List<String> adverseNameList = Arrays.asList(adverseNameSet.split(","));
+//        stringSet.containsAll(drugName);
+//        if(!stringSet.equals("")){
+//            typeNameList.put("병용금기", stringSet.toString());
+//        }
 
         return typeNameList;
     }
@@ -158,20 +155,4 @@ public class Adverse {
         }
     }
 
-    public Set<String> Dupl(Member targetMember){ // 복용 중인 약들의 효능군 중복 확인
-        Set<String> medicationList = planRepository.findUniqueMedicineName(targetMember).orElse(null);
-//                new HashSet<>();
-//        medicationList.add("닉신정");
-//        medicationList.add("코페낙주3밀리리터");
-//        medicationList.add("딜라젠정12.5mg");
-        Set<String> sersNameList = new HashSet<>();
-        for(String drugName : medicationList) {
-            String s = readyOpenApi(DuplicateUrl, drugName);
-            if(!s.equals(""))
-                sersNameList.add(readyOpenApi(DuplicateUrl, drugName));
-        }
-        if(sersNameList == null)
-            sersNameList.add("");
-        return sersNameList;
-    }
 }
