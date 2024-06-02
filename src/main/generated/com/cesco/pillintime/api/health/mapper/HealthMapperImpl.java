@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-29T12:44:19+0900",
+    date = "2024-06-02T20:39:21+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 public class HealthMapperImpl implements HealthMapper {
@@ -21,10 +21,27 @@ public class HealthMapperImpl implements HealthMapper {
 
         healthDto.setId( health.getId() );
         healthDto.setSteps( health.getSteps() );
-        healthDto.setCal( health.getCal() );
+        healthDto.setCalorie( health.getCalorie() );
+        healthDto.setHeartRate( health.getHeartRate() );
         healthDto.setSleepTime( health.getSleepTime() );
-        healthDto.setLastUpLoadTime( health.getLastUpLoadTime() );
 
         return healthDto;
+    }
+
+    @Override
+    public Health toEntity(HealthDto healthDto) {
+        if ( healthDto == null ) {
+            return null;
+        }
+
+        Health health = new Health();
+
+        health.setId( healthDto.getId() );
+        health.setSteps( healthDto.getSteps() );
+        health.setCalorie( healthDto.getCalorie() );
+        health.setHeartRate( healthDto.getHeartRate() );
+        health.setSleepTime( healthDto.getSleepTime() );
+
+        return health;
     }
 }

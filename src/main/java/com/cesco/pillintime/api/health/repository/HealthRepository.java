@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,4 +18,7 @@ public interface HealthRepository extends JpaRepository<Health, Long> {
 
     @Query("SELECT h FROM Health h WHERE h.member = :member ORDER BY h.uploadedAt DESC LIMIT 1")
     Optional<Health> findNewestHealth(@Param("member") Member member);
+
+    @Query("SELECT h FROM Health h WHERE FUNCTION('DATE', h.uploadedAt) = :date")
+    Optional<Health> findByHealth(@Param("date") LocalDate date);
 }

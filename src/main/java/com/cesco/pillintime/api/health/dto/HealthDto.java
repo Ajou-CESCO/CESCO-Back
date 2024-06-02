@@ -10,7 +10,11 @@ public class HealthDto {
 
     private Long id;
 
+    private Long ageGroup;
+
     private Long steps;
+
+    private Long averStep;
 
     private String stepsMessage;
 
@@ -23,6 +27,8 @@ public class HealthDto {
     private String heartRateMessage;
 
     private Long sleepTime;
+
+    private Long recommendSleepTime;
 
     private String sleepTimeMessage;
 
