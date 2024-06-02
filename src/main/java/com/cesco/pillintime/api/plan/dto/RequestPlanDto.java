@@ -5,6 +5,7 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class RequestPlanDto {
@@ -12,6 +13,8 @@ public class RequestPlanDto {
     private Long memberId;
     private String medicineId;
     private String medicineName;
+    private String medicineSeries;
+    private Map<String, String> medicineAdverse;
     private Integer cabinetIndex;
     private List<Integer> weekdayList;
     private List<LocalTime> timeList;

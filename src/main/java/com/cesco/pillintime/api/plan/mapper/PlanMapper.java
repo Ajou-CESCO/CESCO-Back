@@ -1,14 +1,13 @@
 package com.cesco.pillintime.api.plan.mapper;
 
-import com.cesco.pillintime.api.medicine.dto.MedicineDto;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.plan.dto.RequestPlanDto;
 import com.cesco.pillintime.api.plan.dto.ResponsePlanDto;
 import com.cesco.pillintime.api.plan.entity.Plan;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,25 +18,14 @@ public interface PlanMapper {
 
     PlanMapper INSTANCE = Mappers.getMapper(PlanMapper.class);
 
-    default List<Plan> toEntity(RequestPlanDto requestPlanDto, MedicineDto medicineDto, Member member) {
-        // 필요한 값 설정
-        Integer cabinetIndex = requestPlanDto.getCabinetIndex();
-        List<Integer> weekdayList = requestPlanDto.getWeekdayList();
-        List<LocalTime> timeList = requestPlanDto.getTimeList();
-        LocalDate startAt = requestPlanDto.getStartAt();
-        LocalDate endAt = requestPlanDto.getEndAt();
-
-        // Plan 엔티티 생성 및 설정
-        List<Plan> planList = new ArrayList<>();
-        for (Integer weekday : weekdayList) {
-            for (LocalTime time : timeList) {
-                Plan plan = new Plan(member, medicineDto, cabinetIndex, weekday, time, startAt, endAt);
-                planList.add(plan);
-            }
-        }
-
-        return planList;
-    }
+    @Mapping(source = "requestPlanDto.medicineId", target = "medicineId")
+    @Mapping(source = "requestPlanDto.medicineName", target = "medicineName")
+    @Mapping(source = "requestPlanDto.medicineSeries", target = "medicineSeries")
+    @Mapping(source = "requestPlanDto.medicineAdverse", target = "medicineAdverse")
+    @Mapping(source = "requestPlanDto.cabinetIndex", target = "cabinetIndex")
+    @Mapping(source = "requestPlanDto.startAt", target = "startAt")
+    @Mapping(source = "requestPlanDto.endAt", target = "endAt")
+    Plan toPlanEntity(RequestPlanDto requestPlanDto, Member member, Integer weekday, LocalTime time);
 
     default List<ResponsePlanDto> toResponseDto(List<Plan> planList) {
         List<ResponsePlanDto> planDtoList = new ArrayList<>();
@@ -64,6 +52,7 @@ public interface PlanMapper {
                     responsePlanDto.setMedicineId(medicineId);
                     responsePlanDto.setMedicineName(firstPlan.getMedicineName());
                     responsePlanDto.setCabinetIndex(cabinetIndex);
+                    responsePlanDto.setMedicineAdverse(firstPlan.getMedicineAdverse());
                     responsePlanDto.setStartAt(firstPlan.getStartAt());
                     responsePlanDto.setEndAt(firstPlan.getEndAt());
 

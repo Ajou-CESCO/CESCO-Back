@@ -1,8 +1,9 @@
 package com.cesco.pillintime.api.plan.entity;
 
-import com.cesco.pillintime.api.medicine.dto.MedicineDto;
 import com.cesco.pillintime.api.member.entity.Member;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -11,11 +12,13 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Map;
 import java.util.Objects;
 
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class Plan {
 
     @Id
@@ -36,6 +39,12 @@ public class Plan {
     @Column
     private String medicineSeries;
 
+    @ElementCollection
+    @CollectionTable(name = "medicine_adverse", joinColumns = @JoinColumn(name = "plan_id"))
+    @MapKeyColumn(name = "adverse_key")
+    @Column(name = "adverse_value")
+    private Map<String, String> medicineAdverse;
+
     @Column
     private Integer cabinetIndex;
 
@@ -51,11 +60,24 @@ public class Plan {
     @Column
     private LocalDate endAt;
 
-    public Plan(Member member, MedicineDto medicineDto, Integer cabinetIndex, Integer weekday, LocalTime time, LocalDate startAt, LocalDate endAt) {
+    @Builder
+    public Plan(
+            Member member,
+            String medicineId,
+            String medicineName,
+            String medicineSeries,
+            Map<String, String> medicineAdverse,
+            Integer cabinetIndex,
+            Integer weekday,
+            LocalTime time,
+            LocalDate startAt,
+            LocalDate endAt
+    ) {
         this.member = member;
-        this.medicineId = medicineDto.getMedicineCode();
-        this.medicineName = medicineDto.getMedicineName();
-        this.medicineSeries = medicineDto.getMedicineSeries();
+        this.medicineId = medicineId;
+        this.medicineName = medicineName;
+        this.medicineSeries = medicineSeries;
+        this.medicineAdverse = medicineAdverse;
         this.cabinetIndex = Objects.requireNonNullElse(cabinetIndex, 1);
         this.weekday = weekday;
         this.time = time;

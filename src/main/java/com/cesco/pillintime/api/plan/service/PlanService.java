@@ -7,7 +7,6 @@ import com.cesco.pillintime.api.plan.repository.PlanRepository;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.api.log.service.LogService;
-import com.cesco.pillintime.api.medicine.dto.MedicineDto;
 import com.cesco.pillintime.api.medicine.service.MedicineService;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
@@ -17,6 +16,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.*;
 
 
@@ -26,7 +26,6 @@ public class PlanService {
 
     private final PlanRepository planRepository;
     private final MemberRepository memberRepository;
-    private final MedicineService medicineService;
     private final LogService logService;
     private final SecurityUtil securityUtil;
 
@@ -44,16 +43,22 @@ public class PlanService {
             targetMember = requestMember;
         }
 
+        // 보호자가 자기 자신에 대해 복용 계획을 생성할 때
         if (targetMember.isManager()) {
             throw new CustomException(ErrorCode.INVALID_USERTYPE);
         }
 
-        Long medicineId = Long.valueOf(requestPlanDto.getMedicineId());
-        MedicineDto medicineDto = medicineService.getMedicineByMedicineId(medicineId, targetMember)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEDICINE))
-                .get(0);
+        List<Integer> weekdayList = requestPlanDto.getWeekdayList();
+        List<LocalTime> timeList = requestPlanDto.getTimeList();
 
-        List<Plan> planList = PlanMapper.INSTANCE.toEntity(requestPlanDto, medicineDto, targetMember);
+        // Plan 엔티티 생성 및 설정
+        List<Plan> planList = new ArrayList<>();
+        for (Integer weekday : weekdayList) {
+            for (LocalTime time : timeList) {
+                Plan plan = PlanMapper.INSTANCE.toPlanEntity(requestPlanDto, targetMember, weekday, time);
+                planList.add(plan);
+            }
+        }
 
         planRepository.saveAll(planList);
         logService.createDoseLog();
