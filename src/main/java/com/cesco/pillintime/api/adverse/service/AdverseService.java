@@ -86,7 +86,7 @@ public class AdverseService {
             }
 
             String adverseDescription = requestDurApiBy(targetUrl, drugName);
-            adverseMap.put(adverseName, adverseDescription == null ? "" : adverseDescription);
+            adverseMap.put(adverseName, adverseDescription.isEmpty() ? adverseName : adverseDescription);
         }
 
         return adverseMap;
