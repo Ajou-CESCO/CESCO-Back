@@ -10,17 +10,20 @@ public class HealthDto {
 
     private Long id;
 
-    private Integer steps;
+    private Long steps;
 
     private String stepsMessage;
 
-    private double cal;
+    private Long calorie;
 
-    private LocalTime sleepTime;
+    private String calorieMessage;
+
+    private Long heartRate;
+
+    private String heartRateMessage;
+
+    private Long sleepTime;
 
     private String sleepTimeMessage;
 
-    private LocalDateTime lastUpLoadTime;
-
-    private Integer averageSteps;
 }

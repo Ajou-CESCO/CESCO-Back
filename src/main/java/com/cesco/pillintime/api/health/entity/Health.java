@@ -4,9 +4,10 @@ import com.cesco.pillintime.api.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Data
 @Entity
@@ -19,24 +20,29 @@ public class Health {
     private Long id;
 
     @Column
-    private Integer steps;
+    private Long steps;
 
     @Column
-    private double cal;
+    private Long calorie;
 
     @Column
-    private LocalTime sleepTime;
+    private Long heartRate;
+
+    @Column
+    private Long sleepTime;
 
     @ManyToOne
     @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
 
     @Column
-    private LocalDateTime lastUpLoadTime = LocalDateTime.now();
+    private LocalDateTime uploadedAt = LocalDateTime.now();
 
-    public Health(Integer steps, double cal, LocalTime sleepTime, Member member) {
+    public Health(Long steps, Long calorie, Long heartRate, Long sleepTime, Member member) {
         this.steps = steps;
-        this.cal = cal;
+        this.calorie = calorie;
+        this.heartRate = heartRate;
         this.sleepTime = sleepTime;
         this.member = member;
     }

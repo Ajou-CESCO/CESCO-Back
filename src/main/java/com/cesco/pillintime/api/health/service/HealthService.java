@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,14 +27,11 @@ public class HealthService {
 
     @Transactional
     public void createHealth(@RequestBody HealthDto healthDto) {
-        Integer steps = healthDto.getSteps();
-        double cal = healthDto.getCal();
-        LocalTime sleepTime = healthDto.getSleepTime();
-
         Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
-        System.out.println("member.getId() = " + member.getId());
-        Health health = new Health(steps, cal, sleepTime, member);
+
+        Health health = HealthMapper.INSTANCE.toEntity(healthDto);
+        health.setMember(member);
         healthRepository.save(health);
     }
 
@@ -42,20 +39,26 @@ public class HealthService {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
+        System.out.println(requestMember.getName());
+
         Member targetMember = (targetId == null) ? requestMember :
                 memberRepository.findById(targetId)
                         .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Health maxHealth = healthRepository.findMaxLocalDateTimeByMember(targetMember).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HEALTH));
+        Optional<Health> optionalHealth = healthRepository.findNewestHealth(targetMember);
+        if (optionalHealth.isEmpty()) {
+            return null;
+        }
 
-        HealthDto healthDto = HealthMapper.INSTANCE.toDto(maxHealth);
+        HealthDto healthDto = HealthMapper.INSTANCE.toDto(optionalHealth.get());
+
+
         Integer averStep = 6482;
-        healthDto.setAverageSteps(averStep);
-
-        String step = getStringStep(targetMember, healthDto, averStep);
-        healthDto.setStepsMessage(step);
-
-        healthDto.setSleepTimeMessage("어제보다 " + 99 + "시간 더 주무셨어요.");
+//        healthDto.setAverageSteps(averStep);
+//
+//        String step = getStringStep(targetMember, healthDto, averStep);
+//        healthDto.setStepsMessage(step);
+//        healthDto.setSleepTimeMessage("어제보다 " + 99 + "시간 더 주무셨어요.");
 
         return healthDto;
     }

@@ -13,4 +13,6 @@ public interface HealthMapper {
 //    Health toEntity(HealthDto healthDto);
 
     HealthDto toDto(Health health);
+
+    Health toEntity(HealthDto healthDto);
 }

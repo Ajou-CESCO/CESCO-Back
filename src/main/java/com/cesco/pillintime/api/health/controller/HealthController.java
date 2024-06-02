@@ -22,7 +22,7 @@ public class HealthController {
     }
 
     @GetMapping("/{targetId}")
-    public ResponseEntity<ResponseDto> getHealthByMemberId(@PathVariable(name="targetId",required = false) Long targetId) {
+    public ResponseEntity<ResponseDto> getHealthByMemberId(@PathVariable(name="targetId", required = false) Long targetId) {
         HealthDto healthDto = healthService.getHealthByMemberId(targetId);
         return ResponseUtil.makeResponse(200, "Success get health data", healthDto);
     }

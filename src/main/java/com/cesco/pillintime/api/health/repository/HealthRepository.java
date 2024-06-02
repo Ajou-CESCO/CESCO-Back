@@ -15,6 +15,6 @@ public interface HealthRepository extends JpaRepository<Health, Long> {
 
     Optional<List<Health>> findByMember(Member member);
 
-    @Query("SELECT h FROM Health h WHERE h.member = :member ORDER BY h.lastUpLoadTime DESC LIMIT 1")
-    Optional<Health> findMaxLocalDateTimeByMember(@Param("member") Member member);
+    @Query("SELECT h FROM Health h WHERE h.member = :member ORDER BY h.uploadedAt DESC LIMIT 1")
+    Optional<Health> findNewestHealth(@Param("member") Member member);
 }
