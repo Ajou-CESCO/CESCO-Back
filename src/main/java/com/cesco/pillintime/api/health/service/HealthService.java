@@ -156,8 +156,8 @@ public class HealthService {
         }
 
         return (step < averStep ?
-                ageGroup + "대 평균까지 " + (averStep - step) + "보 남았습니다." :
-                ageGroup + "대 평균보다 " + (step - averStep) + "보 더 걸었어요!");
+                ageGroup + "대 권장까지 " + (averStep - step) + "보 남았어요" :
+                ageGroup + "대 권장보다 " + (step - averStep) + "보 더 걸었어요!");
     }
 
     private static String getStringSleep(Long todaySleepTime, Long yesterdaySleepTime) {
