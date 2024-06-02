@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.NavigableMap;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -62,13 +63,21 @@ public class HealthService {
         calorieMap.put(74, 1850);
     }
     @Transactional
-    public void createHealth(@RequestBody HealthDto healthDto) {
+    public String createHealth(@RequestBody HealthDto healthDto) {
         Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Health health = HealthMapper.INSTANCE.toEntity(healthDto);
+        Long steps = healthDto.getSteps();
+        Long cal = healthDto.getCalorie();
+        Long heartRate = healthDto.getHeartRate();
+        Long sleepTime = healthDto.getSleepTime();
+        System.out.println("member.getId() = " + member.getId());
+        Health health = new Health(steps, cal, heartRate, sleepTime, member);
+//        Health health = HealthMapper.INSTANCE.toEntity(healthDto);
         health.setMember(member);
         healthRepository.save(health);
+
+        return "성공";
     }
 
     public HealthDto getHealthByMemberId(Long targetId) {

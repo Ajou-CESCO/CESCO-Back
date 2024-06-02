@@ -17,7 +17,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Service
-@RequiredArgsConstructor
 public class AdverseService {
 
     @Value("${DRUG_AVERSE_COMB_SERVICE_URL}")
@@ -153,10 +152,9 @@ public class AdverseService {
                 totalCount = 0;
             }
 
-            if (totalCount == 0)
-                return "";
+            if (totalCount == 0) return "";
             String value = body.get("items").get(0).get(key).asText(); // itemsArray == Json 배열
-            if(value == "null") return "";
+            if(value.equals("null")) return "";
             return value.replaceAll("[\\\\\"]", "");
         } catch (JsonProcessingException e) {
             System.out.println("JsonProcessingException = " + e);
