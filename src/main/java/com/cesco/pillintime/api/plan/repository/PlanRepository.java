@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 @Repository
 public interface PlanRepository extends JpaRepository<Plan, Long> {
@@ -26,5 +25,5 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     Optional<List<Plan>> findTargetPlan(Member member, Long medicineId, int cabinetIndex);
 
     @Query("SELECT DISTINCT p.medicineName , p.medicineSeries FROM Plan p WHERE p.member= :member")
-    Optional<Map<String,String>> findUniqueMedicineNameAndAdverse(@Param("member") Member member);
+    List<Map<String, String>> findTakingMedicine(@Param("member") Member member);
 }

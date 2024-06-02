@@ -1,6 +1,6 @@
 package com.cesco.pillintime.api.adverse.controller;
 
-import com.cesco.pillintime.api.adverse.service.Adverse;
+import com.cesco.pillintime.api.adverse.service.AdverseService;
 import com.cesco.pillintime.response.dto.ResponseDto;
 import com.cesco.pillintime.response.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -18,7 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AdverseController {
 
-    private final Adverse adverseService;
+    private final AdverseService adverseService;
 
     @GetMapping
     public ResponseEntity<ResponseDto> search(@RequestParam(name = "name") String name) {

@@ -1,6 +1,6 @@
 package com.cesco.pillintime.api.medicine.service;
 
-import com.cesco.pillintime.api.adverse.service.Adverse;
+import com.cesco.pillintime.api.adverse.service.AdverseService;
 import com.cesco.pillintime.api.medicine.dto.MedicineDto;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
@@ -27,7 +27,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class MedicineService {
 
-    private final Adverse adverse;
+    private final AdverseService adverseService;
 
     private final PlanRepository planRepository;
     private final SecurityUtil securityUtil;
@@ -39,7 +39,11 @@ public class MedicineService {
     @Value("${EASY_DRUG_INFO_SERVICE_KEY}")
     private String serviceKey;
 
-    public List<MedicineDto> getMedicineInfoByName(String name, Long memberId) { // 아직 안함
+    public List<MedicineDto> getMedicineInfoByName(String name, Long memberId) {
+        if (name.isEmpty()) {
+            throw new CustomException(ErrorCode.MEDICINE_NAME_IS_EMPTY);
+        }
+
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
@@ -53,23 +57,21 @@ public class MedicineService {
         }
 
         try {
-            System.out.println("MedicineService.getMedicineInfoByName");
             StringBuilder result = new StringBuilder();
 
-            if (name.isEmpty()) {
-                throw new CustomException(ErrorCode.MEDICINE_NAME_IS_EMPTY);
-            }
+            // 내가 복용중인 약물 이름, 종류 조회
+            List<Map<String, String>> takingMedicineList = planRepository.findTakingMedicine(targetMember);
 
+            // 검색한 키워드에 대한 약물 조회
             String encodedName = URLEncoder.encode(name, "UTF-8");
             String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemName=" + encodedName + "&type=json";
 
             List<MedicineDto> medicineDtoList = getMedicineDtoList(result, apiUrl);
+            for (MedicineDto medicineDto : medicineDtoList) {
+                String medicineName = medicineDto.getMedicineName();
 
-            Map<String,String> medicationNameAndDuplicationAdverseList = planRepository.findUniqueMedicineNameAndAdverse(targetMember).orElse(null);
-
-            for ( MedicineDto medicineDto : medicineDtoList ) {
-                Map<String, String> a = adverse.DURSearch(medicineDto.getMedicineName(),medicationNameAndDuplicationAdverseList);
-                medicineDto.setTypeNameList(a);
+                Map<String, String> adverseMap = adverseService.DURSearch(medicineName, takingMedicineList);
+                medicineDto.setAdverseMap(adverseMap);
             }
 
             return medicineDtoList;
@@ -87,13 +89,12 @@ public class MedicineService {
             String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemSeq=" + medicineId + "&type=json";
 
             List<MedicineDto> medicineDtoList = getMedicineDtoList(result, apiUrl);
+            List<Map<String,String>> takingMedicineList = planRepository.findTakingMedicine(targetMember);
 
-            Map<String,String> medicationNameAndDuplicationAdverseList = planRepository.findUniqueMedicineNameAndAdverse(targetMember).orElse(null);
-
-            for ( MedicineDto medicineDto : medicineDtoList ) {
-                Map<String, String> a = adverse.DURSearch(medicineDto.getMedicineName(), medicationNameAndDuplicationAdverseList);
-                if( a == null) continue;
-                medicineDto.setTypeNameList(a);
+            for (MedicineDto medicineDto : medicineDtoList) {
+                Map<String, String> a = adverseService.DURSearch(medicineDto.getMedicineName(), takingMedicineList);
+                if (a == null) continue;
+                medicineDto.setAdverseMap(a);
             }
 
             return Optional.of(medicineDtoList);

@@ -2,7 +2,6 @@ package com.cesco.pillintime.api.medicine.dto;
 
 import lombok.Data;
 
-import java.util.List;
 import java.util.Map;
 
 @Data
@@ -18,5 +17,5 @@ public class MedicineDto {
     private String useWarning;
     private String useSideEffect;
     private String depositMethod;
-    private Map<String,String> typeNameList;
+    private Map<String,String> adverseMap;
 }
