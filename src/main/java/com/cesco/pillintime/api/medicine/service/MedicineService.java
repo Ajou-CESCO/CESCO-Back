@@ -2,8 +2,12 @@ package com.cesco.pillintime.api.medicine.service;
 
 import com.cesco.pillintime.api.adverse.service.Adverse;
 import com.cesco.pillintime.api.medicine.dto.MedicineDto;
+import com.cesco.pillintime.api.member.entity.Member;
+import com.cesco.pillintime.api.member.repository.MemberRepository;
+import com.cesco.pillintime.api.plan.repository.PlanRepository;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.security.SecurityUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,9 +21,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -27,14 +29,31 @@ public class MedicineService {
 
     private final Adverse adverse;
 
+    private final PlanRepository planRepository;
+    private final SecurityUtil securityUtil;
+    private final MemberRepository memberRepository;
+
     @Value("${EASY_DRUG_INFO_SERVICE_URL}")
     private String serviceUrl;
 
     @Value("${EASY_DRUG_INFO_SERVICE_KEY}")
     private String serviceKey;
 
-    public List<MedicineDto> getMedicineInfoByName(String name) {
+    public List<MedicineDto> getMedicineInfoByName(String name, Long memberId) { // 아직 안함
+        Member requestMember = SecurityUtil.getCurrentMember()
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        Member targetMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        if (!requestMember.equals(targetMember)) {
+            securityUtil.checkPermission(requestMember, targetMember);
+        } else {
+            targetMember = requestMember;
+        }
+
         try {
+            System.out.println("MedicineService.getMedicineInfoByName");
             StringBuilder result = new StringBuilder();
 
             if (name.isEmpty()) {
@@ -44,7 +63,16 @@ public class MedicineService {
             String encodedName = URLEncoder.encode(name, "UTF-8");
             String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemName=" + encodedName + "&type=json";
 
-            return getMedicineDtoList(result, apiUrl);
+            List<MedicineDto> medicineDtoList = getMedicineDtoList(result, apiUrl);
+
+            Map<String,String> medicationNameAndDuplicationAdverseList = planRepository.findUniqueMedicineNameAndAdverse(targetMember).orElse(null);
+
+            for ( MedicineDto medicineDto : medicineDtoList ) {
+                Map<String, String> a = adverse.DURSearch(medicineDto.getMedicineName(),medicationNameAndDuplicationAdverseList);
+                medicineDto.setTypeNameList(a);
+            }
+
+            return medicineDtoList;
         } catch (CustomException e) {
             throw e;
         } catch (Exception e) {
@@ -52,13 +80,23 @@ public class MedicineService {
         }
     }
 
-    public Optional<List<MedicineDto>> getMedicineByMedicineId(Long medicineId) {
+    public Optional<List<MedicineDto>> getMedicineByMedicineId(Long medicineId, Member targetMember) {
         try {
             StringBuilder result = new StringBuilder();
 
             String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemSeq=" + medicineId + "&type=json";
 
-            return Optional.of(getMedicineDtoList(result, apiUrl));
+            List<MedicineDto> medicineDtoList = getMedicineDtoList(result, apiUrl);
+
+            Map<String,String> medicationNameAndDuplicationAdverseList = planRepository.findUniqueMedicineNameAndAdverse(targetMember).orElse(null);
+
+            for ( MedicineDto medicineDto : medicineDtoList ) {
+                Map<String, String> a = adverse.DURSearch(medicineDto.getMedicineName(), medicationNameAndDuplicationAdverseList);
+                if( a == null) continue;
+                medicineDto.setTypeNameList(a);
+            }
+
+            return Optional.of(medicineDtoList);
         } catch (Exception e) {
             throw new CustomException(ErrorCode.EXTERNAL_SERVER_ERROR);
         }
@@ -99,8 +137,6 @@ public class MedicineService {
 
             medicineDto.setCompanyName(removeNewLines(item.get("entpName").asText()));
             medicineDto.setMedicineName(removeNewLines(item.get("itemName").asText()));
-
-            medicineDto.setTypeNamelist(adverse.search(medicineDto.getMedicineName()));
             medicineDto.setMedicineCode(removeNewLines(item.get("itemSeq").asText()));
 
             String itemImage = ("null".equals(item.get("itemImage").asText())) ? "" : removeNewLines(item.get("itemImage").asText());

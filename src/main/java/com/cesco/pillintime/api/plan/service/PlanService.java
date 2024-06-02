@@ -49,7 +49,7 @@ public class PlanService {
         }
 
         Long medicineId = Long.valueOf(requestPlanDto.getMedicineId());
-        MedicineDto medicineDto = medicineService.getMedicineByMedicineId(medicineId)
+        MedicineDto medicineDto = medicineService.getMedicineByMedicineId(medicineId, targetMember)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEDICINE))
                 .get(0);
 
