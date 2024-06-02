@@ -55,7 +55,7 @@ public class Plan {
         this.member = member;
         this.medicineId = medicineDto.getMedicineCode();
         this.medicineName = medicineDto.getMedicineName();
-        this.medicineSeries = medicineDto.getMedicineAdverse();
+        this.medicineSeries = medicineDto.getMedicineSeries();
         this.cabinetIndex = Objects.requireNonNullElse(cabinetIndex, 1);
         this.weekday = weekday;
         this.time = time;
@@ -74,7 +74,7 @@ public class Plan {
                 ", member=" + member.getName() +
                 ", medicineId='" + medicineId + '\'' +
                 ", medicineName='" + medicineName + '\'' +
-                ", medicineAdverse='" + medicineSeries + '\'' +
+                ", medicineSeries='" + medicineSeries + '\'' +
                 ", cabinetIndex='" + cabinetIndex + '\'' +
                 ", weekday=" + weekday +
                 ", time='" + time + '\'' +

@@ -71,6 +71,11 @@ public class MedicineService {
                 String medicineName = medicineDto.getMedicineName();
 
                 Map<String, String> adverseMap = adverseService.DURSearch(medicineName, takingMedicineList);
+
+                // 약품의 종류 추출
+                medicineDto.setMedicineSeries(adverseMap.get("sersName"));
+                adverseMap.remove("sersName");
+
                 medicineDto.setAdverseMap(adverseMap);
             }
 
@@ -89,14 +94,6 @@ public class MedicineService {
             String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemSeq=" + medicineId + "&type=json";
 
             List<MedicineDto> medicineDtoList = getMedicineDtoList(result, apiUrl);
-            List<Map<String,String>> takingMedicineList = planRepository.findTakingMedicine(targetMember);
-
-            for (MedicineDto medicineDto : medicineDtoList) {
-                Map<String, String> a = adverseService.DURSearch(medicineDto.getMedicineName(), takingMedicineList);
-                if (a == null) continue;
-                medicineDto.setAdverseMap(a);
-            }
-
             return Optional.of(medicineDtoList);
         } catch (Exception e) {
             throw new CustomException(ErrorCode.EXTERNAL_SERVER_ERROR);

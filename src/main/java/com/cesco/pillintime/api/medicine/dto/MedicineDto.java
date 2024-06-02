@@ -9,7 +9,7 @@ public class MedicineDto {
 
     private String companyName;
     private String medicineName;
-    private String medicineAdverse;
+    private String medicineSeries;
     private String medicineCode;
     private String medicineImage;
     private String medicineEffect;

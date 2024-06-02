@@ -66,10 +66,14 @@ public class AdverseService {
 
         // 기존 복용중인 약물과 효능군중복 여부 확인
         if (takingMedicineList != null) {
-            for (Map<String, String> takingMedicineMap : takingMedicineList) {
-                String adverse = requestDurApiBy(DuplicateUrl, drugName);
-                if (takingMedicineMap.containsValue(adverse)) {
-                    adverseMap.put("효능군중복", drugName);
+            String adverse = requestDurApiBy(DuplicateUrl, drugName);
+            adverseMap.put("sersName", adverse);
+
+            if (!adverse.isEmpty()) {
+                for (Map<String, String> takingMedicineMap : takingMedicineList) {
+                    if (takingMedicineMap.containsValue(adverse)) {
+                        adverseMap.put("효능군중복", drugName);
+                    }
                 }
             }
         }
