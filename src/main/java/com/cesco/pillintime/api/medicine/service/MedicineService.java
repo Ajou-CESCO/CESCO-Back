@@ -119,22 +119,23 @@ public class MedicineService {
 
         for (JsonNode item : itemsArray) {
             MedicineDto medicineDto = new MedicineDto();
+            String nullText = "해당사항 없습니다";
 
-            medicineDto.setCompanyName(removeNewLines(item.hasNonNull("entpName") ? item.get("entpName").asText() : ""));
-            medicineDto.setMedicineName(removeNewLines(item.hasNonNull("itemName") ? item.get("itemName").asText() : ""));
-            medicineDto.setMedicineCode(removeNewLines(item.hasNonNull("itemSeq") ? item.get("itemSeq").asText() : ""));
+            medicineDto.setCompanyName(removeNewLines(item.hasNonNull("entpName") ? item.get("entpName").asText() : nullText));
+            medicineDto.setMedicineName(removeNewLines(item.hasNonNull("itemName") ? item.get("itemName").asText() : nullText));
+            medicineDto.setMedicineCode(removeNewLines(item.hasNonNull("itemSeq") ? item.get("itemSeq").asText() : nullText));
 
-            String itemImage = ("null".equals(item.get("itemImage").asText())) ? "" : removeNewLines(item.hasNonNull("itemImage") ? item.get("itemImage").asText() : "");
+            String itemImage = ("null".equals(item.get("itemImage").asText())) ? "" : removeNewLines(item.hasNonNull("itemImage") ? item.get("itemImage").asText() : nullText);
             medicineDto.setMedicineImage(itemImage);
 
-            String medicineEffect = removeNewLines(item.hasNonNull("efcyQesitm") ? item.get("efcyQesitm").asText() : "");
-            medicineEffect = medicineEffect.replaceAll("이 약은 ", "").replaceAll("에 사용합니다.", "");
+            String medicineEffect = removeNewLines(item.hasNonNull("efcyQesitm") ? item.get("efcyQesitm").asText() : nullText);
+            medicineEffect = medicineEffect.replaceAll("이 약은 ", "").replaceAll("에 사용합니다.", nullText);
             medicineDto.setMedicineEffect(medicineEffect);
 
-            medicineDto.setUseMethod(removeNewLines(item.hasNonNull("useMethodQesitm") ? item.get("useMethodQesitm").asText() : ""));
-            medicineDto.setUseWarning(removeNewLines(item.hasNonNull("atpnWarnQesitm") ? item.get("atpnWarnQesitm").asText() : ""));
-            medicineDto.setUseSideEffect(removeNewLines(item.hasNonNull("seQesitm") ? item.get("seQesitm").asText() : ""));
-            medicineDto.setDepositMethod(removeNewLines(item.hasNonNull("depositMethodQesitm") ? item.get("depositMethodQesitm").asText() : ""));
+            medicineDto.setUseMethod(removeNewLines(item.hasNonNull("useMethodQesitm") ? item.get("useMethodQesitm").asText() : nullText));
+            medicineDto.setUseWarning(removeNewLines(item.hasNonNull("atpnWarnQesitm") ? item.get("atpnWarnQesitm").asText() : nullText));
+            medicineDto.setUseSideEffect(removeNewLines(item.hasNonNull("seQesitm") ? item.get("seQesitm").asText() : nullText));
+            medicineDto.setDepositMethod(removeNewLines(item.hasNonNull("depositMethodQesitm") ? item.get("depositMethodQesitm").asText() : nullText));
 
             medicineDtoList.add(medicineDto);
         }
