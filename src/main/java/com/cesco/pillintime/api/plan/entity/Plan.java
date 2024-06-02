@@ -34,7 +34,7 @@ public class Plan {
     private String medicineName;
 
     @Column
-    private String medicineAdverse;
+    private String medicineSeries;
 
     @Column
     private Integer cabinetIndex;
@@ -55,7 +55,7 @@ public class Plan {
         this.member = member;
         this.medicineId = medicineDto.getMedicineCode();
         this.medicineName = medicineDto.getMedicineName();
-        this.medicineAdverse = medicineDto.getMedicineAdverse();
+        this.medicineSeries = medicineDto.getMedicineAdverse();
         this.cabinetIndex = Objects.requireNonNullElse(cabinetIndex, 1);
         this.weekday = weekday;
         this.time = time;
@@ -74,7 +74,7 @@ public class Plan {
                 ", member=" + member.getName() +
                 ", medicineId='" + medicineId + '\'' +
                 ", medicineName='" + medicineName + '\'' +
-                ", medicineAdverse='" + medicineAdverse + '\'' +
+                ", medicineAdverse='" + medicineSeries + '\'' +
                 ", cabinetIndex='" + cabinetIndex + '\'' +
                 ", weekday=" + weekday +
                 ", time='" + time + '\'' +

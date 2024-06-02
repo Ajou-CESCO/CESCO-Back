@@ -25,6 +25,6 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     @Query("SELECT p FROM Plan p WHERE p.member= :member AND p.medicineId= :medicineId AND p.cabinetIndex= :cabinetIndex")
     Optional<List<Plan>> findTargetPlan(Member member, Long medicineId, int cabinetIndex);
 
-    @Query("SELECT DISTINCT p.medicineName , p.medicineAdverse FROM Plan p WHERE p.member= :member")
+    @Query("SELECT DISTINCT p.medicineName , p.medicineSeries FROM Plan p WHERE p.member= :member")
     Optional<Map<String,String>> findUniqueMedicineNameAndAdverse(@Param("member") Member member);
 }
