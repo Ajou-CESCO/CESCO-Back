@@ -87,19 +87,6 @@ public class MedicineService {
         }
     }
 
-    public Optional<List<MedicineDto>> getMedicineByMedicineId(Long medicineId, Member targetMember) {
-        try {
-            StringBuilder result = new StringBuilder();
-
-            String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemSeq=" + medicineId + "&type=json";
-
-            List<MedicineDto> medicineDtoList = getMedicineDtoList(result, apiUrl);
-            return Optional.of(medicineDtoList);
-        } catch (Exception e) {
-            throw new CustomException(ErrorCode.EXTERNAL_SERVER_ERROR);
-        }
-    }
-
     // ===========================================================================
 
     private List<MedicineDto> getMedicineDtoList(StringBuilder result, String apiUrl) throws IOException {
@@ -133,27 +120,27 @@ public class MedicineService {
         for (JsonNode item : itemsArray) {
             MedicineDto medicineDto = new MedicineDto();
 
-            medicineDto.setCompanyName(removeNewLines(item.get("entpName").asText()));
-            medicineDto.setMedicineName(removeNewLines(item.get("itemName").asText()));
-            medicineDto.setMedicineCode(removeNewLines(item.get("itemSeq").asText()));
+            medicineDto.setCompanyName(removeNewLines(item.hasNonNull("entpName") ? item.get("entpName").asText() : ""));
+            medicineDto.setMedicineName(removeNewLines(item.hasNonNull("itemName") ? item.get("itemName").asText() : ""));
+            medicineDto.setMedicineCode(removeNewLines(item.hasNonNull("itemSeq") ? item.get("itemSeq").asText() : ""));
 
-            String itemImage = ("null".equals(item.get("itemImage").asText())) ? "" : removeNewLines(item.get("itemImage").asText());
+            String itemImage = ("null".equals(item.get("itemImage").asText())) ? "" : removeNewLines(item.hasNonNull("itemImage") ? item.get("itemImage").asText() : "");
             medicineDto.setMedicineImage(itemImage);
 
-            String medicineEffect = removeNewLines(item.get("efcyQesitm").asText());
-            medicineEffect = medicineEffect.replaceAll("이 약은 ", "");
-            medicineEffect = medicineEffect.replaceAll("에 사용합니다.", "");
+            String medicineEffect = removeNewLines(item.hasNonNull("efcyQesitm") ? item.get("efcyQesitm").asText() : "");
+            medicineEffect = medicineEffect.replaceAll("이 약은 ", "").replaceAll("에 사용합니다.", "");
             medicineDto.setMedicineEffect(medicineEffect);
 
-            medicineDto.setUseMethod(removeNewLines(item.get("useMethodQesitm").asText()));
-            medicineDto.setUseWarning(removeNewLines(item.get("atpnWarnQesitm").asText()));
-            medicineDto.setUseSideEffect(removeNewLines(item.get("seQesitm").asText()));
-            medicineDto.setDepositMethod(removeNewLines(item.get("depositMethodQesitm").asText()));
+            medicineDto.setUseMethod(removeNewLines(item.hasNonNull("useMethodQesitm") ? item.get("useMethodQesitm").asText() : ""));
+            medicineDto.setUseWarning(removeNewLines(item.hasNonNull("atpnWarnQesitm") ? item.get("atpnWarnQesitm").asText() : ""));
+            medicineDto.setUseSideEffect(removeNewLines(item.hasNonNull("seQesitm") ? item.get("seQesitm").asText() : ""));
+            medicineDto.setDepositMethod(removeNewLines(item.hasNonNull("depositMethodQesitm") ? item.get("depositMethodQesitm").asText() : ""));
 
             medicineDtoList.add(medicineDto);
         }
 
         return medicineDtoList;
+
     }
 
     private static String removeNewLines(String text) {
