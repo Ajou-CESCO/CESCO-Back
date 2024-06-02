@@ -17,7 +17,7 @@ public interface HealthRepository extends JpaRepository<Health, Long> {
     Optional<List<Health>> findByMember(Member member);
 
     @Query("SELECT h FROM Health h WHERE h.member = :member AND DATE(h.uploadedAt) = :targetDate ORDER BY h.uploadedAt DESC LIMIT 1")
-    Optional<Health> findRecentHealthByDate(@Param("member") Member member, @Param("date") LocalDate date);
+    Optional<Health> findRecentHealthByDate(Member member, LocalDate targetDate);
 
     @Query("SELECT h FROM Health h WHERE FUNCTION('DATE', h.uploadedAt) = :date")
     Optional<Health> findByHealth(@Param("date") LocalDate date);

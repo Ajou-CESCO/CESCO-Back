@@ -63,21 +63,13 @@ public class HealthService {
         calorieMap.put(74, 1850);
     }
     @Transactional
-    public String createHealth(@RequestBody HealthDto healthDto) {
+    public void createHealth(@RequestBody HealthDto healthDto) {
         Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Long steps = healthDto.getSteps();
-        Long cal = healthDto.getCalorie();
-        Long heartRate = healthDto.getHeartRate();
-        Long sleepTime = healthDto.getSleepTime();
-        System.out.println("member.getId() = " + member.getId());
-        Health health = new Health(steps, cal, heartRate, sleepTime, member);
-//        Health health = HealthMapper.INSTANCE.toEntity(healthDto);
+        Health health = HealthMapper.INSTANCE.toEntity(healthDto);
         health.setMember(member);
         healthRepository.save(health);
-
-        return "성공";
     }
 
     public HealthDto getHealthByMemberId(Long targetId) {
@@ -94,38 +86,38 @@ public class HealthService {
         Optional<Health> todayHealthOptional = healthRepository.findRecentHealthByDate(targetMember, today);
         Optional<Health> yesterdayHealthOptional = healthRepository.findRecentHealthByDate(targetMember, yesterday);
 
-        if (yesterdayHealthOptional.isEmpty()) {
+        if (todayHealthOptional.isEmpty()) {
             return null;
         }
 
-        HealthDto todayHealthDto = null;
-        if (todayHealthOptional.isPresent()) {
-            todayHealthDto = HealthMapper.INSTANCE.toDto(todayHealthOptional.get());
+        HealthDto todayHealthDto = HealthMapper.INSTANCE.toDto(todayHealthOptional.get());
+        HealthDto yesterdayHealthDto = null;
+        if (yesterdayHealthOptional.isPresent()) {
+            yesterdayHealthDto = HealthMapper.INSTANCE.toDto(yesterdayHealthOptional.get());
         }
-        HealthDto yesterdayHealthDto = HealthMapper.INSTANCE.toDto(yesterdayHealthOptional.get());
 
         // 현재 나이, 나이 대 생성
         Integer currentAge = (LocalDate.now().getYear() % 100 - Integer.parseInt(targetMember.getSsn().substring(1, 2)));
         long ageGroup = (currentAge < 0 ? currentAge + 100 : currentAge) / 10 * 10;
 
         // 평균 도보, 메시지 생성
-        Long step = (todayHealthDto != null) ? todayHealthDto.getSteps() : 0L;
+        Long step = (todayHealthDto.getSteps() != null) ? todayHealthDto.getSteps() : 0L;
         Long averStep = (long) meanStep[(int) (ageGroup/10)];
         String stepMessage = getStringStep(ageGroup, step, averStep);
 
         // 권장 소모 칼로리, 메시지 생성
-        Long caloire = (todayHealthDto != null) ? todayHealthDto.getCalorie() : 0L;
+        Long caloire = (todayHealthDto.getCalorie() != null) ? todayHealthDto.getCalorie() : 0L;
         Long recommendCalorie = Long.valueOf(calorieMap.floorEntry(currentAge).getValue());
         String calorieMessage = recommendCalorie+"kcal";
 
         // 현재 나이 대 권장 심박수, 메시지 생성
-        Long heartRate = (todayHealthDto != null) ? todayHealthDto.getHeartRate() : 0L;
+        Long heartRate = (todayHealthDto.getHeartRate() != null) ? todayHealthDto.getHeartRate() : 0L;
         Long recommendHeartRate = Long.valueOf(heartRateMap.floorEntry(currentAge).getValue());
         String heartRateMessage = recommendHeartRate + "-" + (recommendHeartRate + 10) + "bpm";
 
         // 권장 수면, 메시지 생성
         String sleepMessage;
-        Long todaySleepTime = (todayHealthDto != null) ? todayHealthDto.getSleepTime() : 0L;
+        Long todaySleepTime = (todayHealthDto.getSleepTime() != null) ? todayHealthDto.getSleepTime() : 0L;
         if (yesterdayHealthDto != null) {
             Long yesterdaySleepTime = yesterdayHealthDto.getSleepTime();
             sleepMessage = getStringSleep(todaySleepTime, yesterdaySleepTime);
@@ -135,7 +127,6 @@ public class HealthService {
 
         Long recommendSleepTime = sleepTimeMap.floorEntry(currentAge).getValue();
 
-        if(todayHealthDto == null) todayHealthDto = new HealthDto();
         todayHealthDto.setAgeGroup(ageGroup);
         todayHealthDto.setSteps(step);
         todayHealthDto.setAverStep(averStep);

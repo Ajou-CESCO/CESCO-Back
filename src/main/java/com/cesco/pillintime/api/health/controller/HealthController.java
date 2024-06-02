@@ -17,8 +17,8 @@ public class HealthController {
 
     @PostMapping
     public ResponseEntity<ResponseDto> createHealth(@RequestBody HealthDto healthDto) {
-        String string = healthService.createHealth(healthDto);
-        return ResponseUtil.makeResponse(200, "Success upload health data", string);
+        healthService.createHealth(healthDto);
+        return ResponseUtil.makeResponse(200, "Success upload health data", null);
     }
 
     @GetMapping("/{targetId}")
