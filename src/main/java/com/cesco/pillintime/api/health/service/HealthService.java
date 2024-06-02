@@ -27,6 +27,7 @@ public class HealthService {
 
     private final HealthRepository healthRepository;
     private final MemberRepository memberRepository;
+    private final SecurityUtil securityUtil;
 
     int[] meanStep = { 0, 6704, 7522, 8583, 10346, 11191, 11763, 9966};
 
@@ -80,6 +81,10 @@ public class HealthService {
         Member targetMember = (targetId == null) ? requestMember :
                 memberRepository.findById(targetId)
                         .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        if (!requestMember.equals(targetMember)) {
+            securityUtil.checkPermission(requestMember, targetMember);
+        }
 
         LocalDate today = LocalDateTime.now().toLocalDate();
         LocalDate yesterday = LocalDateTime.now().minusDays(1).toLocalDate();
