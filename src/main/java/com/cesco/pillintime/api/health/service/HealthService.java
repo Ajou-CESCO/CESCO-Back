@@ -85,42 +85,38 @@ public class HealthService {
         Optional<Health> todayHealthOptional = healthRepository.findRecentHealthByDate(targetMember, today);
         Optional<Health> yesterdayHealthOptional = healthRepository.findRecentHealthByDate(targetMember, yesterday);
 
-        if (todayHealthOptional.isEmpty()) {
+        if (yesterdayHealthOptional.isEmpty()) {
             return null;
         }
 
-        HealthDto todayHealthDto = HealthMapper.INSTANCE.toDto(todayHealthOptional.get());
-        HealthDto yesterdayHealthDto = null;
-        if (yesterdayHealthOptional.isPresent()) {
-            yesterdayHealthDto = HealthMapper.INSTANCE.toDto(yesterdayHealthOptional.get());
+        HealthDto todayHealthDto = null;
+        if (todayHealthOptional.isPresent()) {
+            todayHealthDto = HealthMapper.INSTANCE.toDto(todayHealthOptional.get());
         }
+        HealthDto yesterdayHealthDto = HealthMapper.INSTANCE.toDto(yesterdayHealthOptional.get());
 
         // 현재 나이, 나이 대 생성
         Integer currentAge = (LocalDate.now().getYear() % 100 - Integer.parseInt(targetMember.getSsn().substring(1, 2)));
         long ageGroup = (currentAge < 0 ? currentAge + 100 : currentAge) / 10 * 10;
 
         // 평균 도보, 메시지 생성
-        Long step = todayHealthDto.getSteps();
-        if (step == null) step = 0L;
+        Long step = (todayHealthDto != null) ? todayHealthDto.getSteps() : 0L;
         Long averStep = (long) meanStep[(int) (ageGroup/10)];
         String stepMessage = getStringStep(ageGroup, step, averStep);
 
         // 권장 소모 칼로리, 메시지 생성
-        Long caloire = todayHealthDto.getCalorie();
-        if (caloire == null) caloire = 0L;
+        Long caloire = (todayHealthDto != null) ? todayHealthDto.getCalorie() : 0L;
         Long recommendCalorie = Long.valueOf(calorieMap.floorEntry(currentAge).getValue());
         String calorieMessage = recommendCalorie+"kcal";
 
         // 현재 나이 대 권장 심박수, 메시지 생성
-        Long heartRate = todayHealthDto.getHeartRate();
-        if (heartRate == null) heartRate = 0L;
+        Long heartRate = (todayHealthDto != null) ? todayHealthDto.getHeartRate() : 0L;
         Long recommendHeartRate = Long.valueOf(heartRateMap.floorEntry(currentAge).getValue());
         String heartRateMessage = recommendHeartRate + "-" + (recommendHeartRate + 10) + "bpm";
 
         // 권장 수면, 메시지 생성
-        String sleepMessage = null;
-        Long todaySleepTime = todayHealthDto.getSleepTime();
-        if (todaySleepTime == null) todaySleepTime = 0L;
+        String sleepMessage;
+        Long todaySleepTime = (todayHealthDto != null) ? todayHealthDto.getSleepTime() : 0L;
         if (yesterdayHealthDto != null) {
             Long yesterdaySleepTime = yesterdayHealthDto.getSleepTime();
             sleepMessage = getStringSleep(todaySleepTime, yesterdaySleepTime);
@@ -130,6 +126,7 @@ public class HealthService {
 
         Long recommendSleepTime = sleepTimeMap.floorEntry(currentAge).getValue();
 
+        if(todayHealthDto == null) todayHealthDto = new HealthDto();
         todayHealthDto.setAgeGroup(ageGroup);
         todayHealthDto.setSteps(step);
         todayHealthDto.setAverStep(averStep);

@@ -116,6 +116,8 @@ public class AdverseService {
             } else {
                 System.out.println("GET request failed. Response Code: " + responseCode);
             }
+
+            /*
             if(adverseUrl.equals(DurInfoUrl))
                 return parseJsonResponse(result.toString(),"TYPE_NAME  ");
             else if(adverseUrl.equals(CombineUrl))
@@ -125,8 +127,15 @@ public class AdverseService {
             else if(adverseUrl.equals(DuplicateUrl))
                 return parseJsonResponse(result.toString(),"SERS_NAME");
             else
-                return parseJsonResponse(result.toString(),"PROHBT_CONTENT");
-
+                return parseJsonResponse(result.toString(),"PROHBT_CONTENT");*/
+            // 위 주석과 동일한 코드
+            Map<String, String> tagList = Map.of(
+                    DurInfoUrl,"TYPE_NAME  ",
+                    CombineUrl,"",
+                    DivideUrl,"",
+                    DuplicateUrl,"SERS_NAME"
+            );
+            return parseJsonResponse(result.toString(), tagList.getOrDefault(adverseUrl, "PROHBT_CONTENT"));
         } catch (IOException e){
             System.out.println("e = " + e);
             return null;
