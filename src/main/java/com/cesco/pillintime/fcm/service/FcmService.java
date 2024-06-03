@@ -39,12 +39,7 @@ public class FcmService {
             securityUtil.checkPermission(requestMember, targetMember);
         }
 
-        System.out.println(targetMember.getName());
-        System.out.println(requestMember.getName());
-        System.out.println(fcmRequestDto.getBody());
-
-        if (fcmRequestDto.getBody().isEmpty() && requestMember != null) {
-            System.out.println("HELLO");
+        if ((fcmRequestDto.getBody() == null) && requestMember != null) {
             fcmRequestDto.setTitle("[약속시간] \uD83D\uDC89 콕 찌르기 \uD83D\uDC89");
             fcmRequestDto.setBody(requestMember.getName() + " 님이 저를 찔렀어요");
         }
