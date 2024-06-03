@@ -11,6 +11,7 @@ public class LogDto {
     private Long memberId;
     private Long planId;
     private LocalTime plannedAt;
+    private int cabinetIndex;
     private String medicineName;
     private Integer takenStatus;
 

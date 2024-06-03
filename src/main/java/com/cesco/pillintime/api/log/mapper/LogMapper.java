@@ -17,6 +17,7 @@ public interface LogMapper {
     @Mapping(source = "plan.time", target = "plannedAt")
     @Mapping(source = "plan.medicineName", target = "medicineName")
     @Mapping(source = "takenStatus", target = "takenStatus")
+    @Mapping(source = "plan.cabinetIndex", target = "cabinetIndex")
     LogDto toDto(Log log);
 
     default Integer map(TakenStatus takenStatus) {
