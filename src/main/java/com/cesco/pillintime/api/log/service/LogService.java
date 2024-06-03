@@ -118,6 +118,9 @@ public class LogService {
         Cabinet cabinet = cabinetRepository.findBySerial(serial)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CABINET));
 
+        System.out.println(cabinet.getSerial());
+        System.out.println(index);
+
         Optional<Member> owner = memberRepository.findByCabinet(cabinet); // ??? -> Member owner = cabinet.getOwner();
 
         owner.ifPresent(member -> {

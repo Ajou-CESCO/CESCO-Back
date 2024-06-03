@@ -60,6 +60,7 @@ public interface PlanMapper {
                     Set<LocalTime> timeSet = new HashSet<>();
                     Set<Integer> weekdaySet = new HashSet<>();
 
+
                     for (Plan plan : plans) {
                         timeSet.add(plan.getTime());
                         weekdaySet.add(plan.getWeekday());
