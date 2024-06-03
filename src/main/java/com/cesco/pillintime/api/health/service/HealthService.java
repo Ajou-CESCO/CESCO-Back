@@ -69,6 +69,11 @@ public class HealthService {
         Member member = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
+        // 요청한 사용자가 보호자일 경우 무시
+        if (member.isManager()) {
+            return;
+        }
+
         Health health = HealthMapper.INSTANCE.toEntity(healthDto);
         health.setMember(member);
         healthRepository.save(health);
