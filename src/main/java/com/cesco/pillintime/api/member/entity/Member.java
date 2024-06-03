@@ -4,6 +4,9 @@ import com.cesco.pillintime.api.cabinet.entity.Cabinet;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -35,6 +38,9 @@ public class Member {
 
     @Column
     private boolean isSubscriber = false;
+
+    @Column
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToOne
     private Cabinet cabinet = null;
@@ -68,6 +74,7 @@ public class Member {
         this.phone = phone;
         this.gender = gender;
         this.isManager = isManager;
+        this.createdAt = LocalDateTime.now();
     }
 
 }
