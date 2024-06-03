@@ -57,16 +57,23 @@ public class MedicineService {
         }
 
         try {
-            StringBuilder result = new StringBuilder();
-
             // 내가 복용중인 약물 이름, 종류 조회
             List<Map<String, String>> takingMedicineList = planRepository.findTakingMedicine(targetMember);
 
             // 검색한 키워드에 대한 약물 조회
             String encodedName = URLEncoder.encode(name, "UTF-8");
-            String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemName=" + encodedName + "&type=json";
 
+            StringBuilder result = new StringBuilder();
+            String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemName=" + encodedName + "&type=json";
             List<MedicineDto> medicineDtoList = getMedicineDtoList(result, apiUrl);
+
+            // 약물명 검색 결과가 없을 경우, 기업체 명으로 검색 시도
+            if (medicineDtoList.isEmpty()) {
+                result = new StringBuilder();
+                apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&entpName=" + encodedName + "&type=json";
+                medicineDtoList = getMedicineDtoList(result, apiUrl);
+            }
+
             for (MedicineDto medicineDto : medicineDtoList) {
                 String medicineName = medicineDto.getMedicineName();
 
@@ -108,6 +115,8 @@ public class MedicineService {
     public List<MedicineDto> parseJsonResponse(String jsonResponse) throws JsonProcessingException {
         List<MedicineDto> medicineDtoList = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
+
+        System.out.println(jsonResponse);
 
         JsonNode jsonNode = objectMapper.readTree(jsonResponse);
         JsonNode bodyNode = jsonNode.get("body");
