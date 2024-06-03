@@ -116,8 +116,6 @@ public class MedicineService {
         List<MedicineDto> medicineDtoList = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
 
-        System.out.println(jsonResponse);
-
         JsonNode jsonNode = objectMapper.readTree(jsonResponse);
         JsonNode bodyNode = jsonNode.get("body");
 

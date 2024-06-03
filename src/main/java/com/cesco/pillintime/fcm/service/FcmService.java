@@ -44,6 +44,7 @@ public class FcmService {
         System.out.println(fcmRequestDto.getBody());
 
         if (fcmRequestDto.getBody().isEmpty() && requestMember != null) {
+            System.out.println("HELLO");
             fcmRequestDto.setTitle("[약속시간] \uD83D\uDC89 콕 찌르기 \uD83D\uDC89");
             fcmRequestDto.setBody(requestMember.getName() + " 님이 저를 찔렀어요");
         }

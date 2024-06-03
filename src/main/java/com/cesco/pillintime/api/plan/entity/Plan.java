@@ -43,6 +43,7 @@ public class Plan {
     @CollectionTable(name = "medicine_adverse", joinColumns = @JoinColumn(name = "plan_id"))
     @MapKeyColumn(name = "adverse_key")
     @Column(name = "adverse_value")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Map<String, String> medicineAdverse;
 
     @Column
