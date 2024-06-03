@@ -31,8 +31,6 @@ public class FcmService {
         Member targetMember = memberRepository.findById(fcmRequestDto.getTargetId())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        System.out.println(targetMember);
-
         Member requestMember = null;
         if (checkMember) {
             requestMember = SecurityUtil.getCurrentMember()
@@ -41,7 +39,9 @@ public class FcmService {
             securityUtil.checkPermission(requestMember, targetMember);
         }
 
-        System.out.println(requestMember);
+        System.out.println(targetMember.getName());
+        System.out.println(requestMember.getName());
+        System.out.println(fcmRequestDto.getBody());
 
         if (fcmRequestDto.getBody().isEmpty() && requestMember != null) {
             fcmRequestDto.setTitle("[약속시간] \uD83D\uDC89 콕 찌르기 \uD83D\uDC89");
