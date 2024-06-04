@@ -88,17 +88,17 @@ public class RelationService {
         Relation relation = relationRepository.findById(relationId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RELATION));
 
-        if (requestMember.equals(relation.getClient()) || requestMember.equals(relation.getManager())) {
-            relationRepository.delete(relation);
+//        if (requestMember.equals(relation.getClient()) || requestMember.equals(relation.getManager())) {
+        relationRepository.delete(relation);
 
-            Map<String, Object> requestParams = new HashMap<>();
-            requestParams.put("requestMember", requestMember);
-            requestParams.put("relation", relation);
+        Map<String, Object> requestParams = new HashMap<>();
+        requestParams.put("requestMember", requestMember);
+        requestParams.put("relation", relation);
 
-            FcmStrategy relationDeletedStrategy = context.getBean("relationDeletedStrategy", FcmStrategy.class);
-            relationDeletedStrategy.execute(requestParams);
-        } else {
-            throw new CustomException(ErrorCode.INVALID_USER_ACCESS);
-        }
+//        FcmStrategy relationDeletedStrategy = context.getBean("relationDeletedStrategy", FcmStrategy.class);
+//        relationDeletedStrategy.execute(requestParams);
+//        } else {
+//            throw new CustomException(ErrorCode.INVALID_USER_ACCESS);
+//        }
     }
 }
