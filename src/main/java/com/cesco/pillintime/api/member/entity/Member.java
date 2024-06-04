@@ -39,8 +39,8 @@ public class Member {
     @Column
     private boolean isSubscriber = false;
 
-    @Column
-    private LocalDateTime createdAt = LocalDateTime.now();
+//    @Column
+//    private LocalDateTime createdAt;
 
     @OneToOne
     private Cabinet cabinet = null;
@@ -74,7 +74,10 @@ public class Member {
         this.phone = phone;
         this.gender = gender;
         this.isManager = isManager;
-        this.createdAt = LocalDateTime.now();
+
+//        if (this.createdAt == null) {
+//            this.createdAt = LocalDateTime.now();
+//        }
     }
 
 }

@@ -3,6 +3,9 @@ package com.cesco.pillintime.api.member.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 public class MemberDto {
 
@@ -13,6 +16,7 @@ public class MemberDto {
     private Integer gender;
     private Long cabinetId;
     private String fcmToken;
+//    private LocalDateTime createdAt;
 
     @JsonProperty(value = "isManager")
     private boolean isManager;
