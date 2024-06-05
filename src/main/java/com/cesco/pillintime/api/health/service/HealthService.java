@@ -170,6 +170,8 @@ public class HealthService {
             return "오늘 수면시간이 기록되지 않았어요";
         }
 
+        if(todaySleepTime.equals(yesterdaySleepTime))
+            return "어제 주무신 시간과 동일하네요.";
         return (todaySleepTime > yesterdaySleepTime ?
                 "어제보다 " + (todaySleepTime - yesterdaySleepTime) + "시간 더 주무셨어요." :
                 "어제보다 " + (yesterdaySleepTime - todaySleepTime) + "시간 덜 주무셨어요.");
