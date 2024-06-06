@@ -75,7 +75,7 @@ public class LogService {
         });
     }
 
-    public List<LogDto> getDoseLogByMemberId(Long targetId) {
+    public List<LogDto> getDoseLogByMemberId(Long targetId, LocalDate date) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
@@ -92,9 +92,9 @@ public class LogService {
             throw new CustomException(ErrorCode.INVALID_USERTYPE);
         }
 
-        LocalDate today = LocalDate.now();
-        LocalDateTime startOfDay = today.atStartOfDay();
-        LocalDateTime endOfDay = today.atTime(LocalTime.MAX);
+//        LocalDate today = LocalDate.now();
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
 
         Optional<List<Log>> logListOptional = logRepository.findByMemberAndPlannedAtBetween(targetMember, startOfDay, endOfDay);
 
