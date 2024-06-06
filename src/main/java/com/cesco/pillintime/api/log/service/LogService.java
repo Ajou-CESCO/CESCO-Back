@@ -100,6 +100,7 @@ public class LogService {
         if (date == null) {
             date = LocalDate.now();
         }
+
         LocalDateTime startOfDay = date.atStartOfDay();
         LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
 
@@ -112,6 +113,10 @@ public class LogService {
                 logDtoList.add(logDto);
             }
         });
+
+        logDtoList.sort(Comparator
+                .comparing(LogDto::getCabinetIndex)
+                .thenComparing(LogDto::getPlannedAt));
 
         return logDtoList;
     }
