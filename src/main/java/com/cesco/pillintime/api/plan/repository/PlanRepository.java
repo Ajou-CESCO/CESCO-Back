@@ -21,6 +21,9 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     @Query("SELECT p FROM Plan p WHERE :today <= p.endAt")
     Optional<List<Plan>> findActivePlan(LocalDate today);
 
+    @Query("SELECT p FROM Plan p WHERE :today > p.endAt")
+    Optional<List<Plan>> findInactivePlan(LocalDate today);
+
     @Query("SELECT p FROM Plan p WHERE p.member= :member AND p.medicineId= :medicineId AND p.cabinetIndex= :cabinetIndex")
     Optional<List<Plan>> findTargetPlan(Member member, Long medicineId, int cabinetIndex);
 
