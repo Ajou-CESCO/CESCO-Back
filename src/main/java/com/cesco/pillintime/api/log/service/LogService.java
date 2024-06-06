@@ -52,6 +52,11 @@ public class LogService {
                 LocalTime plannedTime = plan.getTime();
                 LocalDateTime plannedAt = plannedDate.atTime(plannedTime);
 
+                // 예정 시각이 실제 계획의 시작 시각보다 이를 경우 무시
+                if (plannedDate.isBefore(plan.getStartAt())) {
+                    continue;
+                }
+
                 // 현재 시각보다 예정 시각이 빠른 경우 무시
                 if (plannedAt.isBefore(now)) {
                     continue;
