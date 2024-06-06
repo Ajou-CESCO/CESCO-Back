@@ -92,20 +92,14 @@ public class HealthService {
         }
 
         LocalDate today = LocalDateTime.now().toLocalDate();
-        LocalDate yesterday = LocalDateTime.now().minusDays(1).toLocalDate();
 
         Optional<Health> todayHealthOptional = healthRepository.findRecentHealthByDate(targetMember, today);
-        Optional<Health> yesterdayHealthOptional = healthRepository.findRecentHealthByDate(targetMember, yesterday);
 
         if (todayHealthOptional.isEmpty()) {
             return null;
         }
 
         HealthDto todayHealthDto = HealthMapper.INSTANCE.toDto(todayHealthOptional.get());
-        HealthDto yesterdayHealthDto = null;
-        if (yesterdayHealthOptional.isPresent()) {
-            yesterdayHealthDto = HealthMapper.INSTANCE.toDto(yesterdayHealthOptional.get());
-        }
 
         // 현재 나이, 나이 대 생성
         int currentAge = (LocalDate.now().getYear() % 100 - Integer.parseInt(targetMember.getSsn().substring(0, 2)));
@@ -126,16 +120,10 @@ public class HealthService {
         String heartRateMessage = recommendHeartRate + "-" + (recommendHeartRate + 10) + "bpm";
 
         // 권장 수면, 메시지 생성
-        String sleepMessage;
         Long todaySleepTime = (todayHealthDto.getSleepTime() != null) ? todayHealthDto.getSleepTime() : 0L;
-        if (yesterdayHealthDto != null) {
-            Long yesterdaySleepTime = yesterdayHealthDto.getSleepTime();
-            sleepMessage = getStringSleep(todaySleepTime, yesterdaySleepTime);
-        } else {
-            sleepMessage = "오늘 " + todaySleepTime + "시간 잤어요";
-        }
 
         Long recommendSleepTime = sleepTimeMap.floorEntry(ageGroup).getValue();
+        String sleepMessage = getStringSleep(todaySleepTime, recommendSleepTime);
 
         todayHealthDto.setAgeGroup((long) ageGroup);
         todayHealthDto.setSteps(step);
@@ -165,15 +153,15 @@ public class HealthService {
                 ageGroup + "대 권장보다 " + (step - averStep) + "보 더 걸었어요!");
     }
 
-    private static String getStringSleep(Long todaySleepTime, Long yesterdaySleepTime) {
+    private static String getStringSleep(Long todaySleepTime, Long recommendSleepTime) {
         if (todaySleepTime == 0) {
             return "오늘 수면시간이 기록되지 않았어요";
         }
 
-        if(todaySleepTime.equals(yesterdaySleepTime))
-            return "어제 주무신 시간과 동일하네요.";
-        return (todaySleepTime > yesterdaySleepTime ?
-                "어제보다 " + (todaySleepTime - yesterdaySleepTime) + "시간 더 주무셨어요." :
-                "어제보다 " + (yesterdaySleepTime - todaySleepTime) + "시간 덜 주무셨어요.");
+        if(todaySleepTime.equals(recommendSleepTime))
+            return "권장 수면 시간과 동일하게 주무셨네요.";
+        return (todaySleepTime > recommendSleepTime ?
+                "권장보다 " + (todaySleepTime - recommendSleepTime) + "시간 더 주무셨어요." :
+                "권장보다 " + (recommendSleepTime - todaySleepTime) + "시간 덜 주무셨어요.");
     }
 }
