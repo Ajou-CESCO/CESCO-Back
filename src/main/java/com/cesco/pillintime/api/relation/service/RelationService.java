@@ -47,8 +47,12 @@ public class RelationService {
         requestParams.put("requestMember", requestMember);
         requestParams.put("targetMember", targetMember);
 
-        FcmStrategy relationStrategy = context.getBean("relationCreatedStrategy", FcmStrategy.class);
-        relationStrategy.execute(requestParams);
+        try {
+            FcmStrategy relationStrategy = context.getBean("relationCreatedStrategy", FcmStrategy.class);
+            relationStrategy.execute(requestParams);
+        } catch (Exception ignored) {
+        }
+
     }
 
     public List<RelationDto> getRelationList() {
@@ -95,8 +99,11 @@ public class RelationService {
             requestParams.put("requestMember", requestMember);
             requestParams.put("relation", relation);
 
-            FcmStrategy relationDeletedStrategy = context.getBean("relationDeletedStrategy", FcmStrategy.class);
-            relationDeletedStrategy.execute(requestParams);
+            try {
+                FcmStrategy relationDeletedStrategy = context.getBean("relationDeletedStrategy", FcmStrategy.class);
+                relationDeletedStrategy.execute(requestParams);
+            } catch (Exception ignored) {
+            }
         } else {
             throw new CustomException(ErrorCode.INVALID_USER_ACCESS);
         }

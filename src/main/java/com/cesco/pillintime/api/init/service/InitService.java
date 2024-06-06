@@ -43,8 +43,8 @@ public class InitService {
 
                         extendedRelationDtoList.add(exRelationDto);
                     });
-
         }
+
         return new InitDto(memberDto, extendedRelationDtoList);
     }
 }

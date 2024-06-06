@@ -168,8 +168,12 @@ public class LogService {
                         Map<String, Object> requestParams = new HashMap<>();
                         requestParams.put("log", log);
 
-                        FcmStrategy clientPlanStrategy = context.getBean("clientPlanStrategy", FcmStrategy.class);
-                        clientPlanStrategy.execute(requestParams);
+                        try {
+                            FcmStrategy clientPlanStrategy = context.getBean("clientPlanStrategy", FcmStrategy.class);
+                            clientPlanStrategy.execute(requestParams);
+                        } catch (Exception ignored) {
+                        }
+
                     }
                 });
 
@@ -182,10 +186,14 @@ public class LogService {
             Map<String, Object> requestParams = new HashMap<>();
             requestParams.put("log", log);
 
-            FcmStrategy clientLogStrategy = context.getBean("clientOverLogStrategy", FcmStrategy.class);
-            FcmStrategy managerLogStrategy = context.getBean("managerOverLogStrategy", FcmStrategy.class);
-            clientLogStrategy.execute(requestParams);
-            managerLogStrategy.execute(requestParams);
+            try {
+                FcmStrategy clientLogStrategy = context.getBean("clientOverLogStrategy", FcmStrategy.class);
+                clientLogStrategy.execute(requestParams);
+
+                FcmStrategy managerLogStrategy = context.getBean("managerOverLogStrategy", FcmStrategy.class);
+                managerLogStrategy.execute(requestParams);
+            } catch (Exception ignored) {
+            }
         });
     }
 
