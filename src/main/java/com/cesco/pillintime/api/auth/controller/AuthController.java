@@ -7,10 +7,7 @@ import com.cesco.pillintime.response.dto.ResponseDto;
 import com.cesco.pillintime.response.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -20,6 +17,12 @@ import java.util.Map;
 public class AuthController {
 
     private final AuthService authService;
+
+    @GetMapping("/logout")
+    public ResponseEntity<ResponseDto> logout() {
+        authService.logout();
+        return ResponseUtil.makeResponse(200, "Success logout", null);
+    }
 
     @PostMapping
     public ResponseEntity<ResponseDto> login(@RequestBody LoginDto loginDto) {

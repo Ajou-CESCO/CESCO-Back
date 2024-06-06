@@ -7,6 +7,7 @@ import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.security.JwtUtil;
+import com.cesco.pillintime.security.SecurityUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.sdk.NurigoApp;
@@ -36,6 +37,14 @@ public class AuthService {
 
     @Value("${COOLSMS_FROM}")
     private String from;
+
+    public void logout() {
+        Member member = SecurityUtil.getCurrentMember()
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        member.setFcmToken(null);
+        memberRepository.save(member);
+    }
 
     @Transactional
     public String login(LoginDto loginDto) {
