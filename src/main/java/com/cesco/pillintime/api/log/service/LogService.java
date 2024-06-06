@@ -92,7 +92,9 @@ public class LogService {
             throw new CustomException(ErrorCode.INVALID_USERTYPE);
         }
 
-//        LocalDate today = LocalDate.now();
+        if (date == null) {
+            date = LocalDate.now();
+        }
         LocalDateTime startOfDay = date.atStartOfDay();
         LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
 
