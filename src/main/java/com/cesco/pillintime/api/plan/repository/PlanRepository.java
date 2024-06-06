@@ -26,4 +26,7 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
 
     @Query("SELECT DISTINCT p.medicineName , p.medicineSeries FROM Plan p WHERE p.member= :member")
     List<Map<String, String>> findTakingMedicine(@Param("member") Member member);
+
+    @Query("SELECT DISTINCT p.cabinetIndex FROM Plan p WHERE p.member= :member")
+    List<Long> findUsingCabinetIndex(Member member);
 }

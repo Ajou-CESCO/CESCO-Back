@@ -42,8 +42,6 @@ public class RequestService {
                     return requestRepository.save(newRequest);
                 });
 
-        System.out.println(request.getId());
-
         memberRepository.findByPhone(receiverPhone)
                 .ifPresent((targetMember) -> {
                     Map<String, Object> requestParams = new HashMap<>();

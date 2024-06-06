@@ -1,7 +1,6 @@
 package com.cesco.pillintime.api.init.dto;
 
 import com.cesco.pillintime.api.member.dto.MemberDto;
-import com.cesco.pillintime.api.relation.dto.RelationDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
@@ -25,9 +24,9 @@ public class InitDto {
     @JsonProperty(value = "isSubscriber")
     private boolean isSubscriber;
 
-    private List<RelationDto> relationList;
+    private List<ExtendedRelationDto> relationList;
 
-    public InitDto(MemberDto memberDto, List<RelationDto> relationDtoList) {
+    public InitDto(MemberDto memberDto, List<ExtendedRelationDto> extendedRelationDtoList) {
         this.memberId = memberDto.getId();
         this.name = memberDto.getName();
         this.ssn = memberDto.getSsn();
@@ -36,6 +35,6 @@ public class InitDto {
         this.cabinetId = memberDto.getCabinetId();
         this.isManager = memberDto.isManager();
         this.isSubscriber = memberDto.isSubscriber();
-        this.relationList = relationDtoList;
+        this.relationList = extendedRelationDtoList;
     }
 }
