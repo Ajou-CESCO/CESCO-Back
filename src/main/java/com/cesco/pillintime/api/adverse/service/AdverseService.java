@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,6 +16,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 @Service
 public class AdverseService {
@@ -40,6 +45,14 @@ public class AdverseService {
 
     @Value("${EASY_DRUG_AVERSE_SERVICE_KEY}")
     private String serviceKey;
+
+    private ExecutorService executorService;
+
+    @PostConstruct
+    public void init() {
+        // ExecutorService 초기화
+        executorService = Executors.newFixedThreadPool(5);
+    }
 
     public Map<String, String> DURSearch(String drugName, List<Map<String,String>> takingMedicineList) {
 
@@ -76,17 +89,29 @@ public class AdverseService {
                 }
             }
         }
+        List<CompletableFuture<Void>> futures = adverseNameList.stream()
+                .map(adverseName -> CompletableFuture.runAsync(() -> {
+                    String targetUrl = serviceUrlList.get(adverseName);
+                    if (targetUrl != null) {
+                        String adverseDescription = requestDurApiBy(targetUrl, drugName);
+                        adverseMap.put(adverseName, adverseDescription.isEmpty() ? adverseName : adverseDescription);
+                    }
+                }, executorService))
+                .toList();
 
-        // 검색한 약물이 기본적으로 포함하는 부작용 확인
-        for (String adverseName : adverseNameList){
-            String targetUrl = serviceUrlList.get(adverseName);
-            if (targetUrl == null) {
-                continue;
-            }
+        // 모든 비동기 요청이 완료될 때까지 대기
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 
-            String adverseDescription = requestDurApiBy(targetUrl, drugName);
-            adverseMap.put(adverseName, adverseDescription.isEmpty() ? adverseName : adverseDescription);
-        }
+//        // 검색한 약물이 기본적으로 포함하는 부작용 확인
+//        for (String adverseName : adverseNameList){
+//            String targetUrl = serviceUrlList.get(adverseName);
+//            if (targetUrl == null) {
+//                continue;
+//            }
+//
+//            String adverseDescription = requestDurApiBy(targetUrl, drugName);
+//            adverseMap.put(adverseName, adverseDescription.isEmpty() ? adverseName : adverseDescription);
+//        }
 
         return adverseMap;
     }
