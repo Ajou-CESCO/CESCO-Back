@@ -31,7 +31,6 @@ public class MemberServiceTest {
     private MemberService memberService;
     private MemberRepository memberRepository;
     private RelationRepository relationRepository;
-    private SecurityUtil securityUtil;
     private JwtUtil jwtUtil;
 
     // 주입 받는 객체가 많아서 어노테이션 사용하지 않음
@@ -40,7 +39,7 @@ public class MemberServiceTest {
         memberRepository = mock(MemberRepository.class);
         jwtUtil = mock(JwtUtil.class);
         relationRepository = mock(RelationRepository.class);
-        securityUtil = new SecurityUtil(relationRepository);
+        SecurityUtil securityUtil = new SecurityUtil(relationRepository);
         memberService = new MemberService(memberRepository, jwtUtil, securityUtil);
     }
 
@@ -66,25 +65,15 @@ public class MemberServiceTest {
         Member member = new Member(memberDto.getName(), memberDto.getPhone(), memberDto.getSsn(), memberDto.isManager());
 
         String extoken = "memo";
-            /*
-            when(실행될 코드).thenReturn(반환 결과)
-             */
         when(memberRepository.findByPhone(memberDto.getPhone())).thenReturn(Optional.empty());
-        when(memberRepository.findBySsn(memberDto.getSsn())).thenReturn(Optional.empty());
         when(jwtUtil.createAccessToken(member)).thenReturn(extoken);
 
         // When
         String retoken = memberService.createUser(memberDto);
 
         // Then
-        /*
-        * assertEquals(예상 결과, 실제 결과)로 넣으면 된다.
-        * verify(memberRepository,times(1)).findByPhone(memberDto.getPhone());
-           = memberRepository.findByPhone(memberDto.getPhone())가 한 번 실행되었다.
-        * */
         Assertions.assertEquals(extoken, retoken);
         verify(memberRepository,times(1)).findByPhone(memberDto.getPhone());
-        verify(memberRepository,times(1)).findBySsn(memberDto.getSsn());
         verify(memberRepository, times(1)).save(member);
 
     }
@@ -108,7 +97,6 @@ public class MemberServiceTest {
          * */
         Assertions.assertEquals(ErrorCode.ALREADY_EXISTS_PHONE, exception.getErrorCode());
         verify(memberRepository, times(1)).findByPhone(memberDto.getPhone());
-        verify(memberRepository, times(0)).findBySsn(memberDto.getSsn());
         verify(memberRepository, never()).save(member);
     }
     @Test
