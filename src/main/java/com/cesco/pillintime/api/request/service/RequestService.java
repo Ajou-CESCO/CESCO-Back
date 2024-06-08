@@ -36,11 +36,10 @@ public class RequestService {
 
         String receiverPhone = requestDto.getReceiverPhone();
 
-        Request request = requestRepository.findBySenderAndReceiverPhone(requestMember, receiverPhone)
-                .orElseGet(() -> {
-                    Request newRequest = new Request(requestMember, receiverPhone);
-                    return requestRepository.save(newRequest);
-                });
+        Optional<Request> request = requestRepository.findBySenderAndReceiverPhone(requestMember, receiverPhone);
+        if (request.isEmpty()) {
+            request = Optional.of(new Request(requestMember, receiverPhone));
+        }
 
         memberRepository.findByPhone(receiverPhone)
                 .ifPresent((targetMember) -> {
@@ -55,7 +54,7 @@ public class RequestService {
                     }
                 });
 
-        return request;
+        return request.get();
     }
 
 
