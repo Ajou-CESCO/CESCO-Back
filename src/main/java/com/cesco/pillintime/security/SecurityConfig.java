@@ -42,7 +42,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests((authorizeRequests) ->
                 authorizeRequests
-                        .requestMatchers("/api/auth", "/api/auth/sms", "/actuator", "/api/actuator").permitAll()
+                        .requestMatchers("/api/auth", "/api/auth/sms", "/actuator/**").permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/dose/log", HttpMethod.PATCH.name())).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/user", HttpMethod.POST.name())).permitAll()
                         .anyRequest().authenticated()
