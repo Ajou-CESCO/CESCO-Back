@@ -9,7 +9,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-29T12:44:19+0900",
+    date = "2024-06-08T13:10:03+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 public class LogMapperImpl implements LogMapper {
@@ -27,6 +27,10 @@ public class LogMapperImpl implements LogMapper {
         logDto.setPlannedAt( logPlanTime( log ) );
         logDto.setMedicineName( logPlanMedicineName( log ) );
         logDto.setTakenStatus( map( log.getTakenStatus() ) );
+        Integer cabinetIndex = logPlanCabinetIndex( log );
+        if ( cabinetIndex != null ) {
+            logDto.setCabinetIndex( cabinetIndex );
+        }
         logDto.setId( log.getId() );
 
         return logDto;
@@ -90,5 +94,20 @@ public class LogMapperImpl implements LogMapper {
             return null;
         }
         return medicineName;
+    }
+
+    private Integer logPlanCabinetIndex(Log log) {
+        if ( log == null ) {
+            return null;
+        }
+        Plan plan = log.getPlan();
+        if ( plan == null ) {
+            return null;
+        }
+        Integer cabinetIndex = plan.getCabinetIndex();
+        if ( cabinetIndex == null ) {
+            return null;
+        }
+        return cabinetIndex;
     }
 }
