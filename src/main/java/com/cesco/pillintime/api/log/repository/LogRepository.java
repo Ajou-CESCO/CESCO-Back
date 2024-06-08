@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +37,9 @@ public interface LogRepository extends JpaRepository<Log, Long> {
     // 예정된 미복용 로그를 조회하기 위한 쿼리
     @Query("SELECT l FROM Log l WHERE l.plannedAt BETWEEN :startOfSecond AND :endOfSecond AND l.takenStatus = 0")
     Optional<List<Log>> findPlannedLog(LocalDateTime startOfSecond, LocalDateTime endOfSecond);
+
+    @Query("SELECT l FROM Log l WHERE DATE(l.plannedAt) = :today AND l.member = :targetMember AND l.takenStatus = 0")
+    Optional<List<Log>> findUnfinishedLog(LocalDate today, Member targetMember);
 
     boolean existsByMemberAndPlanAndPlannedAt(Member member, Plan plan, LocalDateTime plannedAt);
 

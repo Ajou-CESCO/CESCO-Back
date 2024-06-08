@@ -1,5 +1,7 @@
 package com.cesco.pillintime.fcm.service;
 
+import com.cesco.pillintime.api.log.entity.Log;
+import com.cesco.pillintime.api.log.repository.LogRepository;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.exception.CustomException;
@@ -18,30 +20,56 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class FcmService {
 
     private final MemberRepository memberRepository;
+    private final LogRepository logRepository;
     private final SecurityUtil securityUtil;
 
     public void sendPushAlarm(FcmRequestDto fcmRequestDto, boolean checkMember) {
         Member targetMember = memberRepository.findById(fcmRequestDto.getTargetId())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Member requestMember = null;
+        Member requestMember;
         if (checkMember) {
             requestMember = SecurityUtil.getCurrentMember()
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
             securityUtil.checkPermission(requestMember, targetMember);
+        } else {
+            requestMember = null;
         }
 
+        // 찌르기를 호출했을 경우
         if ((fcmRequestDto.getBody() == null) && requestMember != null) {
             fcmRequestDto.setTitle("[약속시간] \uD83D\uDC89 콕 찌르기 \uD83D\uDC89");
             fcmRequestDto.setBody(requestMember.getName() + " 님이 저를 찔렀어요");
+
+            // 오늘의 미완료된 로그를 가져옴
+            LocalDateTime now = LocalDateTime.now();
+            logRepository.findUnfinishedLog(now.toLocalDate(), targetMember)
+                    .ifPresent((logList) -> {
+                        System.out.println(logList.size());
+                        // 가장 근접한 로그의 plannedAt을 찾음
+                        Optional<Log> nearestLog = logList.stream()
+                                .min(Comparator.comparing(log -> Math.abs(log.getPlannedAt().until(now, ChronoUnit.SECONDS))));
+
+                        nearestLog.ifPresent(nearest -> {
+                            LocalDateTime nearestPlannedAt = nearest.getPlannedAt();
+                            LocalTime plannedTime = LocalTime.of(nearestPlannedAt.getHour(), nearestPlannedAt.getMinute());
+
+                            fcmRequestDto.setBody(requestMember.getName() + " 님이 " + plannedTime + "에 약을 먹지 않았다고 나를 찔렀어요");
+                        });
+                    });
         }
 
         try {
