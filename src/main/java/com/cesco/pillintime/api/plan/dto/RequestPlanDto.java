@@ -11,6 +11,7 @@ import java.util.Map;
 public class RequestPlanDto {
 
     private Long memberId;
+    private Long groupId;
     private String medicineId;
     private String medicineName;
     private String medicineSeries;

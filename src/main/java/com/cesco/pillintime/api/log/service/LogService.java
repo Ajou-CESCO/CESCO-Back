@@ -165,7 +165,7 @@ public class LogService {
         LocalDateTime endOfSecond = startOfSecond.plus(999, ChronoUnit.MILLIS);
 
         // 현재 시각과 일치하는 예정 계획이 있을 경우 푸시알림
-        logRepository.findPlannedLog(startOfSecond, endOfSecond)
+        logRepository.findPlannedLogBetween(startOfSecond, endOfSecond)
                 .ifPresent((plannedLogList) -> {
                     for (Log log : plannedLogList) {
                         Map<String, Object> requestParams = new HashMap<>();

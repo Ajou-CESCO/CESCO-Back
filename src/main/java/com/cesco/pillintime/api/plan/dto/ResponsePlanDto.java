@@ -10,6 +10,7 @@ import java.util.Map;
 @Data
 public class ResponsePlanDto {
 
+    private Long groupId;
     private String medicineId;
     private String medicineName;
     private Map<String, String> medicineAdverse;

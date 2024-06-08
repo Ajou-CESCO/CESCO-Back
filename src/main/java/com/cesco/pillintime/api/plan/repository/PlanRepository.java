@@ -15,6 +15,8 @@ import java.util.Optional;
 @Repository
 public interface PlanRepository extends JpaRepository<Plan, Long> {
 
+    Optional<List<Plan>> findPlanByMemberIdAndGroupId(Long memberId, Long groupId);
+
     @Query("SELECT r FROM Plan r WHERE r.member= :member")
     Optional<List<Plan>> findByMember(Member member);
 
@@ -32,4 +34,7 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
 
     @Query("SELECT DISTINCT p.cabinetIndex FROM Plan p WHERE p.member = :member ORDER BY p.cabinetIndex ASC")
     List<Long> findUsingCabinetIndex(Member member);
+
+    @Query("SELECT COALESCE(MAX(p.groupId), 0) FROM Plan p")
+    Long findMaxGroupId();
 }

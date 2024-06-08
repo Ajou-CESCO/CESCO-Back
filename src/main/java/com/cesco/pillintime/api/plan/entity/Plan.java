@@ -25,6 +25,9 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private Long groupId;
+
     @JoinColumn
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -62,6 +65,7 @@ public class Plan {
 
     @Builder
     public Plan(
+            Long groupId,
             Member member,
             String medicineId,
             String medicineName,
@@ -73,6 +77,7 @@ public class Plan {
             LocalDate startAt,
             LocalDate endAt
     ) {
+        this.groupId = groupId;
         this.member = member;
         this.medicineId = medicineId;
         this.medicineName = medicineName;

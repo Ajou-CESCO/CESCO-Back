@@ -36,7 +36,10 @@ public interface LogRepository extends JpaRepository<Log, Long> {
 
     // 예정된 미복용 로그를 조회하기 위한 쿼리
     @Query("SELECT l FROM Log l WHERE l.plannedAt BETWEEN :startOfSecond AND :endOfSecond AND l.takenStatus = 0")
-    Optional<List<Log>> findPlannedLog(LocalDateTime startOfSecond, LocalDateTime endOfSecond);
+    Optional<List<Log>> findPlannedLogBetween(LocalDateTime startOfSecond, LocalDateTime endOfSecond);
+
+    @Query("SELECT l FROM Log l WHERE l.member = :member AND l.takenStatus = 0 AND l.plan.groupId = :groupId")
+    Optional<List<Log>> findPlannedLog(Member member, Long groupId);
 
     @Query("SELECT l FROM Log l WHERE DATE(l.plannedAt) = :today AND l.member = :targetMember AND l.takenStatus = 0")
     Optional<List<Log>> findUnfinishedLog(LocalDate today, Member targetMember);
