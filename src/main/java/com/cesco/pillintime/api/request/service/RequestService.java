@@ -39,6 +39,7 @@ public class RequestService {
         Optional<Request> request = requestRepository.findBySenderAndReceiverPhone(requestMember, receiverPhone);
         if (request.isEmpty()) {
             request = Optional.of(new Request(requestMember, receiverPhone));
+            requestRepository.save(request.get());
         }
 
         memberRepository.findByPhone(receiverPhone)
