@@ -18,7 +18,7 @@ public class MedicineController {
     private final MedicineService medicineService;
 
     @GetMapping
-    public ResponseEntity<ResponseDto> getMedicineInfo(@RequestParam(name = "name") String name, Long memberId) {
+    public ResponseEntity<ResponseDto> getMedicineInfo(@RequestParam(name = "name") String name,@RequestParam(name = "memberId") Long memberId) {
         List<MedicineDto> medicineDtoList = medicineService.getMedicineInfoByName(name, memberId);
         return ResponseUtil.makeResponse(200, "Success get medicine", medicineDtoList);
     }
