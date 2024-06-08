@@ -1,5 +1,6 @@
 package com.cesco.pillintime.api.log.service;
 
+import com.cesco.pillintime.api.log.dto.LogResponseDto;
 import com.cesco.pillintime.api.log.dto.SensorDto;
 import com.cesco.pillintime.api.cabinet.entity.Cabinet;
 import com.cesco.pillintime.api.cabinet.repository.CabinetRepository;
@@ -80,7 +81,7 @@ public class LogService {
         });
     }
 
-    public List<LogDto> getDoseLogByMemberId(Long targetId, LocalDate date) {
+    public LogResponseDto getDoseLogByMemberId(Long targetId, LocalDate date) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
@@ -118,7 +119,9 @@ public class LogService {
                 .comparing(LogDto::getCabinetIndex)
                 .thenComparing(LogDto::getPlannedAt));
 
-        return logDtoList;
+        List<Long> cabinetIndexList = planRepository.findUsingCabinetIndex(targetMember);
+
+        return new LogResponseDto(cabinetIndexList, logDtoList);
     }
 
     @Transactional
