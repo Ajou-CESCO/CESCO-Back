@@ -3,6 +3,7 @@ package com.cesco.pillintime.log.service;
 import com.cesco.pillintime.api.cabinet.entity.Cabinet;
 import com.cesco.pillintime.api.cabinet.repository.CabinetRepository;
 import com.cesco.pillintime.api.log.dto.LogDto;
+import com.cesco.pillintime.api.log.dto.LogResponseDto;
 import com.cesco.pillintime.api.log.dto.SensorDto;
 import com.cesco.pillintime.api.log.entity.Log;
 import com.cesco.pillintime.api.log.entity.TakenStatus;
@@ -17,7 +18,6 @@ import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.fcm.strategy.FcmStrategy;
 import com.cesco.pillintime.security.CustomUserDetails;
 import com.cesco.pillintime.security.SecurityUtil;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -83,12 +83,14 @@ class LogServiceTest {
         patient.setPhone("010-5678-5678");
         patient.setManager(false);
 
+        LocalDate today = LocalDate.now();
         plan = new Plan();
         plan.setId(1L);
         plan.setMember(patient);
-        plan.setWeekday(7); // 2024-06-10은 일요일, weekday는 7 (1-월요일, ..., 7-일요일)
-        plan.setTime(LocalTime.of(18, 0)); // 예시로 정오에 복용 예정
-        plan.setEndAt(LocalDate.now().plusWeeks(4)); // 4주 후 종료 예정
+        plan.setStartAt(today.minusDays(1));
+        plan.setEndAt(today.plusDays(7));
+        plan.setWeekday(1);
+        plan.setTime(LocalTime.of(23, 50));
 
         cabinet = new Cabinet();
         cabinet.setId(1L);
@@ -113,17 +115,22 @@ class LogServiceTest {
     class 복용기록생성 {
         @Test
         void 복용기록_생성() {
-            LocalDate today = LocalDate.now();
+            // Arrange
 
-            when(planRepository.findActivePlan(eq(today))).thenReturn(Optional.of(List.of(plan)));
-            when(logRepository.existsByMemberAndPlanAndPlannedAt(any(Member.class), any(Plan.class), any(LocalDateTime.class))).thenReturn(false);
+            plan.setMedicineId("123123");
+            plan.setMedicineName("Test Medicine");
 
-            // 테스트 메서드 호출
+            List<Plan> planList = new ArrayList<>();
+            planList.add(plan);
+
+            when(planRepository.findActivePlan(LocalDate.now())).thenReturn(Optional.of(planList));
+            when(logRepository.existsByMemberAndPlanAndPlannedAt(any(), any(), any())).thenReturn(false);
+
+            // Act
             logService.createDoseLog();
 
-            // logRepository.save 메서드가 한 번 호출되었는지 검증
-            verify(logRepository, times(1)).save(any(Log.class));
-            verify(planRepository, times(1)).findActivePlan(eq(today));
+            // Assert
+            verify(logRepository, times(1)).save(any());
         }
         @Test
         void 무복용기록_미생성() {
@@ -145,6 +152,7 @@ class LogServiceTest {
             logService.createDoseLog();
 
             // Then
+            verify(planRepository, times(1)).findActivePlan(any(LocalDate.class));
             verify(logRepository, never()).save(any(Log.class));
         }
     }
@@ -166,10 +174,10 @@ class LogServiceTest {
             when(logRepository.findByMemberAndPlannedAtBetween(eq(patient), eq(startOfDay), eq(endOfDay))).thenReturn(Optional.of(logList));
 
             // When
-            List<LogDto> result = logService.getDoseLogByMemberId(patient.getId());
+            LogResponseDto result = logService.getDoseLogByMemberId(patient.getId(), null);
 
             // Then
-            LogDto logDto = result.get(0);
+            LogDto logDto = result.getLogList().get(0);
             assertEquals(log.getId(), logDto.getId());
             assertEquals(log.getMember().getId(), logDto.getMemberId());
             assertEquals(log.getPlannedAt(), logDto.getPlannedAt());
@@ -190,10 +198,10 @@ class LogServiceTest {
             when(logRepository.findByMemberAndPlannedAtBetween(eq(patient), eq(startOfDay), eq(endOfDay))).thenReturn(Optional.of(logList));
 
             // When
-            List<LogDto> result = logService.getDoseLogByMemberId(patient.getId());
+            LogResponseDto result = logService.getDoseLogByMemberId(patient.getId(), null);
 
             // Then
-            LogDto logDto = result.get(0);
+            LogDto logDto = result.getLogList().get(0);
             assertEquals(log.getId(), logDto.getId());
             assertEquals(log.getMember().getId(), logDto.getMemberId());
             assertEquals(log.getPlannedAt(), logDto.getPlannedAt());
@@ -206,7 +214,7 @@ class LogServiceTest {
 
             // When
             CustomException exception = assertThrows(CustomException.class, () ->
-                    logService.getDoseLogByMemberId(patient.getId())
+                    logService.getDoseLogByMemberId(patient.getId(), null)
             );
             // Then
             assertEquals(ErrorCode.NOT_FOUND_USER, exception.getErrorCode());
@@ -221,7 +229,7 @@ class LogServiceTest {
 
             // When
             CustomException exception = assertThrows(CustomException.class, () ->
-                    logService.getDoseLogByMemberId(patient.getId())
+                    logService.getDoseLogByMemberId(patient.getId(), null)
             );
 
             // Then
@@ -280,13 +288,13 @@ class LogServiceTest {
             FcmStrategy clientPlanStrategy = mock(FcmStrategy.class);
             lenient().when(context.getBean("clientPlanStrategy", FcmStrategy.class)).thenReturn(clientPlanStrategy);
 
-            when(logRepository.findPlannedLog(eq(startOfSecond), eq(endOfSecond))).thenReturn(Optional.of(List.of(log)));
+            when(logRepository.findPlannedLogBetween(eq(startOfSecond), eq(endOfSecond))).thenReturn(Optional.of(List.of(log)));
 
             // When
             logService.updateDoseLogByCurrentTime();
 
             // Then
-            verify(logRepository, times(1)).findPlannedLog(eq(startOfSecond), eq(endOfSecond));
+            verify(logRepository, times(1)).findPlannedLogBetween(eq(startOfSecond), eq(endOfSecond));
             verify(clientPlanStrategy, times(1)).execute(any(Map.class));
         }
         @Test
@@ -317,4 +325,4 @@ class LogServiceTest {
             verify(managerLogStrategy, times(1)).execute(any(Map.class));
         }
     }
-}
+    }

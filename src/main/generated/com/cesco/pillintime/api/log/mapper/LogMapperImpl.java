@@ -4,12 +4,11 @@ import com.cesco.pillintime.api.log.dto.LogDto;
 import com.cesco.pillintime.api.log.entity.Log;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.plan.entity.Plan;
-import java.time.LocalTime;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-09T19:19:26+0900",
+    date = "2024-06-09T20:41:49+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 public class LogMapperImpl implements LogMapper {
@@ -23,9 +22,9 @@ public class LogMapperImpl implements LogMapper {
         LogDto logDto = new LogDto();
 
         logDto.setMemberId( logMemberId( log ) );
-        logDto.setPlanId( logPlanId( log ) );
-        logDto.setPlannedAt( logPlanTime( log ) );
-        logDto.setMedicineName( logPlanMedicineName( log ) );
+        logDto.setMedicineId( log.getMedicineId() );
+        logDto.setPlannedAt( extractLocalTime( log.getPlannedAt() ) );
+        logDto.setMedicineName( log.getMedicineName() );
         logDto.setTakenStatus( map( log.getTakenStatus() ) );
         Integer cabinetIndex = logPlanCabinetIndex( log );
         if ( cabinetIndex != null ) {
@@ -49,51 +48,6 @@ public class LogMapperImpl implements LogMapper {
             return null;
         }
         return id;
-    }
-
-    private Long logPlanId(Log log) {
-        if ( log == null ) {
-            return null;
-        }
-        Plan plan = log.getPlan();
-        if ( plan == null ) {
-            return null;
-        }
-        Long id = plan.getId();
-        if ( id == null ) {
-            return null;
-        }
-        return id;
-    }
-
-    private LocalTime logPlanTime(Log log) {
-        if ( log == null ) {
-            return null;
-        }
-        Plan plan = log.getPlan();
-        if ( plan == null ) {
-            return null;
-        }
-        LocalTime time = plan.getTime();
-        if ( time == null ) {
-            return null;
-        }
-        return time;
-    }
-
-    private String logPlanMedicineName(Log log) {
-        if ( log == null ) {
-            return null;
-        }
-        Plan plan = log.getPlan();
-        if ( plan == null ) {
-            return null;
-        }
-        String medicineName = plan.getMedicineName();
-        if ( medicineName == null ) {
-            return null;
-        }
-        return medicineName;
     }
 
     private Integer logPlanCabinetIndex(Log log) {
