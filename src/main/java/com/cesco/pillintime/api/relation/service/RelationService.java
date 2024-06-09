@@ -39,6 +39,10 @@ public class RelationService {
 
         Member targetMember = request.getSender();
 
+        if (!targetMember.isSubscriber()) {
+            throw new CustomException(ErrorCode.MANAGER_IS_NOT_SUBSCRIBER);
+        }
+
         Relation relation = new Relation(targetMember, requestMember);
         relationRepository.save(relation);
         requestRepository.delete(request);

@@ -26,6 +26,7 @@ public enum ErrorCode {
 
     // 403 Forbidden
     INVALID_USER_ACCESS(HttpStatus.FORBIDDEN, 40301, "Invalid user access"),
+    MANAGER_IS_NOT_SUBSCRIBER(HttpStatus.FORBIDDEN, 40302, "Manger is not subscriber"),
 
     // 404 Not Found
     NOT_FOUND_USER(HttpStatus.NOT_FOUND, 40401, "Not found user"),

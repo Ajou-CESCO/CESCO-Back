@@ -156,7 +156,7 @@ public class MedicineService {
             medicineDto.setMedicineImage(itemImage);
 
             String medicineEffect = removeNewLines(item.hasNonNull("efcyQesitm") ? item.get("efcyQesitm").asText() : nullText);
-            medicineEffect = medicineEffect.replaceAll("이 약은 ", "").replaceAll("에 사용합니다.", nullText);
+            medicineEffect = medicineEffect.replaceAll("이 약은 ", "").replaceAll("에 사용합니다.", "");
             medicineDto.setMedicineEffect(medicineEffect);
 
             medicineDto.setUseMethod(removeNewLines(item.hasNonNull("useMethodQesitm") ? item.get("useMethodQesitm").asText() : nullText));
