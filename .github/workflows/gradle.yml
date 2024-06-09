@@ -74,4 +74,7 @@ jobs:
 
       - name: copy dependencies
         run: sudo docker cp /root/SubscriptionKey_562KC7B3Q9.p8 pillintime_spring:/app/src/main/resources/apple/
+
+      - name: run prometheus
+        run: sudo sh /root/run_prometheus.sh
       
