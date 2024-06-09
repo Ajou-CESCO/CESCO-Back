@@ -70,4 +70,7 @@ jobs:
 
       - name: copy dependencies
         run: sudo docker cp /root/fcm-secret.json pillintime_spring:/app/src/main/resources/firebase/
+
+      - name: copy dependencies
+        run: sudo docker cp /root/SubscriptionKey_562KC7B3Q9.p8 pillintime_spring:/app/src/main/resources/apple/
       
