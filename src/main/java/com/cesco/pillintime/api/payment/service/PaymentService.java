@@ -45,6 +45,8 @@ public class PaymentService {
 
     @Transactional
     public PaymentResDto getPaymentInfo(PaymentReqDto paymentReqDto) {
+        System.out.println("PAYMENT HELLO");
+
         Long amount = paymentReqDto.getAmount();
         String payType = paymentReqDto.getPayType().name();
         Long memberId = paymentReqDto.getMemberId();
@@ -71,8 +73,10 @@ public class PaymentService {
             paymentResDto = payment.toDto();
             paymentResDto.setSuccessUrl(successCallBackUrl);
             paymentResDto.setFailUrl(failCallBackUrl);
+            System.out.println(paymentResDto);
             return paymentResDto;
         } catch (Exception e) {
+            System.out.println(e);
             throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR);
         }
     }
@@ -121,6 +125,7 @@ public class PaymentService {
     }
 
     public PaymentFailDto getPaymentFailInfo(String errorCode, String errorMsg, String orderId) {
+        System.out.println("PAYMENT FAIL");
         Payment payment = paymentRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_PAYMENT));
 
