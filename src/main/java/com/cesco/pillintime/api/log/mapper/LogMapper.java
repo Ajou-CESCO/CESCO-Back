@@ -17,9 +17,9 @@ public interface LogMapper {
     LogMapper INSTANCE = Mappers.getMapper(LogMapper.class);
 
     @Mapping(source = "member.id", target = "memberId")
-    @Mapping(source = "plan.medicineId", target = "medicineId")
+    @Mapping(source = "medicineId", target = "medicineId")
     @Mapping(source = "plannedAt", target = "plannedAt", qualifiedByName = "extractLocalTime")
-    @Mapping(source = "plan.medicineName", target = "medicineName")
+    @Mapping(source = "medicineName", target = "medicineName")
     @Mapping(source = "takenStatus", target = "takenStatus")
     @Mapping(source = "plan.cabinetIndex", target = "cabinetIndex")
     LogDto toDto(Log log);
