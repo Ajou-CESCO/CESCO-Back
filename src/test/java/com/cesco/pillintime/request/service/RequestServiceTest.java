@@ -160,7 +160,6 @@ class RequestServiceTest {
             verify(requestRepository, times(1)).findByReceiverPhone(guardian.getPhone());
         }
     }
-
     @Nested
     class 요청삭제 {
         @Test
