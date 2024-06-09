@@ -37,4 +37,6 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
 
     @Query("SELECT COALESCE(MAX(p.groupId), 0) FROM Plan p")
     Long findMaxGroupId();
+
+    List<Plan> findByMemberAndMedicineSeries(Member member, String medicineSeries);
 }

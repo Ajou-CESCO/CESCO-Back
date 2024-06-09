@@ -57,8 +57,6 @@ public class PlanService {
         Long maxGroupId = planRepository.findMaxGroupId();
         Long newGroupId = (maxGroupId == null) ? 1L : maxGroupId + 1;
 
-        System.out.println(newGroupId);
-
         // Plan 엔티티 생성 및 설정
         List<Plan> planList = new ArrayList<>();
         for (Integer weekday : weekdayList) {
@@ -68,7 +66,25 @@ public class PlanService {
             }
         }
 
-        System.out.println(planList.get(0).getGroupId());
+        // medicineAdverse에 '효능군중복' 키가 있을 경우 medicineSeries가 같은 기존 계획들을 가져오기
+        if (requestPlanDto.getMedicineAdverse() != null && requestPlanDto.getMedicineAdverse().containsKey("효능군중복")) {
+            String medicineSeries = requestPlanDto.getMedicineSeries();
+            List<Plan> existingPlans = planRepository.findByMemberAndMedicineSeries(targetMember, medicineSeries);
+
+            // 기존 계획들의 medicineAdverse에 '효능군중복' 키와 값을 추가
+            String efficacyOverlapValue = requestPlanDto.getMedicineAdverse().get("효능군중복");
+            for (Plan existingPlan : existingPlans) {
+                Map<String, String> existingAdverse = existingPlan.getMedicineAdverse();
+                if (existingAdverse == null) {
+                    existingAdverse = new HashMap<>();
+                }
+                existingAdverse.put("효능군중복", efficacyOverlapValue);
+                existingPlan.setMedicineAdverse(existingAdverse);
+            }
+
+            // 업데이트된 기존 계획들을 저장
+            planRepository.saveAll(existingPlans);
+        }
 
         planRepository.saveAll(planList);
         logService.createDoseLog();
