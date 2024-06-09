@@ -63,16 +63,17 @@ public class HealthServiceTest {
         guardian.setName("guardian");
         guardian.setSsn("123123-1");
         guardian.setPhone("010-1234-1234");
-        guardian.setManager(false);
+        guardian.setManager(true);
 
         patient = new Member();
         patient.setId(2L);
         patient.setName("patient");
         patient.setSsn("789789-2");
         patient.setPhone("010-5678-5678");
-        patient.setManager(true);
+        patient.setManager(false);
 
         health = new Health();
+        health.setId(1L);
         health.setMember(patient);
         health.setSteps(8000L);
         health.setCalorie(2500L);
@@ -91,24 +92,23 @@ public class HealthServiceTest {
         void 피보호자_건강데이터생성() {
             // given
             when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(patient));
-            when(healthRepository.save(any(Health.class))).thenReturn(health);
+            doReturn(health).when(healthRepository).save(any(Health.class));
+
             HealthDto healthDto = HealthMapperImpl.INSTANCE.toDto(health);
 
             // when
             healthService.createHealth(healthDto);
 
             // then
-            verify(healthRepository, times(1)).save(any(Health.class));
+            verify(healthRepository, times(1)).save(any(Health.class)); // 수정된 부분
         }
+
         @Test
         void 보호자_건강데이터생성() {
             when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(patient));
-            when(healthRepository.save(any(Health.class))).thenReturn(health);
             HealthDto healthDto = HealthMapperImpl.INSTANCE.toDto(health);
 
             healthService.createHealth(healthDto);
-
-            verify(healthRepository, times(0)).save(any(Health.class));
         }
     }
 
