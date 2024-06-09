@@ -52,6 +52,11 @@ public class LogService {
                 LocalTime plannedTime = plan.getTime();
                 LocalDateTime plannedAt = plannedDate.atTime(plannedTime);
 
+                // 예정 시각이 실제 계획의 시작 시각보다 이를 경우 무시
+                if (plannedDate.isBefore(plan.getStartAt())) {
+                    continue;
+                }
+
                 // 현재 시각보다 예정 시각이 빠른 경우 무시
                 if (plannedAt.isBefore(now)) {
                     continue;
@@ -75,7 +80,7 @@ public class LogService {
         });
     }
 
-    public List<LogDto> getDoseLogByMemberId(Long targetId) {
+    public List<LogDto> getDoseLogByMemberId(Long targetId, LocalDate date) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
@@ -92,9 +97,12 @@ public class LogService {
             throw new CustomException(ErrorCode.INVALID_USERTYPE);
         }
 
-        LocalDate today = LocalDate.now();
-        LocalDateTime startOfDay = today.atStartOfDay();
-        LocalDateTime endOfDay = today.atTime(LocalTime.MAX);
+        if (date == null) {
+            date = LocalDate.now();
+        }
+
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
 
         Optional<List<Log>> logListOptional = logRepository.findByMemberAndPlannedAtBetween(targetMember, startOfDay, endOfDay);
 
@@ -105,6 +113,10 @@ public class LogService {
                 logDtoList.add(logDto);
             }
         });
+
+        logDtoList.sort(Comparator
+                .comparing(LogDto::getCabinetIndex)
+                .thenComparing(LogDto::getPlannedAt));
 
         return logDtoList;
     }
@@ -156,8 +168,12 @@ public class LogService {
                         Map<String, Object> requestParams = new HashMap<>();
                         requestParams.put("log", log);
 
-                        FcmStrategy clientPlanStrategy = context.getBean("clientPlanStrategy", FcmStrategy.class);
-                        clientPlanStrategy.execute(requestParams);
+                        try {
+                            FcmStrategy clientPlanStrategy = context.getBean("clientPlanStrategy", FcmStrategy.class);
+                            clientPlanStrategy.execute(requestParams);
+                        } catch (Exception ignored) {
+                        }
+
                     }
                 });
 
@@ -170,10 +186,14 @@ public class LogService {
             Map<String, Object> requestParams = new HashMap<>();
             requestParams.put("log", log);
 
-            FcmStrategy clientLogStrategy = context.getBean("clientOverLogStrategy", FcmStrategy.class);
-            FcmStrategy managerLogStrategy = context.getBean("managerOverLogStrategy", FcmStrategy.class);
-            clientLogStrategy.execute(requestParams);
-            managerLogStrategy.execute(requestParams);
+            try {
+                FcmStrategy clientLogStrategy = context.getBean("clientOverLogStrategy", FcmStrategy.class);
+                clientLogStrategy.execute(requestParams);
+
+                FcmStrategy managerLogStrategy = context.getBean("managerOverLogStrategy", FcmStrategy.class);
+                managerLogStrategy.execute(requestParams);
+            } catch (Exception ignored) {
+            }
         });
     }
 

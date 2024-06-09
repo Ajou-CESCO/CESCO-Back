@@ -42,17 +42,19 @@ public class RequestService {
                     return requestRepository.save(newRequest);
                 });
 
-        System.out.println(request.getId());
-
         memberRepository.findByPhone(receiverPhone)
                 .ifPresent((targetMember) -> {
                     Map<String, Object> requestParams = new HashMap<>();
                     requestParams.put("requestMember", requestMember);
                     requestParams.put("targetMember", targetMember);
 
-                    FcmStrategy requestStrategy = context.getBean("requestStrategy", FcmStrategy.class);
-                    requestStrategy.execute(requestParams);
+                    try {
+                        FcmStrategy requestStrategy = context.getBean("requestStrategy", FcmStrategy.class);
+                        requestStrategy.execute(requestParams);
+                    } catch (Exception ignored) {
+                    }
                 });
+
         return request;
     }
 

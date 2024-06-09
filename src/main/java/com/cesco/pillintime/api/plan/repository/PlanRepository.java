@@ -21,9 +21,15 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     @Query("SELECT p FROM Plan p WHERE :today <= p.endAt")
     Optional<List<Plan>> findActivePlan(LocalDate today);
 
+    @Query("SELECT p FROM Plan p WHERE :today > p.endAt")
+    Optional<List<Plan>> findInactivePlan(LocalDate today);
+
     @Query("SELECT p FROM Plan p WHERE p.member= :member AND p.medicineId= :medicineId AND p.cabinetIndex= :cabinetIndex")
     Optional<List<Plan>> findTargetPlan(Member member, Long medicineId, int cabinetIndex);
 
     @Query("SELECT DISTINCT p.medicineName , p.medicineSeries FROM Plan p WHERE p.member= :member")
     List<Map<String, String>> findTakingMedicine(@Param("member") Member member);
+
+    @Query("SELECT DISTINCT p.cabinetIndex FROM Plan p WHERE p.member= :member")
+    List<Long> findUsingCabinetIndex(Member member);
 }

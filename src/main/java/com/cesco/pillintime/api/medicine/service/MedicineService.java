@@ -94,6 +94,26 @@ public class MedicineService {
         }
     }
 
+    public MedicineDto getMedicineInfoByMedicineId(int medicineId) {
+//        long itemCode = Long.parseLong(medicineId);
+
+        try {
+            StringBuilder result = new StringBuilder();
+            String apiUrl = serviceUrl + "serviceKey=" + serviceKey + "&itemSeq=" + medicineId + "&type=json";
+            List<MedicineDto> medicineDtoList = getMedicineDtoList(result, apiUrl);
+
+            MedicineDto medicineDto = medicineDtoList.get(0);
+            medicineDto.setMedicineSeries("");
+            medicineDto.setMedicineAdverse(new HashMap<>());
+
+            return medicineDto;
+        } catch (CustomException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new CustomException(ErrorCode.NOT_FOUND_MEDICINE);
+        }
+    }
+
     // ===========================================================================
 
     private List<MedicineDto> getMedicineDtoList(StringBuilder result, String apiUrl) throws IOException {
