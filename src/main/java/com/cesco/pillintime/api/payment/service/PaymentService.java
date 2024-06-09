@@ -1,5 +1,6 @@
 package com.cesco.pillintime.api.payment.service;
 
+import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.api.payment.dto.PaymentFailDto;
 import com.cesco.pillintime.api.payment.dto.PaymentReqDto;
@@ -102,11 +103,17 @@ public class PaymentService {
         param.put("orderId", orderId);
         param.put("amount", amount);
 
-        return rest.postForEntity(
+        String body = rest.postForEntity(
                 "https://api.tosspayments.com/v1/payments/" + paymentKey,
                 new HttpEntity<>(param, headers),
                 String.class
         ).getBody();
+
+        Member member = payment.getMember();
+        member.setSubscriber(true);
+        memberRepository.save(member);
+
+        return body;
     }
 
     public PaymentFailDto getPaymentFailInfo(String errorCode, String errorMsg, String orderId) {
