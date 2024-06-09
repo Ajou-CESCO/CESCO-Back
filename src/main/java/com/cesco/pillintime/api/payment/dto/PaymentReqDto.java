@@ -15,9 +15,9 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PaymentReqDto {
 
-    private PayType payType;
-    private Long amount;
-    private String orderName;
+    private PayType payType = PayType.valueOf("CARD");
+    private Long amount = 30000L;
+    private String orderName = "프리미엄 이용권";
     private Long memberId;
 
     public Payment toEntity() {

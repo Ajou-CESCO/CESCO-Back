@@ -47,18 +47,7 @@ public class PaymentService {
     public PaymentResDto getPaymentInfo(PaymentReqDto paymentReqDto) {
         System.out.println("PAYMENT HELLO");
 
-        Long amount = paymentReqDto.getAmount();
-        String payType = paymentReqDto.getPayType().name();
         Long memberId = paymentReqDto.getMemberId();
-        String orderName = paymentReqDto.getOrderName();
-
-        if (!orderName.equals("프리미엄 이용권")) {
-            throw new CustomException(ErrorCode.INVALID_PAYMENT_NAME);
-        }
-
-        if (amount != 30000) {
-            throw new CustomException(ErrorCode.INVALID_PAYMENT_AMOUNT);
-        }
 
         PaymentResDto paymentResDto;
         try {

@@ -29,8 +29,8 @@ public class PaymentController {
     public ResponseEntity<ResponseDto> getPaymentFinalInfo(
             @RequestParam String paymentKey, @RequestParam String orderId, @RequestParam Long amount) {
         try {
-            String body = paymentService.getPaymentFinalInfo(paymentKey, orderId, amount);
-            return ResponseUtil.makeResponse(200, "Success get payment info", body);
+            paymentService.getPaymentFinalInfo(paymentKey, orderId, amount);
+            return ResponseUtil.makeResponse(200, "Success get payment info", null);
         } catch (Exception e) {
             throw new CustomException(ErrorCode.NOT_FOUND_PAYMENT);
         }
