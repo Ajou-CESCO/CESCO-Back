@@ -30,7 +30,7 @@ public class CabinetService {
 
         Member targetMember;
 
-        if (!requestMember.getId().equals(ownerId)) { // ??? -> requestMember.getId() == ownerId
+        if (!requestMember.getId().equals(ownerId)) {
              targetMember = memberRepository.findById(ownerId)
                             .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
             securityUtil.checkPermission(requestMember, targetMember);
