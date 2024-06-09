@@ -51,14 +51,14 @@ class MemberServiceTest {
         guardian.setName("guardian");
         guardian.setSsn("123123-1");
         guardian.setPhone("010-1234-1234");
-        guardian.setManager(false);
+        guardian.setManager(true);
 
         patient = new Member();
         patient.setId(2L);
         patient.setName("patient");
         patient.setSsn("789789-2");
         patient.setPhone("010-5678-5678");
-        patient.setManager(true);
+        patient.setManager(false);
 
         Authentication authentication = mock(Authentication.class);
         SecurityContextHolder.getContext().setAuthentication(authentication);

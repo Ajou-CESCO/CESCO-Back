@@ -121,7 +121,7 @@ public class LogService {
         System.out.println(cabinet.getSerial());
         System.out.println(index);
 
-        Optional<Member> owner = memberRepository.findByCabinet(cabinet); // ??? -> Member owner = cabinet.getOwner();
+        Optional<Member> owner = memberRepository.findByCabinet(cabinet);
 
         owner.ifPresent(member -> {
             // 현재 날짜, 시각 구하기
