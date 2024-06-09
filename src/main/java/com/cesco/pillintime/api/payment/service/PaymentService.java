@@ -78,6 +78,10 @@ public class PaymentService {
     }
 
     public String getPaymentFinalInfo(String paymentKey, String orderId, Long amount) {
+        System.out.println(paymentKey);
+        System.out.println(orderId);
+        System.out.println(amount);
+
         // 사용자가 요청한 Payment 검증
         Payment payment = paymentRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_PAYMENT));
