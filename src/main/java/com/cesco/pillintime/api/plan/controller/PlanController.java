@@ -30,9 +30,15 @@ public class PlanController {
         return ResponseUtil.makeResponse(200, "Success get dose plan", planDtoList);
     }
 
+    @PatchMapping
+    public ResponseEntity<ResponseDto> updatePlanByGroupId(@RequestBody RequestPlanDto requestPlanDto) {
+        planService.updatePlanByGroupId(requestPlanDto);
+        return ResponseUtil.makeResponse(200, "Success update dose plan", null);
+    }
+
     @DeleteMapping
-    public ResponseEntity<ResponseDto> deletePlan(@RequestParam Long memberId, Long medicineId, int cabinetIndex) {
-        planService.deletePlanById(memberId, medicineId, cabinetIndex);
+    public ResponseEntity<ResponseDto> deletePlan(@RequestParam Long memberId, Long groupId) {
+        planService.deletePlanById(memberId, groupId);
         return ResponseUtil.makeResponse(200, "Success delete dose plan", null);
     }
 }

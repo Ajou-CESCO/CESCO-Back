@@ -14,6 +14,9 @@ public enum ErrorCode {
     ALREADY_EXISTS_OWNER(HttpStatus.BAD_REQUEST, 40003, "Already exists owner"),
     MEDICINE_NAME_IS_EMPTY(HttpStatus.BAD_REQUEST, 40004, "Medicine name is empty"),
     INVALID_USERTYPE(HttpStatus.BAD_REQUEST, 40005, "Invalid usertype"),
+    INVALID_PAYMENT_NAME(HttpStatus.BAD_REQUEST, 40006, "Invalid payment name"),
+    INVALID_PAYMENT_AMOUNT(HttpStatus.BAD_REQUEST, 40007, "Invalid payment amount"),
+    ALREADY_EXISTS_RELATION(HttpStatus.BAD_REQUEST, 40008, "Already exists relation"),
 
     // 401 Unauthorized
     TOKEN_IS_INVALID(HttpStatus.UNAUTHORIZED, 40101, "Token is invalid"),
@@ -34,6 +37,7 @@ public enum ErrorCode {
     NOT_FOUND_PLAN(HttpStatus.NOT_FOUND, 40407, "Not found plan"),
     NOT_FOUND_LOG(HttpStatus.NOT_FOUND, 40408, "Not found log"),
     NOT_FOUND_OWNER(HttpStatus.NOT_FOUND, 40409, "Not found owner"),
+    NOT_FOUND_PAYMENT(HttpStatus.NOT_FOUND, 40410, "Not found payment"),
 
     // 500 Internal Server
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 50001, "Internal server error"),

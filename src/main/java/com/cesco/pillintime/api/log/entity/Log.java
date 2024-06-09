@@ -28,8 +28,14 @@ public class Log {
 
     @JoinColumn
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Plan plan;
+
+    @Column
+    private String medicineId;
+
+    @Column
+    private String medicineName;
 
     @Column
     private LocalDateTime plannedAt;

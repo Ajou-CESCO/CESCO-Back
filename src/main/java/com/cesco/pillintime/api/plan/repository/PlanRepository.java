@@ -15,6 +15,8 @@ import java.util.Optional;
 @Repository
 public interface PlanRepository extends JpaRepository<Plan, Long> {
 
+    Optional<List<Plan>> findPlanByMemberIdAndGroupId(Long memberId, Long groupId);
+
     @Query("SELECT r FROM Plan r WHERE r.member= :member")
     Optional<List<Plan>> findByMember(Member member);
 
@@ -24,12 +26,15 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     @Query("SELECT p FROM Plan p WHERE :today > p.endAt")
     Optional<List<Plan>> findInactivePlan(LocalDate today);
 
-    @Query("SELECT p FROM Plan p WHERE p.member= :member AND p.medicineId= :medicineId AND p.cabinetIndex= :cabinetIndex")
-    Optional<List<Plan>> findTargetPlan(Member member, Long medicineId, int cabinetIndex);
+    @Query("SELECT p FROM Plan p WHERE p.member= :member AND p.groupId= :groupId")
+    Optional<List<Plan>> findTargetPlan(Member member, Long groupId);
 
     @Query("SELECT DISTINCT p.medicineName , p.medicineSeries FROM Plan p WHERE p.member= :member")
     List<Map<String, String>> findTakingMedicine(@Param("member") Member member);
 
-    @Query("SELECT DISTINCT p.cabinetIndex FROM Plan p WHERE p.member= :member")
+    @Query("SELECT DISTINCT p.cabinetIndex FROM Plan p WHERE p.member = :member ORDER BY p.cabinetIndex ASC")
     List<Long> findUsingCabinetIndex(Member member);
+
+    @Query("SELECT COALESCE(MAX(p.groupId), 0) FROM Plan p")
+    Long findMaxGroupId();
 }

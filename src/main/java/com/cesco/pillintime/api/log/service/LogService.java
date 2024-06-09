@@ -1,5 +1,6 @@
 package com.cesco.pillintime.api.log.service;
 
+import com.cesco.pillintime.api.log.dto.LogResponseDto;
 import com.cesco.pillintime.api.log.dto.SensorDto;
 import com.cesco.pillintime.api.cabinet.entity.Cabinet;
 import com.cesco.pillintime.api.cabinet.repository.CabinetRepository;
@@ -72,6 +73,8 @@ public class LogService {
                     log.setMember(plan.getMember());
                     log.setPlan(plan);
                     log.setPlannedAt(plannedAt);
+                    log.setMedicineId(plan.getMedicineId());
+                    log.setMedicineName(plan.getMedicineName());
                     log.setTakenStatus(TakenStatus.NOT_COMPLETED);
 
                     logRepository.save(log);
@@ -80,7 +83,7 @@ public class LogService {
         });
     }
 
-    public List<LogDto> getDoseLogByMemberId(Long targetId, LocalDate date) {
+    public LogResponseDto getDoseLogByMemberId(Long targetId, LocalDate date) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
@@ -118,7 +121,9 @@ public class LogService {
                 .comparing(LogDto::getCabinetIndex)
                 .thenComparing(LogDto::getPlannedAt));
 
-        return logDtoList;
+        List<Long> cabinetIndexList = planRepository.findUsingCabinetIndex(targetMember);
+
+        return new LogResponseDto(cabinetIndexList, logDtoList);
     }
 
     @Transactional
@@ -162,7 +167,7 @@ public class LogService {
         LocalDateTime endOfSecond = startOfSecond.plus(999, ChronoUnit.MILLIS);
 
         // 현재 시각과 일치하는 예정 계획이 있을 경우 푸시알림
-        logRepository.findPlannedLog(startOfSecond, endOfSecond)
+        logRepository.findPlannedLogBetween(startOfSecond, endOfSecond)
                 .ifPresent((plannedLogList) -> {
                     for (Log log : plannedLogList) {
                         Map<String, Object> requestParams = new HashMap<>();

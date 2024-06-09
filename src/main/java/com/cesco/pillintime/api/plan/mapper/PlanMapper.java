@@ -25,7 +25,8 @@ public interface PlanMapper {
     @Mapping(source = "requestPlanDto.cabinetIndex", target = "cabinetIndex")
     @Mapping(source = "requestPlanDto.startAt", target = "startAt")
     @Mapping(source = "requestPlanDto.endAt", target = "endAt")
-    Plan toPlanEntity(RequestPlanDto requestPlanDto, Member member, Integer weekday, LocalTime time);
+    @Mapping(source = "groupId", target = "groupId")
+    Plan toPlanEntity(RequestPlanDto requestPlanDto, Member member, Integer weekday, LocalTime time, Long groupId);
 
     default List<ResponsePlanDto> toResponseDto(List<Plan> planList) {
         List<ResponsePlanDto> planDtoList = new ArrayList<>();
@@ -49,6 +50,7 @@ public interface PlanMapper {
                 if (!plans.isEmpty()) {
                     Plan firstPlan = plans.get(0); // 같은 그룹의 대표 Plan 하나 선택
                     ResponsePlanDto responsePlanDto = new ResponsePlanDto();
+                    responsePlanDto.setGroupId(firstPlan.getGroupId());
                     responsePlanDto.setMedicineId(medicineId);
                     responsePlanDto.setMedicineName(firstPlan.getMedicineName());
                     responsePlanDto.setCabinetIndex(cabinetIndex);
@@ -59,7 +61,6 @@ public interface PlanMapper {
                     // 중복값 제거를 위해 Set -> List 변환 수행
                     Set<LocalTime> timeSet = new HashSet<>();
                     Set<Integer> weekdaySet = new HashSet<>();
-
 
                     for (Plan plan : plans) {
                         timeSet.add(plan.getTime());

@@ -9,10 +9,10 @@ public class LogDto {
 
     private Long id;
     private Long memberId;
-    private Long planId;
+    private String medicineId;
+    private String medicineName;
     private LocalTime plannedAt;
     private int cabinetIndex;
-    private String medicineName;
     private Integer takenStatus;
 
 }
