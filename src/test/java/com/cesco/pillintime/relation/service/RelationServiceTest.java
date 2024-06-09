@@ -3,7 +3,6 @@ package com.cesco.pillintime.relation.service;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.relation.dto.RelationDto;
 import com.cesco.pillintime.api.relation.entity.Relation;
-import com.cesco.pillintime.api.relation.mapper.RelationMapperImpl;
 import com.cesco.pillintime.api.relation.repository.RelationRepository;
 import com.cesco.pillintime.api.relation.service.RelationService;
 import com.cesco.pillintime.api.request.entity.Request;
