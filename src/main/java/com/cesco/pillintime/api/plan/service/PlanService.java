@@ -153,7 +153,7 @@ public class PlanService {
     }
 
     @Transactional
-    public void deletePlanById(Long memberId, Long medicineId, int cabinetIndex) {
+    public void deletePlanById(Long memberId, Long groupId) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
@@ -166,11 +166,10 @@ public class PlanService {
             targetMember = requestMember;
         }
 
-        Long groupId = 1L;
-
-        planRepository.findTargetPlan(targetMember, medicineId, cabinetIndex)
+        planRepository.findTargetPlan(targetMember, groupId)
                 .ifPresent(planRepository::deleteAll);
-        logRepository.findPlannedLog(targetMember, groupId);
+        logRepository.findPlannedLog(targetMember, groupId)
+                .ifPresent(logRepository::deleteAll);
     }
 
     @Transactional
