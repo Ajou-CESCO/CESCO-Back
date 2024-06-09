@@ -63,6 +63,12 @@ public class HealthService {
         calorieMap.put(60, 2100);
         calorieMap.put(70, 1850);
     }
+
+    /**
+     * 요청자가 피보호자일 경우 건강 데이터를 생성
+     * @param healthDto, 생성할 건강 데이터
+     * @return 없음.
+     */
     @Transactional
     public void createHealth(@RequestBody HealthDto healthDto) {
         Member member = SecurityUtil.getCurrentMember()
@@ -78,6 +84,13 @@ public class HealthService {
         healthRepository.save(health);
     }
 
+    /**
+     * 피보호자의 건강 데이터를 조회한 뒤 HealthDto를 반환
+     * 피보호자의 당일 건강 데이터가 기록되지 않았다면 null을 반환
+     *
+     * @param targetId 조회할 사용자의 ID
+     * @return 건강 데이터를 담은 HealthDto 객체
+     */
     public HealthDto getHealthByMemberId(Long targetId) {
         Member requestMember = SecurityUtil.getCurrentMember()
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
@@ -94,6 +107,7 @@ public class HealthService {
 
         Optional<Health> todayHealthOptional = healthRepository.findRecentHealthByDate(targetMember, today);
 
+        // 당일 건강 정보 없으면 null 반환
         if (todayHealthOptional.isEmpty()) {
             return null;
         }
@@ -103,6 +117,7 @@ public class HealthService {
         // 현재 나이, 나이 대 생성
         int currentAge = (LocalDate.now().getYear() % 100 - Integer.parseInt(targetMember.getSsn().substring(0, 2)));
         int ageGroup = (currentAge < 0 ? currentAge + 100 : currentAge) / 10 * 10;
+
         // 평균 도보, 메시지 생성
         Long step = (todayHealthDto.getSteps() != null) ? todayHealthDto.getSteps() : 0L;
         Long averStep = (long) meanStep[ageGroup/10];
@@ -124,6 +139,7 @@ public class HealthService {
         Long recommendSleepTime = sleepTimeMap.floorEntry(ageGroup).getValue();
         String sleepMessage = getStringSleep(todaySleepTime, recommendSleepTime);
 
+        // 반환 HealthDto 객체애 값 대입
         todayHealthDto.setAgeGroup((long) ageGroup);
         todayHealthDto.setSteps(step);
         todayHealthDto.setAverStep(averStep);
