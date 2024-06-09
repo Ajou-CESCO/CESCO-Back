@@ -182,10 +182,28 @@ public class PlanService {
             targetMember = requestMember;
         }
 
-        logRepository.findPlannedLog(targetMember, groupId)
-                .ifPresent(logRepository::deleteAll);
-        planRepository.findTargetPlan(targetMember, groupId)
-                .ifPresent(planRepository::deleteAll);
+        // 삭제할 계획들의 medicineSeries를 가져오기
+        List<Plan> plansToDelete = planRepository.findTargetPlan(targetMember, groupId).orElse(Collections.emptyList());
+        String medicineSeries = plansToDelete.isEmpty() ? null : plansToDelete.get(0).getMedicineSeries();
+
+        // 계획들을 삭제
+        logRepository.findPlannedLog(targetMember, groupId).ifPresent(logRepository::deleteAll);
+        if (!plansToDelete.isEmpty()) {
+            planRepository.deleteAll(plansToDelete);
+        }
+
+        // 동일한 medicineSeries를 가진 다른 계획들의 medicineAdverse에서 '효능군중복' 키 제거
+        if (medicineSeries != null) {
+            List<Plan> existingPlans = planRepository.findByMemberAndMedicineSeries(targetMember, medicineSeries);
+            for (Plan existingPlan : existingPlans) {
+                Map<String, String> medicineAdverse = existingPlan.getMedicineAdverse();
+                if (medicineAdverse != null && medicineAdverse.containsKey("효능군중복")) {
+                    medicineAdverse.remove("효능군중복");
+                    existingPlan.setMedicineAdverse(medicineAdverse);
+                }
+            }
+            planRepository.saveAll(existingPlans);
+        }
     }
 
     @Transactional
@@ -193,7 +211,31 @@ public class PlanService {
     public void deletePlanByCurrentDate() {
         LocalDate today = LocalDate.now();
 
-        planRepository.findInactivePlan(today)
-                .ifPresent(planRepository::deleteAll);
+        // 삭제할 계획들의 medicineSeries를 가져오기
+        List<Plan> plansToDelete = planRepository.findInactivePlan(today).orElse(Collections.emptyList());
+        Map<Long, String> memberMedicineSeriesMap = new HashMap<>();
+        for (Plan plan : plansToDelete) {
+            memberMedicineSeriesMap.put(plan.getMember().getId(), plan.getMedicineSeries());
+        }
+
+        // 계획들을 삭제
+        if (!plansToDelete.isEmpty()) {
+            planRepository.deleteAll(plansToDelete);
+        }
+
+//        // 동일한 medicineSeries를 가진 다른 계획들의 medicineAdverse에서 '효능군중복' 키 제거
+//        for (Map.Entry<Long, String> entry : memberMedicineSeriesMap.entrySet()) {
+//            Long memberId = entry.getKey();
+//            String medicineSeries = entry.getValue();
+//            List<Plan> existingPlans = planRepository.findByMemberAndMedicineSeries(memberId, medicineSeries);
+//            for (Plan existingPlan : existingPlans) {
+//                Map<String, String> medicineAdverse = existingPlan.getMedicineAdverse();
+//                if (medicineAdverse != null && medicineAdverse.containsKey("효능군중복")) {
+//                    medicineAdverse.remove("효능군중복");
+//                    existingPlan.setMedicineAdverse(medicineAdverse);
+//                }
+//            }
+//            planRepository.saveAll(existingPlans);
+//        }
     }
 }
