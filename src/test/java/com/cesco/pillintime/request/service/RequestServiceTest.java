@@ -10,8 +10,6 @@ import com.cesco.pillintime.api.request.service.RequestService;
 import com.cesco.pillintime.fcm.strategy.FcmStrategy;
 import com.cesco.pillintime.security.CustomUserDetails;
 import com.cesco.pillintime.security.SecurityUtil;
-import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -27,7 +25,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
