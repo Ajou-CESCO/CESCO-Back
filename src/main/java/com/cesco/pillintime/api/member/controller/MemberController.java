@@ -36,7 +36,7 @@ public class MemberController {
     }
 
     @DeleteMapping // 탈퇴
-    public ResponseEntity<ResponseDto> deleteUser(){
+    public ResponseEntity<ResponseDto> deleteUser() {
         memberService.deleteUser();
         return ResponseUtil.makeResponse(200, "Success delete member", null);
     }

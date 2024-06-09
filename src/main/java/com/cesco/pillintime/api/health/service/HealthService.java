@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.NavigableMap;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -161,7 +160,7 @@ public class HealthService {
         if(todaySleepTime.equals(recommendSleepTime))
             return "권장 수면 시간과 동일하게 주무셨네요.";
         return (todaySleepTime > recommendSleepTime ?
-                "권장보다 " + (todaySleepTime - recommendSleepTime) + "시간 더 주무셨어요." :
-                "권장보다 " + (recommendSleepTime - todaySleepTime) + "시간 덜 주무셨어요.");
+                "권장보다 " + (todaySleepTime - recommendSleepTime) + "시간 더 주무셨어요" :
+                "권장보다 " + (recommendSleepTime - todaySleepTime) + "시간 덜 주무셨어요");
     }
 }

@@ -6,6 +6,7 @@ build/
 .gradle/
 .idea/
 src/main/resources/firebase/
+src/main/resources/apple/
 
 ### STS ###
 .apt_generated
