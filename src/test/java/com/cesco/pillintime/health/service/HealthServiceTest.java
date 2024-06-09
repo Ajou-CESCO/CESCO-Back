@@ -1,173 +1,177 @@
-//package com.cesco.pillintime.health.service;
-//
-//import com.cesco.pillintime.api.health.service.HealthService;
-//import com.cesco.pillintime.exception.CustomException;
-//import com.cesco.pillintime.exception.ErrorCode;
-//import com.cesco.pillintime.api.health.dto.HealthDto;
-//import com.cesco.pillintime.api.health.entity.Health;
-//import com.cesco.pillintime.api.health.mapper.HealthMapper;
-//import com.cesco.pillintime.api.health.repository.HealthRepository;
-//import com.cesco.pillintime.api.member.entity.Member;
-//import com.cesco.pillintime.api.member.repository.MemberRepository;
-//import com.cesco.pillintime.security.CustomUserDetails;
-//import com.cesco.pillintime.security.SecurityUtil;
-//import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.UUID;
-//
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.Mockito.*;
-//
-//class HealthServiceTest {
-//
-//    private HealthRepository healthRepository;
-//    private MemberRepository memberRepository;
-//    private HealthService healthService;
-//
-//    public static Health createHealthObject() {
-//        long longValue = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-//        Health health = new Health();
-//        health.setId(longValue % 10);
-//        health.setCal(15.7);
-//
-//        return health;
-//    }
-//
-//    @BeforeEach
-//    void setUp() {
-//        memberRepository = mock(MemberRepository.class);
-//        healthRepository = mock(HealthRepository.class);
-//        healthService = new HealthService(healthRepository, memberRepository);
-//    }
-//
-//    @Test
-//    void createHealth_Success() {
-//        Health health = createHealthObject();
-//        Member member = mock(Member.class);
-//
-//        // SecurityUtil.getCurrentMember..정상 동작 코드
-//        Authentication authentication = mock(Authentication.class);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        when(authentication.getName()).thenReturn("username");
-//        when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
-//        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(member));
-//
-//        // When
-//        healthService.createHealth(HealthMapper.INSTANCE.toDto(health));
-//
-//        // Then
-//        verify(healthRepository, times(1)).save(any());
-//    }
-//
-//    @Test
-//    void getHealthByMemberId_Success_1L() {
-//        // Given
-//        Health health = mock(Health.class);
-//        Member requestMember = mock(Member.class);
-//        Member targetMember = mock(Member.class);
-//        List<Health> healthList = new ArrayList<>();
-//        healthList.add(health);
-//
-//        when(memberRepository.findById(1L)).thenReturn(Optional.of(targetMember));
-//        when(healthRepository.findByMember(targetMember)).thenReturn(Optional.of(healthList));
-//
-//        // SecurityUtil.getCurrentMember..정상 동작 코드
-//        Authentication authentication = mock(Authentication.class);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        when(authentication.getName()).thenReturn("username");
-//        when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
-//        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
-//
-//        // When
-//        HealthDto healthDtoList = healthService.getHealthByMemberId(1L);
-//
-//        // Then
-//        List<HealthDto> healthDtoArrayList = new ArrayList<>();
-//        healthDtoArrayList.add(HealthMapper.INSTANCE.toDto(health));
-//        Assertions.assertEquals(healthDtoArrayList,healthDtoList);
-//        verify(memberRepository, times(1)).findById(any());
-//        verify(healthRepository, times(1)).findByMember(any());
-//    }
-//
-//    @Test
-//    void getHealthByMemberId_Success_Null() {
-//        Health health = mock(Health.class);
-//        Member requestMember = mock(Member.class);
-//        List<Health> healthList = new ArrayList<>();
-//        healthList.add(health);
-//
-//        when(healthRepository.findByMember(requestMember)).thenReturn(Optional.of(healthList));
-//
-//        // SecurityUtil.getCurrentMember..정상 동작 코드
-//        Authentication authentication = mock(Authentication.class);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        when(authentication.getName()).thenReturn("username");
-//        when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
-//        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
-//
-//        // When
-//        HealthDto healthDtoList = healthService.getHealthByMemberId(null);
-//
-//        // Then
-//        List<HealthDto> healthDtoArrayList = new ArrayList<>();
-//        healthDtoArrayList.add(HealthMapper.INSTANCE.toDto(health));
-//        Assertions.assertEquals(healthDtoArrayList, healthDtoList);
-//        verify(healthRepository, times(1)).findByMember(any());
-//        verify(memberRepository, never()).findById(any());
-//    }
-//
-//    @Test
-//    void getHealthByMemberId_UserNotFound() {
-//        Member requestMember = mock(Member.class);
-//
-//        when(memberRepository.findById(1L)).thenReturn(Optional.empty());
-//
-//        // SecurityUtil.getCurrentMember..정상 동작 코드
-//        Authentication authentication = mock(Authentication.class);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        when(authentication.getName()).thenReturn("username");
-//        when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
-//        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
-//
-//        // When
-//        CustomException customException = Assertions.assertThrows(CustomException.class,
-//                () -> healthService.getHealthByMemberId(1L));
-//
-//        // Then
-//        Assertions.assertEquals(ErrorCode.NOT_FOUND_USER, customException.getErrorCode());
-//        verify(healthRepository, times(0)).findByMember(any());
-//        verify(memberRepository, times(1)).findById(any());
-//    }
-//
-//    @Test
-//    void getHealthByMemberId_HealthNotFound() {
-//        Member requestMember = mock(Member.class);
-//        Member targetMember = mock(Member.class);
-//
-//        when(memberRepository.findById(1L)).thenReturn(Optional.of(targetMember));
-//        when(healthRepository.findByMember(requestMember)).thenReturn(Optional.empty());
-//
-//        // SecurityUtil.getCurrentMember..정상 동작 코드
-//        Authentication authentication = mock(Authentication.class);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        when(authentication.getName()).thenReturn("username");
-//        when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
-//        when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(requestMember));
-//
-//        // When
-//        CustomException customException = Assertions.assertThrows(CustomException.class,
-//                () -> healthService.getHealthByMemberId(1L));
-//
-//        // Then
-//        Assertions.assertEquals(ErrorCode.NOT_FOUND_HEALTH, customException.getErrorCode());
-//        verify(healthRepository, times(1)).findByMember(any());
-//        verify(memberRepository, times(1)).findById(any());
-//    }
-//}
+package com.cesco.pillintime.health.service;
+
+import com.cesco.pillintime.api.health.mapper.HealthMapperImpl;
+import com.cesco.pillintime.api.health.service.HealthService;
+import com.cesco.pillintime.api.member.service.MemberService;
+import com.cesco.pillintime.exception.CustomException;
+import com.cesco.pillintime.exception.ErrorCode;
+import com.cesco.pillintime.api.health.dto.HealthDto;
+import com.cesco.pillintime.api.health.entity.Health;
+import com.cesco.pillintime.api.health.mapper.HealthMapper;
+import com.cesco.pillintime.api.health.repository.HealthRepository;
+import com.cesco.pillintime.api.member.entity.Member;
+import com.cesco.pillintime.api.member.repository.MemberRepository;
+import com.cesco.pillintime.security.CustomUserDetails;
+import com.cesco.pillintime.security.JwtUtil;
+import com.cesco.pillintime.security.SecurityUtil;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+
+@ExtendWith(MockitoExtension.class)
+public class HealthServiceTest {
+
+    @Mock
+    private HealthRepository healthRepository;
+
+    @Mock
+    private MemberRepository memberRepository;
+
+    @Mock
+    private SecurityUtil securityUtil;
+
+    @InjectMocks
+    private HealthService healthService;
+
+    private Member guardian;
+    private Member patient;
+    private Health health;
+
+    @BeforeEach
+    void setUp() {
+        guardian = new Member();
+        guardian.setId(1L);
+        guardian.setName("guardian");
+        guardian.setSsn("123123-1");
+        guardian.setPhone("010-1234-1234");
+        guardian.setManager(false);
+
+        patient = new Member();
+        patient.setId(2L);
+        patient.setName("patient");
+        patient.setSsn("789789-2");
+        patient.setPhone("010-5678-5678");
+        patient.setManager(true);
+
+        health = new Health();
+        health.setMember(patient);
+        health.setSteps(8000L);
+        health.setCalorie(2500L);
+        health.setHeartRate(70L);
+        health.setSleepTime(8L);
+
+        Authentication authentication = mock(Authentication.class);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        lenient().when(authentication.getName()).thenReturn("guardian");
+        lenient().when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
+    }
+
+    @Nested
+    class 건강데이터생성 {
+        @Test
+        void 피보호자_건강데이터생성() {
+            // given
+            when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(patient));
+            when(healthRepository.save(any(Health.class))).thenReturn(health);
+            HealthDto healthDto = HealthMapperImpl.INSTANCE.toDto(health);
+
+            // when
+            healthService.createHealth(healthDto);
+
+            // then
+            verify(healthRepository, times(1)).save(any(Health.class));
+        }
+        @Test
+        void 보호자_건강데이터생성() {
+            when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(patient));
+            when(healthRepository.save(any(Health.class))).thenReturn(health);
+            HealthDto healthDto = HealthMapperImpl.INSTANCE.toDto(health);
+
+            healthService.createHealth(healthDto);
+
+            verify(healthRepository, times(0)).save(any(Health.class));
+        }
+    }
+
+    @Nested
+    class 건강데이터조회 {
+        @Test
+        void 피보호자_건강데이터조회() {
+            // given
+            when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(patient));
+                // 첫 번째 값은 고정으로 두 번째 값은 타입만 같으면 된다.
+            when(healthRepository.findRecentHealthByDate(eq(patient), any(LocalDate.class))).thenReturn(Optional.of(health));
+
+            // when
+            HealthDto result = healthService.getHealthByMemberId(null);
+
+            // then
+            assertNotNull(result);
+            assertEquals(8000L, result.getSteps());
+            assertEquals(2500L, result.getCalorie());
+            assertEquals(70L, result.getHeartRate());
+            assertEquals(8L, result.getSleepTime());
+            assertEquals(40L, result.getAgeGroup());
+            verify(healthRepository, times(1)).findRecentHealthByDate(eq(patient), any(LocalDate.class));
+        }
+        @Test
+        void 보호자_건강데이터조회() {
+            // given
+            when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(guardian));
+            when(memberRepository.findById(patient.getId())).thenReturn(Optional.of(patient));
+            when(securityUtil.checkPermission(guardian, patient)).thenReturn(true);
+            when(healthRepository.findRecentHealthByDate(eq(patient), any(LocalDate.class))).thenReturn(Optional.of(health));
+
+            // when
+            HealthDto result = healthService.getHealthByMemberId(patient.getId());
+
+            // then
+            assertNotNull(result);
+            assertEquals(8000L, result.getSteps());
+            assertEquals(2500L, result.getCalorie());
+            assertEquals(70L, result.getHeartRate());
+            assertEquals(8L, result.getSleepTime());
+            assertEquals(40L, result.getAgeGroup());
+            verify(memberRepository, times(1)).findById(patient.getId());
+            verify(securityUtil, times(1)).checkPermission(guardian, patient);
+            verify(healthRepository, times(1)).findRecentHealthByDate(eq(patient), any(LocalDate.class));
+        }
+        @Test
+        void 예외_잘못된_피보호자ID() {
+            // given
+            when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(guardian));
+            when(memberRepository.findById(patient.getId())).thenReturn(Optional.empty());
+            lenient().when(securityUtil.checkPermission(guardian, patient)).thenReturn(false);
+            lenient().when(healthRepository.findRecentHealthByDate(eq(patient), any(LocalDate.class))).thenReturn(Optional.of(health));
+
+            // when
+            CustomException exception = assertThrows(CustomException.class, () -> {
+                healthService.getHealthByMemberId(patient.getId());
+            });
+            // then
+            assertEquals(ErrorCode.NOT_FOUND_USER, exception.getErrorCode());
+            verify(memberRepository, times(1)).findById(patient.getId());
+            verify(securityUtil, times(0)).checkPermission(guardian, patient);
+            verify(healthRepository, times(0)).findRecentHealthByDate(eq(patient), any(LocalDate.class));
+        }
+    }
+}
