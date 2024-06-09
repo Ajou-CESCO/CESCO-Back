@@ -38,7 +38,7 @@ public class RequestService {
 
         String receiverPhone = requestDto.getReceiverPhone();
 
-        relationRepository.findByReceiverPhone(receiverPhone)
+        relationRepository.findByManagerAndReceiverPhone(requestMember, receiverPhone)
                 .ifPresent(relation -> {
                     throw new CustomException(ErrorCode.ALREADY_EXISTS_RELATION);
                 });
