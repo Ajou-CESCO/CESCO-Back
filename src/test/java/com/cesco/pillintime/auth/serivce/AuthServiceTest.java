@@ -1,16 +1,12 @@
-package com.cesco.pillintime.api.auth.service;
+package com.cesco.pillintime.auth.serivce;
 
 import com.cesco.pillintime.api.auth.dto.LoginDto;
-import com.cesco.pillintime.api.auth.dto.SmsDto;
 import com.cesco.pillintime.api.auth.serivce.AuthService;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.exception.CustomException;
 import com.cesco.pillintime.exception.ErrorCode;
 import com.cesco.pillintime.security.JwtUtil;
-import net.nurigo.sdk.message.model.Message;
-import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
-import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
