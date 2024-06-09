@@ -16,6 +16,7 @@ public enum ErrorCode {
     INVALID_USERTYPE(HttpStatus.BAD_REQUEST, 40005, "Invalid usertype"),
     INVALID_PAYMENT_NAME(HttpStatus.BAD_REQUEST, 40006, "Invalid payment name"),
     INVALID_PAYMENT_AMOUNT(HttpStatus.BAD_REQUEST, 40007, "Invalid payment amount"),
+    ALREADY_EXISTS_RELATION(HttpStatus.BAD_REQUEST, 40008, "Already exists relation"),
 
     // 401 Unauthorized
     TOKEN_IS_INVALID(HttpStatus.UNAUTHORIZED, 40101, "Token is invalid"),

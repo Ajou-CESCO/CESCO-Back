@@ -2,6 +2,7 @@ package com.cesco.pillintime.api.request.service;
 
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
+import com.cesco.pillintime.api.relation.repository.RelationRepository;
 import com.cesco.pillintime.api.request.dto.RequestDto;
 import com.cesco.pillintime.api.request.entity.Request;
 import com.cesco.pillintime.api.request.mapper.RequestMapper;
@@ -25,6 +26,7 @@ import java.util.*;
 public class RequestService {
 
     private final RequestRepository requestRepository;
+    private final RelationRepository relationRepository;
     private final MemberRepository memberRepository;
 
     private final ApplicationContext context;
@@ -35,6 +37,11 @@ public class RequestService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
         String receiverPhone = requestDto.getReceiverPhone();
+
+        relationRepository.findByReceiverPhone(receiverPhone)
+                .ifPresent(relation -> {
+                    throw new CustomException(ErrorCode.ALREADY_EXISTS_RELATION);
+                });
 
         Optional<Request> request = requestRepository.findBySenderAndReceiverPhone(requestMember, receiverPhone);
         if (request.isEmpty()) {
