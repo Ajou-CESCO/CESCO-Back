@@ -10,14 +10,14 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-09T20:18:18+0900",
+    date = "2024-06-09T20:41:49+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 public class PlanMapperImpl implements PlanMapper {
 
     @Override
-    public Plan toPlanEntity(RequestPlanDto requestPlanDto, Member member, Integer weekday, LocalTime time) {
-        if ( requestPlanDto == null && member == null && weekday == null && time == null ) {
+    public Plan toPlanEntity(RequestPlanDto requestPlanDto, Member member, Integer weekday, LocalTime time, Long groupId) {
+        if ( requestPlanDto == null && member == null && weekday == null && time == null && groupId == null ) {
             return null;
         }
 
@@ -38,6 +38,7 @@ public class PlanMapperImpl implements PlanMapper {
         plan.member( member );
         plan.weekday( weekday );
         plan.time( time );
+        plan.groupId( groupId );
 
         return plan.build();
     }

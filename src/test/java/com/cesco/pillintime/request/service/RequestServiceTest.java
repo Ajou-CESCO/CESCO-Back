@@ -2,6 +2,7 @@ package com.cesco.pillintime.request.service;
 
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
+import com.cesco.pillintime.api.relation.repository.RelationRepository;
 import com.cesco.pillintime.api.request.dto.RequestDto;
 import com.cesco.pillintime.api.request.entity.Request;
 import com.cesco.pillintime.api.request.mapper.RequestMapper;
@@ -14,6 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestWatcher;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -32,7 +35,8 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class RequestServiceTest {
-
+    @Mock
+    private RelationRepository relationRepository;
     @Mock
     private RequestRepository requestRepository;
     @Mock
@@ -73,6 +77,7 @@ class RequestServiceTest {
         lenient().when(authentication.getPrincipal()).thenReturn(mock(CustomUserDetails.class));
 
     }
+
     @Nested
     class 요청생성 {
         @Test
@@ -83,6 +88,7 @@ class RequestServiceTest {
             when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(guardian));
             when(requestRepository.findBySenderAndReceiverPhone(guardian, patient.getPhone())).thenReturn(Optional.empty());
             when(memberRepository.findByPhone(patient.getPhone())).thenReturn(Optional.of(patient));
+            when(relationRepository.findByManagerAndReceiverPhone(guardian, requestDto.getReceiverPhone())).thenReturn(Optional.empty());
             when(requestRepository.save(any(Request.class))).thenReturn(request);
 
             FcmStrategy fcmStrategy = mock(FcmStrategy.class);
@@ -96,6 +102,7 @@ class RequestServiceTest {
             assertEquals(guardian, result.getSender());
             assertEquals(patient.getPhone(), result.getReceiverPhone());
 
+            verify(relationRepository, times(1)).findByManagerAndReceiverPhone(guardian, requestDto.getReceiverPhone());
             verify(requestRepository, times(1)).findBySenderAndReceiverPhone(guardian, patient.getPhone());
             verify(memberRepository, times(1)).findByPhone(patient.getPhone());
             verify(fcmStrategy, times(1)).execute(anyMap());
@@ -107,7 +114,8 @@ class RequestServiceTest {
             RequestDto requestDto = RequestMapper.INSTANCE.toDto(request);
 
             when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(guardian));
-            when(requestRepository.findBySenderAndReceiverPhone(guardian, patient.getPhone())).thenReturn(Optional.of(request));
+            when(requestRepository.findBySenderAndReceiverPhone(guardian, requestDto.getReceiverPhone())).thenReturn(Optional.of(request));
+            when(relationRepository.findByManagerAndReceiverPhone(guardian, requestDto.getReceiverPhone())).thenReturn(Optional.empty());
 
             FcmStrategy fcmStrategy = mock(FcmStrategy.class);
             lenient().when(context.getBean("requestStrategy", FcmStrategy.class)).thenReturn(fcmStrategy);
@@ -121,6 +129,7 @@ class RequestServiceTest {
             assertEquals(guardian, result.getSender());
             assertEquals(patient.getPhone(), result.getReceiverPhone());
 
+            verify(relationRepository, times(1)).findByManagerAndReceiverPhone(guardian, requestDto.getReceiverPhone());
             verify(requestRepository, times(1)).findBySenderAndReceiverPhone(guardian, patient.getPhone());
             verify(requestRepository, never()).save(any(Request.class));
             verify(memberRepository, times(1)).findByPhone(patient.getPhone());
@@ -171,5 +180,23 @@ class RequestServiceTest {
             verify(requestRepository, times(1)).deleteById(request.getId());
         }
         // 해당 id가 없으면 아무런 동작을 수행하지 않기에 테스트 미생성.
+    }
+    @ExtendWith(TestNamePrinter.class)
+    static class TestNamePrinter implements TestWatcher {
+
+        @Override
+        public void testSuccessful(ExtensionContext context) {
+            System.out.println("Test completed successfully: " + context.getDisplayName());
+        }
+
+        @Override
+        public void testFailed(ExtensionContext context, Throwable cause) {
+            System.out.println("Test failed: " + context.getDisplayName() + ", Reason: " + cause.getMessage());
+        }
+
+        @Override
+        public void testAborted(ExtensionContext context, Throwable cause) {
+            System.out.println("Test aborted: " + context.getDisplayName() + ", Reason: " + cause.getMessage());
+        }
     }
 }
