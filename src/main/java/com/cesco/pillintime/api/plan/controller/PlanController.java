@@ -37,8 +37,8 @@ public class PlanController {
     }
 
     @DeleteMapping
-    public ResponseEntity<ResponseDto> deletePlan(@RequestParam Long memberId, Long medicineId, int cabinetIndex) {
-        planService.deletePlanById(memberId, medicineId, cabinetIndex);
+    public ResponseEntity<ResponseDto> deletePlan(@RequestParam Long memberId, Long groupId) {
+        planService.deletePlanById(memberId, groupId);
         return ResponseUtil.makeResponse(200, "Success delete dose plan", null);
     }
 }

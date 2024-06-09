@@ -73,6 +73,8 @@ public class LogService {
                     log.setMember(plan.getMember());
                     log.setPlan(plan);
                     log.setPlannedAt(plannedAt);
+                    log.setMedicineId(plan.getMedicineId());
+                    log.setMedicineName(plan.getMedicineName());
                     log.setTakenStatus(TakenStatus.NOT_COMPLETED);
 
                     logRepository.save(log);

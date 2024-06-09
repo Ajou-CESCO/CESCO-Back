@@ -166,10 +166,10 @@ public class PlanService {
             targetMember = requestMember;
         }
 
-        planRepository.findTargetPlan(targetMember, groupId)
-                .ifPresent(planRepository::deleteAll);
         logRepository.findPlannedLog(targetMember, groupId)
                 .ifPresent(logRepository::deleteAll);
+        planRepository.findTargetPlan(targetMember, groupId)
+                .ifPresent(planRepository::deleteAll);
     }
 
     @Transactional
