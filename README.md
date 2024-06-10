@@ -53,7 +53,7 @@
 
 | 이름 | 역할 | 이메일 | 한마디
 | --- | --- | --- | --- |
-| [노수인](https://github.com/bigpie1367)  | Back-End | bigpie1367@gmail.com | 이제 좀 쉬고싶어요  |
+| [노수인](https://github.com/bigpie1367)  | Back-End | suin.rohh@gmail.com | 이제 좀 쉬고싶어요  |
 | [김학준](https://github.com/PUPAO)  | Back-End | swkhj2022@ajou.ac.kr | 어? |
 | [김종명](https://github.com/jm991014) | Front-End (Android) |  jm991014@ajou.ac.kr | 구성가능한 @Composable | 
 | [심재민](https://github.com/simpson9241) | Embedded (RPi) | simba7743@ajou.ac.kr | 약통 부숴지면 퇴사할게요 |
