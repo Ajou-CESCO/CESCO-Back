@@ -1,5 +1,6 @@
 package com.cesco.pillintime.member.service;
 
+import com.cesco.pillintime.CustomTestWatcher;
 import com.cesco.pillintime.api.member.dto.MemberDto;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.mapper.MemberMapperImpl;
@@ -27,6 +28,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
+@ExtendWith(CustomTestWatcher.class)
 class MemberServiceTest {
 
     @Mock

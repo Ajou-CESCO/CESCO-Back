@@ -1,5 +1,6 @@
 package com.cesco.pillintime.cabinet.service;
 
+import com.cesco.pillintime.CustomTestWatcher;
 import com.cesco.pillintime.api.cabinet.dto.CabinetDto;
 import com.cesco.pillintime.api.cabinet.entity.Cabinet;
 import com.cesco.pillintime.api.cabinet.repository.CabinetRepository;
@@ -27,6 +28,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
+@ExtendWith(CustomTestWatcher.class)
 class CabinetServiceTest {
     @Mock
     private CabinetRepository cabinetRepository;
@@ -43,7 +45,6 @@ class CabinetServiceTest {
     private Member guardian;
     private Member patient;
     private Cabinet cabinet;
-    private Relation relation;
     @BeforeEach
     void init() {
         guardian = new Member();
@@ -60,11 +61,6 @@ class CabinetServiceTest {
         patient.setPhone("010-5678-5678");
         patient.setManager(true);
 
-        relation = new Relation();
-        relation.setId(1L);
-        relation.setClient(patient);
-        relation.setManager(guardian);
-
         cabinet = new Cabinet();
         cabinet.setId(1L);
         cabinet.setSerial("abcdefghijklmnopqrstuvwxyz");
@@ -79,7 +75,8 @@ class CabinetServiceTest {
     class 약통생성 {
         @Test
         void 피보호자_약통생성() {
-            // given.
+            // given
+
             CabinetDto cabinetDto = new CabinetDto();
             cabinetDto.setSerial(cabinet.getSerial());
             cabinetDto.setOwnerId(patient.getId());
