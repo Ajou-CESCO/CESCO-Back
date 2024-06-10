@@ -28,6 +28,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - uses: actions/checkout@v3
+    - run: mkdir ./src/main/resources/firebase
+    - run: touch ./src/main/resources/application-dev.properties
+    - run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application-dev.properties
+
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
@@ -58,8 +63,14 @@ jobs:
         run: sudo docker stop $(sudo docker ps -q) 2>/dev/null || true
 
       - name: docker run new container
-        run: sudo docker run --name pillintime_spring --rm -d -p 8080:8080 pillintime/pillintime_spring
+        run: sudo docker run --name pillintime_spring --rm -d -p 8080:8080 -v /root/actuator/:/actuator pillintime/pillintime_spring
 
       - name: delete old docker image
         run: sudo docker system prune -f
+
+      - name: copy dependencies
+        run: sudo docker cp /root/fcm-secret.json pillintime_spring:/app/src/main/resources/firebase/
+
+      - name: run prometheus
+        run: sudo sh /root/run_prometheus.sh
       

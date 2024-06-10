@@ -63,7 +63,7 @@
 
 ## 📖 서비스 세부 설명
 
-![CESCO_소프트콘_포스터](https://github.com/Ajou-CESCO/PillinTime_Backend/assets/52846796/5ca6e737-58bf-4df5-a81e-f1eadaa42ce6)
+![CESCO_소프트콘_포스터](https://github.com/Ajou-CESCO/PillinTime-iOS/assets/79050615/4ac585d2-eb94-4e3d-8b59-e496a75e615d)
 
 <br>
 
