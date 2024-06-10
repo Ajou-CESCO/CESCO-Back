@@ -1,5 +1,6 @@
 package com.cesco.pillintime.log.service;
 
+import com.cesco.pillintime.CustomTestWatcher;
 import com.cesco.pillintime.api.cabinet.entity.Cabinet;
 import com.cesco.pillintime.api.cabinet.repository.CabinetRepository;
 import com.cesco.pillintime.api.log.dto.LogDto;
@@ -43,6 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
+@ExtendWith(CustomTestWatcher.class)
 class LogServiceTest {
 
     @Mock

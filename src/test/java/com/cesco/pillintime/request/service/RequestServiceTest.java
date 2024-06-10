@@ -1,5 +1,6 @@
 package com.cesco.pillintime.request.service;
 
+import com.cesco.pillintime.CustomTestWatcher;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.member.repository.MemberRepository;
 import com.cesco.pillintime.api.relation.repository.RelationRepository;
@@ -34,6 +35,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@ExtendWith(CustomTestWatcher.class)
 class RequestServiceTest {
     @Mock
     private RelationRepository relationRepository;

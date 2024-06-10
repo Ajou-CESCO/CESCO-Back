@@ -1,5 +1,6 @@
 package com.cesco.pillintime.plan.service;
 
+import com.cesco.pillintime.CustomTestWatcher;
 import com.cesco.pillintime.api.cabinet.entity.Cabinet;
 import com.cesco.pillintime.api.log.repository.LogRepository;
 import com.cesco.pillintime.api.log.service.LogService;
@@ -36,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
+@ExtendWith(CustomTestWatcher.class)
 class PlanServiceTest {
 
     @Mock PlanRepository planRepository;
@@ -65,6 +67,7 @@ class PlanServiceTest {
         patient.setSsn("789789-2");
         patient.setPhone("010-5678-5678");
         patient.setManager(false);
+        patient.setFcmToken("fcmtoken");
 
         plan = new Plan();
         plan.setId(1L);
@@ -247,7 +250,7 @@ class PlanServiceTest {
             when(SecurityUtil.getCurrentMember()).thenReturn(Optional.of(guardian));
             when(memberRepository.findById(patient.getId())).thenReturn(Optional.of(patient));
             when(logRepository.findPlannedLog(patient, groupId)).thenReturn(Optional.of(List.of()));
-            when(planRepository.findTargetPlan(patient, groupId)).thenReturn(Optional.of(List.of()));
+            when(planRepository.findTargetPlan(patient, groupId)).thenReturn(Optional.of(List.of(plan)));
 
             // When
             assertDoesNotThrow(() -> planService.deletePlanById(patient.getId(), groupId));

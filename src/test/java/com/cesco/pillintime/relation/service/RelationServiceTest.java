@@ -1,5 +1,6 @@
 package com.cesco.pillintime.relation.service;
 
+import com.cesco.pillintime.CustomTestWatcher;
 import com.cesco.pillintime.api.member.entity.Member;
 import com.cesco.pillintime.api.relation.dto.RelationDto;
 import com.cesco.pillintime.api.relation.entity.Relation;
@@ -30,6 +31,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
+@ExtendWith(CustomTestWatcher.class)
 class RelationServiceTest {
 
     @Mock
@@ -57,6 +59,7 @@ class RelationServiceTest {
         guardian.setSsn("123123-1");
         guardian.setPhone("010-1234-1234");
         guardian.setManager(true);
+        guardian.setSubscriber(true);
 
         patient = new Member();
         patient.setId(2L);
@@ -64,6 +67,7 @@ class RelationServiceTest {
         patient.setSsn("789789-2");
         patient.setPhone("010-5678-5678");
         patient.setManager(false);
+        patient.setSubscriber(true);
 
         request = new Request();
         request.setId(1L);

@@ -1,5 +1,6 @@
 package com.cesco.pillintime.health.service;
 
+import com.cesco.pillintime.CustomTestWatcher;
 import com.cesco.pillintime.api.health.dto.HealthDto;
 import com.cesco.pillintime.api.health.entity.Health;
 import com.cesco.pillintime.api.health.mapper.HealthMapperImpl;
@@ -30,6 +31,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
+@ExtendWith(CustomTestWatcher.class)
 public class HealthServiceTest {
 
     @Mock
