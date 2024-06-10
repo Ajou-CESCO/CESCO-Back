@@ -1,5 +1,6 @@
 package com.cesco.pillintime.auth.serivce;
 
+import com.cesco.pillintime.CustomTestWatcher;
 import com.cesco.pillintime.api.auth.dto.LoginDto;
 import com.cesco.pillintime.api.auth.serivce.AuthService;
 import com.cesco.pillintime.api.member.entity.Member;
@@ -24,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith({MockitoExtension.class, CustomTestWatcher.class})
 class AuthServiceTest {
 
     @Mock
