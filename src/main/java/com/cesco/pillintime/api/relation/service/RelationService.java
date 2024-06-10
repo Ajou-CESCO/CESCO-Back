@@ -15,10 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -39,8 +36,12 @@ public class RelationService {
 
         Member targetMember = request.getSender();
 
-        if (!targetMember.isSubscriber()) {
-            throw new CustomException(ErrorCode.MANAGER_IS_NOT_SUBSCRIBER);
+        Optional<List<Relation>> relationList = relationRepository.findByManager(requestMember);
+
+        if (relationList.isPresent() && relationList.get().size() > 0) {
+            if (!targetMember.isSubscriber()) {
+                throw new CustomException(ErrorCode.MANAGER_IS_NOT_SUBSCRIBER);
+            }
         }
 
         Relation relation = new Relation(targetMember, requestMember);
