@@ -39,7 +39,7 @@ public class RelationService {
         // 보호자가 프리미엄 회원이 아니면서 이미 보호관계가 존재할 경우 에러 발생
         Optional<List<Relation>> relationList = relationRepository.findByManager(targetMember);
         if (relationList.isPresent() && !relationList.get().isEmpty()) {
-            if (!requestMember.isSubscriber()) {
+            if (!targetMember.isSubscriber()) {
                 throw new CustomException(ErrorCode.MANAGER_IS_NOT_SUBSCRIBER);
             }
         }
