@@ -17,4 +17,7 @@ public interface RelationRepository extends JpaRepository<Relation, Long> {
     @Query("SELECT r FROM Relation r WHERE r.client.phone = :receiverPhone AND r.manager = :member")
     Optional<Relation> findByManagerAndReceiverPhone(Member member, String receiverPhone);
 
+    @Query("SELECT r FROM Relation r WHERE r.manager = :member")
+    Optional<List<Relation>> findByManager(Member member);
+
 }
